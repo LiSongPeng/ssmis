@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/ssmis</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">19970126</property>
+        <property name="c3p0.min_size">5</property>
+        <property name="c3p0.max_size">30</property>
+        <property name="c3p0.time_out">1800</property>
+        <property name="c3p0.max_statement">50</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    </session-factory>
+</hibernate-configuration>
