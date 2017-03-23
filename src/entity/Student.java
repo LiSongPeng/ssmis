@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity(name = "student")
 @NamedQueries({
-        @NamedQuery(name = "queryStudentByIdAndPass",query = "from student stu where stu.id=?1 and stu.password=?2")
+        @NamedQuery(name = "queryStudentByIdAndPass",query = "select stu from student stu where stu.id=?1 and stu.password=?2")
 })
 public class Student {
     @Id
