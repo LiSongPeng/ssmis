@@ -2,12 +2,10 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import entity.Student;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
+import service.i.StudentServiceI;
 
-@Namespace("/student")
-@ParentPackage("json-default")
 public class StudentAction  extends ActionSupport{
+    private StudentServiceI studentService;
     private Student stu;
 
     public String login(){
@@ -20,5 +18,9 @@ public class StudentAction  extends ActionSupport{
 
     public void setStu(Student stu) {
         this.stu = stu;
+    }
+
+    public void setStudentService(StudentServiceI studentService) {
+        this.studentService = studentService;
     }
 }

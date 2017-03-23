@@ -8,7 +8,7 @@
     <constant name="struts.devMode" value="true"/>
     <package name="ssmis-default" extends="json-default" abstract="true" namespace="/">
         <global-results>
-            <result name="error">/pageNotFound.jsp</result>
+            <result name="pageNotFound">/pageNotFound.jsp</result>
         </global-results>
     </package>
     <include file="student.xml"/>

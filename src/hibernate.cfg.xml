@@ -15,5 +15,6 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <mapping package="entity"/>
     </session-factory>
 </hibernate-configuration>
