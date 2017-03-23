@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="ssmis@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="ssmis">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="musicplayer"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="sakila"/>
+    <schema id="8" parent="1" name="shoppingsystem"/>
+    <schema id="9" parent="1" name="stuinfosys"/>
+    <schema id="10" parent="1" name="stusystem"/>
+    <schema id="11" parent="1" name="sys"/>
+    <schema id="12" parent="1" name="test"/>
+    <schema id="13" parent="1" name="world"/>
+  </database-model>
+</dataSource>

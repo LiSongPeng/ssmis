@@ -45,6 +45,7 @@
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/struts2-core-2.5.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/struts2-json-plugin-2.5.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/struts2-spring-plugin-2.5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/struts2-convention-plugin-2.5.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
