@@ -1,41 +1,34 @@
 package entity;
 
-
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-@Entity(name = "student")
-@NamedQueries({
-        @NamedQuery(name = "queryStudentByIdAndPass", query = "select stu from student stu where stu.id=?1 and stu.password=?2")
-})
-public class Student {
+/**
+ * Created by lihuibo on 17-4-4.
+ */
+@Entity(name = "teacher")
+public class Teacher {
     @Id
     @GeneratedValue
     private int id;
     @Column(unique = true, nullable = false, length = 16)
-    private String stu_id;
-    @Column(length = 20, nullable = false)
+    private String tea_id;
+    @Column(length = 10, nullable = false)
     private String name;
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false, length = 16)
     private String password;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "teacher")
+    private List<Course> courseList = new ArrayList<>();
     @Column(length = 11,nullable = false)
     private String phone;
     @Column(length = 40)
     private String email;
     @Column(nullable = false)
     private String address;
-    @Column(nullable = false)
     private String imgUrl;
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Course> courseList = new ArrayList<>();
-    private int grade;
-    private int clazz;
 
-    public Student() {
+    public Teacher() {
     }
 
     public int getId() {
@@ -46,20 +39,12 @@ public class Student {
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getTea_id() {
+        return tea_id;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getStu_id() {
-        return stu_id;
-    }
-
-    public void setStu_id(String stu_id) {
-        this.stu_id = stu_id;
+    public void setTea_id(String tea_id) {
+        this.tea_id = tea_id;
     }
 
     public String getName() {
@@ -68,6 +53,22 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
     }
 
     public String getPhone() {
@@ -100,21 +101,5 @@ public class Student {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public List<Course> getCourseList() {
-        return courseList;
-    }
-
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
     }
 }
