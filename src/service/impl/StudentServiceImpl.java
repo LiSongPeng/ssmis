@@ -5,6 +5,9 @@ import dao.i.StudentDaoI;
 import entity.Student;
 import service.i.StudentServiceI;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class StudentServiceImpl implements StudentServiceI{
     private StudentDaoI studentDao;
 
@@ -14,6 +17,9 @@ public class StudentServiceImpl implements StudentServiceI{
 
     @Override
     public Student loginByStuIdAndPass(String stu_id, String password) {
-        return studentDao.findStudentByStuIdAndPass(stu_id,password);
+        Map<String,Object> conditions=new HashMap<>(2);
+        conditions.put("stu_id",stu_id);
+        conditions.put("password",password);
+        return studentDao.findStudentByConditions(conditions).get(0);
     }
 }
