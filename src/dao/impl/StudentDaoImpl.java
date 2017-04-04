@@ -8,15 +8,17 @@ import org.hibernate.query.Query;
 
 public class StudentDaoImpl implements StudentDaoI {
     private SessionFactory sessionFactory;
-
+    private Session session;
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+        session=sessionFactory.openSession();
     }
 
     @Override
-    public Student findStudentByIdAndPass(int id, String password) {
-        Session session=sessionFactory.getCurrentSession();
-        Query<Student> query=session.createNamedQuery("queryStudentByIdAndPass",Student.class);
-        return query.getSingleResult();
+    public Student findStudentByStuIdAndPass(String stu_id, String password) {
+        Query<Student> query=session.createNamedQuery("queryStudentByStuIdAndPass",Student.class);
+        query.setParameter(1,stu_id);
+        query.setParameter(2,password);
+        return query.uniqueResult();
     }
 }

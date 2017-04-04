@@ -5,6 +5,7 @@
 
 <struts>
     <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.i18n.encodeing" value="UTF-8"/>
     <constant name="struts.devMode" value="true"/>
     <package name="ssmis-default" extends="json-default" abstract="true" namespace="/">
         <global-results>

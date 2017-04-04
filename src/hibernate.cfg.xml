@@ -4,6 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/ssmis</property>
         <property name="connection.username">root</property>
@@ -16,6 +17,11 @@
         <property name="format_sql">true</property>
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hbm2ddl.auto">update</property>
-        <mapping package="entity"/>
+        <mapping class="entity.Student"></mapping>
+        <mapping class="entity.Course"></mapping>
+        <mapping class="entity.TimeTable"></mapping>
+        <mapping class="entity.Teacher"></mapping>
+        <mapping class="entity.Admin"></mapping>
+        <mapping class="entity.Score"></mapping>
     </session-factory>
 </hibernate-configuration>

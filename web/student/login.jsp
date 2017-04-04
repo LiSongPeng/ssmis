@@ -28,14 +28,14 @@
         <div class="row">
             <div class="input-field col s9">
                 <i class="material-icons prefix">account_circle</i>
-                <input id="name" name="stu.id" type="text" class="validate" length="10">
-                <label for="name">学号</label>
+                <input id="stu_id" name="stu.stu_id" type="text" class="validate" length="16">
+                <label for="stu_id">学号</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s9">
                 <i class="material-icons prefix">lock</i>
-                <input id="password" type="password" class="validate" name="stu.password" length="14">
+                <input id="password" type="password" class="validate" name="stu.password" length="16">
                 <label for="password">密码</label>
             </div>
         </div>

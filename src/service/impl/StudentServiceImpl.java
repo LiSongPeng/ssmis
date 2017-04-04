@@ -13,7 +13,7 @@ public class StudentServiceImpl implements StudentServiceI{
     }
 
     @Override
-    public Student loginByIdAndPass(int id, String password) {
-        return studentDao.findStudentByIdAndPass(id,password);
+    public Student loginByStuIdAndPass(String stu_id, String password) {
+        return studentDao.findStudentByStuIdAndPass(stu_id,password);
     }
 }

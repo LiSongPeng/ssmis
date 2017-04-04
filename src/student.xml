@@ -7,8 +7,9 @@
 <struts>
     <package name="student" extends="ssmis-default" namespace="/student">
         <action name="login" class="studentAction" method="login">
-            <result type="redirect">student/index.jsp</result>
-            <result type="dispatcher" name="login">/login.jsp</result>
+            <result type="json" name="success">
+                <param name="root">result</param>
+            </result>
         </action>
     </package>
 </struts>
