@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,8 +21,9 @@ import java.util.Map;
  */
 public class StudentDaoTest {
     static SessionFactory sessionFactory;
+
     @BeforeAll
-    public static void initSesssionFactory(){
+    public static void initSesssionFactory() {
         StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
 
         Metadata metadata = new MetadataSources(standardRegistry)
@@ -30,19 +32,24 @@ public class StudentDaoTest {
                 .build();
         sessionFactory = metadata.getSessionFactoryBuilder().build();
     }
+
     @Test
-    public void testfindStudentByConditions(){
-        StudentDaoImpl studentDao=new StudentDaoImpl();
+    public void testfindStudentByConditions() {
+        StudentDaoImpl studentDao = new StudentDaoImpl();
         studentDao.setSessionFactory(sessionFactory);
-        Map<String,Object> conditions=new HashMap<>(2);
-        String stu_id="20141111";
+        Map<String, Object> conditions = new HashMap<>(2);
+/*        String stu_id="20143232";
         String password="123456";
-        conditions.put("stu_id",stu_id);
+        conditions.put("address",stu_id);
         conditions.put("password",password);
-        Assertions.assertEquals(studentDao.findStudentByConditions(conditions).get(0).getStu_id(),stu_id);
+        Assertions.assertEquals(studentDao.findStudentByConditions(conditions).get(0).getStu_id(),stu_id);*/
+        String bluremail ="河南";/*new String("河南".getBytes(), Charset.forName("UTF-8"));*/
+        conditions.put("address",bluremail);
+        System.out.println((studentDao.findStudentByConditions(conditions,false).get(0).getStu_id()));
     }
+
     @AfterAll
-    public static void close(){
+    public static void close() {
         sessionFactory.close();
     }
 }

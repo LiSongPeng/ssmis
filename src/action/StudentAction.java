@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import entity.Student;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import service.i.StudentServiceI;
 
@@ -20,6 +21,17 @@ public class StudentAction  extends ActionSupport implements SessionAware{
         }else
             result="{\"result\":\"Error\"}";
         return SUCCESS;
+    }
+    public String logout(){
+        if(session.remove("currStu")!=null)
+            return SUCCESS;
+        return ERROR;
+    }
+    public String getStuInfo(){
+        if(stu!=null)
+            return SUCCESS;
+        String result="{\"result\":\"Error\"}";
+        return ERROR;
     }
 
     public Student getStu() {
