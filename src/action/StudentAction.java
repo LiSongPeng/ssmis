@@ -2,35 +2,48 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import entity.Student;
-import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import service.i.StudentServiceI;
 
 import java.util.Map;
 
-public class StudentAction  extends ActionSupport implements SessionAware{
+@Namespace("/student")
+@ParentPackage("ssmis-default")
+public class StudentAction extends ActionSupport implements SessionAware {
     private StudentServiceI studentService;
     private Student stu;
     private String result;
-    private Map<String,Object> session;
-    public String login(){
-        Student student=studentService.loginByStuIdAndPass(stu.getStu_id(),stu.getPassword());
-        if(student!=null){
-            session.put("currStu",student);
-            result="{\"result\":\"Success\"}";
-        }else
-            result="{\"result\":\"Error\"}";
+    private Map<String, Object> session;
+
+    @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}) )
+    public String login() {
+        Student student = studentService.loginByStuIdAndPass(stu.getStu_id(), stu.getPassword());
+        if (student != null) {
+            session.put("currStu", student);
+            result = "{\"result\":\"Success\"}";
+        } else
+            result = "{\"result\":\"Error\"}";
         return SUCCESS;
     }
-    public String logout(){
-        if(session.remove("currStu")!=null)
+
+    @Action(value = "logout", results = {@Result(location = "/student/login.jsp"), @Result(name = "error", location = "/student/index.jsp",type= "json", params = {"root", "result"})})
+    public String logout() {
+        if (session.remove("currStu") != null) {
+            session.clear();
             return SUCCESS;
+        }
         return ERROR;
     }
-    public String getStuInfo(){
-        if(stu!=null)
+
+    @Action(value = "getStuInfo", results = {@Result(type = "json", params = {"root", "stu"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getStuInfo() {
+        if (stu != null)
             return SUCCESS;
-        String result="{\"result\":\"Error\"}";
+        String result = "{\"result\":\"Error\"}";
         return ERROR;
     }
 
@@ -56,6 +69,6 @@ public class StudentAction  extends ActionSupport implements SessionAware{
 
     @Override
     public void setSession(Map<String, Object> map) {
-        this.session=map;
+        this.session = map;
     }
 }

@@ -17,7 +17,7 @@ $(function () {
         $('.modal').modal({dismissible: false});
         $("#loginModal").modal("open");
         $.ajax({
-            url: $("body").prop("title") + "/student/login",
+            url: $("body").prop("title") + "/student/login.action",
             async: true,
             data: {"stu.stu_id": stu_id, "stu.password": password},
             dataType: "json",

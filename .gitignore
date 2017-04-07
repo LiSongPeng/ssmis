@@ -3,3 +3,4 @@
 out/*
 *.iws
 web/WEB-INF/classes/*
+.idea/dataSources.local.xml

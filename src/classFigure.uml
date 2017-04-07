@@ -10,25 +10,8 @@
     <node x="52.0" y="116.0">entity.Course</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="entity.Student" target="entity.Course">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="entity.Teacher" target="entity.Course">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="entity.Course" target="entity.TimeTable">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="entity.Course" target="entity.Teacher">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="340.0" />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="361.0" y="260.0" />
   <SelectedNodes>
     <node>entity.Student</node>
   </SelectedNodes>

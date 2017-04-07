@@ -12,7 +12,4 @@
             <result name="pageNotFound">/pageNotFound.jsp</result>
         </global-results>
     </package>
-    <include file="student.xml"/>
-    <include file="teacher.xml"/>
-    <include file="admin.xml"/>
 </struts>
