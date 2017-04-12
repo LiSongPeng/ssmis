@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.jiangtao.entity.CourseScheduleEntity" table="course_schedule" schema="ssmis">
+        <composite-id mapped="true" class="team.jiangtao.entity.CourseScheduleEntityPK">
+            <key-property name="dpmId">
+                <column name="dpm_id" sql-type="char(8)" length="8"/>
+            </key-property>
+            <key-property name="crsId">
+                <column name="crs_id" sql-type="char(8)" length="8"/>
+            </key-property>
+            <key-property name="tchId">
+                <column name="tch_id" sql-type="char(8)" length="8"/>
+            </key-property>
+        </composite-id>
+        <property name="type">
+            <column name="type" sql-type="tinyint(4)"/>
+        </property>
+        <property name="preriods">
+            <column name="preriods" sql-type="tinyint(4)"/>
+        </property>
+        <property name="credit">
+            <column name="credit" sql-type="tinyint(4)"/>
+        </property>
+        <property name="term">
+            <column name="term" sql-type="tinyint(4)"/>
+        </property>
+        <many-to-one name="departmentByDpmId" class="team.jiangtao.entity.DepartmentEntity">
+            <column name="dpm_id"/>
+        </many-to-one>
+        <many-to-one name="courseByCrsId" class="team.jiangtao.entity.CourseEntity">
+            <column name="crs_id"/>
+        </many-to-one>
+        <many-to-one name="teacherByTchId" class="team.jiangtao.entity.TeacherEntity">
+            <column name="tch_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -6,9 +6,7 @@
     <session-factory>
         <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/ssmis?useUnicode=true&amp;characterEncoding=UTF-8</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">19970126</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/ssmis</property>
         <property name="c3p0.min_size">1</property>
         <property name="c3p0.max_size">30</property>
         <property name="c3p0.time_out">1800</property>
@@ -23,5 +21,25 @@
         <mapping class="entity.Teacher"></mapping>
         <mapping class="entity.Admin"></mapping>
         <mapping class="entity.Score"></mapping>
+        <mapping resource="team/jiangtao/entity/AppealEntity.hbm.xml"/>
+        <mapping class="team.jiangtao.entity.AppealEntity"/>
+        <mapping class="team.jiangtao.entity.CommentEntity"/>
+        <mapping resource="team/jiangtao/entity/CommentEntity.hbm.xml"/>
+        <mapping resource="team/jiangtao/entity/CourseEntity.hbm.xml"/>
+        <mapping class="team.jiangtao.entity.CourseEntity"/>
+        <mapping resource="team/jiangtao/entity/CourseScheduleEntity.hbm.xml"/>
+        <mapping class="team.jiangtao.entity.CourseScheduleEntity"/>
+        <mapping class="team.jiangtao.entity.CoursesTableEntity"/>
+        <mapping resource="team/jiangtao/entity/CoursesTableEntity.hbm.xml"/>
+        <mapping resource="team/jiangtao/entity/DepartmentEntity.hbm.xml"/>
+        <mapping class="team.jiangtao.entity.DepartmentEntity"/>
+        <mapping class="team.jiangtao.entity.ExamEntity"/>
+        <mapping resource="team/jiangtao/entity/ExamEntity.hbm.xml"/>
+        <mapping resource="team/jiangtao/entity/StudentEntity.hbm.xml"/>
+        <mapping class="team.jiangtao.entity.StudentEntity"/>
+        <mapping class="team.jiangtao.entity.StudentCheduleEntity"/>
+        <mapping resource="team/jiangtao/entity/StudentCheduleEntity.hbm.xml"/>
+        <mapping class="team.jiangtao.entity.TeacherEntity"/>
+        <mapping resource="team/jiangtao/entity/TeacherEntity.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

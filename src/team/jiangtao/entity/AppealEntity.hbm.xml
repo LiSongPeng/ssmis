@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.jiangtao.entity.AppealEntity" table="appeal" schema="ssmis">
+        <composite-id mapped="true" class="team.jiangtao.entity.AppealEntityPK">
+            <key-property name="dpmId">
+                <column name="dpm_id" sql-type="char(8)" length="8"/>
+            </key-property>
+            <key-property name="crsId">
+                <column name="crs_id" sql-type="char(8)" length="8"/>
+            </key-property>
+            <key-property name="tchId">
+                <column name="tch_id" sql-type="char(8)" length="8"/>
+            </key-property>
+            <key-property name="stuId">
+                <column name="stu_id" sql-type="char(8)" length="8"/>
+            </key-property>
+            <key-property name="date">
+                <column name="date" sql-type="date"/>
+            </key-property>
+        </composite-id>
+        <property name="content">
+            <column name="content" sql-type="varchar(128)" length="128"/>
+        </property>
+        <property name="response">
+            <column name="response" sql-type="varchar(128)" length="128" not-null="true"/>
+        </property>
+        <property name="status">
+            <column name="status" sql-type="tinyint(4)"/>
+        </property>
+    </class>
+</hibernate-mapping>

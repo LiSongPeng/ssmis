@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.jiangtao.entity.ExamEntity" table="exam" schema="ssmis">
+        <composite-id mapped="true" class="team.jiangtao.entity.ExamEntityPK">
+            <key-property name="dmp">
+                <column name="dmp" sql-type="char(8)" length="8"/>
+            </key-property>
+            <key-property name="crs">
+                <column name="crs" sql-type="char(8)" length="8"/>
+            </key-property>
+        </composite-id>
+        <property name="date">
+            <column name="date" sql-type="date"/>
+        </property>
+        <property name="location">
+            <column name="location" sql-type="varchar(64)" length="64"/>
+        </property>
+        <property name="status">
+            <column name="status" sql-type="tinyint(4)"/>
+        </property>
+        <many-to-one name="departmentByDmp" class="team.jiangtao.entity.DepartmentEntity">
+            <column name="dmp"/>
+        </many-to-one>
+        <many-to-one name="courseByCrs" class="team.jiangtao.entity.CourseEntity">
+            <column name="crs"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
