@@ -7,8 +7,8 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.context.annotation.RequestScope;
 import service.i.StudentServiceI;
 
 import javax.annotation.Resource;
@@ -17,7 +17,7 @@ import java.util.Map;
 @Namespace("/student")
 @ParentPackage("ssmis-default")
 @Controller
-@RequestScope
+@Scope(value = "prototype")
 public class StudentAction extends ActionSupport implements SessionAware {
     private StudentServiceI studentService;
     private Student stu;
@@ -26,7 +26,9 @@ public class StudentAction extends ActionSupport implements SessionAware {
 
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}) )
     public String login() {
+        System.out.println("stu_id:"+stu.getStu_id()+"pass:"+stu.getPassword());
         Student student = studentService.loginByStuIdAndPass(stu.getStu_id(), stu.getPassword());
+        System.out.println("student"+student);
         if (student != null) {
             session.put("currStu", student);
             result = "{\"result\":\"Success\"}";
@@ -61,6 +63,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     }
     @Resource(name = "studentService")
     public void setStudentService(StudentServiceI studentService) {
+        System.out.println("init student action"+studentService);
         this.studentService = studentService;
     }
 
