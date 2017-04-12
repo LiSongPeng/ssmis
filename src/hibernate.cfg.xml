@@ -15,7 +15,7 @@
         <property name="c3p0.max_statement">50</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
-        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hbm2ddl.auto">update</property>
         <mapping class="entity.Student"></mapping>
         <mapping class="entity.Course"></mapping>

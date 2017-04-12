@@ -5,15 +5,17 @@ import entity.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+@Repository(value = "studentDao")
 public class StudentDaoImpl implements StudentDaoI {
     private SessionFactory sessionFactory;
     private Session session;
-
+    @Resource(name = "sessionFactory")
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
         session = sessionFactory.openSession();

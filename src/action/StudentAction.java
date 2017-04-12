@@ -7,12 +7,17 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.context.annotation.RequestScope;
 import service.i.StudentServiceI;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 @Namespace("/student")
 @ParentPackage("ssmis-default")
+@Controller
+@RequestScope
 public class StudentAction extends ActionSupport implements SessionAware {
     private StudentServiceI studentService;
     private Student stu;
@@ -54,7 +59,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     public void setStu(Student stu) {
         this.stu = stu;
     }
-
+    @Resource(name = "studentService")
     public void setStudentService(StudentServiceI studentService) {
         this.studentService = studentService;
     }
