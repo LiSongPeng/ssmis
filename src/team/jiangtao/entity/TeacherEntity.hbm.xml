@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="team.jiangtao.entity.TeacherEntity" table="teacher" schema="ssmis">
+        <id name="tchId">
+            <column name="tch_id" sql-type="varchar(8)" length="8"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="varchar(32)" length="32"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="varchar(32)" length="32"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(64)" length="64" not-null="true"/>
+        </property>
+        <property name="address">
+            <column name="address" sql-type="varchar(128)" length="128" not-null="true"/>
+        </property>
+        <property name="phone">
+            <column name="phone" sql-type="varchar(13)" length="13"/>
+        </property>
+        <property name="birthday">
+            <column name="birthday" sql-type="date"/>
+        </property>
+        <property name="gender">
+            <column name="gender" sql-type="tinyint(1)"/>
+        </property>
+        <property name="biography">
+            <column name="biography" sql-type="varchar(128)" length="128" not-null="true"/>
+        </property>
+        <property name="tchStatus">
+            <column name="tch_status" sql-type="tinyint(4)"/>
+        </property>
+        <many-to-one name="departmentByDpmId" class="team.jiangtao.entity.DepartmentEntity">
+            <column name="dpm_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
