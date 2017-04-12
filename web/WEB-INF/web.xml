@@ -3,11 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <listener>
-        <listener-class>
-            org.springframework.web.context.request.RequestContextListener
-        </listener-class>
-    </listener>
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <context-param>
         <param-name>contextClass</param-name>
         <param-value>
@@ -21,12 +24,4 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <filter>
-        <filter-name>struts2</filter-name>
-        <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>struts2</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
 </web-app>

@@ -14,7 +14,8 @@ import java.util.Map;
 public class StudentServiceImpl implements StudentServiceI{
     private StudentDaoI studentDao;
     @Resource(name = "studentDao")
-    public void setStudentDao(StudentDaoI studentDao) {
+    public void setStudentDao(StudentDaoI studentDao){
+        System.out.println("init student service"+studentDao);
         this.studentDao = studentDao;
     }
 
