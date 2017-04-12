@@ -31,7 +31,7 @@ $(function () {
                     $("#loginMessage").html("登录成功,正在跳转到首页...");
                     window.setTimeout(function () {
                         $("#loginModal").modal("close");
-                        window.location.href = "index.jsp";
+                        window.location.href = "../../index.jsp";
                     }, 1000);
                 }
             }
