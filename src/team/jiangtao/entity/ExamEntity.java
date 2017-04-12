@@ -16,7 +16,6 @@ public class ExamEntity {
     private String location;
     private byte status;
     private DepartmentEntity departmentByDmp;
-    private CourseEntity courseByCrs;
 
     @Id
     @Column(name = "dmp", nullable = false, length = 8)
@@ -102,15 +101,5 @@ public class ExamEntity {
 
     public void setDepartmentByDmp(DepartmentEntity departmentByDmp) {
         this.departmentByDmp = departmentByDmp;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
-    public CourseEntity getCourseByCrs() {
-        return courseByCrs;
-    }
-
-    public void setCourseByCrs(CourseEntity courseByCrs) {
-        this.courseByCrs = courseByCrs;
     }
 }

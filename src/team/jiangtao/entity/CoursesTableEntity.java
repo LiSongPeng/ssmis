@@ -14,7 +14,6 @@ public class CoursesTableEntity {
     private String tchId;
     private byte weeks;
     private byte off;
-    private CourseEntity courseByCrsId;
 
     @Id
     @Column(name = "dpm_id", nullable = false, length = 8)
@@ -90,15 +89,5 @@ public class CoursesTableEntity {
         result = 31 * result + (int) weeks;
         result = 31 * result + (int) off;
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
-    public CourseEntity getCourseByCrsId() {
-        return courseByCrsId;
-    }
-
-    public void setCourseByCrsId(CourseEntity courseByCrsId) {
-        this.courseByCrsId = courseByCrsId;
     }
 }

@@ -21,25 +21,17 @@
         <mapping class="entity.Teacher"></mapping>
         <mapping class="entity.Admin"></mapping>
         <mapping class="entity.Score"></mapping>
-        <mapping resource="team/jiangtao/entity/AppealEntity.hbm.xml"/>
         <mapping class="team.jiangtao.entity.AppealEntity"/>
         <mapping class="team.jiangtao.entity.CommentEntity"/>
-        <mapping resource="team/jiangtao/entity/CommentEntity.hbm.xml"/>
-        <mapping resource="team/jiangtao/entity/CourseEntity.hbm.xml"/>
         <mapping class="team.jiangtao.entity.CourseEntity"/>
-        <mapping resource="team/jiangtao/entity/CourseScheduleEntity.hbm.xml"/>
         <mapping class="team.jiangtao.entity.CourseScheduleEntity"/>
         <mapping class="team.jiangtao.entity.CoursesTableEntity"/>
-        <mapping resource="team/jiangtao/entity/CoursesTableEntity.hbm.xml"/>
-        <mapping resource="team/jiangtao/entity/DepartmentEntity.hbm.xml"/>
         <mapping class="team.jiangtao.entity.DepartmentEntity"/>
         <mapping class="team.jiangtao.entity.ExamEntity"/>
-        <mapping resource="team/jiangtao/entity/ExamEntity.hbm.xml"/>
-        <mapping resource="team/jiangtao/entity/StudentEntity.hbm.xml"/>
         <mapping class="team.jiangtao.entity.StudentEntity"/>
         <mapping class="team.jiangtao.entity.StudentCheduleEntity"/>
-        <mapping resource="team/jiangtao/entity/StudentCheduleEntity.hbm.xml"/>
         <mapping class="team.jiangtao.entity.TeacherEntity"/>
-        <mapping resource="team/jiangtao/entity/TeacherEntity.hbm.xml"/>
+
+
     </session-factory>
 </hibernate-configuration>

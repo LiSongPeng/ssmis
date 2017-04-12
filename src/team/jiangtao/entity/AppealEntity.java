@@ -18,6 +18,9 @@ public class AppealEntity {
     private String content;
     private String response;
     private byte status;
+    private DepartmentEntity departmentByDpmId;
+    private TeacherEntity teacherByTchId;
+    private StudentEntity studentByStuId;
 
     @Id
     @Column(name = "dpm_id", nullable = false, length = 8)
@@ -129,5 +132,35 @@ public class AppealEntity {
         result = 31 * result + (response != null ? response.hashCode() : 0);
         result = 31 * result + (int) status;
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
+    public DepartmentEntity getDepartmentByDpmId() {
+        return departmentByDpmId;
+    }
+
+    public void setDepartmentByDpmId(DepartmentEntity departmentByDpmId) {
+        this.departmentByDpmId = departmentByDpmId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false)
+    public TeacherEntity getTeacherByTchId() {
+        return teacherByTchId;
+    }
+
+    public void setTeacherByTchId(TeacherEntity teacherByTchId) {
+        this.teacherByTchId = teacherByTchId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false)
+    public StudentEntity getStudentByStuId() {
+        return studentByStuId;
+    }
+
+    public void setStudentByStuId(StudentEntity studentByStuId) {
+        this.studentByStuId = studentByStuId;
     }
 }

@@ -16,9 +16,6 @@ public class CourseScheduleEntity {
     private byte preriods;
     private byte credit;
     private byte term;
-    private DepartmentEntity departmentByDpmId;
-    private CourseEntity courseByCrsId;
-    private TeacherEntity teacherByTchId;
 
     @Id
     @Column(name = "dpm_id", nullable = false, length = 8)
@@ -118,35 +115,5 @@ public class CourseScheduleEntity {
         result = 31 * result + (int) credit;
         result = 31 * result + (int) term;
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
-    public DepartmentEntity getDepartmentByDpmId() {
-        return departmentByDpmId;
-    }
-
-    public void setDepartmentByDpmId(DepartmentEntity departmentByDpmId) {
-        this.departmentByDpmId = departmentByDpmId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
-    public CourseEntity getCourseByCrsId() {
-        return courseByCrsId;
-    }
-
-    public void setCourseByCrsId(CourseEntity courseByCrsId) {
-        this.courseByCrsId = courseByCrsId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false)
-    public TeacherEntity getTeacherByTchId() {
-        return teacherByTchId;
-    }
-
-    public void setTeacherByTchId(TeacherEntity teacherByTchId) {
-        this.teacherByTchId = teacherByTchId;
     }
 }

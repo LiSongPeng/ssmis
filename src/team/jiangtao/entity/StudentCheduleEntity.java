@@ -17,6 +17,7 @@ public class StudentCheduleEntity {
     private double score;
     private DepartmentEntity departmentByDpm;
     private CourseEntity courseByCrs;
+    private TeacherEntity teacherByTch;
     private StudentEntity studentByStu;
 
     @Id
@@ -128,6 +129,16 @@ public class StudentCheduleEntity {
 
     public void setCourseByCrs(CourseEntity courseByCrs) {
         this.courseByCrs = courseByCrs;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "tch", referencedColumnName = "tch_id", nullable = false)
+    public TeacherEntity getTeacherByTch() {
+        return teacherByTch;
+    }
+
+    public void setTeacherByTch(TeacherEntity teacherByTch) {
+        this.teacherByTch = teacherByTch;
     }
 
     @ManyToOne

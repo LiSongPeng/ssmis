@@ -15,6 +15,8 @@ public class CommentEntity {
     private String tch;
     private Date date;
     private String content;
+    private DepartmentEntity departmentByDpm;
+    private TeacherEntity teacherByTch;
 
     @Id
     @Column(name = "dpm", nullable = false, length = 8)
@@ -90,5 +92,25 @@ public class CommentEntity {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false)
+    public DepartmentEntity getDepartmentByDpm() {
+        return departmentByDpm;
+    }
+
+    public void setDepartmentByDpm(DepartmentEntity departmentByDpm) {
+        this.departmentByDpm = departmentByDpm;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "tch", referencedColumnName = "tch_id", nullable = false)
+    public TeacherEntity getTeacherByTch() {
+        return teacherByTch;
+    }
+
+    public void setTeacherByTch(TeacherEntity teacherByTch) {
+        this.teacherByTch = teacherByTch;
     }
 }
