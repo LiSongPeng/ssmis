@@ -6,7 +6,8 @@
     <session-factory>
         <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/ssmis</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">jt1996515</property>
         <property name="c3p0.min_size">1</property>
         <property name="c3p0.max_size">30</property>
         <property name="c3p0.time_out">1800</property>
@@ -22,17 +23,6 @@
         <mapping class="entity.Teacher"></mapping>
         <mapping class="entity.Admin"></mapping>
         <mapping class="entity.Score"></mapping>
-        <mapping class="team.jiangtao.entity.AppealEntity"/>
-        <mapping class="team.jiangtao.entity.CommentEntity"/>
-        <mapping class="team.jiangtao.entity.CourseEntity"/>
-        <mapping class="team.jiangtao.entity.CourseScheduleEntity"/>
-        <mapping class="team.jiangtao.entity.CoursesTableEntity"/>
-        <mapping class="team.jiangtao.entity.DepartmentEntity"/>
-        <mapping class="team.jiangtao.entity.ExamEntity"/>
-        <mapping class="team.jiangtao.entity.StudentEntity"/>
-        <mapping class="team.jiangtao.entity.StudentCheduleEntity"/>
-        <mapping class="team.jiangtao.entity.TeacherEntity"/>
-
 
     </session-factory>
 </hibernate-configuration>
