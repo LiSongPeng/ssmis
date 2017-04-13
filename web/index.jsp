@@ -33,7 +33,7 @@
     <main class="mdl-layout__content">
         <section class="mdl-layout__tab-panel is-active" id="fixed-tab-2">
             <div class="page-content">
-                <form action="#" style="margin-left: auto;margin-right: auto;width: 400px">
+                <form action="#" style="margin-left: auto;margin-right: auto;width: 300px">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="tch">
                         <label class="mdl-textfield__label" for="tch">教工号...</label>
@@ -45,15 +45,26 @@
                         <label class="mdl-textfield__label" for="tch_pw">密码...</label>
                     </div>
                     <br>
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                        登陆
-                    </button>
+
+                    <div>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float: left">
+                            登陆
+                        </button>
+                        <div style="float: right">
+                            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="tch_rm">
+                                <input type="checkbox" id="tch_rm" class="mdl-switch__input">
+                                <span class="mdl-switch__label"></span>
+                            </label>
+                            记住密码
+                        </div>
+                    </div>
+
                 </form>
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
             <div class="page-content">
-                <form action="#" style="margin-left: auto;margin-right: auto;width: 400px">
+                <form action="#" style="margin-left: auto;margin-right: auto;width: 300px">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="adm">
                         <label class="mdl-textfield__label" for="adm">管理员账号...</label>
@@ -65,9 +76,18 @@
                         <label class="mdl-textfield__label" for="adm_pw">密码...</label>
                     </div>
                     <br>
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                        登陆
-                    </button>
+                    <div>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float:left">
+                            登陆
+                        </button>
+                        <div style="float:right">
+                            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="adm_rm">
+                                <input type="checkbox" id="adm_rm" class="mdl-switch__input">
+                                <span class="mdl-switch__label"></span>
+                            </label>
+                            记住密码
+                        </div>
+                    </div>
                 </form>
             </div>
         </section>
