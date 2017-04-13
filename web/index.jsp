@@ -25,33 +25,13 @@
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-            <a href="#fixed-tab-1" class="mdl-layout__tab is-active">学生</a>
-            <a href="#fixed-tab-2" class="mdl-layout__tab">教师</a>
+            <a href="student/login.jsp" class="mdl-layout__tab">学生</a>
+            <a href="#fixed-tab-2" class="mdl-layout__tab is-active">教师</a>
             <a href="#fixed-tab-3" class="mdl-layout__tab">管理员</a>
         </div>
     </header>
     <main class="mdl-layout__content">
-        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-            <div class="page-content">
-                <form action="#" style="margin-left: auto;margin-right: auto; width: 400px">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="stu_id">
-                        <label class="mdl-textfield__label" for="stu_id">学工号...</label>
-                        <span class="mdl-textfield__error">Input is not a number!</span>
-                    </div>
-                    <br>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="password" id="stu_pw">
-                        <label class="mdl-textfield__label" for="stu_pw">密码...</label>
-                    </div>
-                    <br>
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                       登陆
-                    </button>
-                </form>
-            </div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-2">
             <div class="page-content">
                 <form action="#" style="margin-left: auto;margin-right: auto;width: 400px">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
