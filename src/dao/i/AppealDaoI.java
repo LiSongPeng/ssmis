@@ -19,9 +19,35 @@ public interface AppealDaoI {
      */
     List<Appeal> getAppealsByCondition(Map<String,Object> conditions,boolean... equalConditions) throws Exception;
 
+    /**
+     *
+     * @param appeal with no-null PKs
+     * @return Appeal
+     * @throws Exception
+     */
+    Appeal getAppealByPK(Appeal appeal) throws Exception;
+
+    /**
+     *
+     * @param appeal
+     * @return adding is success or failure
+     * @throws Exception
+     */
     boolean addAppeal(Appeal appeal)throws Exception;
 
+    /**
+     *
+     * @param appeal
+     * @return detete is success or failure
+     * @throws Exception
+     */
     boolean deleteAppeal(Appeal appeal)throws Exception;
 
+    /**
+     *
+     * @param appeal
+     * @return update is success or failure
+     * @throws Exception
+     */
     boolean updateAppeal(Appeal appeal)throws Exception;
 }
