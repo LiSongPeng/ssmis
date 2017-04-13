@@ -9,6 +9,7 @@ import java.util.Map;
  * Created by lihuibo on 4/5/17.
  */
 public interface TeacherDaoI {
+
     /**
      *
      * @param conditions
@@ -41,6 +42,5 @@ public interface TeacherDaoI {
      * @throws Exception
      */
     boolean addTeacher(Teacher teacher) throws Exception;
-
 
 }
