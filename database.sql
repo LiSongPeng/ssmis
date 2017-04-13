@@ -18,6 +18,55 @@ USE `ssmis`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Exam`
+--
+
+DROP TABLE IF EXISTS `Exam`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Exam` (
+  `dmp` char(8) NOT NULL,
+  `crs` char(8) NOT NULL,
+  `date` date NOT NULL,
+  `location` varchar(64) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`dmp`,`crs`),
+  KEY `exam_course_crs_id_fk` (`crs`),
+  CONSTRAINT `FKgq1xpf73a4h4savtt14l2qlx` FOREIGN KEY (`crs`) REFERENCES `Course` (`crs_id`),
+  CONSTRAINT `FKtq707uj0p92my6ev4y71q8y9d` FOREIGN KEY (`dmp`) REFERENCES `Department` (`dpm_id`),
+  CONSTRAINT `exam_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),
+  CONSTRAINT `exam_department_dpm_id_fk` FOREIGN KEY (`dmp`) REFERENCES `department` (`dpm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Teacher`
+--
+
+DROP TABLE IF EXISTS `Teacher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Teacher` (
+  `tch_id` varchar(8) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `email` varchar(64) DEFAULT NULL,
+  `address` varchar(128) DEFAULT NULL,
+  `phone` varchar(13) NOT NULL,
+  `birthday` date NOT NULL,
+  `gender` tinyint(1) NOT NULL DEFAULT '0',
+  `biography` varchar(128) DEFAULT NULL,
+  `tch_status` tinyint(4) NOT NULL DEFAULT '1',
+  `dpm_id` char(8) NOT NULL,
+  PRIMARY KEY (`tch_id`),
+  UNIQUE KEY `teacher_tch_id_uindex` (`tch_id`),
+  KEY `teacher_department_dpm_id_fk` (`dpm_id`),
+  CONSTRAINT `FKatv8tugywbfmu3xjmcvh9bdq7` FOREIGN KEY (`dpm_id`) REFERENCES `Department` (`dpm_id`),
+  CONSTRAINT `teacher_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `appeal`
 --
 
@@ -100,6 +149,7 @@ CREATE TABLE `course_schedule` (
   PRIMARY KEY (`dpm_id`,`tch_id`,`crs_id`),
   KEY `course_schedule_course_crs_id_fk` (`crs_id`),
   KEY `course_schedule_teacher_tch_id_fk` (`tch_id`),
+  CONSTRAINT `FKcn4pgml9oc952fu0ada5k588y` FOREIGN KEY (`crs_id`) REFERENCES `Course` (`crs_id`),
   CONSTRAINT `course_schedule_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),
   CONSTRAINT `course_schedule_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`),
   CONSTRAINT `course_schedule_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `teacher` (`tch_id`)
@@ -122,6 +172,7 @@ CREATE TABLE `courses_table` (
   PRIMARY KEY (`crs_id`,`dpm_id`,`tch_id`,`weeks`,`off`),
   KEY `courses_table_teacher_tch_id_fk` (`tch_id`),
   KEY `courses_table_department_dpm_id_fk` (`dpm_id`),
+  CONSTRAINT `FKgmve14w8mg6hqja8b1iderwv` FOREIGN KEY (`crs_id`) REFERENCES `Course` (`crs_id`),
   CONSTRAINT `courses_table_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),
   CONSTRAINT `courses_table_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`),
   CONSTRAINT `courses_table_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `teacher` (`tch_id`)
@@ -145,26 +196,6 @@ CREATE TABLE `department` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `exam`
---
-
-DROP TABLE IF EXISTS `exam`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `exam` (
-  `dmp` char(8) NOT NULL,
-  `crs` char(8) NOT NULL,
-  `date` date NOT NULL,
-  `location` varchar(64) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`dmp`,`crs`),
-  KEY `exam_course_crs_id_fk` (`crs`),
-  CONSTRAINT `exam_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),
-  CONSTRAINT `exam_department_dpm_id_fk` FOREIGN KEY (`dmp`) REFERENCES `department` (`dpm_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `student`
 --
 
@@ -180,7 +211,7 @@ CREATE TABLE `student` (
   `phone` varchar(13) NOT NULL,
   `birthday` date NOT NULL,
   `gender` tinyint(1) NOT NULL DEFAULT '0',
-  `grade` tinyint(4) NOT NULL DEFAULT '1',
+  `grade` smallint(6) NOT NULL DEFAULT '1',
   `class_no` tinyint(4) NOT NULL DEFAULT '1',
   `stu_status` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`stu_id`),
@@ -206,36 +237,13 @@ CREATE TABLE `student_schedule` (
   KEY `student_chedule_teacher_tch_id_fk` (`tch`),
   KEY `student_chedule_student_stu_id_fk` (`stu`),
   KEY `student_chedule_course_crs_id_fk` (`crs`),
+  CONSTRAINT `FK538g3xp747lrhtnps1kyojlbj` FOREIGN KEY (`crs`) REFERENCES `Course` (`crs_id`),
+  CONSTRAINT `FKcbwui5einj8g3j0r5win8qme` FOREIGN KEY (`stu`) REFERENCES `Student` (`stu_id`),
+  CONSTRAINT `FKdtkt243yls12argiiqqm7kmt4` FOREIGN KEY (`dpm`) REFERENCES `Department` (`dpm_id`),
   CONSTRAINT `student_chedule_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),
   CONSTRAINT `student_chedule_department_dpm_id_fk` FOREIGN KEY (`dpm`) REFERENCES `department` (`dpm_id`),
   CONSTRAINT `student_chedule_student_stu_id_fk` FOREIGN KEY (`stu`) REFERENCES `student` (`stu_id`),
   CONSTRAINT `student_chedule_teacher_tch_id_fk` FOREIGN KEY (`tch`) REFERENCES `teacher` (`tch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `teacher`
---
-
-DROP TABLE IF EXISTS `teacher`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `teacher` (
-  `tch_id` varchar(8) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `email` varchar(64) DEFAULT NULL,
-  `address` varchar(128) DEFAULT NULL,
-  `phone` varchar(13) NOT NULL,
-  `birthday` date NOT NULL,
-  `gender` tinyint(1) NOT NULL DEFAULT '0',
-  `biography` varchar(128) DEFAULT NULL,
-  `tch_status` tinyint(4) NOT NULL DEFAULT '1',
-  `dpm_id` char(8) NOT NULL,
-  PRIMARY KEY (`tch_id`),
-  UNIQUE KEY `teacher_tch_id_uindex` (`tch_id`),
-  KEY `teacher_department_dpm_id_fk` (`dpm_id`),
-  CONSTRAINT `teacher_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -248,4 +256,4 @@ CREATE TABLE `teacher` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-13  9:01:24
+-- Dump completed on 2017-04-13  9:48:50
