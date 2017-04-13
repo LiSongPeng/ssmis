@@ -5,6 +5,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import team.jiangtao.entity.Teacher;
 
 import java.util.Map;
 
@@ -16,9 +17,10 @@ import java.util.Map;
 @Controller
 @Scope(value = "prototype")
 public class TeacherAction extends ActionSupport {
-
+    private Teacher teacher;
     private String rsp;
     private Map<String,Object> session;
+
 
     public String teacherLogin(){
 
