@@ -1,15 +1,22 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import java.util.Map;
 
 /**
  * Created by tose on 2017/4/12.
  */
+@Namespace("/teacher")
+@ParentPackage("ssmis-default")
+@Controller
+@Scope(value = "prototype")
 public class TeacherAction extends ActionSupport {
-//    private TeacherDAOInterface teacherDAOInterface;
-//    private TeacherEntity teacherEntity;
+
     private String rsp;
     private Map<String,Object> session;
 
