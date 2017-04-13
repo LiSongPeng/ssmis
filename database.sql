@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `ssmis` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `ssmis`;
 -- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ssmis
@@ -256,4 +254,8 @@ CREATE TABLE `student_schedule` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD:database.sql
+-- Dump completed on 2017-04-13 10:18:30
+=======
 -- Dump completed on 2017-04-13  9:48:50
+>>>>>>> 4e9a842857fcdd04fa065060903ea312c46ac467:database.sql

@@ -21,7 +21,7 @@ public class AppConfig {
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setConfigLocations(new ClassPathResource("hibernate.cfg.xml"), new ClassPathResource("hibernate.properties"));
+        sessionFactoryBean.setConfigLocations(new ClassPathResource("hibernate.cfg.xml"));
         return sessionFactoryBean;
     }
 
