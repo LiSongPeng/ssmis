@@ -1,8 +1,10 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import team.jiangtao.entity.Teacher;
@@ -20,10 +22,17 @@ public class TeacherAction extends ActionSupport {
     private Teacher teacher;
     private String rsp;
     private Map<String,Object> session;
-
-
+    private String isRememberPsw;
+    @Action(value = "login",results = @Result(type = "json",params={"root","rsp"}))
     public String teacherLogin(){
-
+        //write to test.
+        isRememberPsw="0";
+        rsp="0";
+        if(teacher.getTchId().equals(teacher.getPassword())){
+            session.put("tch_id", teacher);
+            rsp="1";
+        }
+        rsp = "{"+rsp+","+isRememberPsw+"}";
         return SUCCESS;
     }
 

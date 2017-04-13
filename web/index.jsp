@@ -9,9 +9,11 @@
 <html>
 <head>
     <title>Index</title>
+
     <link rel="stylesheet" href="res/jiangtao/lib/mdl/material.indigo-pink.min.css">
     <link rel="stylesheet" href="res/jiangtao/lib/mdl/icon.css">
     <script defer src="res/jiangtao/lib/mdl/material.min.js"></script>
+    <script defer src="res/js/jquery-3.0.0.min.js"></script>
 
 </head>
 <body>
@@ -35,8 +37,8 @@
             <div class="page-content">
                 <form action="#" style="margin-left: auto;margin-right: auto;width: 300px">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="tch">
-                        <label class="mdl-textfield__label" for="tch">教工号...</label>
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="tch_id">
+                        <label class="mdl-textfield__label" for="tch_id">教工号...</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
                     </div>
                     <br>
@@ -47,7 +49,7 @@
                     <br>
 
                     <div>
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float: left">
+                        <button id="tch_sbm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float: left">
                             登陆
                         </button>
                         <button class="mdl-button mdl-js-button mdl-button--accent">
@@ -58,7 +60,7 @@
                                 <input type="checkbox" id="tch_rm" class="mdl-switch__input">
                                 <span class="mdl-switch__label"></span>
                             </label>
-                            记住密码
+                            保持登陆
                         </div>
                     </div>
 
@@ -80,7 +82,7 @@
                     </div>
                     <br>
                     <div>
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float:left">
+                        <button id="adm_sbm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float:left">
                             登陆
                         </button>
                         <button class="mdl-button mdl-js-button mdl-button--accent">
@@ -91,7 +93,7 @@
                                 <input type="checkbox" id="adm_rm" class="mdl-switch__input">
                                 <span class="mdl-switch__label"></span>
                             </label>
-                            记住密码
+                            保持登陆
                         </div>
                     </div>
                 </form>
@@ -99,6 +101,15 @@
         </section>
     </main>
 </div>
+<script>
+    $(function () {
+        $("#tch_sbm").click(function () {|
+            if($("#tch_id").val()==""||$("#tch_pw").val()==""){
 
+            }
+        })
+
+    })
+</script>
 </body>
 </html>
