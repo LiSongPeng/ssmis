@@ -89,11 +89,9 @@ public class StudentDaoImpl implements StudentDaoI {
         Session session=sessionFactory.getCurrentSession();
         if (students.size() == 0)
             return;
-        session.getTransaction().begin();
         for (Student each : students) {
             session.save(each);
         }
-        session.getTransaction().commit();
     }
 
     @Override
