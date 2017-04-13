@@ -7,9 +7,9 @@ function makeToast(text, duration) {
 
 $(function () {
     $("form").submit(function () {
-        var stu_id = $("input[name='stu.stu_id']").val();
+        var stuId = $("input[name='stu.stu_id']").val();
         var password = $("input[name='stu.password']").val();
-        if (stu_id == "" || password == "") {
+        if (stuId == "" || password == "") {
             makeToast("用户名或密码不能为空", 1000);
             return false;
         }
@@ -19,7 +19,7 @@ $(function () {
         $.ajax({
             url: $("body").prop("title") + "/student/login.action",
             async: true,
-            data: {"stu.stu_id": stu_id, "stu.password": password},
+            data: {"stu.stuId": stuId, "stu.password": password},
             dataType: "json",
             type: "GET",
             success: function (json) {

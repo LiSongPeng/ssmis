@@ -63,7 +63,6 @@ public class StudentAction extends ActionSupport implements SessionAware {
     }
     @Resource(name = "studentService")
     public void setStudentService(StudentServiceI studentService) {
-        System.out.println("init student action"+studentService);
         this.studentService = studentService;
     }
 

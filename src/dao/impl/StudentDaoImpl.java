@@ -22,7 +22,6 @@ public class StudentDaoImpl implements StudentDaoI {
     @Override
     public List<Student> findStudentByConditions(Map<String, Object> conditions, boolean... equalConditions) {
         Session session=sessionFactory.getCurrentSession();
-        System.out.println("currentSession:"+session);
         StringBuilder hql = new StringBuilder("from student stu where ");
         int i = 1;
         Set<Map.Entry<String, Object>> entries = conditions.entrySet();
