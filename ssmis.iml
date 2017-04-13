@@ -13,10 +13,7 @@
       <facet type="Struts2" name="Struts 2">
         <configuration>
           <fileset id="s2fileset2" name="My Fileset" removed="false">
-            <file>file://$MODULE_DIR$/src/admin.xml</file>
             <file>file://$MODULE_DIR$/src/struts.xml</file>
-            <file>file://$MODULE_DIR$/src/student.xml</file>
-            <file>file://$MODULE_DIR$/src/teacher.xml</file>
             <file>jar://$MODULE_DIR$/web/WEB-INF/lib/struts2-core-2.5.2.jar!/struts-default.xml</file>
             <file>jar://$MODULE_DIR$/web/WEB-INF/lib/struts2-json-plugin-2.5.2.jar!/struts-plugin.xml</file>
             <file>jar://$MODULE_DIR$/web/WEB-INF/lib/struts2-spring-plugin-2.5.2.jar!/struts-plugin.xml</file>
@@ -29,6 +26,7 @@
       <configuration>
         <datasource-map>
           <unit-entry name="hibernate.cfg.xml" value="6d3c87d5-a1ec-4d3b-952b-e56f64d31b79" />
+          <unit-entry name="sessionFactory" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/hibernate.cfg.xml" />
@@ -37,10 +35,7 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/web/WEB-INF/applicationContext.xml</file>
-          <file>file://$MODULE_DIR$/web/WEB-INF/admin.beans.xml</file>
-          <file>file://$MODULE_DIR$/web/WEB-INF/student.beans.xml</file>
-          <file>file://$MODULE_DIR$/web/WEB-INF/teacher.beans.xml</file>
+          <file>file://$MODULE_DIR$/src/config/AppConfig.java</file>
         </fileset>
       </configuration>
     </facet>
