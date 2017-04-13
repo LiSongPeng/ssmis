@@ -1,6 +1,7 @@
 package service.i;
 
-import entity.Student;
+
+import team.jiangtao.entity.Student;
 
 public interface StudentServiceI {
     /**

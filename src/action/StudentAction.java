@@ -1,7 +1,6 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import entity.Student;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -10,6 +9,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.StudentServiceI;
+import team.jiangtao.entity.Student;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -26,8 +26,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
 
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}) )
     public String login() {
-        System.out.println("stu_id:"+stu.getStu_id()+"pass:"+stu.getPassword());
-        Student student = studentService.loginByStuIdAndPass(stu.getStu_id(), stu.getPassword());
+        System.out.println("stu_id:"+stu.getStuId()+"pass:"+stu.getPassword());
+        Student student = studentService.loginByStuIdAndPass(stu.getStuId(), stu.getPassword());
         System.out.println("student"+student);
         if (student != null) {
             session.put("currStu", student);

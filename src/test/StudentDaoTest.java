@@ -45,7 +45,7 @@ public class StudentDaoTest {
         Assertions.assertEquals(studentDao.findStudentByConditions(conditions).get(0).getStu_id(),stu_id);*/
         String bluremail ="河南";/*new String("河南".getBytes(), Charset.forName("UTF-8"));*/
         conditions.put("address",bluremail);
-        System.out.println((studentDao.findStudentByConditions(conditions,false).get(0).getStu_id()));
+        System.out.println((studentDao.findStudentByConditions(conditions,false).get(0).getStuId()));
     }
 
     @AfterAll

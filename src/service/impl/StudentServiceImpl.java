@@ -2,10 +2,11 @@ package service.impl;
 
 
 import dao.i.StudentDaoI;
-import entity.Student;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import service.i.StudentServiceI;
+import team.jiangtao.entity.Student;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -20,9 +21,10 @@ public class StudentServiceImpl implements StudentServiceI{
     }
 
     @Override
+    @Transactional(readOnly = true,isolation = Isolation.READ_COMMITTED)
     public Student loginByStuIdAndPass(String stu_id, String password) {
         Map<String,Object> conditions=new HashMap<>(2);
-        conditions.put("stu_id",stu_id);
+        conditions.put("stuId",stu_id);
         conditions.put("password",password);
         return studentDao.findStudentByConditions(conditions).get(0);
     }

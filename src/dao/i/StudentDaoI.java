@@ -1,6 +1,7 @@
 package dao.i;
 
-import entity.Student;
+
+import team.jiangtao.entity.Student;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,7 @@ public interface StudentDaoI {
      *@param equalConditions 对应于每个键值对，是采用=匹配，还是采用like模糊匹配的标志,不传值默认为=
      * @return 实体对象集合
      */
-    List<Student> findStudentByConditions(Map<String,Object> conditions,boolean... equalConditions);
+    List<Student> findStudentByConditions(Map<String,Object> conditions, boolean... equalConditions);
 
     /**
      * 通过学号查找学生，并修改对应学生的多项属性值
