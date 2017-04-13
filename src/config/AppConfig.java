@@ -16,17 +16,18 @@ import javax.annotation.Resource;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"dao.impl","service.impl","action"})
+@ComponentScan(basePackages = {"dao.impl", "service.impl", "action"})
 public class AppConfig {
     @Bean
-    public LocalSessionFactoryBean sessionFactory(){
-        LocalSessionFactoryBean sessionFactoryBean=new LocalSessionFactoryBean();
-        sessionFactoryBean.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+        sessionFactoryBean.setConfigLocations(new ClassPathResource("hibernate.cfg.xml"), new ClassPathResource("hibernate.properties"));
         return sessionFactoryBean;
     }
+
     @Bean
     @Resource(name = "sessionFactory")
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         return new HibernateTransactionManager(sessionFactory);
     }
 }
