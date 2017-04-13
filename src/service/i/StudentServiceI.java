@@ -1,6 +1,8 @@
 package service.i;
 
 
+import team.jiangtao.entity.Student;
+
 public interface StudentServiceI {
     /**
      * 通过学生id和密码进行操作
