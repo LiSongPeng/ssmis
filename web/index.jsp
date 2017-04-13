@@ -33,20 +33,62 @@
     <main class="mdl-layout__content">
         <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
             <div class="page-content">
-                <!-- Your content goes here -->
-                Students content
+                <form action="#" style="margin-left: auto;margin-right: auto; width: 400px">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="stu_id">
+                        <label class="mdl-textfield__label" for="stu_id">学工号...</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                    </div>
+                    <br>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="password" id="stu_pw">
+                        <label class="mdl-textfield__label" for="stu_pw">密码...</label>
+                    </div>
+                    <br>
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                       登陆
+                    </button>
+                </form>
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
             <div class="page-content">
-                <!-- Your content goes here -->
-                Teachers content
+                <form action="#" style="margin-left: auto;margin-right: auto;width: 400px">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="tch">
+                        <label class="mdl-textfield__label" for="tch">教工号...</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                    </div>
+                    <br>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="password" id="tch_pw">
+                        <label class="mdl-textfield__label" for="tch_pw">密码...</label>
+                    </div>
+                    <br>
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        登陆
+                    </button>
+                </form>
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
             <div class="page-content">
-                <!-- Your content goes here -->
-                Admin content
+                <form action="#" style="margin-left: auto;margin-right: auto;width: 400px">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="adm">
+                        <label class="mdl-textfield__label" for="adm">管理员账号...</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                    </div>
+                    <br>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="password" id="adm_pw">
+                        <label class="mdl-textfield__label" for="adm_pw">密码...</label>
+                    </div>
+                    <br>
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        登陆
+                    </button>
+                </form>
             </div>
         </section>
     </main>
