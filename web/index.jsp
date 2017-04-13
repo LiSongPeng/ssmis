@@ -50,6 +50,9 @@
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float: left">
                             登陆
                         </button>
+                        <button class="mdl-button mdl-js-button mdl-button--accent">
+                            忘记密码
+                        </button>
                         <div style="float: right">
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="tch_rm">
                                 <input type="checkbox" id="tch_rm" class="mdl-switch__input">
@@ -79,6 +82,9 @@
                     <div>
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float:left">
                             登陆
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--accent">
+                            忘记密码
                         </button>
                         <div style="float:right">
                             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="adm_rm">
