@@ -1,0 +1,558 @@
+Index: src/entity/Teacher.java
+===================================================================
+--- src/entity/Teacher.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/entity/Teacher.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
+@@ -1,105 +0,0 @@
+-package entity;
+-
+-import javax.persistence.*;
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-/**
+- * Created by lihuibo on 17-4-4.
+- */
+-@Entity(name = "teacher")
+-public class Teacher {
+-    @Id
+-    @GeneratedValue
+-    private int id;
+-    @Column(unique = true, nullable = false, length = 16)
+-    private String tea_id;
+-    @Column(length = 10, nullable = false)
+-    private String name;
+-    @Column(nullable = false, length = 16)
+-    private String password;
+-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "teacher")
+-    private List<Course> courseList = new ArrayList<>();
+-    @Column(length = 11,nullable = false)
+-    private String phone;
+-    @Column(length = 40)
+-    private String email;
+-    @Column(nullable = false)
+-    private String address;
+-    private String imgUrl;
+-
+-    public Teacher() {
+-    }
+-
+-    public int getId() {
+-        return id;
+-    }
+-
+-    public void setId(int id) {
+-        this.id = id;
+-    }
+-
+-    public String getTea_id() {
+-        return tea_id;
+-    }
+-
+-    public void setTea_id(String tea_id) {
+-        this.tea_id = tea_id;
+-    }
+-
+-    public String getName() {
+-        return name;
+-    }
+-
+-    public void setName(String name) {
+-        this.name = name;
+-    }
+-
+-    public String getPassword() {
+-        return password;
+-    }
+-
+-    public void setPassword(String password) {
+-        this.password = password;
+-    }
+-
+-    public List<Course> getCourseList() {
+-        return courseList;
+-    }
+-
+-    public void setCourseList(List<Course> courseList) {
+-        this.courseList = courseList;
+-    }
+-
+-    public String getPhone() {
+-        return phone;
+-    }
+-
+-    public void setPhone(String phone) {
+-        this.phone = phone;
+-    }
+-
+-    public String getEmail() {
+-        return email;
+-    }
+-
+-    public void setEmail(String email) {
+-        this.email = email;
+-    }
+-
+-    public String getAddress() {
+-        return address;
+-    }
+-
+-    public void setAddress(String address) {
+-        this.address = address;
+-    }
+-
+-    public String getImgUrl() {
+-        return imgUrl;
+-    }
+-
+-    public void setImgUrl(String imgUrl) {
+-        this.imgUrl = imgUrl;
+-    }
+-}
+Index: src/entity/Course.java
+===================================================================
+--- src/entity/Course.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/entity/Course.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
+@@ -1,76 +0,0 @@
+-package entity;
+-
+-import org.hibernate.annotations.Type;
+-
+-import javax.persistence.*;
+-
+-/**
+- * Created by lihuibo on 17-4-4.
+- */
+-@Entity(name = "course")
+-public class Course {
+-    @Id
+-    @GeneratedValue
+-    private int id;
+-    @Column(length = 20,nullable = false)
+-    private String name;
+-    @Column(unique = true,nullable = false,length = 16)
+-    private String cou_id;
+-    @ManyToOne(fetch = FetchType.LAZY)
+-    private Teacher teacher;
+-    @OneToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+-    private TimeTable timeTable;
+-    @Type(type = "text")
+-    private String description="无";
+-
+-    public Course() {
+-    }
+-
+-    public int getId() {
+-        return id;
+-    }
+-
+-    public void setId(int id) {
+-        this.id = id;
+-    }
+-
+-    public String getName() {
+-        return name;
+-    }
+-
+-    public void setName(String name) {
+-        this.name = name;
+-    }
+-
+-    public String getCou_id() {
+-        return cou_id;
+-    }
+-
+-    public void setCou_id(String cou_id) {
+-        this.cou_id = cou_id;
+-    }
+-
+-    public Teacher getTeacher() {
+-        return teacher;
+-    }
+-
+-    public void setTeacher(Teacher teacher) {
+-        this.teacher = teacher;
+-    }
+-
+-    public TimeTable getTimeTable() {
+-        return timeTable;
+-    }
+-
+-    public void setTimeTable(TimeTable timeTable) {
+-        this.timeTable = timeTable;
+-    }
+-
+-    public String getDescription() {
+-        return description;
+-    }
+-
+-    public void setDescription(String description) {
+-        this.description = description;
+-    }
+-}
+Index: src/entity/Admin.java
+===================================================================
+--- src/entity/Admin.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/entity/Admin.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
+@@ -1,75 +0,0 @@
+-package entity;
+-
+-import javax.persistence.Column;
+-import javax.persistence.Entity;
+-import javax.persistence.GeneratedValue;
+-import javax.persistence.Id;
+-
+-/**
+- * Created by lihuibo on 17-4-4.
+- */
+-@Entity(name = "admin")
+-public class Admin {
+-    @Id
+-    @GeneratedValue
+-    private int id;
+-    @Column(length = 20,nullable = false)
+-    private String name;
+-    @Column(length = 20,nullable =false)
+-    private String password;
+-    @Column(length = 11)
+-    private String phone;
+-    private String email;
+-    private String address;
+-
+-    public Admin() {
+-    }
+-
+-    public int getId() {
+-        return id;
+-    }
+-
+-    public void setId(int id) {
+-        this.id = id;
+-    }
+-
+-    public String getName() {
+-        return name;
+-    }
+-
+-    public void setName(String name) {
+-        this.name = name;
+-    }
+-
+-    public String getPassword() {
+-        return password;
+-    }
+-
+-    public void setPassword(String password) {
+-        this.password = password;
+-    }
+-
+-    public String getPhone() {
+-        return phone;
+-    }
+-
+-    public void setPhone(String phone) {
+-        this.phone = phone;
+-    }
+-
+-    public String getEmail() {
+-        return email;
+-    }
+-
+-    public void setEmail(String email) {
+-        this.email = email;
+-    }
+-
+-    public String getAddress() {
+-        return address;
+-    }
+-
+-    public void setAddress(String address) {
+-        this.address = address;
+-    }
+-}
+Index: src/entity/Score.java
+===================================================================
+--- src/entity/Score.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/entity/Score.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
+@@ -1,79 +0,0 @@
+-package entity;
+-
+-
+-import org.hibernate.annotations.Type;
+-
+-import javax.persistence.*;
+-
+-/**
+- * Created by lihuibo on 17-4-4.
+- */
+-@Entity(name = "score")
+-public class Score {
+-    public static final int appeal_denied = 0;
+-    public static final int appeal_approved = 1;
+-    public static final int appeal_processing = 2;
+-    public static final int appeal_noAppeal = 3;
+-    @Id
+-    @GeneratedValue
+-    private int id;
+-    @Column(nullable = false)
+-    private String stu_id;
+-    @Column(nullable = false)
+-    private String cou_id;
+-    private int score = 0;
+-    private int appealStatus = appeal_noAppeal;
+-    @Type(type = "text")
+-    private String appealMessage = "无";
+-
+-    public Score() {
+-    }
+-
+-    public int getId() {
+-        return id;
+-    }
+-
+-    public void setId(int id) {
+-        this.id = id;
+-    }
+-
+-    public String getStu_id() {
+-        return stu_id;
+-    }
+-
+-    public void setStu_id(String stu_id) {
+-        this.stu_id = stu_id;
+-    }
+-
+-    public String getCou_id() {
+-        return cou_id;
+-    }
+-
+-    public void setCou_id(String cou_id) {
+-        this.cou_id = cou_id;
+-    }
+-
+-    public int getScore() {
+-        return score;
+-    }
+-
+-    public void setScore(int score) {
+-        this.score = score;
+-    }
+-
+-    public int getAppealStatus() {
+-        return appealStatus;
+-    }
+-
+-    public void setAppealStatus(int appealStatus) {
+-        this.appealStatus = appealStatus;
+-    }
+-
+-    public String getAppealMessage() {
+-        return appealMessage;
+-    }
+-
+-    public void setAppealMessage(String appealMessage) {
+-        this.appealMessage = appealMessage;
+-    }
+-}
+Index: src/entity/Student.java
+===================================================================
+--- src/entity/Student.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/entity/Student.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
+@@ -1,120 +0,0 @@
+-package entity;
+-
+-
+-import javax.persistence.*;
+-import java.util.ArrayList;
+-import java.util.Date;
+-import java.util.List;
+-
+-@Entity(name = "student")
+-@NamedQueries({
+-        @NamedQuery(name = "queryStudentByStuIdAndPass", query = "select stu from student stu where stu.stu_id=?1 and stu.password=?2")
+-})
+-public class Student {
+-    @Id
+-    @GeneratedValue
+-    private int id;
+-    @Column(unique = true, nullable = false, length = 16)
+-    private String stu_id;
+-    @Column(length = 20, nullable = false)
+-    private String name;
+-    @Column(length = 20, nullable = false)
+-    private String password;
+-    @Column(length = 11,nullable = false)
+-    private String phone;
+-    @Column(length = 40)
+-    private String email;
+-    @Column(nullable = false)
+-    private String address;
+-    @Column(nullable = false)
+-    private String imgUrl;
+-    @Temporal(TemporalType.DATE)
+-    private Date birthday;
+-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+-    private List<Course> courseList = new ArrayList<>();
+-    private int grade;
+-    private int clazz;
+-
+-    public Student() {
+-    }
+-
+-    public int getId() {
+-        return id;
+-    }
+-
+-    public void setId(int id) {
+-        this.id = id;
+-    }
+-
+-    public String getPassword() {
+-        return password;
+-    }
+-
+-    public void setPassword(String password) {
+-        this.password = password;
+-    }
+-
+-    public String getStu_id() {
+-        return stu_id;
+-    }
+-
+-    public void setStu_id(String stu_id) {
+-        this.stu_id = stu_id;
+-    }
+-
+-    public String getName() {
+-        return name;
+-    }
+-
+-    public void setName(String name) {
+-        this.name = name;
+-    }
+-
+-    public String getPhone() {
+-        return phone;
+-    }
+-
+-    public void setPhone(String phone) {
+-        this.phone = phone;
+-    }
+-
+-    public String getEmail() {
+-        return email;
+-    }
+-
+-    public void setEmail(String email) {
+-        this.email = email;
+-    }
+-
+-    public String getAddress() {
+-        return address;
+-    }
+-
+-    public void setAddress(String address) {
+-        this.address = address;
+-    }
+-
+-    public String getImgUrl() {
+-        return imgUrl;
+-    }
+-
+-    public void setImgUrl(String imgUrl) {
+-        this.imgUrl = imgUrl;
+-    }
+-
+-    public Date getBirthday() {
+-        return birthday;
+-    }
+-
+-    public void setBirthday(Date birthday) {
+-        this.birthday = birthday;
+-    }
+-
+-    public List<Course> getCourseList() {
+-        return courseList;
+-    }
+-
+-    public void setCourseList(List<Course> courseList) {
+-        this.courseList = courseList;
+-    }
+-}
+Index: src/entity/TimeTable.java
+===================================================================
+--- src/entity/TimeTable.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/entity/TimeTable.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
+@@ -1,73 +0,0 @@
+-package entity;
+-
+-
+-import javax.persistence.Entity;
+-import javax.persistence.GeneratedValue;
+-import javax.persistence.Id;
+-
+-/**
+- * Created by lihuibo on 17-4-4.
+- */
+-@Entity(name = "timetable")
+-public class TimeTable {
+-    public static final int first_class=1;
+-    public static final int second_class=2;
+-    public static final int third_class=3;
+-    public static final int fourth_class=4;
+-    @Id
+-    @GeneratedValue
+-    private int id;
+-    private int monday=0;
+-    private int tuesday=0;
+-    private int wednesday=0;
+-    private int thursday=0;
+-    private int friday=0;
+-
+-    public int getId() {
+-        return id;
+-    }
+-
+-    public void setId(int id) {
+-        this.id = id;
+-    }
+-
+-    public int getMonday() {
+-        return monday;
+-    }
+-
+-    public void setMonday(int monday) {
+-        this.monday = monday;
+-    }
+-
+-    public int getTuesday() {
+-        return tuesday;
+-    }
+-
+-    public void setTuesday(int tuesday) {
+-        this.tuesday = tuesday;
+-    }
+-
+-    public int getWednesday() {
+-        return wednesday;
+-    }
+-
+-    public void setWednesday(int wednesday) {
+-        this.wednesday = wednesday;
+-    }
+-
+-    public int getThursday() {
+-        return thursday;
+-    }
+-
+-    public void setThursday(int thursday) {
+-        this.thursday = thursday;
+-    }
+-
+-    public int getFriday() {
+-        return friday;
+-    }
+-
+-    public void setFriday(int friday) {
+-        this.friday = friday;
+-    }
+-}

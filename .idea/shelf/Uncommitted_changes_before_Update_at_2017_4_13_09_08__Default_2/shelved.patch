@@ -1,0 +1,348 @@
+Index: src/dao/i/CourseDaoI.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dao.i;\n\nimport entity.Course;\n\nimport java.util.List;\nimport java.util.Map;\n\n/**\n * Created by lihuibo on 4/5/17.\n */\npublic interface CourseDaoI {\n    /**\n     * 通过特定条件查找课程记录，并返回对应实体对象\n     * @param conditions 条件。key-字段，value-对应值。\n     *@param equalConditions 对应于每个键值对，是采用=匹配，还是采用like模糊匹配的标志,不传值默认为=\n     * @return 实体对象集合\n     */\n    List<Course> findCourseByConditions(Map<String,Object> conditions,boolean... equalConditions);\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/dao/i/CourseDaoI.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/dao/i/CourseDaoI.java	
+@@ -1,6 +1,6 @@
+ package dao.i;
+ 
+-import entity.Course;
++//import entity.Course;
+ 
+ import java.util.List;
+ import java.util.Map;
+Index: src/team/jiangtao/entity/StudentChedule.java
+===================================================================
+--- src/team/jiangtao/entity/StudentChedule.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/team/jiangtao/entity/StudentSchedule.java	
+@@ -6,9 +6,9 @@
+  * Created by tose on 2017/4/13.
+  */
+ @Entity
+-@Table(name = "student_chedule", schema = "ssmis", catalog = "")
+-@IdClass(StudentChedulePK.class)
+-public class StudentChedule {
++@Table(name = "student_schedule", schema = "ssmis", catalog = "")
++@IdClass(StudentSchedulePK.class)
++public class StudentSchedule {
+     private String dpm;
+     private String crs;
+     private String tch;
+@@ -84,7 +84,7 @@
+         if (this == o) return true;
+         if (o == null || getClass() != o.getClass()) return false;
+ 
+-        StudentChedule that = (StudentChedule) o;
++        StudentSchedule that = (StudentSchedule) o;
+ 
+         if (term != that.term) return false;
+         if (Double.compare(that.score, score) != 0) return false;
+Index: .idea/dataSources/0c131a1e-fe98-4285-96d5-762430691b35.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<dataSource name=\"ssmis@localhost\">\n  <database-model serializer=\"dbm\" rdbms=\"MYSQL\" format-version=\"4.1\">\n    <root id=\"1\"/>\n    <schema id=\"2\" parent=\"1\" name=\"ssmis\">\n      <Current>1</Current>\n      <Visible>1</Visible>\n    </schema>\n    <schema id=\"3\" parent=\"1\" name=\"information_schema\"/>\n    <schema id=\"4\" parent=\"1\" name=\"mysql\"/>\n    <schema id=\"5\" parent=\"1\" name=\"performance_schema\"/>\n    <schema id=\"6\" parent=\"1\" name=\"sys\"/>\n    <schema id=\"7\" parent=\"1\" name=\"mainschema\"/>\n    <table id=\"8\" parent=\"2\" name=\"appeal\"/>\n    <table id=\"9\" parent=\"2\" name=\"comment\"/>\n    <table id=\"10\" parent=\"2\" name=\"course\"/>\n    <table id=\"11\" parent=\"2\" name=\"course_schedule\"/>\n    <table id=\"12\" parent=\"2\" name=\"courses_table\"/>\n    <table id=\"13\" parent=\"2\" name=\"department\"/>\n    <table id=\"14\" parent=\"2\" name=\"exam\"/>\n    <table id=\"15\" parent=\"2\" name=\"student\"/>\n    <table id=\"16\" parent=\"2\" name=\"student_chedule\"/>\n    <table id=\"17\" parent=\"2\" name=\"teacher\"/>\n    <column id=\"18\" parent=\"8\" name=\"dpm_id\">\n      <Position>1</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"19\" parent=\"8\" name=\"crs_id\">\n      <Position>2</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"20\" parent=\"8\" name=\"tch_id\">\n      <Position>3</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"21\" parent=\"8\" name=\"stu_id\">\n      <Position>4</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"22\" parent=\"8\" name=\"date\">\n      <Position>5</Position>\n      <DataType>date|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"23\" parent=\"8\" name=\"content\">\n      <Position>6</Position>\n      <DataType>varchar(128)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"24\" parent=\"8\" name=\"response\">\n      <Position>7</Position>\n      <DataType>varchar(128)|0</DataType>\n    </column>\n    <column id=\"25\" parent=\"8\" name=\"status\">\n      <Position>8</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <index id=\"26\" parent=\"8\" name=\"appeal_course_crs_id_fk\">\n      <ColNames>crs_id</ColNames>\n    </index>\n    <index id=\"27\" parent=\"8\" name=\"appeal_student_stu_id_fk\">\n      <ColNames>stu_id</ColNames>\n    </index>\n    <index id=\"28\" parent=\"8\" name=\"appeal_teacher_tch_id_fk\">\n      <ColNames>tch_id</ColNames>\n    </index>\n    <key id=\"29\" parent=\"8\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>dpm_id\ncrs_id\ntch_id\nstu_id\ndate</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <foreign-key id=\"30\" parent=\"8\" name=\"appeal_department_dpm_id_fk\">\n      <ColNames>dpm_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>department</RefTableName>\n      <RefColNames>dpm_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"31\" parent=\"8\" name=\"appeal_course_crs_id_fk\">\n      <ColNames>crs_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>course</RefTableName>\n      <RefColNames>crs_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"32\" parent=\"8\" name=\"appeal_teacher_tch_id_fk\">\n      <ColNames>tch_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>teacher</RefTableName>\n      <RefColNames>tch_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"33\" parent=\"8\" name=\"appeal_student_stu_id_fk\">\n      <ColNames>stu_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>student</RefTableName>\n      <RefColNames>stu_id</RefColNames>\n    </foreign-key>\n    <column id=\"34\" parent=\"9\" name=\"dpm\">\n      <Position>1</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"35\" parent=\"9\" name=\"crs\">\n      <Position>2</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"36\" parent=\"9\" name=\"tch\">\n      <Position>3</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"37\" parent=\"9\" name=\"date\">\n      <Position>4</Position>\n      <DataType>date|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"38\" parent=\"9\" name=\"content\">\n      <Position>5</Position>\n      <DataType>varchar(128)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <index id=\"39\" parent=\"9\" name=\"comment_course_crs_id_fk\">\n      <ColNames>crs</ColNames>\n    </index>\n    <index id=\"40\" parent=\"9\" name=\"comment_teacher_tch_id_fk\">\n      <ColNames>tch</ColNames>\n    </index>\n    <key id=\"41\" parent=\"9\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>dpm\ntch\ncrs\ndate</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <foreign-key id=\"42\" parent=\"9\" name=\"comment_department_dpm_id_fk\">\n      <ColNames>dpm</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>department</RefTableName>\n      <RefColNames>dpm_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"43\" parent=\"9\" name=\"comment_course_crs_id_fk\">\n      <ColNames>crs</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>course</RefTableName>\n      <RefColNames>crs_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"44\" parent=\"9\" name=\"comment_teacher_tch_id_fk\">\n      <ColNames>tch</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>teacher</RefTableName>\n      <RefColNames>tch_id</RefColNames>\n    </foreign-key>\n    <column id=\"45\" parent=\"10\" name=\"crs_id\">\n      <Position>1</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"46\" parent=\"10\" name=\"crs_name\">\n      <Position>2</Position>\n      <DataType>varchar(64)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"47\" parent=\"10\" name=\"summarization\">\n      <Position>3</Position>\n      <Comment>简介</Comment>\n      <DataType>varchar(128)|0</DataType>\n    </column>\n    <index id=\"48\" parent=\"10\" name=\"course_crs_id_uindex\">\n      <ColNames>crs_id</ColNames>\n      <Unique>1</Unique>\n    </index>\n    <key id=\"49\" parent=\"10\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>crs_id</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <key id=\"50\" parent=\"10\" name=\"course_crs_id_uindex\">\n      <ColNames>crs_id</ColNames>\n      <UnderlyingIndexName>course_crs_id_uindex</UnderlyingIndexName>\n    </key>\n    <column id=\"51\" parent=\"11\" name=\"dpm_id\">\n      <Position>1</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"52\" parent=\"11\" name=\"crs_id\">\n      <Position>2</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"53\" parent=\"11\" name=\"tch_id\">\n      <Position>3</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"54\" parent=\"11\" name=\"type\">\n      <Position>4</Position>\n      <Comment>课程类型</Comment>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <column id=\"55\" parent=\"11\" name=\"preriods\">\n      <Position>5</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <column id=\"56\" parent=\"11\" name=\"credit\">\n      <Position>6</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"57\" parent=\"11\" name=\"term\">\n      <Position>7</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <index id=\"58\" parent=\"11\" name=\"course_schedule_course_crs_id_fk\">\n      <ColNames>crs_id</ColNames>\n    </index>\n    <index id=\"59\" parent=\"11\" name=\"course_schedule_teacher_tch_id_fk\">\n      <ColNames>tch_id</ColNames>\n    </index>\n    <key id=\"60\" parent=\"11\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>dpm_id\ntch_id\ncrs_id</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <foreign-key id=\"61\" parent=\"11\" name=\"course_schedule_department_dpm_id_fk\">\n      <ColNames>dpm_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>department</RefTableName>\n      <RefColNames>dpm_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"62\" parent=\"11\" name=\"course_schedule_course_crs_id_fk\">\n      <ColNames>crs_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>course</RefTableName>\n      <RefColNames>crs_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"63\" parent=\"11\" name=\"course_schedule_teacher_tch_id_fk\">\n      <ColNames>tch_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>teacher</RefTableName>\n      <RefColNames>tch_id</RefColNames>\n    </foreign-key>\n    <column id=\"64\" parent=\"12\" name=\"dpm_id\">\n      <Position>1</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"65\" parent=\"12\" name=\"crs_id\">\n      <Position>2</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"66\" parent=\"12\" name=\"tch_id\">\n      <Position>3</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"67\" parent=\"12\" name=\"weeks\">\n      <Position>4</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <column id=\"68\" parent=\"12\" name=\"off\">\n      <Position>5</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <index id=\"69\" parent=\"12\" name=\"courses_table_department_dpm_id_fk\">\n      <ColNames>dpm_id</ColNames>\n    </index>\n    <index id=\"70\" parent=\"12\" name=\"courses_table_teacher_tch_id_fk\">\n      <ColNames>tch_id</ColNames>\n    </index>\n    <key id=\"71\" parent=\"12\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>crs_id\ndpm_id\ntch_id\nweeks\noff</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <foreign-key id=\"72\" parent=\"12\" name=\"courses_table_department_dpm_id_fk\">\n      <ColNames>dpm_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>department</RefTableName>\n      <RefColNames>dpm_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"73\" parent=\"12\" name=\"courses_table_course_crs_id_fk\">\n      <ColNames>crs_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>course</RefTableName>\n      <RefColNames>crs_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"74\" parent=\"12\" name=\"courses_table_teacher_tch_id_fk\">\n      <ColNames>tch_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>teacher</RefTableName>\n      <RefColNames>tch_id</RefColNames>\n    </foreign-key>\n    <column id=\"75\" parent=\"13\" name=\"dpm_id\">\n      <Position>1</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"76\" parent=\"13\" name=\"dpm_name\">\n      <Position>2</Position>\n      <DataType>varchar(32)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <index id=\"77\" parent=\"13\" name=\"department_dpm_id_uindex\">\n      <ColNames>dpm_id</ColNames>\n      <Unique>1</Unique>\n    </index>\n    <index id=\"78\" parent=\"13\" name=\"department_dpm_name_uindex\">\n      <ColNames>dpm_name</ColNames>\n      <Unique>1</Unique>\n    </index>\n    <key id=\"79\" parent=\"13\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>dpm_id</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <key id=\"80\" parent=\"13\" name=\"department_dpm_id_uindex\">\n      <ColNames>dpm_id</ColNames>\n      <UnderlyingIndexName>department_dpm_id_uindex</UnderlyingIndexName>\n    </key>\n    <key id=\"81\" parent=\"13\" name=\"department_dpm_name_uindex\">\n      <ColNames>dpm_name</ColNames>\n      <UnderlyingIndexName>department_dpm_name_uindex</UnderlyingIndexName>\n    </key>\n    <column id=\"82\" parent=\"14\" name=\"dmp\">\n      <Position>1</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"83\" parent=\"14\" name=\"crs\">\n      <Position>2</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"84\" parent=\"14\" name=\"date\">\n      <Position>3</Position>\n      <DataType>date|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"85\" parent=\"14\" name=\"location\">\n      <Position>4</Position>\n      <DataType>varchar(64)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"86\" parent=\"14\" name=\"status\">\n      <Position>5</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <index id=\"87\" parent=\"14\" name=\"exam_course_crs_id_fk\">\n      <ColNames>crs</ColNames>\n    </index>\n    <key id=\"88\" parent=\"14\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>dmp\ncrs</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <foreign-key id=\"89\" parent=\"14\" name=\"exam_department_dpm_id_fk\">\n      <ColNames>dmp</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>department</RefTableName>\n      <RefColNames>dpm_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"90\" parent=\"14\" name=\"exam_course_crs_id_fk\">\n      <ColNames>crs</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>course</RefTableName>\n      <RefColNames>crs_id</RefColNames>\n    </foreign-key>\n    <column id=\"91\" parent=\"15\" name=\"stu_id\">\n      <Position>1</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"92\" parent=\"15\" name=\"name\">\n      <Position>2</Position>\n      <DataType>varchar(32)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"93\" parent=\"15\" name=\"password\">\n      <Position>3</Position>\n      <DataType>varchar(32)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"94\" parent=\"15\" name=\"email\">\n      <Position>4</Position>\n      <DataType>varchar(64)|0</DataType>\n    </column>\n    <column id=\"95\" parent=\"15\" name=\"address\">\n      <Position>5</Position>\n      <DataType>varchar(128)|0</DataType>\n    </column>\n    <column id=\"96\" parent=\"15\" name=\"phone\">\n      <Position>6</Position>\n      <DataType>varchar(13)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"97\" parent=\"15\" name=\"birthday\">\n      <Position>7</Position>\n      <DataType>date|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"98\" parent=\"15\" name=\"gender\">\n      <Position>8</Position>\n      <DataType>tinyint(1)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <column id=\"99\" parent=\"15\" name=\"grade\">\n      <Position>9</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;1&apos;</DefaultExpression>\n    </column>\n    <column id=\"100\" parent=\"15\" name=\"class_no\">\n      <Position>10</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;1&apos;</DefaultExpression>\n    </column>\n    <column id=\"101\" parent=\"15\" name=\"stu_status\">\n      <Position>11</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <DefaultExpression>&apos;1&apos;</DefaultExpression>\n    </column>\n    <index id=\"102\" parent=\"15\" name=\"student_stu_id_uindex\">\n      <ColNames>stu_id</ColNames>\n      <Unique>1</Unique>\n    </index>\n    <key id=\"103\" parent=\"15\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>stu_id</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <key id=\"104\" parent=\"15\" name=\"student_stu_id_uindex\">\n      <ColNames>stu_id</ColNames>\n      <UnderlyingIndexName>student_stu_id_uindex</UnderlyingIndexName>\n    </key>\n    <column id=\"105\" parent=\"16\" name=\"dpm\">\n      <Position>1</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"106\" parent=\"16\" name=\"crs\">\n      <Position>2</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"107\" parent=\"16\" name=\"tch\">\n      <Position>3</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"108\" parent=\"16\" name=\"stu\">\n      <Position>4</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"109\" parent=\"16\" name=\"term\">\n      <Position>5</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"110\" parent=\"16\" name=\"score\">\n      <Position>6</Position>\n      <DataType>float|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <index id=\"111\" parent=\"16\" name=\"student_chedule_course_crs_id_fk\">\n      <ColNames>crs</ColNames>\n    </index>\n    <index id=\"112\" parent=\"16\" name=\"student_chedule_student_stu_id_fk\">\n      <ColNames>stu</ColNames>\n    </index>\n    <index id=\"113\" parent=\"16\" name=\"student_chedule_teacher_tch_id_fk\">\n      <ColNames>tch</ColNames>\n    </index>\n    <key id=\"114\" parent=\"16\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>dpm\ncrs\ntch\nstu</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <foreign-key id=\"115\" parent=\"16\" name=\"student_chedule_department_dpm_id_fk\">\n      <ColNames>dpm</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>department</RefTableName>\n      <RefColNames>dpm_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"116\" parent=\"16\" name=\"student_chedule_course_crs_id_fk\">\n      <ColNames>crs</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>course</RefTableName>\n      <RefColNames>crs_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"117\" parent=\"16\" name=\"student_chedule_teacher_tch_id_fk\">\n      <ColNames>tch</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>teacher</RefTableName>\n      <RefColNames>tch_id</RefColNames>\n    </foreign-key>\n    <foreign-key id=\"118\" parent=\"16\" name=\"student_chedule_student_stu_id_fk\">\n      <ColNames>stu</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>student</RefTableName>\n      <RefColNames>stu_id</RefColNames>\n    </foreign-key>\n    <column id=\"119\" parent=\"17\" name=\"tch_id\">\n      <Position>1</Position>\n      <DataType>varchar(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"120\" parent=\"17\" name=\"name\">\n      <Position>2</Position>\n      <DataType>varchar(32)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"121\" parent=\"17\" name=\"password\">\n      <Position>3</Position>\n      <DataType>varchar(32)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"122\" parent=\"17\" name=\"email\">\n      <Position>4</Position>\n      <DataType>varchar(64)|0</DataType>\n    </column>\n    <column id=\"123\" parent=\"17\" name=\"address\">\n      <Position>5</Position>\n      <DataType>varchar(128)|0</DataType>\n    </column>\n    <column id=\"124\" parent=\"17\" name=\"phone\">\n      <Position>6</Position>\n      <DataType>varchar(13)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"125\" parent=\"17\" name=\"birthday\">\n      <Position>7</Position>\n      <DataType>date|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <column id=\"126\" parent=\"17\" name=\"gender\">\n      <Position>8</Position>\n      <DataType>tinyint(1)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;0&apos;</DefaultExpression>\n    </column>\n    <column id=\"127\" parent=\"17\" name=\"biography\">\n      <Position>9</Position>\n      <DataType>varchar(128)|0</DataType>\n    </column>\n    <column id=\"128\" parent=\"17\" name=\"tch_status\">\n      <Position>10</Position>\n      <DataType>tinyint(4)|0</DataType>\n      <NotNull>1</NotNull>\n      <DefaultExpression>&apos;1&apos;</DefaultExpression>\n    </column>\n    <column id=\"129\" parent=\"17\" name=\"dpm_id\">\n      <Position>11</Position>\n      <DataType>char(8)|0</DataType>\n      <NotNull>1</NotNull>\n    </column>\n    <index id=\"130\" parent=\"17\" name=\"teacher_department_dpm_id_fk\">\n      <ColNames>dpm_id</ColNames>\n    </index>\n    <index id=\"131\" parent=\"17\" name=\"teacher_tch_id_uindex\">\n      <ColNames>tch_id</ColNames>\n      <Unique>1</Unique>\n    </index>\n    <key id=\"132\" parent=\"17\" name=\"PRIMARY\">\n      <NameSurrogate>1</NameSurrogate>\n      <ColNames>tch_id</ColNames>\n      <Primary>1</Primary>\n    </key>\n    <key id=\"133\" parent=\"17\" name=\"teacher_tch_id_uindex\">\n      <ColNames>tch_id</ColNames>\n      <UnderlyingIndexName>teacher_tch_id_uindex</UnderlyingIndexName>\n    </key>\n    <foreign-key id=\"134\" parent=\"17\" name=\"teacher_department_dpm_id_fk\">\n      <ColNames>dpm_id</ColNames>\n      <RefSchemaName>ssmis</RefSchemaName>\n      <RefTableName>department</RefTableName>\n      <RefColNames>dpm_id</RefColNames>\n    </foreign-key>\n  </database-model>\n</dataSource>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/dataSources/0c131a1e-fe98-4285-96d5-762430691b35.xml	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ .idea/dataSources/0c131a1e-fe98-4285-96d5-762430691b35.xml	
+@@ -19,7 +19,7 @@
+     <table id="13" parent="2" name="department"/>
+     <table id="14" parent="2" name="exam"/>
+     <table id="15" parent="2" name="student"/>
+-    <table id="16" parent="2" name="student_chedule"/>
++    <table id="16" parent="2" name="student_schedule"/>
+     <table id="17" parent="2" name="teacher"/>
+     <column id="18" parent="8" name="dpm_id">
+       <Position>1</Position>
+Index: src/team/jiangtao/entity/StudentChedulePK.java
+===================================================================
+--- src/team/jiangtao/entity/StudentChedulePK.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/team/jiangtao/entity/StudentSchedulePK.java	
+@@ -7,7 +7,7 @@
+ /**
+  * Created by tose on 2017/4/13.
+  */
+-public class StudentChedulePK implements Serializable {
++public class StudentSchedulePK implements Serializable {
+     private String dpm;
+     private String crs;
+     private String tch;
+@@ -58,7 +58,7 @@
+         if (this == o) return true;
+         if (o == null || getClass() != o.getClass()) return false;
+ 
+-        StudentChedulePK that = (StudentChedulePK) o;
++        StudentSchedulePK that = (StudentSchedulePK) o;
+ 
+         if (dpm != null ? !dpm.equals(that.dpm) : that.dpm != null) return false;
+         if (crs != null ? !crs.equals(that.crs) : that.crs != null) return false;
+Index: ssmis.sql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>CREATE DATABASE  IF NOT EXISTS `ssmis` /*!40100 DEFAULT CHARACTER SET latin1 */;\nUSE `ssmis`;\n-- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)\n--\n-- Host: 127.0.0.1    Database: ssmis\n-- ------------------------------------------------------\n-- Server version\t5.7.17\n\n/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\n/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;\n/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;\n/*!40101 SET NAMES utf8 */;\n/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;\n/*!40103 SET TIME_ZONE='+00:00' */;\n/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;\n/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;\n/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;\n\n--\n-- Table structure for table `appeal`\n--\n\nDROP TABLE IF EXISTS `appeal`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `appeal` (\n  `dpm_id` char(8) NOT NULL,\n  `crs_id` char(8) NOT NULL,\n  `tch_id` char(8) NOT NULL,\n  `stu_id` char(8) NOT NULL,\n  `date` date NOT NULL,\n  `content` varchar(128) NOT NULL,\n  `response` varchar(128) DEFAULT NULL,\n  `status` tinyint(4) NOT NULL DEFAULT '0',\n  PRIMARY KEY (`dpm_id`,`crs_id`,`tch_id`,`stu_id`,`date`),\n  KEY `appeal_student_stu_id_fk` (`stu_id`),\n  KEY `appeal_teacher_tch_id_fk` (`tch_id`),\n  KEY `appeal_course_crs_id_fk` (`crs_id`),\n  CONSTRAINT `appeal_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),\n  CONSTRAINT `appeal_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`),\n  CONSTRAINT `appeal_student_stu_id_fk` FOREIGN KEY (`stu_id`) REFERENCES `student` (`stu_id`),\n  CONSTRAINT `appeal_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `teacher` (`tch_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `appeal`\n--\n\nLOCK TABLES `appeal` WRITE;\n/*!40000 ALTER TABLE `appeal` DISABLE KEYS */;\n/*!40000 ALTER TABLE `appeal` ENABLE KEYS */;\nUNLOCK TABLES;\n\n--\n-- Table structure for table `comment`\n--\n\nDROP TABLE IF EXISTS `comment`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `comment` (\n  `dpm` char(8) NOT NULL,\n  `crs` char(8) NOT NULL,\n  `tch` char(8) NOT NULL,\n  `date` date NOT NULL,\n  `content` varchar(128) NOT NULL,\n  PRIMARY KEY (`dpm`,`tch`,`crs`,`date`),\n  KEY `comment_teacher_tch_id_fk` (`tch`),\n  KEY `comment_course_crs_id_fk` (`crs`),\n  CONSTRAINT `comment_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),\n  CONSTRAINT `comment_department_dpm_id_fk` FOREIGN KEY (`dpm`) REFERENCES `department` (`dpm_id`),\n  CONSTRAINT `comment_teacher_tch_id_fk` FOREIGN KEY (`tch`) REFERENCES `teacher` (`tch_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `comment`\n--\n\nLOCK TABLES `comment` WRITE;\n/*!40000 ALTER TABLE `comment` DISABLE KEYS */;\n/*!40000 ALTER TABLE `comment` ENABLE KEYS */;\nUNLOCK TABLES;\n\n--\n-- Table structure for table `course`\n--\n\nDROP TABLE IF EXISTS `course`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `course` (\n  `crs_id` char(8) NOT NULL,\n  `crs_name` varchar(64) NOT NULL,\n  `summarization` varchar(128) DEFAULT NULL COMMENT '简介',\n  PRIMARY KEY (`crs_id`),\n  UNIQUE KEY `course_crs_id_uindex` (`crs_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `course`\n--\n\nLOCK TABLES `course` WRITE;\n/*!40000 ALTER TABLE `course` DISABLE KEYS */;\n/*!40000 ALTER TABLE `course` ENABLE KEYS */;\nUNLOCK TABLES;\n\n--\n-- Table structure for table `course_schedule`\n--\n\nDROP TABLE IF EXISTS `course_schedule`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `course_schedule` (\n  `dpm_id` char(8) NOT NULL,\n  `crs_id` char(8) NOT NULL,\n  `tch_id` char(8) NOT NULL,\n  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '课程类型',\n  `preriods` tinyint(4) NOT NULL DEFAULT '0',\n  `credit` tinyint(4) NOT NULL,\n  `term` tinyint(4) NOT NULL DEFAULT '0',\n  PRIMARY KEY (`dpm_id`,`tch_id`,`crs_id`),\n  KEY `course_schedule_course_crs_id_fk` (`crs_id`),\n  KEY `course_schedule_teacher_tch_id_fk` (`tch_id`),\n  CONSTRAINT `course_schedule_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),\n  CONSTRAINT `course_schedule_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`),\n  CONSTRAINT `course_schedule_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `teacher` (`tch_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `course_schedule`\n--\n\nLOCK TABLES `course_schedule` WRITE;\n/*!40000 ALTER TABLE `course_schedule` DISABLE KEYS */;\n/*!40000 ALTER TABLE `course_schedule` ENABLE KEYS */;\nUNLOCK TABLES;\n\n--\n-- Table structure for table `courses_table`\n--\n\nDROP TABLE IF EXISTS `courses_table`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `courses_table` (\n  `dpm_id` char(8) NOT NULL,\n  `crs_id` char(8) NOT NULL,\n  `tch_id` char(8) NOT NULL,\n  `weeks` tinyint(4) NOT NULL DEFAULT '0',\n  `off` tinyint(4) NOT NULL DEFAULT '0',\n  PRIMARY KEY (`crs_id`,`dpm_id`,`tch_id`,`weeks`,`off`),\n  KEY `courses_table_teacher_tch_id_fk` (`tch_id`),\n  KEY `courses_table_department_dpm_id_fk` (`dpm_id`),\n  CONSTRAINT `courses_table_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),\n  CONSTRAINT `courses_table_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`),\n  CONSTRAINT `courses_table_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `teacher` (`tch_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `courses_table`\n--\n\nLOCK TABLES `courses_table` WRITE;\n/*!40000 ALTER TABLE `courses_table` DISABLE KEYS */;\n/*!40000 ALTER TABLE `courses_table` ENABLE KEYS */;\nUNLOCK TABLES;\n\n--\n-- Table structure for table `department`\n--\n\nDROP TABLE IF EXISTS `department`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `department` (\n  `dpm_id` char(8) NOT NULL,\n  `dpm_name` varchar(32) NOT NULL,\n  PRIMARY KEY (`dpm_id`),\n  UNIQUE KEY `department_dpm_id_uindex` (`dpm_id`),\n  UNIQUE KEY `department_dpm_name_uindex` (`dpm_name`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `department`\n--\n\nLOCK TABLES `department` WRITE;\n/*!40000 ALTER TABLE `department` DISABLE KEYS */;\n/*!40000 ALTER TABLE `department` ENABLE KEYS */;\nUNLOCK TABLES;\n\n--\n-- Table structure for table `exam`\n--\n\nDROP TABLE IF EXISTS `exam`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `exam` (\n  `dmp` char(8) NOT NULL,\n  `crs` char(8) NOT NULL,\n  `date` date NOT NULL,\n  `location` varchar(64) NOT NULL,\n  `status` tinyint(4) NOT NULL DEFAULT '0',\n  PRIMARY KEY (`dmp`,`crs`),\n  KEY `exam_course_crs_id_fk` (`crs`),\n  CONSTRAINT `exam_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),\n  CONSTRAINT `exam_department_dpm_id_fk` FOREIGN KEY (`dmp`) REFERENCES `department` (`dpm_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `exam`\n--\n\nLOCK TABLES `exam` WRITE;\n/*!40000 ALTER TABLE `exam` DISABLE KEYS */;\n/*!40000 ALTER TABLE `exam` ENABLE KEYS */;\nUNLOCK TABLES;\n\n--\n-- Table structure for table `student`\n--\n\nDROP TABLE IF EXISTS `student`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `student` (\n  `stu_id` char(8) NOT NULL,\n  `name` varchar(32) NOT NULL,\n  `password` varchar(32) NOT NULL,\n  `email` varchar(64) DEFAULT NULL,\n  `address` varchar(128) DEFAULT NULL,\n  `phone` varchar(13) NOT NULL,\n  `birthday` date NOT NULL,\n  `gender` tinyint(1) NOT NULL DEFAULT '0',\n  `grade` tinyint(4) NOT NULL DEFAULT '1',\n  `class_no` tinyint(4) NOT NULL DEFAULT '1',\n  `stu_status` tinyint(4) DEFAULT '1',\n  PRIMARY KEY (`stu_id`),\n  UNIQUE KEY `student_stu_id_uindex` (`stu_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `student`\n--\n\nLOCK TABLES `student` WRITE;\n/*!40000 ALTER TABLE `student` DISABLE KEYS */;\n/*!40000 ALTER TABLE `student` ENABLE KEYS */;\nUNLOCK TABLES;\n\n--\n-- Table structure for table `student_chedule`\n--\n\nDROP TABLE IF EXISTS `student_chedule`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `student_chedule` (\n  `dpm` char(8) NOT NULL,\n  `crs` char(8) NOT NULL,\n  `tch` char(8) NOT NULL,\n  `stu` char(8) NOT NULL,\n  `term` tinyint(4) NOT NULL,\n  `score` float NOT NULL DEFAULT '0',\n  PRIMARY KEY (`dpm`,`crs`,`tch`,`stu`),\n  KEY `student_chedule_teacher_tch_id_fk` (`tch`),\n  KEY `student_chedule_student_stu_id_fk` (`stu`),\n  KEY `student_chedule_course_crs_id_fk` (`crs`),\n  CONSTRAINT `student_chedule_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),\n  CONSTRAINT `student_chedule_department_dpm_id_fk` FOREIGN KEY (`dpm`) REFERENCES `department` (`dpm_id`),\n  CONSTRAINT `student_chedule_student_stu_id_fk` FOREIGN KEY (`stu`) REFERENCES `student` (`stu_id`),\n  CONSTRAINT `student_chedule_teacher_tch_id_fk` FOREIGN KEY (`tch`) REFERENCES `teacher` (`tch_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `student_chedule`\n--\n\nLOCK TABLES `student_chedule` WRITE;\n/*!40000 ALTER TABLE `student_chedule` DISABLE KEYS */;\n/*!40000 ALTER TABLE `student_chedule` ENABLE KEYS */;\nUNLOCK TABLES;\n\n--\n-- Table structure for table `teacher`\n--\n\nDROP TABLE IF EXISTS `teacher`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\n/*!40101 SET character_set_client = utf8 */;\nCREATE TABLE `teacher` (\n  `tch_id` varchar(8) NOT NULL,\n  `name` varchar(32) NOT NULL,\n  `password` varchar(32) NOT NULL,\n  `email` varchar(64) DEFAULT NULL,\n  `address` varchar(128) DEFAULT NULL,\n  `phone` varchar(13) NOT NULL,\n  `birthday` date NOT NULL,\n  `gender` tinyint(1) NOT NULL DEFAULT '0',\n  `biography` varchar(128) DEFAULT NULL,\n  `tch_status` tinyint(4) NOT NULL DEFAULT '1',\n  `dpm_id` char(8) NOT NULL,\n  PRIMARY KEY (`tch_id`),\n  UNIQUE KEY `teacher_tch_id_uindex` (`tch_id`),\n  KEY `teacher_department_dpm_id_fk` (`dpm_id`),\n  CONSTRAINT `teacher_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)\n) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n-- Dumping data for table `teacher`\n--\n\nLOCK TABLES `teacher` WRITE;\n/*!40000 ALTER TABLE `teacher` DISABLE KEYS */;\n/*!40000 ALTER TABLE `teacher` ENABLE KEYS */;\nUNLOCK TABLES;\n/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;\n\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;\n/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;\n/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;\n/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;\n/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;\n\n-- Dump completed on 2017-04-12 19:26:35\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ssmis.sql	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ ssmis.sql	
+@@ -44,15 +44,6 @@
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+---
+--- Dumping data for table `appeal`
+---
+-
+-LOCK TABLES `appeal` WRITE;
+-/*!40000 ALTER TABLE `appeal` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `appeal` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+ --
+ -- Table structure for table `comment`
+ --
+@@ -75,15 +66,6 @@
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+---
+--- Dumping data for table `comment`
+---
+-
+-LOCK TABLES `comment` WRITE;
+-/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+ --
+ -- Table structure for table `course`
+ --
+@@ -100,15 +82,6 @@
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+---
+--- Dumping data for table `course`
+---
+-
+-LOCK TABLES `course` WRITE;
+-/*!40000 ALTER TABLE `course` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `course` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+ --
+ -- Table structure for table `course_schedule`
+ --
+@@ -133,15 +106,6 @@
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+---
+--- Dumping data for table `course_schedule`
+---
+-
+-LOCK TABLES `course_schedule` WRITE;
+-/*!40000 ALTER TABLE `course_schedule` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `course_schedule` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+ --
+ -- Table structure for table `courses_table`
+ --
+@@ -164,15 +128,6 @@
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+---
+--- Dumping data for table `courses_table`
+---
+-
+-LOCK TABLES `courses_table` WRITE;
+-/*!40000 ALTER TABLE `courses_table` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `courses_table` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+ --
+ -- Table structure for table `department`
+ --
+@@ -189,15 +144,6 @@
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+---
+--- Dumping data for table `department`
+---
+-
+-LOCK TABLES `department` WRITE;
+-/*!40000 ALTER TABLE `department` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `department` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+ --
+ -- Table structure for table `exam`
+ --
+@@ -218,15 +164,6 @@
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+---
+--- Dumping data for table `exam`
+---
+-
+-LOCK TABLES `exam` WRITE;
+-/*!40000 ALTER TABLE `exam` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `exam` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+ --
+ -- Table structure for table `student`
+ --
+@@ -252,22 +189,13 @@
+ /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+ --
+--- Dumping data for table `student`
++-- Table structure for table `student_schedule`
+ --
+ 
+-LOCK TABLES `student` WRITE;
+-/*!40000 ALTER TABLE `student` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `student` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+---
+--- Table structure for table `student_chedule`
+---
+-
+-DROP TABLE IF EXISTS `student_chedule`;
++DROP TABLE IF EXISTS `student_schedule`;
+ /*!40101 SET @saved_cs_client     = @@character_set_client */;
+ /*!40101 SET character_set_client = utf8 */;
+-CREATE TABLE `student_chedule` (
++CREATE TABLE `student_schedule` (
+   `dpm` char(8) NOT NULL,
+   `crs` char(8) NOT NULL,
+   `tch` char(8) NOT NULL,
+@@ -285,15 +213,6 @@
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ /*!40101 SET character_set_client = @saved_cs_client */;
+ 
+---
+--- Dumping data for table `student_chedule`
+---
+-
+-LOCK TABLES `student_chedule` WRITE;
+-/*!40000 ALTER TABLE `student_chedule` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `student_chedule` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+ --
+ -- Table structure for table `teacher`
+ --
+@@ -319,15 +238,6 @@
+   CONSTRAINT `teacher_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ /*!40101 SET character_set_client = @saved_cs_client */;
+-
+---
+--- Dumping data for table `teacher`
+---
+-
+-LOCK TABLES `teacher` WRITE;
+-/*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
+-/*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
+-UNLOCK TABLES;
+ /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+ 
+ /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+@@ -338,4 +248,4 @@
+ /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+ 
+--- Dump completed on 2017-04-12 19:26:35
++-- Dump completed on 2017-04-13  9:01:24
+Index: src/team/jiangtao/entity/CourseSchedule.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package team.jiangtao.entity;\n\nimport javax.persistence.*;\n\n/**\n * Created by tose on 2017/4/13.\n */\n@Entity\n@Table(name = \"course_schedule\", schema = \"ssmis\", catalog = \"\")\n@IdClass(CourseSchedulePK.class)\npublic class CourseSchedule {\n    private String dpmId;\n    private String crsId;\n    private String tchId;\n    private byte type;\n    private byte preriods;\n    private byte credit;\n    private byte term;\n\n    @Id\n    @Column(name = \"dpm_id\", nullable = false, length = 8)\n    public String getDpmId() {\n        return dpmId;\n    }\n\n    public void setDpmId(String dpmId) {\n        this.dpmId = dpmId;\n    }\n\n    @Id\n    @Column(name = \"crs_id\", nullable = false, length = 8)\n    public String getCrsId() {\n        return crsId;\n    }\n\n    public void setCrsId(String crsId) {\n        this.crsId = crsId;\n    }\n\n    @Id\n    @Column(name = \"tch_id\", nullable = false, length = 8)\n    public String getTchId() {\n        return tchId;\n    }\n\n    public void setTchId(String tchId) {\n        this.tchId = tchId;\n    }\n\n    @Basic\n    @Column(name = \"type\", nullable = false)\n    public byte getType() {\n        return type;\n    }\n\n    public void setType(byte type) {\n        this.type = type;\n    }\n\n    @Basic\n    @Column(name = \"preriods\", nullable = false)\n    public byte getPreriods() {\n        return preriods;\n    }\n\n    public void setPreriods(byte preriods) {\n        this.preriods = preriods;\n    }\n\n    @Basic\n    @Column(name = \"credit\", nullable = false)\n    public byte getCredit() {\n        return credit;\n    }\n\n    public void setCredit(byte credit) {\n        this.credit = credit;\n    }\n\n    @Basic\n    @Column(name = \"term\", nullable = false)\n    public byte getTerm() {\n        return term;\n    }\n\n    public void setTerm(byte term) {\n        this.term = term;\n    }\n\n    @Override\n    public boolean equals(Object o) {\n        if (this == o) return true;\n        if (o == null || getClass() != o.getClass()) return false;\n\n        CourseSchedule that = (CourseSchedule) o;\n\n        if (type != that.type) return false;\n        if (preriods != that.preriods) return false;\n        if (credit != that.credit) return false;\n        if (term != that.term) return false;\n        if (dpmId != null ? !dpmId.equals(that.dpmId) : that.dpmId != null) return false;\n        if (crsId != null ? !crsId.equals(that.crsId) : that.crsId != null) return false;\n        if (tchId != null ? !tchId.equals(that.tchId) : that.tchId != null) return false;\n\n        return true;\n    }\n\n    @Override\n    public int hashCode() {\n        int result = dpmId != null ? dpmId.hashCode() : 0;\n        result = 31 * result + (crsId != null ? crsId.hashCode() : 0);\n        result = 31 * result + (tchId != null ? tchId.hashCode() : 0);\n        result = 31 * result + (int) type;\n        result = 31 * result + (int) preriods;\n        result = 31 * result + (int) credit;\n        result = 31 * result + (int) term;\n        return result;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/team/jiangtao/entity/CourseSchedule.java	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/team/jiangtao/entity/CourseSchedule.java	
+@@ -16,6 +16,7 @@
+     private byte preriods;
+     private byte credit;
+     private byte term;
++    private Course courseByCrsId;
+ 
+     @Id
+     @Column(name = "dpm_id", nullable = false, length = 8)
+@@ -116,4 +117,14 @@
+         result = 31 * result + (int) term;
+         return result;
+     }
++
++    @ManyToOne
++    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
++    public Course getCourseByCrsId() {
++        return courseByCrsId;
++    }
++
++    public void setCourseByCrsId(Course courseByCrsId) {
++        this.courseByCrsId = courseByCrsId;
++    }
+ }
+Index: src/hibernate.cfg.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE hibernate-configuration PUBLIC\n        \"-//Hibernate/Hibernate Configuration DTD 3.0//EN\"\n        \"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd\">\n<hibernate-configuration>\n    <session-factory>\n        <property name=\"hibernate.connection.provider_class\">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>\n        <property name=\"hibernate.connection.url\">jdbc:mysql://localhost:3306/ssmis</property>\n        <property name=\"connection.driver_class\">com.mysql.jdbc.Driver</property>\n        <property name=\"connection.username\">root</property>\n        <property name=\"connection.password\">jt1996515</property>\n        <property name=\"c3p0.min_size\">1</property>\n        <property name=\"c3p0.max_size\">30</property>\n        <property name=\"c3p0.time_out\">1800</property>\n        <property name=\"hibernate.current_session_context_class\">thread</property>\n        <property name=\"c3p0.max_statement\">50</property>\n        <property name=\"show_sql\">true</property>\n        <property name=\"format_sql\">true</property>\n        <property name=\"hibernate.dialect\">org.hibernate.dialect.MySQL5Dialect</property>\n        <property name=\"hbm2ddl.auto\">update</property>\n        <mapping class=\"entity.Student\"></mapping>\n        <mapping class=\"entity.Course\"></mapping>\n        <mapping class=\"entity.TimeTable\"></mapping>\n        <mapping class=\"entity.Teacher\"></mapping>\n        <mapping class=\"entity.Admin\"></mapping>\n        <mapping class=\"entity.Score\"></mapping>\n        <!-- new enity-->\n        <mapping class=\"team.jiangtao.entity.CourseEntity\"/>\n        <mapping class=\"team.jiangtao.entity.DepartmentEntity\"/>\n        <mapping class=\"team.jiangtao.entity.StudentEntity\"/>\n        <mapping class=\"team.jiangtao.entity.TeacherEntity\"/>\n        <mapping class=\"team.jiangtao.entity.Appeal\"/>\n        <mapping class=\"team.jiangtao.entity.Comment\"/>\n        <mapping class=\"team.jiangtao.entity.Course\"/>\n        <mapping class=\"team.jiangtao.entity.CourseSchedule\"/>\n        <mapping class=\"team.jiangtao.entity.CoursesTable\"/>\n        <mapping class=\"team.jiangtao.entity.Department\"/>\n        <mapping class=\"team.jiangtao.entity.Exam\"/>\n        <mapping class=\"team.jiangtao.entity.Student\"/>\n        <mapping class=\"team.jiangtao.entity.StudentChedule\"/>\n        <mapping class=\"team.jiangtao.entity.Teacher\"/>\n\n    </session-factory>\n</hibernate-configuration>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/hibernate.cfg.xml	(revision 216ab3705afedb85e4beedb7d29efb3302b80c7f)
++++ src/hibernate.cfg.xml	
+@@ -7,8 +7,6 @@
+         <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ssmis</property>
+         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+-        <property name="connection.username">root</property>
+-        <property name="connection.password">jt1996515</property>
+         <property name="c3p0.min_size">1</property>
+         <property name="c3p0.max_size">30</property>
+         <property name="c3p0.time_out">1800</property>
+@@ -18,17 +16,6 @@
+         <property name="format_sql">true</property>
+         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+         <property name="hbm2ddl.auto">update</property>
+-        <mapping class="entity.Student"></mapping>
+-        <mapping class="entity.Course"></mapping>
+-        <mapping class="entity.TimeTable"></mapping>
+-        <mapping class="entity.Teacher"></mapping>
+-        <mapping class="entity.Admin"></mapping>
+-        <mapping class="entity.Score"></mapping>
+-        <!-- new enity-->
+-        <mapping class="team.jiangtao.entity.CourseEntity"/>
+-        <mapping class="team.jiangtao.entity.DepartmentEntity"/>
+-        <mapping class="team.jiangtao.entity.StudentEntity"/>
+-        <mapping class="team.jiangtao.entity.TeacherEntity"/>
+         <mapping class="team.jiangtao.entity.Appeal"/>
+         <mapping class="team.jiangtao.entity.Comment"/>
+         <mapping class="team.jiangtao.entity.Course"/>
+@@ -37,8 +24,9 @@
+         <mapping class="team.jiangtao.entity.Department"/>
+         <mapping class="team.jiangtao.entity.Exam"/>
+         <mapping class="team.jiangtao.entity.Student"/>
+-        <mapping class="team.jiangtao.entity.StudentChedule"/>
++        <mapping class="team.jiangtao.entity.StudentSchedule"/>
+         <mapping class="team.jiangtao.entity.Teacher"/>
+ 
++
+     </session-factory>
+ </hibernate-configuration>
+\ No newline at end of file
