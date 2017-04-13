@@ -9,7 +9,6 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.StudentServiceI;
-import team.jiangtao.entity.Student;
 
 import javax.annotation.Resource;
 import java.util.Map;

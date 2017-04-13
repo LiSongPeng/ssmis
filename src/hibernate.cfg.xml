@@ -23,9 +23,9 @@
         <mapping class="team.jiangtao.entity.CoursesTable"/>
         <mapping class="team.jiangtao.entity.Department"/>
         <mapping class="team.jiangtao.entity.Exam"/>
-        <mapping class="team.jiangtao.entity.Student"/>
         <mapping class="team.jiangtao.entity.StudentSchedule"/>
         <mapping class="team.jiangtao.entity.Teacher"/>
+        <mapping class="team.jiangtao.entity.Student"/>
 
 
     </session-factory>

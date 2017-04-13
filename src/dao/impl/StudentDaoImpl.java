@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import team.jiangtao.entity.Student;
 
 import javax.annotation.Resource;
 import java.util.List;
