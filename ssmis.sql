@@ -45,15 +45,6 @@ CREATE TABLE `appeal` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `appeal`
---
-
-LOCK TABLES `appeal` WRITE;
-/*!40000 ALTER TABLE `appeal` DISABLE KEYS */;
-/*!40000 ALTER TABLE `appeal` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `comment`
 --
 
@@ -76,15 +67,6 @@ CREATE TABLE `comment` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `comment`
---
-
-LOCK TABLES `comment` WRITE;
-/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `course`
 --
 
@@ -99,15 +81,6 @@ CREATE TABLE `course` (
   UNIQUE KEY `course_crs_id_uindex` (`crs_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `course`
---
-
-LOCK TABLES `course` WRITE;
-/*!40000 ALTER TABLE `course` DISABLE KEYS */;
-/*!40000 ALTER TABLE `course` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `course_schedule`
@@ -134,15 +107,6 @@ CREATE TABLE `course_schedule` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `course_schedule`
---
-
-LOCK TABLES `course_schedule` WRITE;
-/*!40000 ALTER TABLE `course_schedule` DISABLE KEYS */;
-/*!40000 ALTER TABLE `course_schedule` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `courses_table`
 --
 
@@ -165,15 +129,6 @@ CREATE TABLE `courses_table` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `courses_table`
---
-
-LOCK TABLES `courses_table` WRITE;
-/*!40000 ALTER TABLE `courses_table` DISABLE KEYS */;
-/*!40000 ALTER TABLE `courses_table` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `department`
 --
 
@@ -188,15 +143,6 @@ CREATE TABLE `department` (
   UNIQUE KEY `department_dpm_name_uindex` (`dpm_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `department`
---
-
-LOCK TABLES `department` WRITE;
-/*!40000 ALTER TABLE `department` DISABLE KEYS */;
-/*!40000 ALTER TABLE `department` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `exam`
@@ -217,15 +163,6 @@ CREATE TABLE `exam` (
   CONSTRAINT `exam_department_dpm_id_fk` FOREIGN KEY (`dmp`) REFERENCES `department` (`dpm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `exam`
---
-
-LOCK TABLES `exam` WRITE;
-/*!40000 ALTER TABLE `exam` DISABLE KEYS */;
-/*!40000 ALTER TABLE `exam` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `student`
@@ -252,22 +189,13 @@ CREATE TABLE `student` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `student`
+-- Table structure for table `student_schedule`
 --
 
-LOCK TABLES `student` WRITE;
-/*!40000 ALTER TABLE `student` DISABLE KEYS */;
-/*!40000 ALTER TABLE `student` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `student_chedule`
---
-
-DROP TABLE IF EXISTS `student_chedule`;
+DROP TABLE IF EXISTS `student_schedule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `student_chedule` (
+CREATE TABLE `student_schedule` (
   `dpm` char(8) NOT NULL,
   `crs` char(8) NOT NULL,
   `tch` char(8) NOT NULL,
@@ -284,15 +212,6 @@ CREATE TABLE `student_chedule` (
   CONSTRAINT `student_chedule_teacher_tch_id_fk` FOREIGN KEY (`tch`) REFERENCES `teacher` (`tch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `student_chedule`
---
-
-LOCK TABLES `student_chedule` WRITE;
-/*!40000 ALTER TABLE `student_chedule` DISABLE KEYS */;
-/*!40000 ALTER TABLE `student_chedule` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `teacher`
@@ -319,15 +238,6 @@ CREATE TABLE `teacher` (
   CONSTRAINT `teacher_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `teacher`
---
-
-LOCK TABLES `teacher` WRITE;
-/*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
-/*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -338,4 +248,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-12 19:26:35
+-- Dump completed on 2017-04-13  9:01:24

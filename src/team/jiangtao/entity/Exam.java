@@ -94,7 +94,7 @@ public class Exam {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dmp", referencedColumnName = "dpm_id", nullable = false)
+    @JoinColumn(name = "dmp", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
     public Department getDepartmentByDmp() {
         return departmentByDmp;
     }
@@ -104,7 +104,7 @@ public class Exam {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }

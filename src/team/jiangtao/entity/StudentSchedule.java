@@ -6,9 +6,9 @@ import javax.persistence.*;
  * Created by tose on 2017/4/13.
  */
 @Entity
-@Table(name = "student_chedule", schema = "ssmis", catalog = "")
-@IdClass(StudentChedulePK.class)
-public class StudentChedule {
+@Table(name = "student_schedule", schema = "ssmis", catalog = "")
+@IdClass(StudentSchedulePK.class)
+public class StudentSchedule {
     private String dpm;
     private String crs;
     private String tch;
@@ -84,7 +84,7 @@ public class StudentChedule {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StudentChedule that = (StudentChedule) o;
+        StudentSchedule that = (StudentSchedule) o;
 
         if (term != that.term) return false;
         if (Double.compare(that.score, score) != 0) return false;
@@ -111,7 +111,7 @@ public class StudentChedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false)
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
     public Department getDepartmentByDpm() {
         return departmentByDpm;
     }
@@ -121,7 +121,7 @@ public class StudentChedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }
@@ -131,7 +131,7 @@ public class StudentChedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false)
+    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false,insertable = false,updatable = false)
     public Student getStudentByStu() {
         return studentByStu;
     }

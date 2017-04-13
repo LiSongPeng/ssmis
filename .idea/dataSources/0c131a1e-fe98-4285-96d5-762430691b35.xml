@@ -19,7 +19,7 @@
     <table id="13" parent="2" name="department"/>
     <table id="14" parent="2" name="exam"/>
     <table id="15" parent="2" name="student"/>
-    <table id="16" parent="2" name="student_chedule"/>
+    <table id="16" parent="2" name="student_schedule"/>
     <table id="17" parent="2" name="teacher"/>
     <column id="18" parent="8" name="dpm_id">
       <Position>1</Position>

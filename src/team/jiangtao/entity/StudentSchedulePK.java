@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by tose on 2017/4/13.
  */
-public class StudentChedulePK implements Serializable {
+public class StudentSchedulePK implements Serializable {
     private String dpm;
     private String crs;
     private String tch;
@@ -58,7 +58,7 @@ public class StudentChedulePK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StudentChedulePK that = (StudentChedulePK) o;
+        StudentSchedulePK that = (StudentSchedulePK) o;
 
         if (dpm != null ? !dpm.equals(that.dpm) : that.dpm != null) return false;
         if (crs != null ? !crs.equals(that.crs) : that.crs != null) return false;

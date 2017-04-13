@@ -16,6 +16,7 @@ public class CourseSchedule {
     private byte preriods;
     private byte credit;
     private byte term;
+    private Course courseByCrsId;
 
     @Id
     @Column(name = "dpm_id", nullable = false, length = 8)
@@ -115,5 +116,15 @@ public class CourseSchedule {
         result = 31 * result + (int) credit;
         result = 31 * result + (int) term;
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    public Course getCourseByCrsId() {
+        return courseByCrsId;
+    }
+
+    public void setCourseByCrsId(Course courseByCrsId) {
+        this.courseByCrsId = courseByCrsId;
     }
 }

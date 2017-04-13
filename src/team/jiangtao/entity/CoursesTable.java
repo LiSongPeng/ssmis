@@ -93,7 +93,7 @@ public class CoursesTable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
