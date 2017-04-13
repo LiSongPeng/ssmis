@@ -8,7 +8,7 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ssmis</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.username">root</property>
-        <property name="hibernate.connection.password">jt1996515</property>
+        <property name="connection.password">jt1996515</property>
         <property name="c3p0.min_size">1</property>
         <property name="c3p0.max_size">30</property>
         <property name="c3p0.time_out">1800</property>
@@ -29,6 +29,16 @@
         <mapping class="team.jiangtao.entity.DepartmentEntity"/>
         <mapping class="team.jiangtao.entity.StudentEntity"/>
         <mapping class="team.jiangtao.entity.TeacherEntity"/>
+        <mapping class="team.jiangtao.entity.Appeal"/>
+        <mapping class="team.jiangtao.entity.Comment"/>
+        <mapping class="team.jiangtao.entity.Course"/>
+        <mapping class="team.jiangtao.entity.CourseSchedule"/>
+        <mapping class="team.jiangtao.entity.CoursesTable"/>
+        <mapping class="team.jiangtao.entity.Department"/>
+        <mapping class="team.jiangtao.entity.Exam"/>
+        <mapping class="team.jiangtao.entity.Student"/>
+        <mapping class="team.jiangtao.entity.StudentChedule"/>
+        <mapping class="team.jiangtao.entity.Teacher"/>
 
     </session-factory>
 </hibernate-configuration>

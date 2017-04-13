@@ -1,14 +1,16 @@
 package team.jiangtao.entity;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
 
 /**
- * Created by tose on 2017/4/12.
+ * Created by tose on 2017/4/13.
  */
 @Entity
-@Table(name = "student", schema = "ssmis", catalog = "")
-public class StudentEntity {
+public class Student {
     private String stuId;
     private String name;
     private String password;
@@ -136,19 +138,19 @@ public class StudentEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StudentEntity that = (StudentEntity) o;
+        Student student = (Student) o;
 
-        if (gender != that.gender) return false;
-        if (grade != that.grade) return false;
-        if (classNo != that.classNo) return false;
-        if (stuId != null ? !stuId.equals(that.stuId) : that.stuId != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (birthday != null ? !birthday.equals(that.birthday) : that.birthday != null) return false;
-        if (stuStatus != null ? !stuStatus.equals(that.stuStatus) : that.stuStatus != null) return false;
+        if (gender != student.gender) return false;
+        if (grade != student.grade) return false;
+        if (classNo != student.classNo) return false;
+        if (stuId != null ? !stuId.equals(student.stuId) : student.stuId != null) return false;
+        if (name != null ? !name.equals(student.name) : student.name != null) return false;
+        if (password != null ? !password.equals(student.password) : student.password != null) return false;
+        if (email != null ? !email.equals(student.email) : student.email != null) return false;
+        if (address != null ? !address.equals(student.address) : student.address != null) return false;
+        if (phone != null ? !phone.equals(student.phone) : student.phone != null) return false;
+        if (birthday != null ? !birthday.equals(student.birthday) : student.birthday != null) return false;
+        if (stuStatus != null ? !stuStatus.equals(student.stuStatus) : student.stuStatus != null) return false;
 
         return true;
     }

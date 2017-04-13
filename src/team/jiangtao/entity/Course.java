@@ -1,13 +1,15 @@
 package team.jiangtao.entity;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
- * Created by tose on 2017/4/12.
+ * Created by tose on 2017/4/13.
  */
 @Entity
-@Table(name = "course", schema = "ssmis", catalog = "")
-public class CourseEntity {
+public class Course {
     private String crsId;
     private String crsName;
     private String summarization;
@@ -47,11 +49,11 @@ public class CourseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CourseEntity that = (CourseEntity) o;
+        Course course = (Course) o;
 
-        if (crsId != null ? !crsId.equals(that.crsId) : that.crsId != null) return false;
-        if (crsName != null ? !crsName.equals(that.crsName) : that.crsName != null) return false;
-        if (summarization != null ? !summarization.equals(that.summarization) : that.summarization != null)
+        if (crsId != null ? !crsId.equals(course.crsId) : course.crsId != null) return false;
+        if (crsName != null ? !crsName.equals(course.crsName) : course.crsName != null) return false;
+        if (summarization != null ? !summarization.equals(course.summarization) : course.summarization != null)
             return false;
 
         return true;
