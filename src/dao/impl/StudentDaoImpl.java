@@ -22,7 +22,7 @@ public class StudentDaoImpl implements StudentDaoI {
     @Override
     public List<Student> findStudentByConditions(Map<String, Object> conditions, boolean... equalConditions) {
         Session session=sessionFactory.getCurrentSession();
-        StringBuilder hql = new StringBuilder("from student stu where ");
+        StringBuilder hql = new StringBuilder("from Student stu where ");
         int i = 1;
         Set<Map.Entry<String, Object>> entries = conditions.entrySet();
         for (Map.Entry<String, Object> each : entries) {
@@ -47,7 +47,7 @@ public class StudentDaoImpl implements StudentDaoI {
     @Override
     public void updateStudentPropertiesByStu_id(Map<String, Object> newValues, String stu_id) {
         Session session=sessionFactory.getCurrentSession();
-        StringBuilder hql = new StringBuilder("update student stu set ");
+        StringBuilder hql = new StringBuilder("update Student stu set ");
         Set<Map.Entry<String, Object>> entries = newValues.entrySet();
         for (Map.Entry<String, Object> each : entries) {
             hql.append("stu." + each.getKey() + "=:" + each.getKey() + ",");
@@ -62,7 +62,7 @@ public class StudentDaoImpl implements StudentDaoI {
     @Override
     public void deleteStudentByConditions(Map<String, Object> conditions, boolean... equalConditions) {
         Session session=sessionFactory.getCurrentSession();
-        StringBuilder hql = new StringBuilder("delete from student stu where ");
+        StringBuilder hql = new StringBuilder("delete from Student stu where ");
         int i = 1;
         Set<Map.Entry<String, Object>> entries = conditions.entrySet();
         for (Map.Entry<String, Object> each : entries) {

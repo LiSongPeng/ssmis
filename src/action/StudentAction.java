@@ -26,9 +26,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
 
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}) )
     public String login() {
-        System.out.println("stu_id:"+stu.getStuId()+"pass:"+stu.getPassword());
         Student student = studentService.loginByStuIdAndPass(stu.getStuId(), stu.getPassword());
-        System.out.println("student"+student);
         if (student != null) {
             session.put("currStu", student);
             result = "{\"result\":\"Success\"}";

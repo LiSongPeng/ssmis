@@ -10,21 +10,27 @@ import team.jiangtao.entity.Student;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 @Service(value = "studentService")
-public class StudentServiceImpl implements StudentServiceI{
+public class StudentServiceImpl implements StudentServiceI {
     private StudentDaoI studentDao;
+
     @Resource(name = "studentDao")
-    public void setStudentDao(StudentDaoI studentDao){
+    public void setStudentDao(StudentDaoI studentDao) {
         this.studentDao = studentDao;
     }
 
     @Override
-    @Transactional(readOnly = true,isolation = Isolation.READ_COMMITTED)
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public Student loginByStuIdAndPass(String stu_id, String password) {
-        Map<String,Object> conditions=new HashMap<>(2);
-        conditions.put("stuId",stu_id);
-        conditions.put("password",password);
-        return studentDao.findStudentByConditions(conditions).get(0);
+        Map<String, Object> conditions = new HashMap<>(2);
+        conditions.put("stuId", stu_id);
+        conditions.put("password", password);
+        List<Student> list = studentDao.findStudentByConditions(conditions);
+        if (list.size() > 0)
+            return list.get(0);
+        return null;
     }
 }
