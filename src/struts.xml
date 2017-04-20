@@ -8,8 +8,17 @@
     <constant name="struts.i18n.encodeing" value="UTF-8"/>
     <constant name="struts.devMode" value="true"/>
     <package name="ssmis-default" extends="json-default" abstract="true" namespace="/">
+        <interceptors>
+            <interceptor name="studentLoginInterceptor" class="interceptor.StudentLoginInterceptor"/>
+            <interceptor-stack name="ssmis-default">
+                <interceptor-ref name="studentLoginInterceptor"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="ssmis-default"/>
         <global-results>
             <result name="pageNotFound">/pageNotFound.jsp</result>
+            <result name="studentLogin" type="redirect">/student/login.jsp</result>
         </global-results>
     </package>
 </struts>
