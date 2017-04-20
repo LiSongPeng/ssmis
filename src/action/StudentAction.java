@@ -76,6 +76,17 @@ public class StudentAction extends ActionSupport implements SessionAware {
         }
         return SUCCESS;
     }
+
+    @Action(value = "cancalCourse",results = @Result(type = "json",params = {"root","result"}))
+    public String cancelCourse(){
+        Student currStu= (Student) session.get("currStu");
+        if(studentService.cancelCourse(currStu.getStuId(),csche.getTchId(),csche.getDpmId(),csche.getCrsId())){
+            result = "{\"result\":\"Success\"}";
+        }else{
+            result = "{\"result\":\"Error\"}";
+        }
+        return SUCCESS;
+    }
     public Student getStu() {
         return stu;
     }

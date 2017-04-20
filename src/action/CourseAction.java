@@ -29,7 +29,6 @@ public class CourseAction extends ActionSupport {
 
     @Action(value = "getCourseInfo", results = @Result(type = "json", params = {"root", "courseSchedule"}))
     public String getCourseInfo() {
-        courseSchedule=courseService.getCourseInfo(courseSchedule.getCrsId(),courseSchedule.getDpmId(),courseSchedule.getTchId());
         return SUCCESS;
     }
 

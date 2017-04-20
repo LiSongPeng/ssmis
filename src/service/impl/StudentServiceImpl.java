@@ -73,4 +73,9 @@ public class StudentServiceImpl implements StudentServiceI {
         result = true;
         return result;
     }
+
+    @Override
+    public boolean cancelCourse(String stuId, String tchId, String dpmId, String crsId) {
+        return studentScheduleDao.deleteStudentSchedule(stuId,tchId,dpmId,crsId)>0?true:false;
+    }
 }

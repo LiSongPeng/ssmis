@@ -11,4 +11,14 @@ public interface StudentScheduleDaoI {
      * @param studentSchedule 选课记录
      */
     void saveStudentSchedule(StudentSchedule studentSchedule);
+
+    /**
+     * 删除学生选课记录
+     * @param stuId 学号
+     * @param tchId 教师号
+     * @param dpmId  学院号
+     * @param crsId 课程号
+     * @return 返回删除条数
+     */
+    int deleteStudentSchedule(String stuId, String tchId, String dpmId, String crsId);
 }

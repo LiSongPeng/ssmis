@@ -27,4 +27,14 @@ public interface StudentServiceI {
      * @return 是否成功
      */
     boolean selectCourse(String stuId, String tchId, String dpmId, String crsId);
+
+    /**
+     * 取消已选课程
+     * @param stuId 学生学号
+     * @param tchId 教师号
+     * @param dpmId 学院号
+     * @param crsId 课程号
+     * @return 是否取消
+     */
+    boolean cancelCourse(String stuId, String tchId, String dpmId, String crsId);
 }
