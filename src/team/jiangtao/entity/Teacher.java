@@ -174,7 +174,7 @@ public class Teacher {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }

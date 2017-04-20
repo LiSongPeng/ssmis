@@ -7,6 +7,7 @@ import java.util.Collection;
  * Created by lihuibo on 4/20/17.
  */
 @Entity
+@Table(name = "department")
 public class Department {
     private String dpmId;
     private String dpmName;

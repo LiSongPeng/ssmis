@@ -134,7 +134,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }
@@ -144,7 +144,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
@@ -154,7 +154,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false)
+    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false,insertable = false,updatable = false)
     public Student getStudentByStuId() {
         return studentByStuId;
     }
