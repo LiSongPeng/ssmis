@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `ssmis` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `ssmis`;
 -- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ssmis
@@ -32,8 +30,6 @@ CREATE TABLE `Exam` (
   `status` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`dmp`,`crs`),
   KEY `exam_course_crs_id_fk` (`crs`),
-  CONSTRAINT `FKgq1xpf73a4h4savtt14l2qlx` FOREIGN KEY (`crs`) REFERENCES `Course` (`crs_id`),
-  CONSTRAINT `FKtq707uj0p92my6ev4y71q8y9d` FOREIGN KEY (`dmp`) REFERENCES `Department` (`dpm_id`),
   CONSTRAINT `exam_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),
   CONSTRAINT `exam_department_dpm_id_fk` FOREIGN KEY (`dmp`) REFERENCES `department` (`dpm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -61,7 +57,6 @@ CREATE TABLE `Teacher` (
   PRIMARY KEY (`tch_id`),
   UNIQUE KEY `teacher_tch_id_uindex` (`tch_id`),
   KEY `teacher_department_dpm_id_fk` (`dpm_id`),
-  CONSTRAINT `FKatv8tugywbfmu3xjmcvh9bdq7` FOREIGN KEY (`dpm_id`) REFERENCES `Department` (`dpm_id`),
   CONSTRAINT `teacher_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -149,10 +144,9 @@ CREATE TABLE `course_schedule` (
   PRIMARY KEY (`dpm_id`,`tch_id`,`crs_id`),
   KEY `course_schedule_course_crs_id_fk` (`crs_id`),
   KEY `course_schedule_teacher_tch_id_fk` (`tch_id`),
-  CONSTRAINT `FKcn4pgml9oc952fu0ada5k588y` FOREIGN KEY (`crs_id`) REFERENCES `Course` (`crs_id`),
   CONSTRAINT `course_schedule_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),
   CONSTRAINT `course_schedule_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`),
-  CONSTRAINT `course_schedule_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `teacher` (`tch_id`)
+  CONSTRAINT `course_schedule_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `Teacher` (`tch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -172,10 +166,9 @@ CREATE TABLE `courses_table` (
   PRIMARY KEY (`crs_id`,`dpm_id`,`tch_id`,`weeks`,`off`),
   KEY `courses_table_teacher_tch_id_fk` (`tch_id`),
   KEY `courses_table_department_dpm_id_fk` (`dpm_id`),
-  CONSTRAINT `FKgmve14w8mg6hqja8b1iderwv` FOREIGN KEY (`crs_id`) REFERENCES `Course` (`crs_id`),
+  CONSTRAINT `courses_table_Teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `Teacher` (`tch_id`),
   CONSTRAINT `courses_table_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),
-  CONSTRAINT `courses_table_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`),
-  CONSTRAINT `courses_table_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `teacher` (`tch_id`)
+  CONSTRAINT `courses_table_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -237,13 +230,10 @@ CREATE TABLE `student_schedule` (
   KEY `student_chedule_teacher_tch_id_fk` (`tch`),
   KEY `student_chedule_student_stu_id_fk` (`stu`),
   KEY `student_chedule_course_crs_id_fk` (`crs`),
-  CONSTRAINT `FK538g3xp747lrhtnps1kyojlbj` FOREIGN KEY (`crs`) REFERENCES `Course` (`crs_id`),
-  CONSTRAINT `FKcbwui5einj8g3j0r5win8qme` FOREIGN KEY (`stu`) REFERENCES `Student` (`stu_id`),
-  CONSTRAINT `FKdtkt243yls12argiiqqm7kmt4` FOREIGN KEY (`dpm`) REFERENCES `Department` (`dpm_id`),
   CONSTRAINT `student_chedule_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),
   CONSTRAINT `student_chedule_department_dpm_id_fk` FOREIGN KEY (`dpm`) REFERENCES `department` (`dpm_id`),
   CONSTRAINT `student_chedule_student_stu_id_fk` FOREIGN KEY (`stu`) REFERENCES `student` (`stu_id`),
-  CONSTRAINT `student_chedule_teacher_tch_id_fk` FOREIGN KEY (`tch`) REFERENCES `teacher` (`tch_id`)
+  CONSTRAINT `student_schedule_Teacher_tch_id_fk` FOREIGN KEY (`tch`) REFERENCES `Teacher` (`tch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -256,4 +246,4 @@ CREATE TABLE `student_schedule` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-13 10:35:46
+-- Dump completed on 2017-04-20  8:36:56
