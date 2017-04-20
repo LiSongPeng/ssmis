@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import team.jiangtao.entity.Course;
+import team.jiangtao.entity.CourseSchedule;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,19 +24,19 @@ public class CourseDaoImpl implements CourseDaoI {
     }
 
     @Override
-    public List<Course> findCourseByConditions(Map<String, Object> conditions, boolean... equalConditions) {
+    public List<CourseSchedule> findCourseInfoByConditions(Map<String, Object> conditions, boolean... equalConditions) {
         Session session=sessionFactory.getCurrentSession();
-        StringBuilder hql = new StringBuilder("from Course c where ");
+        StringBuilder hql = new StringBuilder("from course_schedule cs where ");
         int i = 1;
         Set<Map.Entry<String, Object>> entries = conditions.entrySet();
         for (Map.Entry<String, Object> each : entries) {
             if(equalConditions.length==0||equalConditions[i-1])
-                hql.append("c."+each.getKey()+"=:"+each.getKey()+" and ");
+                hql.append("cs."+each.getKey()+"=:"+each.getKey()+" and ");
             else
-                hql.append("c."+each.getKey()+" like :"+each.getKey()+" and ");
+                hql.append("cs."+each.getKey()+" like :"+each.getKey()+" and ");
             i++;
         }
-        Query<Course> query = session.createQuery(hql.substring(0, hql.length() - 5), Course.class);
+        Query<CourseSchedule> query = session.createQuery(hql.substring(0, hql.length() - 5), CourseSchedule.class);
         i = 1;
         for (Map.Entry<String, Object> each : entries) {
             if(equalConditions.length==0||equalConditions[i-1])

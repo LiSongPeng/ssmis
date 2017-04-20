@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import service.i.CourseServiceI;
-import team.jiangtao.entity.Course;
+import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.CoursesTable;
 
 import javax.annotation.Resource;
@@ -21,20 +21,22 @@ public class CourseServiceImpl implements CourseServiceI {
     private CourseDaoI courseDao;
     @Override
     @Transactional(readOnly = true,isolation = Isolation.READ_COMMITTED)
-    public Course getCourseInfoById(String courseId) {
+    public CourseSchedule getCourseInfo(String crsId, String dpmId, String tchId) {
         Map<String,Object> condition=new HashMap<>(1);
-        condition.put("crsId",courseId);
-        List<Course> list=courseDao.findCourseByConditions(condition);
+        condition.put("crsId",crsId);
+        condition.put("dpmId",dpmId);
+        condition.put("tchId",tchId);
+        List<CourseSchedule> list=courseDao.findCourseInfoByConditions(condition);
         if(list.size()>0)
             return list.get(0);
         return null;
     }
 
     @Override
-    public List<Course> getCoursesInfoByKeyName(String keyName) {
+    public List<CourseSchedule> getCoursesInfoByKeyName(String keyName) {
         Map<String,Object> condition=new HashMap<>(1);
         condition.put("crsName",keyName);
-        return courseDao.findCourseByConditions(condition,false);
+        return courseDao.findCourseInfoByConditions(condition,false);
     }
 
     @Override

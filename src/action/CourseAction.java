@@ -23,14 +23,14 @@ import java.util.List;
 @Controller
 @Scope(value = "prototype")
 public class CourseAction extends ActionSupport {
-    private Course course;
     private CourseServiceI courseService;
     private CourseSchedule courseSchedule;
     private List<CourseSchedule> courseSchedules;
     private List<CoursesTable> coursesTableList;
 
-    @Action(value = "getCourseInfoById", results = @Result(type = "json", params = {"root", "courseSchedules"}))
+    @Action(value = "getCourseInfo", results = @Result(type = "json", params = {"root", "courseSchedule"}))
     public String getCourseInfo() {
+        courseSchedule=courseService.getCourseInfo(courseSchedule.getCrsId(),courseSchedule.getDpmId(),courseSchedule.getTchId());
         return SUCCESS;
     }
 
