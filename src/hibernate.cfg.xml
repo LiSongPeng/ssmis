@@ -18,7 +18,7 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-        <property name="hbm2ddl.auto">update</property>
+        <!--<property name="hbm2ddl.auto">update</property>-->
         <mapping class="team.jiangtao.entity.Appeal"/>
         <mapping class="team.jiangtao.entity.Comment"/>
         <mapping class="team.jiangtao.entity.Course"/>
