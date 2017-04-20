@@ -8,7 +8,6 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.CourseServiceI;
-import team.jiangtao.entity.Course;
 import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.CoursesTable;
 

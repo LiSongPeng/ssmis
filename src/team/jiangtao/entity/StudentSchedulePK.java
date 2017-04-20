@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 public class StudentSchedulePK implements Serializable {
     private String dpm;
@@ -13,7 +13,7 @@ public class StudentSchedulePK implements Serializable {
     private String tch;
     private String stu;
 
-    @Column(name = "dpm", nullable = false, length = 8)
+    @Column(name = "dpm")
     @Id
     public String getDpm() {
         return dpm;
@@ -23,7 +23,7 @@ public class StudentSchedulePK implements Serializable {
         this.dpm = dpm;
     }
 
-    @Column(name = "crs", nullable = false, length = 8)
+    @Column(name = "crs")
     @Id
     public String getCrs() {
         return crs;
@@ -33,7 +33,7 @@ public class StudentSchedulePK implements Serializable {
         this.crs = crs;
     }
 
-    @Column(name = "tch", nullable = false, length = 8)
+    @Column(name = "tch")
     @Id
     public String getTch() {
         return tch;
@@ -43,7 +43,7 @@ public class StudentSchedulePK implements Serializable {
         this.tch = tch;
     }
 
-    @Column(name = "stu", nullable = false, length = 8)
+    @Column(name = "stu")
     @Id
     public String getStu() {
         return stu;

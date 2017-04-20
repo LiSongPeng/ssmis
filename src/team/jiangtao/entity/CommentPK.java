@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 public class CommentPK implements Serializable {
     private String dpm;
@@ -14,7 +14,7 @@ public class CommentPK implements Serializable {
     private String tch;
     private Date date;
 
-    @Column(name = "dpm", nullable = false, length = 8)
+    @Column(name = "dpm")
     @Id
     public String getDpm() {
         return dpm;
@@ -24,7 +24,7 @@ public class CommentPK implements Serializable {
         this.dpm = dpm;
     }
 
-    @Column(name = "crs", nullable = false, length = 8)
+    @Column(name = "crs")
     @Id
     public String getCrs() {
         return crs;
@@ -34,7 +34,7 @@ public class CommentPK implements Serializable {
         this.crs = crs;
     }
 
-    @Column(name = "tch", nullable = false, length = 8)
+    @Column(name = "tch")
     @Id
     public String getTch() {
         return tch;
@@ -44,7 +44,7 @@ public class CommentPK implements Serializable {
         this.tch = tch;
     }
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     @Id
     public Date getDate() {
         return date;

@@ -3,7 +3,7 @@ package team.jiangtao.entity;
 import javax.persistence.*;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 @Entity
 @Table(name = "course_schedule", schema = "ssmis", catalog = "")
@@ -16,10 +16,12 @@ public class CourseSchedule {
     private byte preriods;
     private byte credit;
     private byte term;
+    private Department departmentByDpmId;
     private Course courseByCrsId;
+    private Teacher teacherByTchId;
 
     @Id
-    @Column(name = "dpm_id", nullable = false, length = 8)
+    @Column(name = "dpm_id")
     public String getDpmId() {
         return dpmId;
     }
@@ -29,7 +31,7 @@ public class CourseSchedule {
     }
 
     @Id
-    @Column(name = "crs_id", nullable = false, length = 8)
+    @Column(name = "crs_id")
     public String getCrsId() {
         return crsId;
     }
@@ -39,7 +41,7 @@ public class CourseSchedule {
     }
 
     @Id
-    @Column(name = "tch_id", nullable = false, length = 8)
+    @Column(name = "tch_id")
     public String getTchId() {
         return tchId;
     }
@@ -49,7 +51,7 @@ public class CourseSchedule {
     }
 
     @Basic
-    @Column(name = "type", nullable = false)
+    @Column(name = "type")
     public byte getType() {
         return type;
     }
@@ -59,7 +61,7 @@ public class CourseSchedule {
     }
 
     @Basic
-    @Column(name = "preriods", nullable = false)
+    @Column(name = "preriods")
     public byte getPreriods() {
         return preriods;
     }
@@ -69,7 +71,7 @@ public class CourseSchedule {
     }
 
     @Basic
-    @Column(name = "credit", nullable = false)
+    @Column(name = "credit")
     public byte getCredit() {
         return credit;
     }
@@ -79,7 +81,7 @@ public class CourseSchedule {
     }
 
     @Basic
-    @Column(name = "term", nullable = false)
+    @Column(name = "term")
     public byte getTerm() {
         return term;
     }
@@ -119,12 +121,32 @@ public class CourseSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
+    public Department getDepartmentByDpmId() {
+        return departmentByDpmId;
+    }
+
+    public void setDepartmentByDpmId(Department departmentByDpmId) {
+        this.departmentByDpmId = departmentByDpmId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
 
     public void setCourseByCrsId(Course courseByCrsId) {
         this.courseByCrsId = courseByCrsId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false)
+    public Teacher getTeacherByTchId() {
+        return teacherByTchId;
+    }
+
+    public void setTeacherByTchId(Teacher teacherByTchId) {
+        this.teacherByTchId = teacherByTchId;
     }
 }

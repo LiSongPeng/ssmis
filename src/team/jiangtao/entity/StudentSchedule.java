@@ -3,7 +3,7 @@ package team.jiangtao.entity;
 import javax.persistence.*;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 @Entity
 @Table(name = "student_schedule", schema = "ssmis", catalog = "")
@@ -17,10 +17,11 @@ public class StudentSchedule {
     private double score;
     private Department departmentByDpm;
     private Course courseByCrs;
+    private Teacher teacherByTch;
     private Student studentByStu;
 
     @Id
-    @Column(name = "dpm", nullable = false, length = 8)
+    @Column(name = "dpm")
     public String getDpm() {
         return dpm;
     }
@@ -30,7 +31,7 @@ public class StudentSchedule {
     }
 
     @Id
-    @Column(name = "crs", nullable = false, length = 8)
+    @Column(name = "crs")
     public String getCrs() {
         return crs;
     }
@@ -40,7 +41,7 @@ public class StudentSchedule {
     }
 
     @Id
-    @Column(name = "tch", nullable = false, length = 8)
+    @Column(name = "tch")
     public String getTch() {
         return tch;
     }
@@ -50,7 +51,7 @@ public class StudentSchedule {
     }
 
     @Id
-    @Column(name = "stu", nullable = false, length = 8)
+    @Column(name = "stu")
     public String getStu() {
         return stu;
     }
@@ -60,7 +61,7 @@ public class StudentSchedule {
     }
 
     @Basic
-    @Column(name = "term", nullable = false)
+    @Column(name = "term")
     public byte getTerm() {
         return term;
     }
@@ -70,7 +71,7 @@ public class StudentSchedule {
     }
 
     @Basic
-    @Column(name = "score", nullable = false, precision = 0)
+    @Column(name = "score")
     public double getScore() {
         return score;
     }
@@ -111,7 +112,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false)
     public Department getDepartmentByDpm() {
         return departmentByDpm;
     }
@@ -121,7 +122,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }
@@ -131,7 +132,17 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "tch", referencedColumnName = "tch_id", nullable = false)
+    public Teacher getTeacherByTch() {
+        return teacherByTch;
+    }
+
+    public void setTeacherByTch(Teacher teacherByTch) {
+        this.teacherByTch = teacherByTch;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false)
     public Student getStudentByStu() {
         return studentByStu;
     }

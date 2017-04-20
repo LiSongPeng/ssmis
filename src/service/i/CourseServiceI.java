@@ -11,8 +11,7 @@ import java.util.List;
 public interface CourseServiceI {
     /**
      * 通过课程号查找课程信息
-     *
-     *  @param crsId 课程编号
+     *   @param crsId 课程编号
      * @param dpmId 学院编号
      * @param tchId 老师编号
      */

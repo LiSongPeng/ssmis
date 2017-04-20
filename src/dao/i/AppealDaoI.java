@@ -17,7 +17,7 @@ public interface AppealDaoI {
      * @return Teacher List
      * @throws Exception
      */
-    List<Appeal> getAppealsByCondition(Map<String,Object> conditions,boolean... equalConditions) throws Exception;
+    List<Appeal> getAppealsByCondition(Map<String,Object> conditions, boolean... equalConditions) throws Exception;
 
     /**
      *

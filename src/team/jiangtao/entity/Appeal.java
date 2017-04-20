@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 @Entity
 @IdClass(AppealPK.class)
@@ -17,9 +17,12 @@ public class Appeal {
     private String content;
     private String response;
     private byte status;
+    private Department departmentByDpmId;
+    private Course courseByCrsId;
+    private Student studentByStuId;
 
     @Id
-    @Column(name = "dpm_id", nullable = false, length = 8)
+    @Column(name = "dpm_id")
     public String getDpmId() {
         return dpmId;
     }
@@ -29,7 +32,7 @@ public class Appeal {
     }
 
     @Id
-    @Column(name = "crs_id", nullable = false, length = 8)
+    @Column(name = "crs_id")
     public String getCrsId() {
         return crsId;
     }
@@ -39,7 +42,7 @@ public class Appeal {
     }
 
     @Id
-    @Column(name = "tch_id", nullable = false, length = 8)
+    @Column(name = "tch_id")
     public String getTchId() {
         return tchId;
     }
@@ -49,7 +52,7 @@ public class Appeal {
     }
 
     @Id
-    @Column(name = "stu_id", nullable = false, length = 8)
+    @Column(name = "stu_id")
     public String getStuId() {
         return stuId;
     }
@@ -59,7 +62,7 @@ public class Appeal {
     }
 
     @Id
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     public Date getDate() {
         return date;
     }
@@ -69,7 +72,7 @@ public class Appeal {
     }
 
     @Basic
-    @Column(name = "content", nullable = false, length = 128)
+    @Column(name = "content")
     public String getContent() {
         return content;
     }
@@ -79,7 +82,7 @@ public class Appeal {
     }
 
     @Basic
-    @Column(name = "response", nullable = true, length = 128)
+    @Column(name = "response")
     public String getResponse() {
         return response;
     }
@@ -89,7 +92,7 @@ public class Appeal {
     }
 
     @Basic
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     public byte getStatus() {
         return status;
     }
@@ -128,5 +131,35 @@ public class Appeal {
         result = 31 * result + (response != null ? response.hashCode() : 0);
         result = 31 * result + (int) status;
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
+    public Department getDepartmentByDpmId() {
+        return departmentByDpmId;
+    }
+
+    public void setDepartmentByDpmId(Department departmentByDpmId) {
+        this.departmentByDpmId = departmentByDpmId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
+    public Course getCourseByCrsId() {
+        return courseByCrsId;
+    }
+
+    public void setCourseByCrsId(Course courseByCrsId) {
+        this.courseByCrsId = courseByCrsId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false)
+    public Student getStudentByStuId() {
+        return studentByStuId;
+    }
+
+    public void setStudentByStuId(Student studentByStuId) {
+        this.studentByStuId = studentByStuId;
     }
 }

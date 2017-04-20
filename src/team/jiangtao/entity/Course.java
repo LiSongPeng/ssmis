@@ -1,21 +1,25 @@
 package team.jiangtao.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 @Entity
 public class Course {
     private String crsId;
     private String crsName;
     private String summarization;
+    private Collection<Exam> examsByCrsId;
+    private Collection<Appeal> appealsByCrsId;
+    private Collection<Comment> commentsByCrsId;
+    private Collection<CourseSchedule> courseSchedulesByCrsId;
+    private Collection<CoursesTable> coursesTablesByCrsId;
+    private Collection<StudentSchedule> studentSchedulesByCrsId;
 
     @Id
-    @Column(name = "crs_id", nullable = false, length = 8)
+    @Column(name = "crs_id")
     public String getCrsId() {
         return crsId;
     }
@@ -25,7 +29,7 @@ public class Course {
     }
 
     @Basic
-    @Column(name = "crs_name", nullable = false, length = 64)
+    @Column(name = "crs_name")
     public String getCrsName() {
         return crsName;
     }
@@ -35,7 +39,7 @@ public class Course {
     }
 
     @Basic
-    @Column(name = "summarization", nullable = true, length = 128)
+    @Column(name = "summarization")
     public String getSummarization() {
         return summarization;
     }
@@ -65,5 +69,59 @@ public class Course {
         result = 31 * result + (crsName != null ? crsName.hashCode() : 0);
         result = 31 * result + (summarization != null ? summarization.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "courseByCrs")
+    public Collection<Exam> getExamsByCrsId() {
+        return examsByCrsId;
+    }
+
+    public void setExamsByCrsId(Collection<Exam> examsByCrsId) {
+        this.examsByCrsId = examsByCrsId;
+    }
+
+    @OneToMany(mappedBy = "courseByCrsId")
+    public Collection<Appeal> getAppealsByCrsId() {
+        return appealsByCrsId;
+    }
+
+    public void setAppealsByCrsId(Collection<Appeal> appealsByCrsId) {
+        this.appealsByCrsId = appealsByCrsId;
+    }
+
+    @OneToMany(mappedBy = "courseByCrs")
+    public Collection<Comment> getCommentsByCrsId() {
+        return commentsByCrsId;
+    }
+
+    public void setCommentsByCrsId(Collection<Comment> commentsByCrsId) {
+        this.commentsByCrsId = commentsByCrsId;
+    }
+
+    @OneToMany(mappedBy = "courseByCrsId")
+    public Collection<CourseSchedule> getCourseSchedulesByCrsId() {
+        return courseSchedulesByCrsId;
+    }
+
+    public void setCourseSchedulesByCrsId(Collection<CourseSchedule> courseSchedulesByCrsId) {
+        this.courseSchedulesByCrsId = courseSchedulesByCrsId;
+    }
+
+    @OneToMany(mappedBy = "courseByCrsId")
+    public Collection<CoursesTable> getCoursesTablesByCrsId() {
+        return coursesTablesByCrsId;
+    }
+
+    public void setCoursesTablesByCrsId(Collection<CoursesTable> coursesTablesByCrsId) {
+        this.coursesTablesByCrsId = coursesTablesByCrsId;
+    }
+
+    @OneToMany(mappedBy = "courseByCrs")
+    public Collection<StudentSchedule> getStudentSchedulesByCrsId() {
+        return studentSchedulesByCrsId;
+    }
+
+    public void setStudentSchedulesByCrsId(Collection<StudentSchedule> studentSchedulesByCrsId) {
+        this.studentSchedulesByCrsId = studentSchedulesByCrsId;
     }
 }

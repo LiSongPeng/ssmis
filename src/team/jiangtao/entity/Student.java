@@ -1,13 +1,11 @@
 package team.jiangtao.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 @Entity
 public class Student {
@@ -19,12 +17,14 @@ public class Student {
     private String phone;
     private Date birthday;
     private byte gender;
-    private byte grade;
+    private short grade;
     private byte classNo;
     private Byte stuStatus;
+    private Collection<Appeal> appealsByStuId;
+    private Collection<StudentSchedule> studentSchedulesByStuId;
 
     @Id
-    @Column(name = "stu_id", nullable = false, length = 8)
+    @Column(name = "stu_id")
     public String getStuId() {
         return stuId;
     }
@@ -34,7 +34,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 32)
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -44,7 +44,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "password", nullable = false, length = 32)
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -54,7 +54,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "email", nullable = true, length = 64)
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -64,7 +64,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "address", nullable = true, length = 128)
+    @Column(name = "address")
     public String getAddress() {
         return address;
     }
@@ -74,7 +74,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "phone", nullable = false, length = 13)
+    @Column(name = "phone")
     public String getPhone() {
         return phone;
     }
@@ -84,7 +84,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "birthday", nullable = false)
+    @Column(name = "birthday")
     public Date getBirthday() {
         return birthday;
     }
@@ -94,7 +94,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     public byte getGender() {
         return gender;
     }
@@ -104,17 +104,17 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "grade", nullable = false)
-    public byte getGrade() {
+    @Column(name = "grade")
+    public short getGrade() {
         return grade;
     }
 
-    public void setGrade(byte grade) {
+    public void setGrade(short grade) {
         this.grade = grade;
     }
 
     @Basic
-    @Column(name = "class_no", nullable = false)
+    @Column(name = "class_no")
     public byte getClassNo() {
         return classNo;
     }
@@ -124,7 +124,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "stu_status", nullable = true)
+    @Column(name = "stu_status")
     public Byte getStuStatus() {
         return stuStatus;
     }
@@ -169,5 +169,23 @@ public class Student {
         result = 31 * result + (int) classNo;
         result = 31 * result + (stuStatus != null ? stuStatus.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "studentByStuId")
+    public Collection<Appeal> getAppealsByStuId() {
+        return appealsByStuId;
+    }
+
+    public void setAppealsByStuId(Collection<Appeal> appealsByStuId) {
+        this.appealsByStuId = appealsByStuId;
+    }
+
+    @OneToMany(mappedBy = "studentByStu")
+    public Collection<StudentSchedule> getStudentSchedulesByStuId() {
+        return studentSchedulesByStuId;
+    }
+
+    public void setStudentSchedulesByStuId(Collection<StudentSchedule> studentSchedulesByStuId) {
+        this.studentSchedulesByStuId = studentSchedulesByStuId;
     }
 }

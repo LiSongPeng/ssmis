@@ -5,13 +5,13 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 public class ExamPK implements Serializable {
     private String dmp;
     private String crs;
 
-    @Column(name = "dmp", nullable = false, length = 8)
+    @Column(name = "dmp")
     @Id
     public String getDmp() {
         return dmp;
@@ -21,7 +21,7 @@ public class ExamPK implements Serializable {
         this.dmp = dmp;
     }
 
-    @Column(name = "crs", nullable = false, length = 8)
+    @Column(name = "crs")
     @Id
     public String getCrs() {
         return crs;

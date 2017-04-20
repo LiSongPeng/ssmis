@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 @Entity
 @IdClass(ExamPK.class)
@@ -18,7 +18,7 @@ public class Exam {
     private Course courseByCrs;
 
     @Id
-    @Column(name = "dmp", nullable = false, length = 8)
+    @Column(name = "dmp")
     public String getDmp() {
         return dmp;
     }
@@ -28,7 +28,7 @@ public class Exam {
     }
 
     @Id
-    @Column(name = "crs", nullable = false, length = 8)
+    @Column(name = "crs")
     public String getCrs() {
         return crs;
     }
@@ -38,7 +38,7 @@ public class Exam {
     }
 
     @Basic
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     public Date getDate() {
         return date;
     }
@@ -48,7 +48,7 @@ public class Exam {
     }
 
     @Basic
-    @Column(name = "location", nullable = false, length = 64)
+    @Column(name = "location")
     public String getLocation() {
         return location;
     }
@@ -58,7 +58,7 @@ public class Exam {
     }
 
     @Basic
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     public byte getStatus() {
         return status;
     }
@@ -94,7 +94,7 @@ public class Exam {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dmp", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "dmp", referencedColumnName = "dpm_id", nullable = false)
     public Department getDepartmentByDmp() {
         return departmentByDmp;
     }
@@ -104,7 +104,7 @@ public class Exam {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }

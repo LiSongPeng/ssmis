@@ -1,20 +1,25 @@
 package team.jiangtao.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 @Entity
 public class Department {
     private String dpmId;
     private String dpmName;
+    private Collection<Exam> examsByDpmId;
+    private Collection<Teacher> teachersByDpmId;
+    private Collection<Appeal> appealsByDpmId;
+    private Collection<Comment> commentsByDpmId;
+    private Collection<CourseSchedule> courseSchedulesByDpmId;
+    private Collection<CoursesTable> coursesTablesByDpmId;
+    private Collection<StudentSchedule> studentSchedulesByDpmId;
 
     @Id
-    @Column(name = "dpm_id", nullable = false, length = 8)
+    @Column(name = "dpm_id")
     public String getDpmId() {
         return dpmId;
     }
@@ -24,7 +29,7 @@ public class Department {
     }
 
     @Basic
-    @Column(name = "dpm_name", nullable = false, length = 32)
+    @Column(name = "dpm_name")
     public String getDpmName() {
         return dpmName;
     }
@@ -51,5 +56,68 @@ public class Department {
         int result = dpmId != null ? dpmId.hashCode() : 0;
         result = 31 * result + (dpmName != null ? dpmName.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "departmentByDmp")
+    public Collection<Exam> getExamsByDpmId() {
+        return examsByDpmId;
+    }
+
+    public void setExamsByDpmId(Collection<Exam> examsByDpmId) {
+        this.examsByDpmId = examsByDpmId;
+    }
+
+    @OneToMany(mappedBy = "departmentByDpmId")
+    public Collection<Teacher> getTeachersByDpmId() {
+        return teachersByDpmId;
+    }
+
+    public void setTeachersByDpmId(Collection<Teacher> teachersByDpmId) {
+        this.teachersByDpmId = teachersByDpmId;
+    }
+
+    @OneToMany(mappedBy = "departmentByDpmId")
+    public Collection<Appeal> getAppealsByDpmId() {
+        return appealsByDpmId;
+    }
+
+    public void setAppealsByDpmId(Collection<Appeal> appealsByDpmId) {
+        this.appealsByDpmId = appealsByDpmId;
+    }
+
+    @OneToMany(mappedBy = "departmentByDpm")
+    public Collection<Comment> getCommentsByDpmId() {
+        return commentsByDpmId;
+    }
+
+    public void setCommentsByDpmId(Collection<Comment> commentsByDpmId) {
+        this.commentsByDpmId = commentsByDpmId;
+    }
+
+    @OneToMany(mappedBy = "departmentByDpmId")
+    public Collection<CourseSchedule> getCourseSchedulesByDpmId() {
+        return courseSchedulesByDpmId;
+    }
+
+    public void setCourseSchedulesByDpmId(Collection<CourseSchedule> courseSchedulesByDpmId) {
+        this.courseSchedulesByDpmId = courseSchedulesByDpmId;
+    }
+
+    @OneToMany(mappedBy = "departmentByDpmId")
+    public Collection<CoursesTable> getCoursesTablesByDpmId() {
+        return coursesTablesByDpmId;
+    }
+
+    public void setCoursesTablesByDpmId(Collection<CoursesTable> coursesTablesByDpmId) {
+        this.coursesTablesByDpmId = coursesTablesByDpmId;
+    }
+
+    @OneToMany(mappedBy = "departmentByDpm")
+    public Collection<StudentSchedule> getStudentSchedulesByDpmId() {
+        return studentSchedulesByDpmId;
+    }
+
+    public void setStudentSchedulesByDpmId(Collection<StudentSchedule> studentSchedulesByDpmId) {
+        this.studentSchedulesByDpmId = studentSchedulesByDpmId;
     }
 }

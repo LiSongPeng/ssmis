@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 public class CoursesTablePK implements Serializable {
     private String dpmId;
@@ -14,7 +14,7 @@ public class CoursesTablePK implements Serializable {
     private byte weeks;
     private byte off;
 
-    @Column(name = "dpm_id", nullable = false, length = 8)
+    @Column(name = "dpm_id")
     @Id
     public String getDpmId() {
         return dpmId;
@@ -24,7 +24,7 @@ public class CoursesTablePK implements Serializable {
         this.dpmId = dpmId;
     }
 
-    @Column(name = "crs_id", nullable = false, length = 8)
+    @Column(name = "crs_id")
     @Id
     public String getCrsId() {
         return crsId;
@@ -34,7 +34,7 @@ public class CoursesTablePK implements Serializable {
         this.crsId = crsId;
     }
 
-    @Column(name = "tch_id", nullable = false, length = 8)
+    @Column(name = "tch_id")
     @Id
     public String getTchId() {
         return tchId;
@@ -44,7 +44,7 @@ public class CoursesTablePK implements Serializable {
         this.tchId = tchId;
     }
 
-    @Column(name = "weeks", nullable = false)
+    @Column(name = "weeks")
     @Id
     public byte getWeeks() {
         return weeks;
@@ -54,7 +54,7 @@ public class CoursesTablePK implements Serializable {
         this.weeks = weeks;
     }
 
-    @Column(name = "off", nullable = false)
+    @Column(name = "off")
     @Id
     public byte getOff() {
         return off;

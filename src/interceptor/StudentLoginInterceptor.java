@@ -1,6 +1,5 @@
 package interceptor;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import org.apache.struts2.ServletActionContext;

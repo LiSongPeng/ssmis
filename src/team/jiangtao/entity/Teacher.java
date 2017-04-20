@@ -2,9 +2,10 @@ package team.jiangtao.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 @Entity
 public class Teacher {
@@ -18,10 +19,14 @@ public class Teacher {
     private byte gender;
     private String biography;
     private byte tchStatus;
+    private String dpmId;
     private Department departmentByDpmId;
+    private Collection<CourseSchedule> courseSchedulesByTchId;
+    private Collection<CoursesTable> coursesTablesByTchId;
+    private Collection<StudentSchedule> studentSchedulesByTchId;
 
     @Id
-    @Column(name = "tch_id", nullable = false, length = 8)
+    @Column(name = "tch_id")
     public String getTchId() {
         return tchId;
     }
@@ -31,7 +36,7 @@ public class Teacher {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 32)
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -41,7 +46,7 @@ public class Teacher {
     }
 
     @Basic
-    @Column(name = "password", nullable = false, length = 32)
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -51,7 +56,7 @@ public class Teacher {
     }
 
     @Basic
-    @Column(name = "email", nullable = true, length = 64)
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -61,7 +66,7 @@ public class Teacher {
     }
 
     @Basic
-    @Column(name = "address", nullable = true, length = 128)
+    @Column(name = "address")
     public String getAddress() {
         return address;
     }
@@ -71,7 +76,7 @@ public class Teacher {
     }
 
     @Basic
-    @Column(name = "phone", nullable = false, length = 13)
+    @Column(name = "phone")
     public String getPhone() {
         return phone;
     }
@@ -81,7 +86,7 @@ public class Teacher {
     }
 
     @Basic
-    @Column(name = "birthday", nullable = false)
+    @Column(name = "birthday")
     public Date getBirthday() {
         return birthday;
     }
@@ -91,7 +96,7 @@ public class Teacher {
     }
 
     @Basic
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     public byte getGender() {
         return gender;
     }
@@ -101,7 +106,7 @@ public class Teacher {
     }
 
     @Basic
-    @Column(name = "biography", nullable = true, length = 128)
+    @Column(name = "biography")
     public String getBiography() {
         return biography;
     }
@@ -111,13 +116,23 @@ public class Teacher {
     }
 
     @Basic
-    @Column(name = "tch_status", nullable = false)
+    @Column(name = "tch_status")
     public byte getTchStatus() {
         return tchStatus;
     }
 
     public void setTchStatus(byte tchStatus) {
         this.tchStatus = tchStatus;
+    }
+
+    @Basic
+    @Column(name = "dpm_id")
+    public String getDpmId() {
+        return dpmId;
+    }
+
+    public void setDpmId(String dpmId) {
+        this.dpmId = dpmId;
     }
 
     @Override
@@ -137,6 +152,7 @@ public class Teacher {
         if (phone != null ? !phone.equals(teacher.phone) : teacher.phone != null) return false;
         if (birthday != null ? !birthday.equals(teacher.birthday) : teacher.birthday != null) return false;
         if (biography != null ? !biography.equals(teacher.biography) : teacher.biography != null) return false;
+        if (dpmId != null ? !dpmId.equals(teacher.dpmId) : teacher.dpmId != null) return false;
 
         return true;
     }
@@ -153,6 +169,7 @@ public class Teacher {
         result = 31 * result + (int) gender;
         result = 31 * result + (biography != null ? biography.hashCode() : 0);
         result = 31 * result + (int) tchStatus;
+        result = 31 * result + (dpmId != null ? dpmId.hashCode() : 0);
         return result;
     }
 
@@ -164,5 +181,32 @@ public class Teacher {
 
     public void setDepartmentByDpmId(Department departmentByDpmId) {
         this.departmentByDpmId = departmentByDpmId;
+    }
+
+    @OneToMany(mappedBy = "teacherByTchId")
+    public Collection<CourseSchedule> getCourseSchedulesByTchId() {
+        return courseSchedulesByTchId;
+    }
+
+    public void setCourseSchedulesByTchId(Collection<CourseSchedule> courseSchedulesByTchId) {
+        this.courseSchedulesByTchId = courseSchedulesByTchId;
+    }
+
+    @OneToMany(mappedBy = "teacherByTchId")
+    public Collection<CoursesTable> getCoursesTablesByTchId() {
+        return coursesTablesByTchId;
+    }
+
+    public void setCoursesTablesByTchId(Collection<CoursesTable> coursesTablesByTchId) {
+        this.coursesTablesByTchId = coursesTablesByTchId;
+    }
+
+    @OneToMany(mappedBy = "teacherByTch")
+    public Collection<StudentSchedule> getStudentSchedulesByTchId() {
+        return studentSchedulesByTchId;
+    }
+
+    public void setStudentSchedulesByTchId(Collection<StudentSchedule> studentSchedulesByTchId) {
+        this.studentSchedulesByTchId = studentSchedulesByTchId;
     }
 }

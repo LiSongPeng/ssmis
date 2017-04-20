@@ -5,14 +5,14 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 public class CourseSchedulePK implements Serializable {
     private String dpmId;
     private String crsId;
     private String tchId;
 
-    @Column(name = "dpm_id", nullable = false, length = 8)
+    @Column(name = "dpm_id")
     @Id
     public String getDpmId() {
         return dpmId;
@@ -22,7 +22,7 @@ public class CourseSchedulePK implements Serializable {
         this.dpmId = dpmId;
     }
 
-    @Column(name = "crs_id", nullable = false, length = 8)
+    @Column(name = "crs_id")
     @Id
     public String getCrsId() {
         return crsId;
@@ -32,7 +32,7 @@ public class CourseSchedulePK implements Serializable {
         this.crsId = crsId;
     }
 
-    @Column(name = "tch_id", nullable = false, length = 8)
+    @Column(name = "tch_id")
     @Id
     public String getTchId() {
         return tchId;

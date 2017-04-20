@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by tose on 2017/4/13.
+ * Created by lihuibo on 4/20/17.
  */
 @Entity
 @IdClass(CommentPK.class)
@@ -14,9 +14,11 @@ public class Comment {
     private String tch;
     private Date date;
     private String content;
+    private Department departmentByDpm;
+    private Course courseByCrs;
 
     @Id
-    @Column(name = "dpm", nullable = false, length = 8)
+    @Column(name = "dpm")
     public String getDpm() {
         return dpm;
     }
@@ -26,7 +28,7 @@ public class Comment {
     }
 
     @Id
-    @Column(name = "crs", nullable = false, length = 8)
+    @Column(name = "crs")
     public String getCrs() {
         return crs;
     }
@@ -36,7 +38,7 @@ public class Comment {
     }
 
     @Id
-    @Column(name = "tch", nullable = false, length = 8)
+    @Column(name = "tch")
     public String getTch() {
         return tch;
     }
@@ -46,7 +48,7 @@ public class Comment {
     }
 
     @Id
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     public Date getDate() {
         return date;
     }
@@ -56,7 +58,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "content", nullable = false, length = 128)
+    @Column(name = "content")
     public String getContent() {
         return content;
     }
@@ -89,5 +91,25 @@ public class Comment {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false)
+    public Department getDepartmentByDpm() {
+        return departmentByDpm;
+    }
+
+    public void setDepartmentByDpm(Department departmentByDpm) {
+        this.departmentByDpm = departmentByDpm;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
+    public Course getCourseByCrs() {
+        return courseByCrs;
+    }
+
+    public void setCourseByCrs(Course courseByCrs) {
+        this.courseByCrs = courseByCrs;
     }
 }
