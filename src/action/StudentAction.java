@@ -9,6 +9,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.StudentServiceI;
+import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.Student;
 
 import javax.annotation.Resource;
@@ -23,6 +24,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     private Student stu;
     private String result;
     private Map<String, Object> session;
+    private CourseSchedule csche;
 
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}) )
     public String login() {
@@ -51,7 +53,29 @@ public class StudentAction extends ActionSupport implements SessionAware {
         String result = "{\"result\":\"Error\"}";
         return ERROR;
     }
-
+    @Action(value = "updateUser",results =@Result(type = "json",params = {"root","result"}))
+    public String updateUser(){
+       Student currStu= (Student) session.get("currStu");
+       currStu.setEmail(stu.getEmail()==null?currStu.getEmail():stu.getEmail());
+       currStu.setPassword(stu.getPassword()==null?currStu.getPassword():stu.getPassword());
+       currStu.setPhone(stu.getPhone()==null?currStu.getPhone():stu.getPhone());
+       if(studentService.changeStudentInfo(currStu)){
+           result = "{\"result\":\"Success\"}";
+       }else {
+           result = "{\"result\":\"Error\"}";
+       }
+       return SUCCESS;
+    }
+    @Action(value = "selectCourse",results = @Result(type = "json",params = {"root","result"}))
+    public String selectCourse(){
+        Student currStu= (Student) session.get("currStu");
+        if(studentService.selectCourse(currStu.getStuId(),csche.getTchId(),csche.getDpmId(),csche.getCrsId())){
+            result = "{\"result\":\"Success\"}";
+        }else{
+            result = "{\"result\":\"Error\"}";
+        }
+        return SUCCESS;
+    }
     public Student getStu() {
         return stu;
     }
@@ -75,5 +99,13 @@ public class StudentAction extends ActionSupport implements SessionAware {
     @Override
     public void setSession(Map<String, Object> map) {
         this.session = map;
+    }
+
+    public CourseSchedule getCsche() {
+        return csche;
+    }
+
+    public void setCsche(CourseSchedule csche) {
+        this.csche = csche;
     }
 }

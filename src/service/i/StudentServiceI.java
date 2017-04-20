@@ -11,4 +11,20 @@ public interface StudentServiceI {
      * @return 对应的学生实体否则返回null
      */
     Student loginByStuIdAndPass(String stu_id, String password);
+
+    /**
+     * 修改学生信息
+     * @param currStu 当前登录的学生实体
+     */
+    boolean changeStudentInfo(Student currStu);
+
+    /**
+     * 学生选课业务
+     * @param stuId 学生学号
+     * @param tchId 教师编号
+     * @param dpmId 学员编号
+     * @param crsId 课程编号
+     * @return 是否成功
+     */
+    boolean selectCourse(String stuId, String tchId, String dpmId, String crsId);
 }
