@@ -2,6 +2,7 @@ package service.impl;
 
 import dao.i.CourseDaoI;
 import dao.i.CourseScheduleDaoI;
+import dao.i.CoursesTableDaoI;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class CourseServiceImpl implements CourseServiceI {
     private CourseDaoI courseDao;
     private CourseScheduleDaoI courseScheduleDao;
+    private CoursesTableDaoI coursesTableDao;
 
     @Override
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
@@ -45,14 +47,19 @@ public class CourseServiceImpl implements CourseServiceI {
 
     @Override
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
-    public List<CoursesTable> getCourseTable(String crsId, String tchId, String dpmId) {
+    public String[][] getCourseTable(String crsId, String tchId, String dpmId) {
+        List<CoursesTable> table = coursesTableDao.findCoursesTable(crsId, tchId, dpmId);
+        for (CoursesTable each : table) {
+        }
         return null;
     }
 
     @Override
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public List<CourseSchedule> getCourseInfoById(String courseId) {
-        return null;
+        List<String> ids = new ArrayList<>(1);
+        ids.add(courseId);
+        return courseScheduleDao.findCourseScheduleByCourseIds(ids);
     }
 
     @Resource(name = "courseDao")
@@ -63,5 +70,10 @@ public class CourseServiceImpl implements CourseServiceI {
     @Resource(name = "courseScheduleDao")
     public void setCourseScheduleDao(CourseScheduleDaoI courseScheduleDao) {
         this.courseScheduleDao = courseScheduleDao;
+    }
+
+    @Resource(name = "coursesTableDao")
+    public void setCoursesTableDao(CoursesTableDaoI coursesTableDao) {
+        this.coursesTableDao = coursesTableDao;
     }
 }

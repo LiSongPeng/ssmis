@@ -32,9 +32,9 @@ public interface CourseServiceI {
      * @param crsId 课程号
      * @param tchId 教师号
      * @param dpmId 院系号
-     * @return 课程安排试题信息
+     * @return 课程安排信息
      */
-    public List<CoursesTable> getCourseTable(String crsId, String tchId, String dpmId);
+    public String[][] getCourseTable(String crsId, String tchId, String dpmId);
 
     /**
      * 通过课程号查找课程开设信息

@@ -60,7 +60,7 @@ public class StudentServiceImpl implements StudentServiceI {
     }
 
     @Override
-    @Transactional(readOnly = false,isolation = Isolation.READ_COMMITTED)
+    @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
     public boolean selectCourse(String stuId, String tchId, String dpmId, String crsId) {
         boolean result = false;
         CourseSchedule courseSchedule = courseScheduleDao.findCourseSchedule(crsId, tchId, dpmId);
@@ -75,7 +75,8 @@ public class StudentServiceImpl implements StudentServiceI {
     }
 
     @Override
+    @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
     public boolean cancelCourse(String stuId, String tchId, String dpmId, String crsId) {
-        return studentScheduleDao.deleteStudentSchedule(stuId,tchId,dpmId,crsId)>0?true:false;
+        return studentScheduleDao.deleteStudentSchedule(stuId, tchId, dpmId, crsId) > 0 ? true : false;
     }
 }
