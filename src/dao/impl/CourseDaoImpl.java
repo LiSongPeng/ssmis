@@ -24,7 +24,7 @@ public class CourseDaoImpl implements CourseDaoI {
     }
 
     @Override
-    public List<Course> findCourseInfoByConditions(Map<String, Object> conditions, boolean... equalConditions) {
+    public List<Course> findCourseByConditions(Map<String, Object> conditions, boolean... equalConditions) {
         Session session=sessionFactory.getCurrentSession();
         StringBuilder hql = new StringBuilder("from course c where ");
         int i = 1;

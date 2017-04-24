@@ -9,6 +9,7 @@ import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.CourseSchedulePK;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by lihuibo on 4/20/17.
@@ -27,6 +28,13 @@ public class CourseScheduleDaoImpl implements CourseScheduleDaoI {
         Query<CourseSchedule> query = session.createQuery("from CourseSchedule cs where cs.id=?1", CourseSchedule.class);
         query.setParameter(1, pk);
         return query.uniqueResult();
+    }
+
+    @Override
+    public List<CourseSchedule> findCourseScheduleByCourseIds(List<String> ids) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<CourseSchedule> query = session.createQuery("from CourseSchedule cs where cs.crsId in ?1", CourseSchedule.class);
+        return query.setParameter(1,ids).list();
     }
 
     @Resource(name = "sessionFactory")

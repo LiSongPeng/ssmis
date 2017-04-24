@@ -11,7 +11,8 @@ import java.util.List;
 public interface CourseServiceI {
     /**
      * 通过课程号查找课程信息
-     *   @param crsId 课程编号
+     *
+     * @param crsId 课程编号
      * @param dpmId 学院编号
      * @param tchId 老师编号
      */
@@ -34,4 +35,12 @@ public interface CourseServiceI {
      * @return 课程安排试题信息
      */
     public List<CoursesTable> getCourseTable(String crsId, String tchId, String dpmId);
+
+    /**
+     * 通过课程号查找课程开设信息
+     *
+     * @param courseId 课程号
+     * @return 查找到的课程开设信息实体
+     */
+    public List<CourseSchedule> getCourseInfoById(String courseId);
 }
