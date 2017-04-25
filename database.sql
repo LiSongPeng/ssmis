@@ -157,19 +157,44 @@ CREATE TABLE `course_schedule` (
 DROP TABLE IF EXISTS `courses_table`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `courses_table` (
-  `dpm_id` char(8) NOT NULL,
-  `crs_id` char(8) NOT NULL,
-  `tch_id` char(8) NOT NULL,
-  `weeks` tinyint(4) NOT NULL DEFAULT '0',
-  `off` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`crs_id`,`dpm_id`,`tch_id`,`weeks`,`off`),
-  KEY `courses_table_teacher_tch_id_fk` (`tch_id`),
-  KEY `courses_table_department_dpm_id_fk` (`dpm_id`),
-  CONSTRAINT `courses_table_Teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `Teacher` (`tch_id`),
-  CONSTRAINT `courses_table_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),
-  CONSTRAINT `courses_table_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)
+create table courses_table
+(
+	dpm_id char(8) not null,
+	crs_id char(8) not null,
+	tch_id char(8) not null,
+	weeks varchar(60) default '0' null,
+	off varchar(20) default '0' null,
+	site varchar(20) null,
+	primary key (crs_id, dpm_id, tch_id),
+	constraint courses_table_department_dpm_id_fk
+		foreign key (dpm_id) references ssmis.department (dpm_id),
+	constraint courses_table_course_crs_id_fk
+		foreign key (crs_id) references ssmis.course (crs_id),
+	constraint courses_table_Teacher_tch_id_fk
+		foreign key (tch_id) references ssmis.Teacher (tch_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+;
+
+create index courses_table_department_dpm_id_fk
+	on courses_table (dpm_id)
+;
+
+create index courses_table_teacher_tch_id_fk
+	on courses_table (tch_id)
+;
+
+create index courses_table_course_crs_id_fk
+	on courses_table (crs_id)
+;
+
+comment on column courses_table.weeks is '形如1-14:even,15-17:normal'
+;
+
+comment on column courses_table.off is '形如1,3,4'
+;
+
+comment on column courses_table.site is '上课地点'
+;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

@@ -49,7 +49,16 @@ public class CourseServiceImpl implements CourseServiceI {
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public String[][] getCourseTable(String crsId, String tchId, String dpmId) {
         List<CoursesTable> table = coursesTableDao.findCoursesTable(crsId, tchId, dpmId);
+        String[][] tables = new String[5][5];
+        for (int i = 0; i < tables.length; i++) {
+            for (int j = 0; j < tables[i].length; j++) {
+                tables[i][j] = "";
+            }
+        }
+        String courseName = table.get(0).getCourseByCrsId().getCrsName();
+        int offset = 0;
         for (CoursesTable each : table) {
+
         }
         return null;
     }

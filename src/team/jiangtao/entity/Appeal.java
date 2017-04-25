@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 @Entity
 @IdClass(AppealPK.class)
@@ -134,7 +134,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }
@@ -144,7 +144,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
@@ -154,7 +154,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false)
     public Student getStudentByStuId() {
         return studentByStuId;
     }

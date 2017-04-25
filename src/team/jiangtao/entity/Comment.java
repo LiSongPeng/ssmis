@@ -4,11 +4,10 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 @Entity
 @IdClass(CommentPK.class)
-@Table(name = "comment")
 public class Comment {
     private String dpm;
     private String crs;
@@ -95,7 +94,7 @@ public class Comment {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false)
     public Department getDepartmentByDpm() {
         return departmentByDpm;
     }
@@ -105,7 +104,7 @@ public class Comment {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }

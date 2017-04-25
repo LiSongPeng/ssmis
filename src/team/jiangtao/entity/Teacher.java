@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.Collection;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 @Entity
 public class Teacher {
@@ -174,7 +174,7 @@ public class Teacher {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }

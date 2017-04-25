@@ -1,7 +1,6 @@
 package service.i;
 
 import team.jiangtao.entity.CourseSchedule;
-import team.jiangtao.entity.CoursesTable;
 
 import java.util.List;
 

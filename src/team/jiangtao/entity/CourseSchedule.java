@@ -3,7 +3,7 @@ package team.jiangtao.entity;
 import javax.persistence.*;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 @Entity
 @Table(name = "course_schedule", schema = "ssmis", catalog = "")
@@ -121,7 +121,7 @@ public class CourseSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }
@@ -131,7 +131,7 @@ public class CourseSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
@@ -141,7 +141,7 @@ public class CourseSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false)
     public Teacher getTeacherByTchId() {
         return teacherByTchId;
     }

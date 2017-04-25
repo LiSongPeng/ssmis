@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 @Entity
 @IdClass(ExamPK.class)
@@ -94,7 +94,7 @@ public class Exam {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dmp", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "dmp", referencedColumnName = "dpm_id", nullable = false)
     public Department getDepartmentByDmp() {
         return departmentByDmp;
     }
@@ -104,7 +104,7 @@ public class Exam {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }

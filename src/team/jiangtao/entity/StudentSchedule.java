@@ -3,7 +3,7 @@ package team.jiangtao.entity;
 import javax.persistence.*;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 @Entity
 @Table(name = "student_schedule", schema = "ssmis", catalog = "")
@@ -112,7 +112,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false)
     public Department getDepartmentByDpm() {
         return departmentByDpm;
     }
@@ -122,7 +122,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }
@@ -132,7 +132,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tch", referencedColumnName = "tch_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "tch", referencedColumnName = "tch_id", nullable = false)
     public Teacher getTeacherByTch() {
         return teacherByTch;
     }
@@ -142,7 +142,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false)
     public Student getStudentByStu() {
         return studentByStu;
     }

@@ -4,10 +4,9 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 @Entity
-@Table(name = "course")
 public class Course {
     private String crsId;
     private String crsName;
