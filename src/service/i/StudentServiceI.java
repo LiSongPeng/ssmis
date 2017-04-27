@@ -3,6 +3,7 @@ package service.i;
 
 import team.jiangtao.entity.Exam;
 import team.jiangtao.entity.Student;
+import team.jiangtao.entity.StudentSchedule;
 
 import java.util.List;
 
@@ -47,4 +48,11 @@ public interface StudentServiceI {
      * @return 返回考试信息实体
      */
     List<Exam> getExamInfo(String stuId);
+
+    /**
+     * 根据学号查找已选课程信息
+     * @param stuId 学号
+     * @return 已选课程实体集合
+     */
+    List<StudentSchedule> getSelectedCoursesInfo(String stuId);
 }

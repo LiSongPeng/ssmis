@@ -108,9 +108,18 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return ERROR;
     }
 
-    @Action(value = "getSelectedCoursesInfo", results = {@Result(type = "json", params = {"root", "exams"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    @Action(value = "getSelectedCoursesInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getSelectedCoursesInfo() {
         Student currStu = (Student) session.get("currStu");
+        schedules = studentService.getSelectedCoursesInfo(currStu.getStuId());
+        if (schedules.size() > 0)
+            return SUCCESS;
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
+    @Action(value = "getScoreInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getScoreInfo() {
         return SUCCESS;
     }
 

@@ -102,4 +102,12 @@ public class StudentServiceImpl implements StudentServiceI {
         }
         return examDao.findExamsByIds(examPKList);
     }
+
+    @Override
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+    public List<StudentSchedule> getSelectedCoursesInfo(String stuId) {
+        Map<String, Object> condition = new HashMap<>(1);
+        condition.put("stu", stuId);
+        return studentScheduleDao.findStudentScheduleByConditions(condition);
+    }
 }
