@@ -10,9 +10,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.StudentServiceI;
 import team.jiangtao.entity.CourseSchedule;
+import team.jiangtao.entity.Exam;
 import team.jiangtao.entity.Student;
+import team.jiangtao.entity.StudentSchedule;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +31,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
     private String result;
     private Map<String, Object> session;
     private CourseSchedule csche;
+    private List<Exam> exams;
+    private List<StudentSchedule> schedules;
 
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}))
     public String login() {
@@ -93,6 +98,22 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return SUCCESS;
     }
 
+    @Action(value = "getExamInfo", results = {@Result(type = "json", params = {"root", "exams"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getExamInfo() {
+        Student currStu = (Student) session.get("currStu");
+        exams = studentService.getExamInfo(currStu.getStuId());
+        if (exams.size() > 0)
+            return SUCCESS;
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
+    @Action(value = "getSelectedCoursesInfo", results = {@Result(type = "json", params = {"root", "exams"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getSelectedCoursesInfo() {
+        Student currStu = (Student) session.get("currStu");
+        return SUCCESS;
+    }
+
     public Student getStu() {
         return stu;
     }
@@ -125,5 +146,13 @@ public class StudentAction extends ActionSupport implements SessionAware {
 
     public void setCsche(CourseSchedule csche) {
         this.csche = csche;
+    }
+
+    public List<Exam> getExams() {
+        return exams;
+    }
+
+    public List<StudentSchedule> getSchedules() {
+        return schedules;
     }
 }

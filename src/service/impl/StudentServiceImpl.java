@@ -2,17 +2,17 @@ package service.impl;
 
 
 import dao.i.CourseScheduleDaoI;
+import dao.i.ExamDaoI;
 import dao.i.StudentDaoI;
 import dao.i.StudentScheduleDaoI;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import service.i.StudentServiceI;
-import team.jiangtao.entity.CourseSchedule;
-import team.jiangtao.entity.Student;
-import team.jiangtao.entity.StudentSchedule;
+import team.jiangtao.entity.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +22,12 @@ public class StudentServiceImpl implements StudentServiceI {
     private StudentDaoI studentDao;
     private CourseScheduleDaoI courseScheduleDao;
     private StudentScheduleDaoI studentScheduleDao;
+    private ExamDaoI examDao;
+
+    @Resource(name = "examDao")
+    public void setExamDao(ExamDaoI examDao) {
+        this.examDao = examDao;
+    }
 
     @Resource(name = "courseScheduleDao")
     public void setCourseScheduleDao(CourseScheduleDaoI courseScheduleDao) {
@@ -78,5 +84,22 @@ public class StudentServiceImpl implements StudentServiceI {
     @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
     public boolean cancelCourse(String stuId, String tchId, String dpmId, String crsId) {
         return studentScheduleDao.deleteStudentSchedule(stuId, tchId, dpmId, crsId) > 0 ? true : false;
+    }
+
+    @Override
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+    public List<Exam> getExamInfo(String stuId) {
+        Map<String, Object> conditons = new HashMap<>(1);
+        conditons.put("stu", stuId);
+        List<StudentSchedule> schedules = studentScheduleDao.findStudentScheduleByConditions(conditons);
+        List<ExamPK> examPKList = new ArrayList<>(schedules.size());
+        ExamPK examPK;
+        for (StudentSchedule each : schedules) {
+            examPK = new ExamPK();
+            examPK.setCrs(each.getCrs());
+            examPK.setDpm(each.getDpm());
+            examPKList.add(examPK);
+        }
+        return examDao.findExamsByIds(examPKList);
     }
 }

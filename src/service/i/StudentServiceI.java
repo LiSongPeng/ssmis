@@ -1,7 +1,10 @@
 package service.i;
 
 
+import team.jiangtao.entity.Exam;
 import team.jiangtao.entity.Student;
+
+import java.util.List;
 
 public interface StudentServiceI {
     /**
@@ -37,4 +40,11 @@ public interface StudentServiceI {
      * @return 是否取消
      */
     boolean cancelCourse(String stuId, String tchId, String dpmId, String crsId);
+
+    /**
+     * 根据学号获得学生考试信息
+     * @param stuId 学号
+     * @return 返回考试信息实体
+     */
+    List<Exam> getExamInfo(String stuId);
 }

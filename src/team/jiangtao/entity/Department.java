@@ -58,7 +58,7 @@ public class Department {
         return result;
     }
 
-    @OneToMany(mappedBy = "departmentByDmp")
+    @OneToMany(mappedBy = "departmentByDpm")
     public Collection<Exam> getExamsByDpmId() {
         return examsByDpmId;
     }
