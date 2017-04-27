@@ -69,7 +69,7 @@ public class CoursesTable {
         this.off = off;
     }
 
-    @Basic
+    @Id
     @Column(name = "site")
     public String getSite() {
         return site;
