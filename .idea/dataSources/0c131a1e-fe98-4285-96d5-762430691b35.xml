@@ -411,6 +411,7 @@ crs_id</ColNames>
       <Position>6</Position>
       <Comment>上课地点</Comment>
       <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <index id="94" parent="13" name="courses_table_department_dpm_id_fk">
       <ColNames>dpm_id</ColNames>
@@ -425,7 +426,8 @@ crs_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ColNames>crs_id
 dpm_id
-tch_id</ColNames>
+tch_id
+site</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="98" parent="13" name="courses_table_department_dpm_id_fk">

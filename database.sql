@@ -165,7 +165,7 @@ create table courses_table
 	weeks varchar(60) default '0' null,
 	off varchar(20) default '0' null,
 	site varchar(20) null,
-	primary key (crs_id, dpm_id, tch_id),
+	primary key (crs_id, dpm_id, tch_id,site),
 	constraint courses_table_department_dpm_id_fk
 		foreign key (dpm_id) references ssmis.department (dpm_id),
 	constraint courses_table_course_crs_id_fk
