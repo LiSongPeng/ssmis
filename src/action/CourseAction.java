@@ -23,23 +23,30 @@ import java.util.List;
 @Scope(value = "prototype")
 public class CourseAction extends ActionSupport {
     private CourseServiceI courseService;
-    private CourseSchedule courseSchedule;
+    private CourseSchedule cs;
+    private String courseKeyName;
+    private String courseId;
     private List<CourseSchedule> courseSchedules;
     private List<CoursesTable> coursesTableList;
+    private String result;
+    private String[][] courseTable;
 
-    @Action(value = "getCourseInfo", results = @Result(type = "json", params = {"root", "courseSchedule"}))
-    public String getCourseInfo() {
-        courseSchedule=courseService.getCourseInfo(courseSchedule.getCrsId(),courseSchedule.getDpmId(),courseSchedule.getTchId());
-        return SUCCESS;
-    }
-
-    @Action(value = "getCoursesInfo", results = @Result(type = "json", params = {"root", "courseList"}))
+    @Action(value = "getCoursesInfo", results = {@Result(name = "error", type = "json", params = {"root", "result"}), @Result(type = "json", params = {"root", "courseSchedules"})})
     public String getCoursesInfo() {
-        return SUCCESS;
+        if (courseId != null) {
+            courseSchedules = courseService.getCourseInfoById(courseId);
+            return SUCCESS;
+        }
+        if (courseKeyName != null) {
+            courseSchedules = courseService.getCoursesInfoByKeyName(courseKeyName);
+            return SUCCESS;
+        }
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
     }
 
-    @Action(value = "getCourseTable", results = @Result(type = "json", params = {"root", "coursesTableList"}))
-    public String getCourseTable() {
+    @Action(value = "getCourseTableById", results = @Result(type = "json", params = {"root", "coursesTableList"}))
+    public String getCourseTableById() {
 
         return SUCCESS;
     }
@@ -47,5 +54,33 @@ public class CourseAction extends ActionSupport {
     @Resource(name = "courseService")
     public void setCourseService(CourseServiceI courseService) {
         this.courseService = courseService;
+    }
+
+    public void setCs(CourseSchedule cs) {
+        this.cs = cs;
+    }
+
+    public void setCourseKeyName(String courseKeyName) {
+        this.courseKeyName = courseKeyName;
+    }
+
+    public List<CourseSchedule> getCourseSchedules() {
+        return courseSchedules;
+    }
+
+    public List<CoursesTable> getCoursesTableList() {
+        return coursesTableList;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    public String[][] getCourseTable() {
+        return courseTable;
     }
 }

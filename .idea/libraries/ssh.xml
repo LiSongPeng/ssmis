@@ -51,6 +51,8 @@
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-tree-3.3.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$USER_HOME$/DDisk/library/hibernate-release-5.2.2.Final/project/hibernate-core/src/main/java" />
+    </SOURCES>
   </library>
 </component>

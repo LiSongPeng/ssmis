@@ -5,14 +5,13 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 public class CoursesTablePK implements Serializable {
     private String dpmId;
     private String crsId;
     private String tchId;
-    private byte weeks;
-    private byte off;
+    private String site;
 
     @Column(name = "dpm_id")
     @Id
@@ -44,24 +43,14 @@ public class CoursesTablePK implements Serializable {
         this.tchId = tchId;
     }
 
-    @Column(name = "weeks")
+    @Column(name = "site")
     @Id
-    public byte getWeeks() {
-        return weeks;
+    public String getSite() {
+        return site;
     }
 
-    public void setWeeks(byte weeks) {
-        this.weeks = weeks;
-    }
-
-    @Column(name = "off")
-    @Id
-    public byte getOff() {
-        return off;
-    }
-
-    public void setOff(byte off) {
-        this.off = off;
+    public void setSite(String site) {
+        this.site = site;
     }
 
     @Override
@@ -71,13 +60,10 @@ public class CoursesTablePK implements Serializable {
 
         CoursesTablePK that = (CoursesTablePK) o;
 
-        if (weeks != that.weeks) return false;
-        if (off != that.off) return false;
         if (dpmId != null ? !dpmId.equals(that.dpmId) : that.dpmId != null) return false;
         if (crsId != null ? !crsId.equals(that.crsId) : that.crsId != null) return false;
         if (tchId != null ? !tchId.equals(that.tchId) : that.tchId != null) return false;
-
-        return true;
+        return site != null ? site.equals(that.site) : that.site == null;
     }
 
     @Override
@@ -85,8 +71,7 @@ public class CoursesTablePK implements Serializable {
         int result = dpmId != null ? dpmId.hashCode() : 0;
         result = 31 * result + (crsId != null ? crsId.hashCode() : 0);
         result = 31 * result + (tchId != null ? tchId.hashCode() : 0);
-        result = 31 * result + (int) weeks;
-        result = 31 * result + (int) off;
+        result = 31 * result + (site != null ? site.hashCode() : 0);
         return result;
     }
 }

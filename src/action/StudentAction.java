@@ -9,11 +9,18 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.StudentServiceI;
+import team.jiangtao.entity.CourseSchedule;
+import team.jiangtao.entity.Exam;
 import team.jiangtao.entity.Student;
+import team.jiangtao.entity.StudentSchedule;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
+/**
+ * Created by lihuibo on 4/14/17.
+ */
 @Namespace("/student")
 @ParentPackage("ssmis-default")
 @Controller
@@ -23,8 +30,11 @@ public class StudentAction extends ActionSupport implements SessionAware {
     private Student stu;
     private String result;
     private Map<String, Object> session;
+    private CourseSchedule csche;
+    private List<Exam> exams;
+    private List<StudentSchedule> schedules;
 
-    @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}) )
+    @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}))
     public String login() {
         Student student = studentService.loginByStuIdAndPass(stu.getStuId(), stu.getPassword());
         if (student != null) {
@@ -35,7 +45,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return SUCCESS;
     }
 
-    @Action(value = "logout", results = {@Result(location = "/student/login.jsp"), @Result(name = "error", location = "/student/index.jsp",type= "json", params = {"root", "result"})})
+    @Action(value = "logout", results = {@Result(location = "/student/login.jsp"), @Result(name = "error", location = "/student/index.jsp", type = "json", params = {"root", "result"})})
     public String logout() {
         if (session.remove("currStu") != null) {
             session.clear();
@@ -52,6 +62,67 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return ERROR;
     }
 
+    @Action(value = "updateUser", results = @Result(type = "json", params = {"root", "result"}))
+    public String updateUser() {
+        Student currStu = (Student) session.get("currStu");
+        currStu.setEmail(stu.getEmail() == null ? currStu.getEmail() : stu.getEmail());
+        currStu.setPassword(stu.getPassword() == null ? currStu.getPassword() : stu.getPassword());
+        currStu.setPhone(stu.getPhone() == null ? currStu.getPhone() : stu.getPhone());
+        if (studentService.changeStudentInfo(currStu)) {
+            result = "{\"result\":\"Success\"}";
+        } else {
+            result = "{\"result\":\"Error\"}";
+        }
+        return SUCCESS;
+    }
+
+    @Action(value = "selectCourse", results = @Result(type = "json", params = {"root", "result"}))
+    public String selectCourse() {
+        Student currStu = (Student) session.get("currStu");
+        if (studentService.selectCourse(currStu.getStuId(), csche.getTchId(), csche.getDpmId(), csche.getCrsId())) {
+            result = "{\"result\":\"Success\"}";
+        } else {
+            result = "{\"result\":\"Error\"}";
+        }
+        return SUCCESS;
+    }
+
+    @Action(value = "cancalCourse", results = @Result(type = "json", params = {"root", "result"}))
+    public String cancelCourse() {
+        Student currStu = (Student) session.get("currStu");
+        if (studentService.cancelCourse(currStu.getStuId(), csche.getTchId(), csche.getDpmId(), csche.getCrsId())) {
+            result = "{\"result\":\"Success\"}";
+        } else {
+            result = "{\"result\":\"Error\"}";
+        }
+        return SUCCESS;
+    }
+
+    @Action(value = "getExamInfo", results = {@Result(type = "json", params = {"root", "exams"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getExamInfo() {
+        Student currStu = (Student) session.get("currStu");
+        exams = studentService.getExamInfo(currStu.getStuId());
+        if (exams.size() > 0)
+            return SUCCESS;
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
+    @Action(value = "getSelectedCoursesInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getSelectedCoursesInfo() {
+        Student currStu = (Student) session.get("currStu");
+        schedules = studentService.getSelectedCoursesInfo(currStu.getStuId());
+        if (schedules.size() > 0)
+            return SUCCESS;
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
+    @Action(value = "getScoreInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getScoreInfo() {
+        return SUCCESS;
+    }
+
     public Student getStu() {
         return stu;
     }
@@ -59,6 +130,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     public void setStu(Student stu) {
         this.stu = stu;
     }
+
     @Resource(name = "studentService")
     public void setStudentService(StudentServiceI studentService) {
         this.studentService = studentService;
@@ -75,5 +147,21 @@ public class StudentAction extends ActionSupport implements SessionAware {
     @Override
     public void setSession(Map<String, Object> map) {
         this.session = map;
+    }
+
+    public CourseSchedule getCsche() {
+        return csche;
+    }
+
+    public void setCsche(CourseSchedule csche) {
+        this.csche = csche;
+    }
+
+    public List<Exam> getExams() {
+        return exams;
+    }
+
+    public List<StudentSchedule> getSchedules() {
+        return schedules;
     }
 }

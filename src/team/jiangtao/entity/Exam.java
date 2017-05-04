@@ -4,27 +4,27 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 @Entity
 @IdClass(ExamPK.class)
 public class Exam {
-    private String dmp;
+    private String dpm;
     private String crs;
     private Date date;
     private String location;
     private byte status;
-    private Department departmentByDmp;
+    private Department departmentByDpm;
     private Course courseByCrs;
 
     @Id
-    @Column(name = "dmp")
-    public String getDmp() {
-        return dmp;
+    @Column(name = "dpm")
+    public String getDpm() {
+        return dpm;
     }
 
-    public void setDmp(String dmp) {
-        this.dmp = dmp;
+    public void setDpm(String dpm) {
+        this.dpm =dpm;
     }
 
     @Id
@@ -75,7 +75,7 @@ public class Exam {
         Exam exam = (Exam) o;
 
         if (status != exam.status) return false;
-        if (dmp != null ? !dmp.equals(exam.dmp) : exam.dmp != null) return false;
+        if (dpm != null ? !dpm.equals(exam.dpm) : exam.dpm != null) return false;
         if (crs != null ? !crs.equals(exam.crs) : exam.crs != null) return false;
         if (date != null ? !date.equals(exam.date) : exam.date != null) return false;
         if (location != null ? !location.equals(exam.location) : exam.location != null) return false;
@@ -85,7 +85,7 @@ public class Exam {
 
     @Override
     public int hashCode() {
-        int result = dmp != null ? dmp.hashCode() : 0;
+        int result = dpm != null ? dpm.hashCode() : 0;
         result = 31 * result + (crs != null ? crs.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
@@ -94,17 +94,17 @@ public class Exam {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dmp", referencedColumnName = "dpm_id", nullable = false,insertable = false,updatable = false)
-    public Department getDepartmentByDmp() {
-        return departmentByDmp;
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
+    public Department getDepartmentByDpm() {
+        return departmentByDpm;
     }
 
-    public void setDepartmentByDmp(Department departmentByDmp) {
-        this.departmentByDmp = departmentByDmp;
+    public void setDepartmentByDpm(Department departmentByDpm) {
+        this.departmentByDpm = departmentByDpm;
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }

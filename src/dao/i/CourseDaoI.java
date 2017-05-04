@@ -1,7 +1,8 @@
 package dao.i;
 
 
-import team.jiangtao.entity.CourseSchedule;
+
+import team.jiangtao.entity.Course;
 
 import java.util.List;
 import java.util.Map;
@@ -16,5 +17,5 @@ public interface CourseDaoI {
      * @param equalConditions 对应于每个键值对，是采用=匹配，还是采用like模糊匹配的标志,不传值默认为=
      * @return 实体对象集合
      */
-    List<CourseSchedule> findCourseInfoByConditions(Map<String,Object> conditions, boolean... equalConditions);
+    List<Course> findCourseByConditions(Map<String,Object> conditions, boolean... equalConditions);
 }

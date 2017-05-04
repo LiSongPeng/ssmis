@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 public class CourseSchedulePK implements Serializable {
     private String dpmId;
@@ -47,11 +47,11 @@ public class CourseSchedulePK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CourseSchedulePK that = (CourseSchedulePK) o;
+        CourseSchedulePK pk = (CourseSchedulePK) o;
 
-        if (dpmId != null ? !dpmId.equals(that.dpmId) : that.dpmId != null) return false;
-        if (crsId != null ? !crsId.equals(that.crsId) : that.crsId != null) return false;
-        if (tchId != null ? !tchId.equals(that.tchId) : that.tchId != null) return false;
+        if (dpmId != null ? !dpmId.equals(pk.dpmId) : pk.dpmId != null) return false;
+        if (crsId != null ? !crsId.equals(pk.crsId) : pk.crsId != null) return false;
+        if (tchId != null ? !tchId.equals(pk.tchId) : pk.tchId != null) return false;
 
         return true;
     }

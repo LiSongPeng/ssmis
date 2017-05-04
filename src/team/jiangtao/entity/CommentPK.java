@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 public class CommentPK implements Serializable {
     private String dpm;

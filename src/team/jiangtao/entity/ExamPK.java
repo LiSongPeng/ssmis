@@ -5,20 +5,20 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by lihuibo on 4/20/17.
+ * Created by lihuibo on 4/25/17.
  */
 public class ExamPK implements Serializable {
-    private String dmp;
+    private String dpm;
     private String crs;
 
-    @Column(name = "dmp")
+    @Column(name = "dpm")
     @Id
-    public String getDmp() {
-        return dmp;
+    public String getDpm() {
+        return dpm;
     }
 
-    public void setDmp(String dmp) {
-        this.dmp = dmp;
+    public void setDpm(String dpm) {
+        this.dpm = dpm;
     }
 
     @Column(name = "crs")
@@ -38,7 +38,7 @@ public class ExamPK implements Serializable {
 
         ExamPK examPK = (ExamPK) o;
 
-        if (dmp != null ? !dmp.equals(examPK.dmp) : examPK.dmp != null) return false;
+        if (dpm != null ? !dpm.equals(examPK.dpm) : examPK.dpm != null) return false;
         if (crs != null ? !crs.equals(examPK.crs) : examPK.crs != null) return false;
 
         return true;
@@ -46,7 +46,7 @@ public class ExamPK implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = dmp != null ? dmp.hashCode() : 0;
+        int result = dpm != null ? dpm.hashCode() : 0;
         result = 31 * result + (crs != null ? crs.hashCode() : 0);
         return result;
     }
