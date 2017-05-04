@@ -108,7 +108,7 @@ public class CoursesTable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }
@@ -118,7 +118,7 @@ public class CoursesTable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
@@ -128,7 +128,7 @@ public class CoursesTable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false)
+    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false,updatable = false,insertable = false)
     public Teacher getTeacherByTchId() {
         return teacherByTchId;
     }

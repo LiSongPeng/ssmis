@@ -8,6 +8,7 @@ import java.sql.Date;
  */
 @Entity
 @IdClass(CommentPK.class)
+@Table(name = "comment")
 public class Comment {
     private String dpm;
     private String crs;
@@ -94,7 +95,7 @@ public class Comment {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false)
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
     public Department getDepartmentByDpm() {
         return departmentByDpm;
     }
@@ -104,7 +105,7 @@ public class Comment {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }
