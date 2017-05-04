@@ -8,6 +8,7 @@ import java.util.Collection;
  * Created by lihuibo on 4/25/17.
  */
 @Entity
+@Table(name = "student")
 public class Student {
     private String stuId;
     private String name;

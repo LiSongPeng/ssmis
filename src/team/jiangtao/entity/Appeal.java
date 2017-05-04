@@ -8,6 +8,7 @@ import java.sql.Date;
  */
 @Entity
 @IdClass(AppealPK.class)
+@Table(name = "appeal")
 public class Appeal {
     private String dpmId;
     private String crsId;
@@ -134,7 +135,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }
@@ -144,7 +145,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false)
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
@@ -154,7 +155,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false)
+    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false,updatable = false,insertable = false)
     public Student getStudentByStuId() {
         return studentByStuId;
     }

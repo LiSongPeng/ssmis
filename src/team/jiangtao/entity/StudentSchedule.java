@@ -112,7 +112,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false)
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
     public Department getDepartmentByDpm() {
         return departmentByDpm;
     }
@@ -122,7 +122,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }
@@ -132,7 +132,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tch", referencedColumnName = "tch_id", nullable = false)
+    @JoinColumn(name = "tch", referencedColumnName = "tch_id", nullable = false,updatable = false,insertable = false)
     public Teacher getTeacherByTch() {
         return teacherByTch;
     }
@@ -142,7 +142,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false)
+    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false,updatable = false,insertable = false)
     public Student getStudentByStu() {
         return studentByStu;
     }
