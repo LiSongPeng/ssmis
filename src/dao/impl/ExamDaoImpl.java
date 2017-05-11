@@ -30,4 +30,11 @@ public class ExamDaoImpl implements ExamDaoI {
         query.setParameter(1, ids);
         return query.list();
     }
+
+    @Override
+    public List<Exam> findAllExams() {
+        Session session=sessionFactory.getCurrentSession();
+        Query<Exam> query=session.createQuery("from Exam");
+        return query.list();
+    }
 }

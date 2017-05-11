@@ -47,4 +47,13 @@ public class CourseDaoImpl implements CourseDaoI {
         }
         return query.list();
     }
+
+    @Override
+    public List<Course> findallCourse() {
+        Session session=sessionFactory.getCurrentSession();
+        StringBuilder Hql=new StringBuilder("from Course");
+        Query query=session.createQuery(Hql.toString(),Course.class);
+        List<Course> list=query.list();
+        return list;
+    }
 }

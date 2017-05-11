@@ -25,4 +25,24 @@ public interface CourseScheduleDaoI {
      * @return 课程开设信息集合
      */
     List<CourseSchedule> findCourseScheduleByCourseIds(List<String> ids);
+
+    /**
+     * 课程发布
+     *
+     * @return 标记Int
+     */
+
+    Integer fromCoursetoCS(String dpm_id,String crs_id,String tch_id,byte type,byte preriods,byte credit,byte term);
+
+    /**
+     * 课程修改
+     *
+     */
+    Integer modifyCS(String dpm_id,String crs_id,String tch_id,byte type,byte preriods,byte credit,byte term);
+    /**
+     * 课程删除
+     */
+    Integer deleteCS(String dpm_id,String crs_id,String tch_id);
+
+
 }

@@ -16,4 +16,5 @@ public interface ExamDaoI {
      * @return Exam实体集合
      */
     public List<Exam> findExamsByIds(List<ExamPK> ids);
+    List<Exam> findAllExams();
 }

@@ -1,5 +1,6 @@
 package service.i;
 
+import team.jiangtao.entity.Course;
 import team.jiangtao.entity.CourseSchedule;
 
 import java.util.List;
@@ -42,4 +43,7 @@ public interface CourseServiceI {
      * @return 查找到的课程开设信息实体
      */
     public List<CourseSchedule> getCourseInfoById(String courseId);
+
+    List<Course> getallCourse();
+    Integer sercoursetocs(String dpm_id,String crs_id,String tch_id,byte type,byte preriods,byte credit,byte term);
 }

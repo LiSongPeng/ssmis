@@ -8,6 +8,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.CourseServiceI;
+import team.jiangtao.entity.Course;
 import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.CoursesTable;
 
@@ -30,6 +31,7 @@ public class CourseAction extends ActionSupport {
     private List<CoursesTable> coursesTableList;
     private String result;
     private String[][] courseTable;
+    private Course course;
 
     @Action(value = "getCoursesInfo", results = {@Result(name = "error", type = "json", params = {"root", "result"}), @Result(type = "json", params = {"root", "courseSchedules"})})
     public String getCoursesInfo() {
@@ -50,7 +52,6 @@ public class CourseAction extends ActionSupport {
 
         return SUCCESS;
     }
-
     @Resource(name = "courseService")
     public void setCourseService(CourseServiceI courseService) {
         this.courseService = courseService;
@@ -62,6 +63,14 @@ public class CourseAction extends ActionSupport {
 
     public void setCourseKeyName(String courseKeyName) {
         this.courseKeyName = courseKeyName;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public List<CourseSchedule> getCourseSchedules() {
