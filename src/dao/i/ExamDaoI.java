@@ -3,6 +3,7 @@ package dao.i;
 import team.jiangtao.entity.Exam;
 import team.jiangtao.entity.ExamPK;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -17,4 +18,7 @@ public interface ExamDaoI {
      */
     public List<Exam> findExamsByIds(List<ExamPK> ids);
     List<Exam> findAllExams();
+    void modifyExam(String dpm,String crs,Date date,String location,byte status);
+    void fromCStoExam(String dpm,String crs,Date date,String location,byte status);
+    void delExam(String dpm,String crs);
 }

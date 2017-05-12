@@ -348,42 +348,42 @@ off</ColNames>
       <ColNames>dpm_name</ColNames>
       <UnderlyingIndexName>department_dpm_name_uindex</UnderlyingIndexName>
     </key>
-    <column id="87" parent="19" name="dmp">
-      <Position>1</Position>
-      <DataType>char(8)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="88" parent="19" name="crs">
+    <column id="87" parent="19" name="crs">
       <Position>2</Position>
       <DataType>char(8)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="89" parent="19" name="date">
+    <column id="88" parent="19" name="date">
       <Position>3</Position>
       <DataType>date|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="90" parent="19" name="location">
+    <column id="89" parent="19" name="location">
       <Position>4</Position>
-      <DataType>varchar(64)|0</DataType>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="91" parent="19" name="status">
+    <column id="90" parent="19" name="status">
       <Position>5</Position>
       <DataType>tinyint(4)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
+    <column id="91" parent="19" name="dpm">
+      <Position>1</Position>
+      <DataType>char(8)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
     <index id="92" parent="19" name="exam_course_crs_id_fk">
       <ColNames>crs</ColNames>
     </index>
     <key id="93" parent="19" name="PRIMARY">
-      <ColNames>dmp
+      <ColNames>dpm
 crs</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="94" parent="19" name="exam_department_dpm_id_fk">
-      <ColNames>dmp</ColNames>
+      <ColNames>dpm</ColNames>
       <RefSchemaName>ssmis</RefSchemaName>
       <RefTableName>department</RefTableName>
       <RefColNames>dpm_id</RefColNames>
