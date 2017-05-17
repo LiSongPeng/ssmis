@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import service.i.CourseScheduleServiceI;
 import service.i.CourseServiceI;
 import team.jiangtao.entity.Course;
+import team.jiangtao.entity.CourseSchedule;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 public class SCAction extends ActionSupport{
     private CourseServiceI courseServiceI;
     private List<Course> course1;
+    private List<CourseSchedule> courseSchedules;
     private CourseScheduleServiceI courseScheduleServiceI;
     @Action(value = "getAllclass", results = {
             @Result(name = "error", type = "json", params = {"root", "result"}),
@@ -57,6 +59,14 @@ public class SCAction extends ActionSupport{
         courseScheduleServiceI.deleCS("1","1","1");
         return SUCCESS;
     }
+    @Action(value = "allCS", results = {
+            @Result(name = "error", type = "json", params = {"root", "result"}),
+            @Result(type = "json", params = {"root", "courseSchedules"})})
+    public String allCS() {
+
+       courseSchedules=courseScheduleServiceI.serfindAllCS();
+        return SUCCESS;
+    }
 
     @Resource(name = "courseService")
     public void setCourseServiceI(CourseServiceI courseServiceI) {
@@ -72,5 +82,13 @@ public class SCAction extends ActionSupport{
     @Resource(name="csService")
     public void setCourseScheduleServiceI(CourseScheduleServiceI courseScheduleServiceI) {
         this.courseScheduleServiceI = courseScheduleServiceI;
+    }
+
+    public List<CourseSchedule> getCourseSchedules() {
+        return courseSchedules;
+    }
+
+    public void setCourseSchedules(List<CourseSchedule> courseSchedules) {
+        this.courseSchedules = courseSchedules;
     }
 }

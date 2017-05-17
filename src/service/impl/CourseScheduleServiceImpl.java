@@ -4,8 +4,10 @@ import dao.i.CourseScheduleDaoI;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.i.CourseScheduleServiceI;
+import team.jiangtao.entity.CourseSchedule;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/11 0011.
@@ -27,6 +29,12 @@ public class CourseScheduleServiceImpl implements CourseScheduleServiceI {
     public Integer deleCS(String dpm_id, String crs_id, String tch_id) {
         courseScheduleDaoI.deleteCS(dpm_id, crs_id, tch_id);
         return 1;
+    }
+
+    @Override
+    @Transactional
+    public List<CourseSchedule> serfindAllCS() {
+        return courseScheduleDaoI.findallCS();
     }
 
     @Resource(name = "courseScheduleDao")

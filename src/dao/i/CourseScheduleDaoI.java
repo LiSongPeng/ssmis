@@ -44,5 +44,7 @@ public interface CourseScheduleDaoI {
      */
     Integer deleteCS(String dpm_id,String crs_id,String tch_id);
 
+    List<CourseSchedule> findallCS();
+
 
 }
