@@ -45,13 +45,14 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return SUCCESS;
     }
 
-    @Action(value = "logout", results = {@Result(location = "/student/login.jsp"), @Result(name = "error", location = "/student/index.jsp", type = "json", params = {"root", "result"})})
+    @Action(value = "logout", results = @Result(type = "json", params = {"root", "result"}))
     public String logout() {
         if (session.remove("currStu") != null) {
             session.clear();
-            return SUCCESS;
-        }
-        return ERROR;
+            result = "{\"result\":\"Success\"}";
+        } else
+            result = "{\"result\":\"Error\"}";
+        return SUCCESS;
     }
 
     @Action(value = "getStuInfo", results = {@Result(type = "json", params = {"root", "stu"}), @Result(name = "error", type = "json", params = {"root", "result"})})
@@ -120,8 +121,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
 
     @Action(value = "getScoreInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getScoreInfo() {
-        Student currStu= (Student) session.get("currStu");
-        schedules=studentService.getAllScoreInfo(currStu.getStuId());
+        Student currStu = (Student) session.get("currStu");
+        schedules = studentService.getAllScoreInfo(currStu.getStuId());
         return SUCCESS;
     }
 
