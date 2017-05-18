@@ -10,42 +10,53 @@
     <script defer src="../res/jiangtao/lib/vue.min.js"></script>
 </head>
 <body>
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<!-- Simple header with fixed tabs. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">Title</span>
+            <span class="mdl-layout-title">教师管理系统</span>
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-            <a href="#scroll-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
-            <a href="#scroll-tab-2" class="mdl-layout__tab">Tab 2</a>
-            <a href="#scroll-tab-3" class="mdl-layout__tab">Tab 3</a>
-            <a href="#scroll-tab-4" class="mdl-layout__tab">Tab 4</a>
-            <a href="#scroll-tab-5" class="mdl-layout__tab">Tab 5</a>
-            <a href="#scroll-tab-6" class="mdl-layout__tab">Tab 6</a>
+            <a href="#fixed-tab-1" class="mdl-layout__tab is-active">课程发布</a>
+            <a href="#fixed-tab-2" class="mdl-layout__tab">考试发布</a>
+            <a href="#fixed-tab-3" class="mdl-layout__tab">成绩录入</a>
+            <a href="#fixed-tab-4" class="mdl-layout__tab">成绩复查</a>
+            <a href="#fixed-tab-5" class="mdl-layout__tab">成绩统计评议</a>
         </div>
     </header>
     <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
+        <span class="mdl-layout-title">教师管理系统</span>
+        <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="#">个人信息</a>
+        <a class="mdl-navigation__link" href="#">退出登陆</a>
+        </nav>
     </div>
     <main class="mdl-layout__content">
-        <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+            <div class="page-content">
+                <!-- Your content goes here -->
+
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+            <div class="page-content">
+                <!-- Your content goes here -->
+
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+            <div class="page-content">
+                <!-- Your content goes here -->
+
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-4">
             <div class="page-content"><!-- Your content goes here --></div>
         </section>
-        <section class="mdl-layout__tab-panel" id="scroll-tab-2">
-            <div class="page-content"><!-- Your content goes here --></div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="scroll-tab-3">
-            <div class="page-content"><!-- Your content goes here --></div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="scroll-tab-4">
-            <div class="page-content"><!-- Your content goes here --></div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="scroll-tab-5">
-            <div class="page-content"><!-- Your content goes here --></div>
-        </section>
-        <section class="mdl-layout__tab-panel" id="scroll-tab-6">
+        <section class="mdl-layout__tab-panel" id="fixed-tab-5">
             <div class="page-content"><!-- Your content goes here --></div>
         </section>
     </main>
