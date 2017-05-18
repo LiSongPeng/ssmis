@@ -8,6 +8,10 @@
     <script defer src="../res/jiangtao/lib/mdl/material.min.js"></script>
     <script defer src="../res/js/jquery-3.0.0.min.js"></script>
     <script defer src="../res/jiangtao/lib/vue.min.js"></script>
+    <script src="../res/jiangtao/lib/d3.min.js"></script>
+    <!--<script src="../res/jiangtao/lib/d3.v3.min.js"></script>-->
+    <script src="../res/jiangtao/lib/c3.min.js"></script>
+    <link href="../res/jiangtao/lib/c3.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <!-- Simple header with fixed tabs. -->
@@ -38,26 +42,44 @@
         <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
             <div class="page-content">
                 <!-- Your content goes here -->
-
+                    ##课程发布
+                <!--content ends-->
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
             <div class="page-content">
                 <!-- Your content goes here -->
-
+                    ##考试发布
+                <!--content ends-->
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
             <div class="page-content">
                 <!-- Your content goes here -->
-
+                    ##成绩录入
+                <!--content ends-->
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-4">
-            <div class="page-content"><!-- Your content goes here --></div>
+            <div class="page-content">
+                <!-- Your content goes here -->
+                    ##成绩复查
+                <!--content ends-->
+            </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-5">
-            <div class="page-content"><!-- Your content goes here --></div>
+            <div class="page-content">
+                <!-- Your content goes here -->
+                <meta charset="utf-8">
+                <link rel="stylesheet" href="css/s_and_g.css">
+                <form>
+                    <label><input type="radio" name="mode" value="grouped"> Grouped</label>
+                    <label><input type="radio" name="mode" value="stacked" checked> Stacked</label>
+                </form>
+                <svg width="960" height="500"></svg>
+                <script src="script/s_and_g.js"></script>
+                <!--content ends-->
+            </div>
         </section>
     </main>
 </div>
