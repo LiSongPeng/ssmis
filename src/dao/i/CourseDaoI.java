@@ -18,4 +18,12 @@ public interface CourseDaoI {
      * @return 实体对象集合
      */
     List<Course> findCourseByConditions(Map<String,Object> conditions, boolean... equalConditions);
+
+    /**
+     * 查询全部可发布课程信息，返回实体集合
+     *
+     * @return
+     */
+    List<Course> findallCourse();
+
 }

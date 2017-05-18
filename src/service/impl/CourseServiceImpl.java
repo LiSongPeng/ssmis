@@ -71,6 +71,19 @@ public class CourseServiceImpl implements CourseServiceI {
         return courseScheduleDao.findCourseScheduleByCourseIds(ids);
     }
 
+    @Override
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+    public List<Course> getallCourse(){
+        return courseDao.findallCourse();
+    }
+
+    @Override
+    @Transactional
+    public Integer sercoursetocs(String dpm_id, String crs_id, String tch_id, byte type, byte preriods, byte credit, byte term) {
+        courseScheduleDao.fromCoursetoCS(dpm_id,crs_id,tch_id,type,preriods,credit,term);
+        return 1;
+    }
+
     @Resource(name = "courseDao")
     public void setCourseDao(CourseDaoI courseDao) {
         this.courseDao = courseDao;

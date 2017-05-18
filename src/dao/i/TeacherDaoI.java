@@ -1,7 +1,6 @@
 package dao.i;
 
 import team.jiangtao.entity.Teacher;
-
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,7 @@ public interface TeacherDaoI {
      * @param conditions
      * @param equalCondition
      * @return teachers
-     * @throws Exception
+     * @throw0s Exception
      */
     List<Teacher> findTeachersByConditions(Map<String,Object> conditions, boolean... equalCondition) throws Exception;
 
