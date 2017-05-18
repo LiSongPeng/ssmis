@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/5/11 0011.
  */
-@Namespace("/exam")
+@Namespace("/teacher")
 @ParentPackage("ssmis-default")
 @Controller
 @Scope(value = "prototype")
