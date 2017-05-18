@@ -120,6 +120,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
 
     @Action(value = "getScoreInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getScoreInfo() {
+        Student currStu= (Student) session.get("currStu");
+        schedules=studentService.getAllScoreInfo(currStu.getStuId());
         return SUCCESS;
     }
 
