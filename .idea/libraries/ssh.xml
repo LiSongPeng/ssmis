@@ -49,6 +49,7 @@
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-3.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-commons-3.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-tree-3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/spring-test-4.3.1.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -110,4 +110,12 @@ public class StudentServiceImpl implements StudentServiceI {
         condition.put("stu", stuId);
         return studentScheduleDao.findStudentScheduleByConditions(condition);
     }
+
+    @Override
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+    public List<StudentSchedule> getAllScoreInfo(String stuId) {
+        Map<String,Object> condition=new HashMap<>(1);
+        condition.put("stu",stuId);
+        return studentScheduleDao.findStudentScheduleByConditions(condition);
+    }
 }
