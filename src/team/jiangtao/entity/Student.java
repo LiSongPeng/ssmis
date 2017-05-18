@@ -21,6 +21,7 @@ public class Student {
     private short grade;
     private byte classNo;
     private Byte stuStatus;
+    private String photoUri;
     private Collection<Appeal> appealsByStuId;
     private Collection<StudentSchedule> studentSchedulesByStuId;
 
@@ -132,6 +133,16 @@ public class Student {
 
     public void setStuStatus(Byte stuStatus) {
         this.stuStatus = stuStatus;
+    }
+
+    @Basic
+    @Column(name = "photo_uri")
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 
     @Override
