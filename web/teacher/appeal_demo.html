@@ -29,9 +29,10 @@
     <tbody>
     <tr style="font-weight:bold;">
         <td class="expand-detail">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons">view_headline</i>
-            </button>
+            <!--<button class="mdl-button mdl-js-button mdl-js-ripple-effect">-->
+                <!--<i class="material-icons">view_headline</i>-->
+            <!--</button>-->
+            <i class="material-icons">highlight_off</i>
         </td>
         <td class="mdl-data-table__cell--non-numeric">计算机学院 (department id)</td>
         <td>
@@ -42,12 +43,12 @@
                 for="crs_id">
                 <div class="mdl-card">
                     <div class="mdl-card__title mdl-card--expand">
-                        <h4>
+                        <h5>
                             Course id:001<br>
                             Name: RNN<br>
                             term: 3<br>
                             weight: 2.0
-                        </h4>
+                        </h5>
                     </div>
                 </div>
             </ul>
@@ -58,16 +59,11 @@
             </span>
             <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
                 for="stu_id">
-                <div class="mdl-card">
-                    <div class="mdl-card__title mdl-card--expand">
-                        <h4>
-                            Student id:001<br>
-                            Name: VIXNESS<br>
-                            Class: 02<br>
-                            Age: 20<br>
-                            Score: 90
-                        </h4>
-                    </div>
+                <li class="mdl-menu__item">Name</li>
+                <li class="mdl-menu__item">id 000</li>
+                <li  class="mdl-menu__item">Socre</li>
+                <li  class="mdl-menu__item">class </li>
+                <li class="mdl-menu__item">grade </li>
                 </div>
             </ul>
         </td>
@@ -87,7 +83,7 @@
         </button>
                 <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
             for="demo-menu-lower-left">
-            <li class="mdl-menu__item">回执</li>
+            <li class="mdl-menu__item showdialog" id="crs_tch_stu">回执</li>
             <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
                 标记为未读
                </li>
@@ -109,7 +105,6 @@
 </script>
 
 
-<button id="show-dialog" type="button" class="mdl-button">Show Dialog</button>
 <dialog class="mdl-dialog">
     <div class="mdl-textfield mdl-js-textfield">
         <textarea class="mdl-textfield__input" type="text" rows= "5" id="input" ></textarea>
@@ -117,19 +112,22 @@
     </div>
 
     <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" id="sub">Agree</button>
-        <button type="button" class="mdl-button close" id="can">Disagree</button>
+        <button type="button" class="mdl-button" id="sub"><i class="material-icons">cloud_upload</i></button>
+        <button type="button" class="mdl-button close" id="can"><i class="material-icons">cancel</i></button>
     </div>
 </dialog>
 <script>
     var dialog = document.querySelector('dialog');
-    var showDialogButton = document.querySelector('#show-dialog');
+    var showDialogButton = document.querySelector('#crs_tch_stu');
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
     }
-    showDialogButton.addEventListener('click', function() {
+//    showDialogButton.addEventListener('click', function() {
+//        dialog.showModal();
+//    });
+    $(".showdialog").click(function () {
         dialog.showModal();
-    });
+    })
 //    dialog.querySelector('.close').addEventListener('click', function() {
 //        dialog.close();
 //    });
