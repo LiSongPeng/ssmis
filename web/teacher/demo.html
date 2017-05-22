@@ -109,6 +109,36 @@
 </script>
 
 
+<button id="show-dialog" type="button" class="mdl-button">Show Dialog</button>
+<dialog class="mdl-dialog">
+    <div class="mdl-textfield mdl-js-textfield">
+        <textarea class="mdl-textfield__input" type="text" rows= "5" id="input" ></textarea>
+        <label class="mdl-textfield__label" for="input">Text lines...</label>
+    </div>
 
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button" id="sub">Agree</button>
+        <button type="button" class="mdl-button close" id="can">Disagree</button>
+    </div>
+</dialog>
+<script>
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#show-dialog');
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function() {
+        dialog.showModal();
+    });
+//    dialog.querySelector('.close').addEventListener('click', function() {
+//        dialog.close();
+//    });
+    $("#sub").click(function () {
+        dialog.close();
+    });
+    $("#can").click(function () {
+        dialog.close();
+    });
+</script>
 </body>
 </html>
