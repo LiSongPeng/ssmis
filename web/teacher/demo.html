@@ -18,7 +18,8 @@
 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
     <thead>
     <tr>
-        <th class="mdl-data-table__cell--non-numeric">所在院系</th>
+        <th class="mdl-data-table__cell--non-numeric"></th>
+        <th>所在院系</th>
         <th>课程名称</th>
         <th>学生姓名</th>
         <th>任课教师</th>
@@ -27,8 +28,13 @@
     </thead>
     <tbody>
     <tr style="font-weight:bold;">
+        <td class="expand-detail">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">view_headline</i>
+            </button>
+        </td>
         <td class="mdl-data-table__cell--non-numeric">计算机学院 (department id)</td>
-        <td class="crs-name">
+        <td>
             <span class="mdl-chip">
                 <span class="mdl-chip__text">课程名称 (course id)</span>
             </span>
@@ -38,28 +44,122 @@
                 <span class="mdl-chip__text stu-name">学生姓名 (student id)</span>
             </span>
         </td>
-        <td>任课教师 (teacher id)</td>
-        <td>xxxx/xx/xx</td>
+        <td>
+            <span class="mdl-chip" id="tch_id">
+                <span class="mdl-chip__text stu-name">任课教师 (teacher id)</span>
+            </span>
+            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                for="tch_id">
+                <div class="mdl-card">
+                    <div class="mdl-card__title mdl-card--expand">
+                        <h4>
+                            Featured event:<br>
+                            May 24, 2016<br>
+                            7-11pm
+                        </h4>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            View detail
+                        </a>
+                        <div class="mdl-layout-spacer"></div>
+                    </div>
+                </div>
+            </ul>
+        </td>
+        <td>
+            xxxx/xx/xx
+        </td>
     </tr>
-    <tr style="display:none"><td colspan="5"><div style="width: auto;height: 320px;background-color: #00acc1">
-        <button id="demo-menu-lower-left"
+    <tr style="display:none">
+        <td colspan="5">
+            <div style="width: auto;height: 320px;background-color: #00acc1">
+                <button id="demo-menu-lower-left"
                 class="mdl-button mdl-js-button mdl-button--icon">
             <i class="material-icons">more_vert</i>
         </button>
-        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
             for="demo-menu-lower-left">
             <li class="mdl-menu__item">Some Action</li>
             <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Another Action</li>
             <li disabled class="mdl-menu__item">Disabled Action</li>
             <li class="mdl-menu__item">Yet Another Action</li>
         </ul>
-    </div></td></tr>
+            </div>
+        </td>
+    </tr>
+
+
+
+    <!--new tr-->
+    <tr style="font-weight:bold;">
+        <td class="expand-detail ">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons ">view_headline</i>
+            </button>
+        </td>
+        <td class="mdl-data-table__cell--non-numeric">计算机学院 (department id)</td>
+        <td>
+            <span class="mdl-chip">
+                <span class="mdl-chip__text">课程名称 (course id)</span>
+            </span>
+        </td>
+        <td>
+            <span class="mdl-chip">
+                <span class="mdl-chip__text stu-name">学生姓名 (student id)</span>
+            </span>
+        </td>
+        <td>
+            <span class="mdl-chip" id="tch_id0">
+                <span class="mdl-chip__text stu-name">任课教师 (teacher id)</span>
+            </span>
+            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                for="tch_id0">
+                    <div class="mdl-card">
+                    <div class="mdl-card__title mdl-card--expand">
+                        <h4>
+                            Featured event:<br>
+                            May 24, 2016<br>
+                            7-11pm
+                        </h4>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            View detail
+                        </a>
+                        <div class="mdl-layout-spacer"></div>
+                    </div>
+                    </div>
+            </ul>
+        </td>
+        <td>
+            xxxx/xx/xx
+        </td>
+    </tr>
+    <tr style="display:none">
+        <td colspan="5">
+            <div style="width: auto;height: 320px;background-color: #00acc1">
+                <button id="demo-menu-lower-left0"
+                        class="mdl-button mdl-js-button mdl-button--icon">
+                    <i class="material-icons">more_vert</i>
+                </button>
+                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                    for="demo-menu-lower-left0">
+                    <li class="mdl-menu__item">Some Action</li>
+                    <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Another Action</li>
+                    <li disabled class="mdl-menu__item">Disabled Action</li>
+                    <li class="mdl-menu__item">Yet Another Action</li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    <!--tr end-->
     </tbody>
 </table>
 <script>
-    $(".crs-name").click(function () {
-        $(this).parentNode().next().toggle();
-        $(this).parentNode().attr("style","");
+    $(".expand-detail").click(function () {
+        $(this).parent().next().fadeToggle("fast");
+        $(this).parent().attr("style","");
     })
 </script>
 
