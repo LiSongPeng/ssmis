@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/color_material.min.css">
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/icon.css">
+    <script src="../res/jiangtao/lib/mdl/material.min.js"></script>
+    <script src="../res/js/jquery-3.0.0.min.js"></script>
+    <!--<script src="../res/jiangtao/lib/d3.min.js"></script>-->
+    <script src="script/vue.js"></script>
+    <script src="../res/jiangtao/lib/d3.v3.min.js"></script>
+    <script src="../res/jiangtao/lib/c3.min.js"></script>
+    <link href="../res/jiangtao/lib/c3.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+    <tr>
+        <th class="mdl-data-table__cell--non-numeric">所在院系</th>
+        <th>课程名称</th>
+        <th>学生姓名</th>
+        <th>任课教师</th>
+        <th>更新日期</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="font-weight:bold;">
+        <td class="mdl-data-table__cell--non-numeric">计算机学院 (department id)</td>
+        <td>课程名称 (course id)</td>
+        <td>学生姓名 (student id)</td>
+        <td>任课教师 (teacher id)</td>
+        <td>xxxx/xx/xx</td>
+        <td></td>
+    </tr>
+    <tr style="display: none"><td colspan="6"><div style="width: auto;height: 320px;background-color: #00acc1"></div></td></tr>
+   </tbody>
+</table>
+<script src="../res/jiangtao/lib/vue.min.js">
+    $("tr").click(function () {
+        $(this).next().toggle();
+        $(this).attr("style","");
+    })
+</script>
+
+<div id="example-1">
+    <button v-on:click="counter += 1">增加 1</button>
+    <p>这个按钮被点击了 {{ counter }} 次。</p>
+</div>
+<script>
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            counter: 0
+        }
+    })
+</script>
+
+</body>
+</html>
