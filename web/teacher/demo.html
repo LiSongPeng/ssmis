@@ -28,8 +28,16 @@
     <tbody>
     <tr style="font-weight:bold;">
         <td class="mdl-data-table__cell--non-numeric">计算机学院 (department id)</td>
-        <td>课程名称 (course id)</td>
-        <td>学生姓名 (student id)</td>
+        <td class="crs-name">
+            <span class="mdl-chip">
+                <span class="mdl-chip__text">课程名称 (course id)</span>
+            </span>
+        </td>
+        <td>
+            <span class="mdl-chip">
+                <span class="mdl-chip__text stu-name">学生姓名 (student id)</span>
+            </span>
+        </td>
         <td>任课教师 (teacher id)</td>
         <td>xxxx/xx/xx</td>
     </tr>
@@ -49,9 +57,9 @@
     </tbody>
 </table>
 <script>
-    $("tr").click(function () {
-        $(this).next().toggle();
-        $(this).attr("style","");
+    $(".crs-name").click(function () {
+        $(this).parentNode().next().toggle();
+        $(this).parentNode().attr("style","");
     })
 </script>
 
