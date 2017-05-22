@@ -23,7 +23,6 @@
         <th>学生姓名</th>
         <th>任课教师</th>
         <th>更新日期</th>
-        <th>操作</th>
     </tr>
     </thead>
     <tbody>
@@ -33,30 +32,30 @@
         <td>学生姓名 (student id)</td>
         <td>任课教师 (teacher id)</td>
         <td>xxxx/xx/xx</td>
-        <td></td>
     </tr>
-    <tr style="display: none"><td colspan="6"><div style="width: auto;height: 320px;background-color: #00acc1"></div></td></tr>
-   </tbody>
+    <tr style="display:none"><td colspan="5"><div style="width: auto;height: 320px;background-color: #00acc1">
+        <button id="demo-menu-lower-left"
+                class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+        </button>
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+            for="demo-menu-lower-left">
+            <li class="mdl-menu__item">Some Action</li>
+            <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">Another Action</li>
+            <li disabled class="mdl-menu__item">Disabled Action</li>
+            <li class="mdl-menu__item">Yet Another Action</li>
+        </ul>
+    </div></td></tr>
+    </tbody>
 </table>
-<script src="../res/jiangtao/lib/vue.min.js">
+<script>
     $("tr").click(function () {
         $(this).next().toggle();
         $(this).attr("style","");
     })
 </script>
 
-<div id="example-1">
-    <button v-on:click="counter += 1">增加 1</button>
-    <p>这个按钮被点击了 {{ counter }} 次。</p>
-</div>
-<script>
-    var example1 = new Vue({
-        el: '#example-1',
-        data: {
-            counter: 0
-        }
-    })
-</script>
+
 
 </body>
 </html>
