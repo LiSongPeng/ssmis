@@ -50,12 +50,5 @@ public interface AppealDaoI {
      * @throws Exception
      */
     boolean deleteAppeal(Appeal appeal)throws Exception;
-
-    /**
-     *
-     * @param appeal
-     * @return update is success or failure
-     * @throws Exception
-     */
-    boolean updateAppeal(Appeal appeal)throws Exception;
+    
 }
