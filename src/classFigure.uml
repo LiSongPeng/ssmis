@@ -2,19 +2,11 @@
 <Diagram>
   <ID>JAVA</ID>
   <OriginalElement />
-  <nodes>
-    <node x="344.0" y="380.0">entity.TimeTable</node>
-    <node x="-423.0" y="-183.0">entity.Teacher</node>
-    <node x="369.0" y="0.0">entity.Admin</node>
-    <node x="-63.0" y="377.0">entity.Student</node>
-    <node x="52.0" y="116.0">entity.Course</node>
-  </nodes>
+  <nodes />
   <notes />
   <edges />
-  <settings layout="Hierarchic Group" zoom="1.0" x="361.0" y="260.0" />
-  <SelectedNodes>
-    <node>entity.Student</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.32354870470677083" x="132.67833709716797" y="-2485.615089416504" />
+  <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
   </Categories>
