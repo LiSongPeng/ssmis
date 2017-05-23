@@ -148,7 +148,25 @@
         <section class="mdl-layout__tab-panel" id="fixed-tab-5">
             <div class="page-content">
                 <!-- Your content goes here -->
+                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+                    <header class="mdl-layout__header">
+                        <!-- Tabs -->
+                        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                            <a href="#static-tab-1" class="mdl-layout__tab is-active">统计与评议</a>
+                            <a href="#static-tab-2" class="mdl-layout__tab">历史评议</a>
+                        </div>
+                    </header>
+                    <main class="mdl-layout__content">
+                        <section class="mdl-layout__tab-panel is-active" id="static-tab-1">
+                            <div class="page-content"><!-- Your content goes here --></div>
+                        </section>
+                        <section class="mdl-layout__tab-panel" id="static-tab-2">
+                            <div class="page-content"><!-- Your content goes here --></div>
+                        </section>
 
+                    </main>
+                </div>
                 <!--content ends-->
             </div>
         </section>
