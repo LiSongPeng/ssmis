@@ -163,7 +163,7 @@ create table courses_table
 	tch_id char(8) not null,
 	weeks varchar(60) default '0' null,
 	off varchar(20) default '0' null,
-	site varchar(20) null,
+	site varchar(20) not null,
 	primary key (crs_id, dpm_id, tch_id,site),
 	constraint courses_table_department_dpm_id_fk
 		foreign key (dpm_id) references ssmis.department (dpm_id),
@@ -186,14 +186,6 @@ create index courses_table_course_crs_id_fk
 	on courses_table (crs_id)
 ;
 
-comment on column courses_table.weeks is '形如1-14:even,15-17:normal'
-;
-
-comment on column courses_table.off is '形如1,3,4'
-;
-
-comment on column courses_table.site is '上课地点'
-;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
