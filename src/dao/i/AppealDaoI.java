@@ -50,5 +50,5 @@ public interface AppealDaoI {
      * @throws Exception
      */
     boolean deleteAppeal(Appeal appeal)throws Exception;
-    
+
 }
