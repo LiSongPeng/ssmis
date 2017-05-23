@@ -22,9 +22,12 @@ import java.util.Map;
 @Scope(value = "prototype")
 public class TeacherAction extends ActionSupport {
     private Teacher teacher;
+    //
     private Appeal appeal;
     private Comment comment;
     private String appealType;
+    private String staticType;
+    //
     private String rsp;
     private Map<String,Object> session;
     private String isRememberPsw;
@@ -165,6 +168,25 @@ public class TeacherAction extends ActionSupport {
      * @return SUCCESS
      */
     public String updateComments(){
+        //TODO
+        return SUCCESS;
+    }
+
+    /**
+     * edited by Jiang Tao
+     * @return SUCCESS
+     */
+    public String deleteCommnets(){
+        //TODO
+
+        return SUCCESS;
+    }
+
+    /**
+     * edited by Jiang Tao
+     * @return SUCCESS
+     */
+    public String getStatic(){
         //TODO
         return SUCCESS;
     }
