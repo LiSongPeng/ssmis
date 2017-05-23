@@ -8,7 +8,7 @@
     <script src="../res/jiangtao/lib/mdl/material.min.js"></script>
     <script src="../res/js/jquery-3.0.0.min.js"></script>
     <!--<script src="../res/jiangtao/lib/d3.min.js"></script>-->
-    <script src="script/vue.js"></script>
+    <!--<script src="script/vue.js"></script>-->
     <script src="../res/jiangtao/lib/d3.v3.min.js"></script>
     <script src="../res/jiangtao/lib/c3.min.js"></script>
     <link href="../res/jiangtao/lib/c3.min.css" rel="stylesheet" type="text/css">
@@ -33,15 +33,23 @@
 </script>
 <hr>
 <h4>Undo</h4>
-<div id="editor">Hello Summernote</div>
+<div id="editor">评议信息...</div>
 <script>
     $(function () {
         $("#editor").summernote({
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ],
             height: 300,                 // set editor height
             minHeight: null,             // set minimum height of editor
             maxHeight: null,             // set maximum height of editor
-            focus: true                 // set focus to editable area after initializing summernote
-//            picture: false
+            focus: true
         });
     })
 </script>
