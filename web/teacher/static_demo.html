@@ -50,7 +50,9 @@
 </ul>
 <hr>
 <h4>Undo</h4>
-<div id="editor">评议信息...</div>
+<div id="p_ed">
+    <div id="editor">评议信息...</div>
+</div>
 <script>
     $(function () {
         $("#editor").summernote({
@@ -66,8 +68,25 @@
             height: 300,                 // set editor height
             minHeight: null,             // set minimum height of editor
             maxHeight: null,             // set maximum height of editor
-            focus: true
+            focus: true,
+            callbacks: {
+                onEnter: function() {
+                    console.log($("#editor").summernote('code'));//set key
+                }
+            }
         });
+        console.log($("#editor").summernote('code',''));//set text
+//        console.log(e.code());
+    })
+</script>
+<!-- Raised button with ripple -->
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+    Button
+</button>
+
+<script>
+    $("button").click(function () {
+        $("#p_ed").slideToggle();
     })
 </script>
 </body>
