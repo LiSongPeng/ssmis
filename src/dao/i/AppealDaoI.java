@@ -30,6 +30,14 @@ public interface AppealDaoI {
     /**
      *
      * @param appeal
+     * @return flag signed success or failure
+     * @throws Exception
+     */
+    boolean updateAppeal(Appeal appeal) throws Exception;
+
+    /**
+     *
+     * @param appeal
      * @return adding is success or failure
      * @throws Exception
      */
