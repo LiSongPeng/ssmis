@@ -12,7 +12,11 @@
     <script src="../res/jiangtao/lib/d3.v3.min.js"></script>
     <script src="../res/jiangtao/lib/c3.min.js"></script>
     <link href="../res/jiangtao/lib/c3.min.css" rel="stylesheet" type="text/css">
-
+    <!--dist-->
+    <link rel="stylesheet" href="../res/jiangtao/lib/bootstrap/bootstrap.css">
+    <script src="../res/jiangtao/lib/bootstrap/bootstrap.js"></script>
+    <link rel="stylesheet" href="../res/jiangtao/lib/dist/summernote.css">
+    <script src="../res/jiangtao/lib/dist/summernote.min.js"></script>
 </head>
 <body>
 <div id="chart"></div>
@@ -27,6 +31,19 @@
         }
     });
 </script>
-
+<hr>
+<h4>Undo</h4>
+<div id="editor">Hello Summernote</div>
+<script>
+    $(function () {
+        $("#editor").summernote({
+            height: 300,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true                 // set focus to editable area after initializing summernote
+//            picture: false
+        });
+    })
+</script>
 </body>
 </html>
