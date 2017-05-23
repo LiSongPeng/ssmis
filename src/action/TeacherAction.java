@@ -23,8 +23,8 @@ import java.util.Map;
 public class TeacherAction extends ActionSupport {
     private Teacher teacher;
     private Appeal appeal;
-    private Comment comment; //var used by Jiang Tao.
-    private String appealType;//var used by Jiang Tao.
+    private Comment comment;
+    private String appealType;
     private String rsp;
     private Map<String,Object> session;
     private String isRememberPsw;
@@ -123,7 +123,7 @@ public class TeacherAction extends ActionSupport {
 
     /**
      * edited by Jiang Tao
-     * @return
+     * @return SUCCESS
      */
     public String updateAppeal(){
         //TODO
@@ -132,7 +132,7 @@ public class TeacherAction extends ActionSupport {
     }
     /**
      * edited by Jiang Tao
-     * @return
+     * @return SUCCESS
      */
     public String getAppeal(){
         //TODO
@@ -140,4 +140,32 @@ public class TeacherAction extends ActionSupport {
         return SUCCESS;
     }
 
+    /**
+     * edited by Jiang Tao
+     * @return SUCCESS
+     */
+    public String getComments(){
+       //TODO
+
+        return SUCCESS;
+    }
+
+    /**
+     * edited by Jiang Tao
+     * @return SUCCESS
+     */
+    public String addCommnets(){
+        //TODO
+
+        return SUCCESS;
+    }
+
+    /**
+     * edited by Jiang Tao
+     * @return SUCCESS
+     */
+    public String updateComments(){
+        //TODO
+        return SUCCESS;
+    }
 }

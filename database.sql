@@ -3,7 +3,6 @@
 -- Host: 127.0.0.1    Database: ssmis
 -- ------------------------------------------------------
 -- Server version	5.7.17
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
