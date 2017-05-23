@@ -14,20 +14,20 @@ import java.util.List;
 /**
  * Created by tose on 2017/5/23.
  */
-@Service(value = "AppealService")
+//@Service(value = "appealService")
 public class AppealServicelmpl implements AppealServiceI {
     private AppealDaoI appealDaoI;
+
+//    @Resource(name = "appealDaoI")
+    public void setAppealDaoI(AppealDaoI appealDaoI) {
+        this.appealDaoI = appealDaoI;
+    }
 
     public AppealDaoI getAppealDaoI() {
         return appealDaoI;
     }
 
-    public void setAppealDaoI(AppealDaoI appealDaoI) {
-        this.appealDaoI = appealDaoI;
-    }
-
     @Override
-    @Resource(name = "addAppealsDao")
     @Transactional(readOnly = false)
     public boolean addAppeals(List<Appeal> appeals) throws Exception {
         //TODO
@@ -45,8 +45,9 @@ public class AppealServicelmpl implements AppealServiceI {
 
     @Override
     @Resource(name = "updateAppealDao")
-    @Transactional(readOnly = false，isolation = Isolation.READ_COMMITTED)
+    @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
     public boolean updateAppeal(Appeal appeal) throws Exception {
+        //TODO
         return false;
     }
 }
