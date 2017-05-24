@@ -1,12 +1,12 @@
 package dao.impl;
 
 import dao.i.AppealDaoI;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import team.jiangtao.entity.Appeal;
 
 import javax.annotation.Resource;
-import javax.jms.Session;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +23,17 @@ public class AppealDaoImpl implements AppealDaoI{
     }
 
     @Override
-    public List<Appeal> getAppealsByCondition(Map<String, Object> conditions, boolean equalCondition) throws Exception {
-        return null;
+    public List<Appeal> getAppealsByCondition(String id, Integer type, boolean equalCondition) throws Exception {
+        if(equalCondition){
+            //teacher mod
+            Session session = sessionFactory.getCurrentSession();
+            return null;
+        }else{
+            //student mod
+            //TODO
+            return null;
+        }
+
     }
 
     @Override

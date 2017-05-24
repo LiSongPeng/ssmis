@@ -17,7 +17,7 @@ public interface AppealDaoI {
      * @return Teacher List
      * @throws Exception
      * @conditions:
-     * teacher mod : equalCondition == 1, student mod : equalCondition == 0
+     * teacher mod : equalCondition == true, student mod : equalCondition == false
      * teacher mod :
      * tch_id,-1==> gets all appeals
      * tch_id,0 ==> gets all new appeals
@@ -28,7 +28,7 @@ public interface AppealDaoI {
      * tch_id,5 ==> gets all closed appeals
      * tch_id,6 ==> gets all drafts.
      */
-    List<Appeal> getAppealsByCondition(Map<String,Object> conditions, boolean equalCondition) throws Exception;
+    List<Appeal> getAppealsByCondition(String id, Integer type, boolean equalCondition) throws Exception;
 
     /**
      *
