@@ -27,8 +27,9 @@ public interface AppealDaoI {
      * tch_id,4 ==> gets all responded appeals
      * tch_id,5 ==> gets all closed appeals
      * tch_id,6 ==> gets all drafts.
+     * key = {tch_id(String), type(Integer)}
      */
-    List<Appeal> getAppealsByCondition(String id, Integer type, boolean equalCondition) throws Exception;
+    List<Appeal> getAppealsByCondition(Map<String,Object> conditions, boolean equalCondition) throws Exception;
 
     /**
      *

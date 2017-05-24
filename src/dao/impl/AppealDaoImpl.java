@@ -23,10 +23,20 @@ public class AppealDaoImpl implements AppealDaoI{
     }
 
     @Override
-    public List<Appeal> getAppealsByCondition(String id, Integer type, boolean equalCondition) throws Exception {
+    public List<Appeal> getAppealsByCondition(Map<String,Object> conditions, boolean equalCondition) throws Exception {
         if(equalCondition){
             //teacher mod
             Session session = sessionFactory.getCurrentSession();
+
+            for(Map.Entry<String,Object> entry: conditions.entrySet()){
+//                System.out.println(entry.getValue());
+                if(entry.getKey().equals("tch_id")){
+                    System.out.println("ID "+ entry.getValue());
+                }
+                if(entry.getKey().equals("type")){
+                    System.out.println("Type "+entry.getValue());
+                }
+            }
             return null;
         }else{
             //student mod
