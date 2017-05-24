@@ -15,6 +15,11 @@
     <title>首页</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="<%=basePath%>/res/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <style type="text/css">
+        body {
+            background-color: #F5F5F5;
+        }
+    </style>
 </head>
 <body title="<%=basePath%>">
 <%--侧边栏--%>
@@ -63,11 +68,13 @@
         </ul>
     </div>
 </nav>
-<div id="courseCenter" class="col s12 blue">
-    <jsp:include page="courseCenter.jsp"/>
+<div id="courseCenter" class="col s12">
+    <iframe src="<%=basePath%>/student/courseCenter.jsp" frameborder="0" scrolling="no" width="100%"
+            height="100%"></iframe>
 </div>
-<div id="testCenter" class="col s12 red">
-    <jsp:include page="testCenter.jsp"/>
+<div id="testCenter" class="col s12">
+    <iframe src="<%=basePath%>/student/testCenter.jsp" frameborder="0" scrolling="no" width="100%"
+            height="100%"></iframe>
 </div>
 </body>
 <script src="<%=basePath%>/res/js/jquery-3.0.0.min.js"></script>
