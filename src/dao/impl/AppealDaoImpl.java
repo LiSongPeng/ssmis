@@ -1,17 +1,29 @@
 package dao.impl;
 
 import dao.i.AppealDaoI;
+import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import team.jiangtao.entity.Appeal;
 
+import javax.annotation.Resource;
+import javax.jms.Session;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by tose on 2017/5/23.
  */
+@Repository(value = "appealDao")
 public class AppealDaoImpl implements AppealDaoI{
+    private SessionFactory sessionFactory;
+
+    @Resource(name = "sessionFactory")
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
-    public List<Appeal> getAppealsByCondition(Map<String, Object> conditions, boolean... equalConditions) throws Exception {
+    public List<Appeal> getAppealsByCondition(Map<String, Object> conditions, boolean equalCondition) throws Exception {
         return null;
     }
 
