@@ -16,6 +16,7 @@ $(function () {
     var week = ['日', '一', '二', '三', '四', '五', '六'];
     $('#date-section').html(date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日' + date.toLocaleTimeString() + ',周' + week[date.getDay()]);
     window.setInterval(function () {
+        date = new Date()
         $('#date-section').html(date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日' + date.toLocaleTimeString() + ',周' + week[date.getDay()]);
-    }, 60000);
+    }, 1000);
 });

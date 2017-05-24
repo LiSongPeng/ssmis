@@ -69,6 +69,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
         currStu.setEmail(stu.getEmail() == null ? currStu.getEmail() : stu.getEmail());
         currStu.setPassword(stu.getPassword() == null ? currStu.getPassword() : stu.getPassword());
         currStu.setPhone(stu.getPhone() == null ? currStu.getPhone() : stu.getPhone());
+        currStu.setAddress(stu.getAddress() == null ? currStu.getAddress() : stu.getAddress());
         if (studentService.changeStudentInfo(currStu)) {
             result = "{\"result\":\"Success\"}";
         } else {
