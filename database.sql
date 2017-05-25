@@ -6,7 +6,7 @@ create table Exam
   status tinyint default '0' not null,
   dpm char(8) not null,
   primary key (dpm, crs)
-)
+)character set utf8
 ;
 
 create index exam_course_crs_id_fk
@@ -29,7 +29,7 @@ create table Teacher
   dpm_id char(8) not null,
   constraint teacher_tch_id_uindex
   unique (tch_id)
-)
+)character set utf8
 ;
 
 create index teacher_department_dpm_id_fk
@@ -49,7 +49,7 @@ create table appeal
   primary key (dpm_id, crs_id, tch_id, stu_id, date),
   constraint appeal_teacher_tch_id_fk
   foreign key (tch_id) references ssmis.teacher (tch_id)
-)
+)character set utf8
 ;
 
 create index appeal_course_crs_id_fk
@@ -74,7 +74,7 @@ create table comment
   primary key (dpm, tch, crs, date),
   constraint comment_teacher_tch_id_fk
   foreign key (tch) references ssmis.teacher (tch_id)
-)
+)character set utf8
 ;
 
 create index comment_course_crs_id_fk
@@ -93,7 +93,7 @@ create table course
   summarization varchar(128) null comment '简介',
   constraint course_crs_id_uindex
   unique (crs_id)
-)
+)character set utf8
 ;
 
 alter table Exam
@@ -125,7 +125,7 @@ create table course_schedule
   foreign key (crs_id) references ssmis.course (crs_id),
   constraint course_schedule_teacher_tch_id_fk
   foreign key (tch_id) references ssmis.Teacher (tch_id)
-)
+)character set utf8
 ;
 
 create index course_schedule_course_crs_id_fk
@@ -141,15 +141,15 @@ create table courses_table
   dpm_id char(8) not null,
   crs_id char(8) not null,
   tch_id char(8) not null,
-  weeks varchar(60) default '0' null comment '形如1-14:even,15-17:normal',
-  off varchar(20) default '0' null comment '形如1,3,4',
-  site varchar(20) not null comment '上课地点',
+  weeks varchar(60) default '0' null ,
+  off varchar(20) default '0' null ,
+  site varchar(20) not null ,
   primary key (crs_id, dpm_id, tch_id, site),
   constraint courses_table_course_crs_id_fk
   foreign key (crs_id) references ssmis.course (crs_id),
   constraint courses_table_Teacher_tch_id_fk
   foreign key (tch_id) references ssmis.Teacher (tch_id)
-)
+)character set utf8
 ;
 
 create index courses_table_department_dpm_id_fk
@@ -173,7 +173,7 @@ create table department
   unique (dpm_id),
   constraint department_dpm_name_uindex
   unique (dpm_name)
-)
+)character set utf8
 ;
 
 alter table Exam
@@ -223,7 +223,7 @@ create table student
   photo_uri varchar(255) null,
   constraint student_stu_id_uindex
   unique (stu_id)
-)
+)character set utf8
 ;
 
 alter table appeal
@@ -248,7 +248,7 @@ create table student_schedule
   foreign key (tch) references ssmis.Teacher (tch_id),
   constraint student_chedule_student_stu_id_fk
   foreign key (stu) references ssmis.student (stu_id)
-)
+)character set utf8
 ;
 
 create index student_chedule_course_crs_id_fk

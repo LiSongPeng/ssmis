@@ -29,7 +29,6 @@ public class AppealDaoImpl implements AppealDaoI{
             Session session = sessionFactory.getCurrentSession();
 
             for(Map.Entry<String,Object> entry: conditions.entrySet()){
-//                System.out.println(entry.getValue());
                 if(entry.getKey().equals("tch_id")){
                     System.out.println("ID "+ entry.getValue());
                 }

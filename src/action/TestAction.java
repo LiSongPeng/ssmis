@@ -2,6 +2,8 @@ package action;
 
 import com.alibaba.fastjson.JSONObject;
 import com.opensymphony.xwork2.ActionSupport;
+import dao.i.AppealDaoI;
+import dao.impl.AppealDaoImpl;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -9,8 +11,9 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import com.alibaba.fastjson.*;
-import team.jiangtao.entity.Appeal;
+import service.i.AppealServiceI;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,8 +27,15 @@ import java.util.Map;
 @Controller
 @Scope(value = "prototype")
 public class TestAction extends ActionSupport {
+    private AppealServiceI appealServiceI;
     private String condition;
     private String json;
+
+
+    @Resource(name = "appealService")
+    public void setAppealServiceI(AppealServiceI appealServiceI) {
+        this.appealServiceI = appealServiceI;
+    }
 
     public String getJson() {
         return json;
@@ -44,13 +54,11 @@ public class TestAction extends ActionSupport {
     }
 
     @Action(value = "hibernate",results = @Result(type = "json",params = {"root","json"}))
-    public String testHibernate(){
-        Appeal appeal  = new Appeal();
-        appeal.setContent("a");
-        appeal.setDpmId("4");
-        appeal.setCrsId("12313");
-        json = JSON.toJSONString(appeal);
-//        System.out.println(json);
+    public String testHibernate() throws Exception {
+        Map<String,Object> stringObjectMap = new HashMap<>();
+        stringObjectMap.put("tch_id","0001");
+        stringObjectMap.put("type",5);
+        appealServiceI.getAppealsByCondition(stringObjectMap,true);
         return SUCCESS;
     }
 }
