@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生选课-全部课程</title>
+    <script src="../res/js/jquery-3.0.0.min.js"></script>
+    <script src="../res/js/materialize.min.js"></script>
+    <script type="text/javascript">
+        $.ajax({
+            type:"post",
+            url:"getAllclass",
+            success:function(data){
+                var tb="";
+                for(var index in data){
+                    tb+="<tr>";
+                    tb+="<td>"
+                        +data[index].crsId
+                        +"</td>"
+                    tb+="<td>"
+                        +data[index].crsName
+                        +"</td>"
+                    tb+="<td>"
+                        +data[index].summarization
+                        +"</td>"
+
+                    tb+="<td>"
+                      +"<input type='button' value='发布课程' onclick=''/>"
+                      +"</td>"
+
+                    tb+="</tr>"6
+                }
+                $("tbody").html(tb);
+            }
+        })
+    </script>
+    <html>
+    <head>
+        <title></title>
+    </head>
+<body>
+<table >
+    <thead>
+    <tr>
+        <th data-field="crs_id">课程编号</th>
+        <th data-field="crs_name">课程名称 </th>
+        <th data-field="summarization">说明</th>
+        <th data-field="ap">操作</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+
+    </tbody>
+</table>
+
+
+</body>
+</html>

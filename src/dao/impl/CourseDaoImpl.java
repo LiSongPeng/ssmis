@@ -56,7 +56,7 @@ public class CourseDaoImpl implements CourseDaoI {
         Session session=sessionFactory.getCurrentSession();
         List<Course> list=new ArrayList<>();
         final String sql="select * from course";
-        Course course=new Course();
+
         try{
         session.doWork(
                 new Work() {
@@ -65,6 +65,7 @@ public class CourseDaoImpl implements CourseDaoI {
                         PreparedStatement ps = connection.prepareStatement( sql );
                         ResultSet rs = ps.executeQuery();
                         while (rs.next()) {
+                            Course course=new Course();
                           course.setCrsId(rs.getString("crs_id"));
                           course.setCrsName(rs.getString("crs_name"));
                           course.setSummarization(rs.getString("summarization"));
