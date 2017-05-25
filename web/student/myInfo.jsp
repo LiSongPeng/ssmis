@@ -21,7 +21,7 @@
     <div class="col s10 offset-s1 white">
         <div class="row">
             <div class="col s2">
-                <img src="<%=basePath%>/<s:property value="#session.currStu.photoUri"/>" id="photoImg" class="circle"
+                <img src="<%=basePath%>/<s:property value="#session.currStu.stuId"/>.jpg" id="photoImg" class="circle"
                      width="64" height="64">
             </div>
         </div>

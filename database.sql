@@ -1,266 +1,251 @@
-create table Exam
-(
-  crs char(8) not null,
-  date date not null,
-  location varchar(64) not null,
-  status tinyint default '0' not null,
-  dpm char(8) not null,
-  primary key (dpm, crs)
-)
-;
+-- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)
+--
+-- Host: 127.0.0.1    Database: ssmis
+-- ------------------------------------------------------
+-- Server version	5.7.17
 
-create index exam_course_crs_id_fk
-  on Exam (crs)
-;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-create table Teacher
-(
-  tch_id varchar(8) not null
-    primary key,
-  name varchar(32) not null,
-  password varchar(32) not null,
-  email varchar(64) null,
-  address varchar(128) null,
-  phone varchar(13) not null,
-  birthday date not null,
-  gender tinyint(1) default '0' not null,
-  biography varchar(128) null,
-  tch_status tinyint default '1' not null,
-  dpm_id char(8) not null,
-  constraint teacher_tch_id_uindex
-  unique (tch_id)
-)
-;
+--
+-- Table structure for table `Exam`
+--
 
-create index teacher_department_dpm_id_fk
-  on Teacher (dpm_id)
-;
+DROP TABLE IF EXISTS `Exam`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Exam` (
+  `dmp` char(8) NOT NULL,
+  `crs` char(8) NOT NULL,
+  `date` date NOT NULL,
+  `location` varchar(64) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`dmp`,`crs`),
+  KEY `exam_course_crs_id_fk` (`crs`),
+  CONSTRAINT `exam_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),
+  CONSTRAINT `exam_department_dpm_id_fk` FOREIGN KEY (`dmp`) REFERENCES `department` (`dpm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table appeal
-(
-  dpm_id char(8) not null,
-  crs_id char(8) not null,
-  tch_id char(8) not null,
-  stu_id char(8) not null,
-  date date not null,
-  content varchar(128) not null,
-  response varchar(128) null,
-  status tinyint default '0' not null,
-  primary key (dpm_id, crs_id, tch_id, stu_id, date),
-  constraint appeal_teacher_tch_id_fk
-  foreign key (tch_id) references ssmis.teacher (tch_id)
-)
-;
+--
+-- Table structure for table `Teacher`
+--
 
-create index appeal_course_crs_id_fk
-  on appeal (crs_id)
-;
+DROP TABLE IF EXISTS `Teacher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Teacher` (
+  `tch_id` varchar(8) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `email` varchar(64) DEFAULT NULL,
+  `address` varchar(128) DEFAULT NULL,
+  `phone` varchar(13) NOT NULL,
+  `birthday` date NOT NULL,
+  `gender` tinyint(1) NOT NULL DEFAULT '0',
+  `biography` varchar(128) DEFAULT NULL,
+  `tch_status` tinyint(4) NOT NULL DEFAULT '1',
+  `dpm_id` char(8) NOT NULL,
+  PRIMARY KEY (`tch_id`),
+  UNIQUE KEY `teacher_tch_id_uindex` (`tch_id`),
+  KEY `teacher_department_dpm_id_fk` (`dpm_id`),
+  CONSTRAINT `teacher_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create index appeal_student_stu_id_fk
-  on appeal (stu_id)
-;
+--
+-- Table structure for table `appeal`
+--
 
-create index appeal_teacher_tch_id_fk
-  on appeal (tch_id)
-;
+DROP TABLE IF EXISTS `appeal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `appeal` (
+  `dpm_id` char(8) NOT NULL,
+  `crs_id` char(8) NOT NULL,
+  `tch_id` char(8) NOT NULL,
+  `stu_id` char(8) NOT NULL,
+  `date` date NOT NULL,
+  `content` varchar(128) NOT NULL,
+  `response` varchar(128) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`dpm_id`,`crs_id`,`tch_id`,`stu_id`,`date`),
+  KEY `appeal_student_stu_id_fk` (`stu_id`),
+  KEY `appeal_teacher_tch_id_fk` (`tch_id`),
+  KEY `appeal_course_crs_id_fk` (`crs_id`),
+  CONSTRAINT `appeal_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),
+  CONSTRAINT `appeal_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`),
+  CONSTRAINT `appeal_student_stu_id_fk` FOREIGN KEY (`stu_id`) REFERENCES `student` (`stu_id`),
+  CONSTRAINT `appeal_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `teacher` (`tch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table comment
-(
-  dpm char(8) not null,
-  crs char(8) not null,
-  tch char(8) not null,
-  date date not null,
-  content varchar(128) not null,
-  primary key (dpm, tch, crs, date),
-  constraint comment_teacher_tch_id_fk
-  foreign key (tch) references ssmis.teacher (tch_id)
-)
-;
+--
+-- Table structure for table `comment`
+--
 
-create index comment_course_crs_id_fk
-  on comment (crs)
-;
+DROP TABLE IF EXISTS `comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comment` (
+  `dpm` char(8) NOT NULL,
+  `crs` char(8) NOT NULL,
+  `tch` char(8) NOT NULL,
+  `date` date NOT NULL,
+  `content` varchar(128) NOT NULL,
+  PRIMARY KEY (`dpm`,`tch`,`crs`,`date`),
+  KEY `comment_teacher_tch_id_fk` (`tch`),
+  KEY `comment_course_crs_id_fk` (`crs`),
+  CONSTRAINT `comment_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),
+  CONSTRAINT `comment_department_dpm_id_fk` FOREIGN KEY (`dpm`) REFERENCES `department` (`dpm_id`),
+  CONSTRAINT `comment_teacher_tch_id_fk` FOREIGN KEY (`tch`) REFERENCES `teacher` (`tch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create index comment_teacher_tch_id_fk
-  on comment (tch)
-;
+--
+-- Table structure for table `course`
+--
 
-create table course
-(
-  crs_id char(8) not null
-    primary key,
-  crs_name varchar(64) not null,
-  summarization varchar(128) null comment '简介',
-  constraint course_crs_id_uindex
-  unique (crs_id)
-)
-;
+DROP TABLE IF EXISTS `course`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `course` (
+  `crs_id` char(8) NOT NULL,
+  `crs_name` varchar(64) NOT NULL,
+  `summarization` varchar(128) DEFAULT NULL COMMENT '简介',
+  PRIMARY KEY (`crs_id`),
+  UNIQUE KEY `course_crs_id_uindex` (`crs_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-alter table Exam
-  add constraint exam_course_crs_id_fk
-foreign key (crs) references ssmis.course (crs_id)
-;
+--
+-- Table structure for table `course_schedule`
+--
 
-alter table appeal
-  add constraint appeal_course_crs_id_fk
-foreign key (crs_id) references ssmis.course (crs_id)
-;
+DROP TABLE IF EXISTS `course_schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `course_schedule` (
+  `dpm_id` char(8) NOT NULL,
+  `crs_id` char(8) NOT NULL,
+  `tch_id` char(8) NOT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '课程类型',
+  `preriods` tinyint(4) NOT NULL DEFAULT '0',
+  `credit` tinyint(4) NOT NULL,
+  `term` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`dpm_id`,`tch_id`,`crs_id`),
+  KEY `course_schedule_course_crs_id_fk` (`crs_id`),
+  KEY `course_schedule_teacher_tch_id_fk` (`tch_id`),
+  CONSTRAINT `course_schedule_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),
+  CONSTRAINT `course_schedule_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`),
+  CONSTRAINT `course_schedule_teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `Teacher` (`tch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-alter table comment
-  add constraint comment_course_crs_id_fk
-foreign key (crs) references ssmis.course (crs_id)
-;
+--
+-- Table structure for table `courses_table`
+--
 
-create table course_schedule
-(
-  dpm_id char(8) not null,
-  crs_id char(8) not null,
-  tch_id char(8) not null,
-  type tinyint default '0' not null comment '课程类型',
-  preriods tinyint default '0' not null,
-  credit tinyint not null,
-  term tinyint default '0' not null,
-  primary key (dpm_id, tch_id, crs_id),
-  constraint course_schedule_course_crs_id_fk
-  foreign key (crs_id) references ssmis.course (crs_id),
-  constraint course_schedule_teacher_tch_id_fk
-  foreign key (tch_id) references ssmis.Teacher (tch_id)
-)
-;
+DROP TABLE IF EXISTS `courses_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `courses_table` (
+  `dpm_id` char(8) NOT NULL,
+  `crs_id` char(8) NOT NULL,
+  `tch_id` char(8) NOT NULL,
+  `weeks` tinyint(4) NOT NULL DEFAULT '0',
+  `off` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`crs_id`,`dpm_id`,`tch_id`,`weeks`,`off`),
+  KEY `courses_table_teacher_tch_id_fk` (`tch_id`),
+  KEY `courses_table_department_dpm_id_fk` (`dpm_id`),
+  CONSTRAINT `courses_table_Teacher_tch_id_fk` FOREIGN KEY (`tch_id`) REFERENCES `Teacher` (`tch_id`),
+  CONSTRAINT `courses_table_course_crs_id_fk` FOREIGN KEY (`crs_id`) REFERENCES `course` (`crs_id`),
+  CONSTRAINT `courses_table_department_dpm_id_fk` FOREIGN KEY (`dpm_id`) REFERENCES `department` (`dpm_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create index course_schedule_course_crs_id_fk
-  on course_schedule (crs_id)
-;
+--
+-- Table structure for table `department`
+--
 
-create index course_schedule_teacher_tch_id_fk
-  on course_schedule (tch_id)
-;
+DROP TABLE IF EXISTS `department`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `department` (
+  `dpm_id` char(8) NOT NULL,
+  `dpm_name` varchar(32) NOT NULL,
+  PRIMARY KEY (`dpm_id`),
+  UNIQUE KEY `department_dpm_id_uindex` (`dpm_id`),
+  UNIQUE KEY `department_dpm_name_uindex` (`dpm_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table courses_table
-(
-  dpm_id char(8) not null,
-  crs_id char(8) not null,
-  tch_id char(8) not null,
-  weeks varchar(60) default '0' null comment '形如1-14:even,15-17:normal',
-  off varchar(20) default '0' null comment '形如1,3,4',
-  site varchar(20) not null comment '上课地点',
-  primary key (crs_id, dpm_id, tch_id, site),
-  constraint courses_table_course_crs_id_fk
-  foreign key (crs_id) references ssmis.course (crs_id),
-  constraint courses_table_Teacher_tch_id_fk
-  foreign key (tch_id) references ssmis.Teacher (tch_id)
-)
-;
+--
+-- Table structure for table `student`
+--
 
-create index courses_table_department_dpm_id_fk
-  on courses_table (dpm_id)
-;
+DROP TABLE IF EXISTS `student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student` (
+  `stu_id` char(8) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `email` varchar(64) DEFAULT NULL,
+  `address` varchar(128) DEFAULT NULL,
+  `phone` varchar(13) NOT NULL,
+  `birthday` date NOT NULL,
+  `gender` tinyint(1) NOT NULL DEFAULT '0',
+  `grade` smallint(6) NOT NULL DEFAULT '1',
+  `class_no` tinyint(4) NOT NULL DEFAULT '1',
+  `stu_status` tinyint(4) DEFAULT '1',
+  PRIMARY KEY (`stu_id`),
+  UNIQUE KEY `student_stu_id_uindex` (`stu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create index courses_table_teacher_tch_id_fk
-  on courses_table (tch_id)
-;
+--
+-- Table structure for table `student_schedule`
+--
 
-create index courses_table_course_crs_id_fk
-  on courses_table (crs_id)
-;
+DROP TABLE IF EXISTS `student_schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student_schedule` (
+  `dpm` char(8) NOT NULL,
+  `crs` char(8) NOT NULL,
+  `tch` char(8) NOT NULL,
+  `stu` char(8) NOT NULL,
+  `term` tinyint(4) NOT NULL,
+  `score` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`dpm`,`crs`,`tch`,`stu`),
+  KEY `student_chedule_teacher_tch_id_fk` (`tch`),
+  KEY `student_chedule_student_stu_id_fk` (`stu`),
+  KEY `student_chedule_course_crs_id_fk` (`crs`),
+  CONSTRAINT `student_chedule_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),
+  CONSTRAINT `student_chedule_department_dpm_id_fk` FOREIGN KEY (`dpm`) REFERENCES `department` (`dpm_id`),
+  CONSTRAINT `student_chedule_student_stu_id_fk` FOREIGN KEY (`stu`) REFERENCES `student` (`stu_id`),
+  CONSTRAINT `student_schedule_Teacher_tch_id_fk` FOREIGN KEY (`tch`) REFERENCES `Teacher` (`tch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-create table department
-(
-  dpm_id char(8) not null
-    primary key,
-  dpm_name varchar(32) not null,
-  constraint department_dpm_id_uindex
-  unique (dpm_id),
-  constraint department_dpm_name_uindex
-  unique (dpm_name)
-)
-;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-alter table Exam
-  add constraint exam_department_dpm_id_fk
-foreign key (dpm) references ssmis.department (dpm_id)
-;
-
-alter table Teacher
-  add constraint teacher_department_dpm_id_fk
-foreign key (dpm_id) references ssmis.department (dpm_id)
-;
-
-alter table appeal
-  add constraint appeal_department_dpm_id_fk
-foreign key (dpm_id) references ssmis.department (dpm_id)
-;
-
-alter table comment
-  add constraint comment_department_dpm_id_fk
-foreign key (dpm) references ssmis.department (dpm_id)
-;
-
-alter table course_schedule
-  add constraint course_schedule_department_dpm_id_fk
-foreign key (dpm_id) references ssmis.department (dpm_id)
-;
-
-alter table courses_table
-  add constraint courses_table_department_dpm_id_fk
-foreign key (dpm_id) references ssmis.department (dpm_id)
-;
-
-create table student
-(
-  stu_id char(8) not null
-    primary key,
-  name varchar(32) not null,
-  password varchar(32) not null,
-  email varchar(64) null,
-  address varchar(128) null,
-  phone varchar(13) not null,
-  birthday date not null,
-  gender tinyint(1) default '0' not null,
-  grade smallint(6) default '1' not null,
-  class_no tinyint default '1' not null,
-  stu_status tinyint default '1' null,
-  photo_uri varchar(255) null,
-  constraint student_stu_id_uindex
-  unique (stu_id)
-)
-;
-
-alter table appeal
-  add constraint appeal_student_stu_id_fk
-foreign key (stu_id) references ssmis.student (stu_id)
-;
-
-create table student_schedule
-(
-  dpm char(8) not null,
-  crs char(8) not null,
-  tch char(8) not null,
-  stu char(8) not null,
-  term tinyint not null,
-  score float default '0' not null,
-  primary key (dpm, crs, tch, stu),
-  constraint student_chedule_department_dpm_id_fk
-  foreign key (dpm) references ssmis.department (dpm_id),
-  constraint student_chedule_course_crs_id_fk
-  foreign key (crs) references ssmis.course (crs_id),
-  constraint student_schedule_Teacher_tch_id_fk
-  foreign key (tch) references ssmis.Teacher (tch_id),
-  constraint student_chedule_student_stu_id_fk
-  foreign key (stu) references ssmis.student (stu_id)
-)
-;
-
-create index student_chedule_course_crs_id_fk
-  on student_schedule (crs)
-;
-
-create index student_chedule_student_stu_id_fk
-  on student_schedule (stu)
-;
-
-create index student_chedule_teacher_tch_id_fk
-  on student_schedule (tch)
-;
+-- Dump completed on 2017-04-20  8:36:56
 
 

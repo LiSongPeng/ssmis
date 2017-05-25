@@ -29,7 +29,7 @@
             <div class="background">
                 <img src="<%=basePath%>/res/img/personalInfoBG.jpg">
             </div>
-            <a><img class="circle" src="<%=basePath%>/<s:property value='#session.currStu.photoUri'/>"></a>
+            <a><img class="circle" src="<%=basePath%>/<s:property value='#session.currStu.stuId'/>.jpg"></a>
             <a><span class="white-text name"><s:property value="#session.currStu.name"/> </span></a>
             <a><span class="white-text email"><s:property value="#session.currStu.email"/> </span></a>
         </div>
