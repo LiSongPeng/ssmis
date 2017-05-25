@@ -29,7 +29,7 @@ public class CommentDaoImpl implements CommentDaoI {
     }
 
     @Override
-    public boolean addCommnet(Comment comment) throws Exception {
+    public boolean addComment(Comment comment) throws Exception {
         //TODO
         return false;
     }
