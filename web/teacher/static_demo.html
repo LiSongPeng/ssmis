@@ -86,7 +86,10 @@
 
 <script>
     $("button").click(function () {
-        $("#p_ed").slideToggle();
+//        $("#p_ed").slideToggle();
+        $.getJSON("http://localhost:8080/test/hibernate",function (data) {
+            console.log($.parseJSON(data));
+        })
     })
 </script>
 </body>

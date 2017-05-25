@@ -8,7 +8,6 @@
           <element id="module-output" name="ssmis" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="ssh" />
           <element id="library" level="module" name="JUnit5" module-name="ssmis" />
           <element id="library" level="application" name="mysql-driver" />
         </element>

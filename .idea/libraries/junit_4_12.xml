@@ -1,6 +1,16 @@
 <component name="libraryTable">
-  <library name="ssh">
+  <library name="junit-4.12">
     <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/junit-4.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/fastjson-1.2.32.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/hamcrest-core-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/spring-test-4.3.1.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/junit-jupiter-api-5.0.0-M3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/opentest4j-1.0.0-M1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-commons-3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-tree-3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/struts2-convention-plugin-2.5.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/antlr-2.7.7.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/aopalliance-1.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/aspectjrt.jar!/" />
@@ -45,15 +55,8 @@
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/struts2-core-2.5.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/struts2-json-plugin-2.5.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/struts2-spring-plugin-2.5.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/struts2-convention-plugin-2.5.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-3.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-commons-3.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/asm-tree-3.3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/spring-test-4.3.1.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$USER_HOME$/DDisk/library/hibernate-release-5.2.2.Final/project/hibernate-core/src/main/java" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>
