@@ -21,6 +21,14 @@
             margin: 0.4em 0.2em 0 0;
             cursor: pointer;
         }
+
+        .collection-item {
+            cursor: pointer;
+        }
+
+        .tabBody {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -29,15 +37,29 @@
         <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header"><i class="material-icons">filter_drama</i>选课系统</div>
-                <div class="collapsible-body"></div>
+                <div class="collapsible-body">
+                    <div class="collection">
+                        <a disabled="disabled" class="collection-item" id="selectable">可选课程</a>
+                        <a class="collection-item" id="selected">已选课程</a>
+                        <a class="collection-item" id="selectResult">选课结果</a>
+                    </div>
+                </div>
             </li>
             <li>
                 <div class="collapsible-header"><i class="material-icons">place</i>排课查询</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                <div class="collapsible-body">
+                    <div class="collection">
+                        <a class="collection-item" id="courseSchedule">课程安排查询</a>
+                    </div>
+                </div>
             </li>
             <li>
                 <div class="collapsible-header"><i class="material-icons">whatshot</i>个人课程查询</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                <div class="collapsible-body">
+                    <div class="collection">
+                        <a class="collection-item" id="personalCourseTable">个人课表</a>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
@@ -50,6 +72,11 @@
             <div id="welcome" style="line-height: 100%;text-align:center;font-size: 36px;">
                 欢迎来到课程中心！
             </div>
+            <div id="selectableTabBody" class="tabBody">selectableTabBody</div>
+            <div id="selectedTabBody" class="tabBody">selectedTabBody</div>
+            <div id="selectResultTabBody" class="tabBody">selectResultTabBody</div>
+            <div id="courseScheduleTabBody" class="tabBody">courseScheduleTabBody</div>
+            <div id="personalCourseTableTabBody" class="tabBody">personalCourseTableTabBody</div>
         </div>
     </div>
 </div>
