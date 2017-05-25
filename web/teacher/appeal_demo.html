@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/color_material.min.css">
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/icon.css">
+    <script src="../res/jiangtao/lib/mdl/material.min.js"></script>
+    <script src="../res/js/jquery-3.0.0.min.js"></script>
+    <!--<script src="../res/jiangtao/lib/d3.min.js"></script>-->
+    <script src="script/vue.js"></script>
+    <script src="../res/jiangtao/lib/d3.v3.min.js"></script>
+    <script src="../res/jiangtao/lib/c3.min.js"></script>
+    <link href="../res/jiangtao/lib/c3.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+    <tr>
+        <th class="mdl-data-table__cell--non-numeric"></th>
+        <th>所在院系</th>
+        <th>课程名称</th>
+        <th>学生姓名</th>
+        <th>任课教师</th>
+        <th>更新日期</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="font-weight:bold;">
+        <td class="expand-detail">
+            <!--<button class="mdl-button mdl-js-button mdl-js-ripple-effect">-->
+                <!--<i class="material-icons">view_headline</i>-->
+            <!--</button>-->
+            <i class="material-icons">highlight_off</i>
+        </td>
+        <td class="mdl-data-table__cell--non-numeric">计算机学院 (department id)</td>
+        <td>
+            <span class="mdl-chip">
+                <span class="mdl-chip__text" id="crs_id">课程名称</span>
+            </span>
+            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                for="crs_id">
+                <div class="mdl-card">
+                    <div class="mdl-card__title mdl-card--expand">
+                        <h5>
+                            Course id:001<br>
+                            Name: RNN<br>
+                            term: 3<br>
+                            weight: 2.0
+                        </h5>
+                    </div>
+                </div>
+            </ul>
+        </td>
+        <td>
+            <span class="mdl-chip">
+                <span class="mdl-chip__text stu-name" id="stu_id">学生姓名</span>
+            </span>
+            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+                for="stu_id">
+                <li class="mdl-menu__item">Name</li>
+                <li class="mdl-menu__item">id 000</li>
+                <li  class="mdl-menu__item">Socre</li>
+                <li  class="mdl-menu__item">class </li>
+                <li class="mdl-menu__item">grade </li>
+                </div>
+            </ul>
+        </td>
+        <td>
+            任课教师 (teacher id)
+        </td>
+        <td>
+            xxxx/xx/xx
+        </td>
+    </tr>
+    <tr style="display:none">
+        <td colspan="6">
+            <div style="width: auto;height: 320px;background-color: #00acc1;margin-left: auto;margin-right: auto">
+                <button id="demo-menu-lower-left"
+                class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+        </button>
+                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+            for="demo-menu-lower-left">
+            <li class="mdl-menu__item showdialog" id="crs_tch_stu">回执</li>
+            <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
+                标记为未读
+               </li>
+            <li class="mdl-menu__item">
+                标记请求
+                </li>
+        </ul>
+            </div>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+<script>
+    $(".expand-detail").click(function () {
+        $(this).parent().next().fadeToggle("fast");
+        $(this).parent().attr("style","");
+    })
+</script>
+
+
+<dialog class="mdl-dialog">
+    <div class="mdl-textfield mdl-js-textfield">
+        <textarea class="mdl-textfield__input" type="text" rows= "5" id="input" ></textarea>
+        <label class="mdl-textfield__label" for="input">Text lines...</label>
+    </div>
+
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button" id="sub"><i class="material-icons">cloud_upload</i></button>
+        <button type="button" class="mdl-button close" id="can"><i class="material-icons">cancel</i></button>
+    </div>
+</dialog>
+<script>
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#crs_tch_stu');
+    if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+    }
+//    showDialogButton.addEventListener('click', function() {
+//        dialog.showModal();
+//    });
+    $(".showdialog").click(function () {
+        dialog.showModal();
+    })
+//    dialog.querySelector('.close').addEventListener('click', function() {
+//        dialog.close();
+//    });
+    $("#sub").click(function () {
+        dialog.close();
+    });
+    $("#can").click(function () {
+        dialog.close();
+    });
+</script>
+</body>
+</html>

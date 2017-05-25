@@ -5,11 +5,11 @@
     <title>教师系统</title>
     <link rel="stylesheet" href="../res/jiangtao/lib/mdl/color_material.min.css">
     <link rel="stylesheet" href="../res/jiangtao/lib/mdl/icon.css">
-    <script defer src="../res/jiangtao/lib/mdl/material.min.js"></script>
-    <script defer src="../res/js/jquery-3.0.0.min.js"></script>
-    <script defer src="../res/jiangtao/lib/vue.min.js"></script>
-    <script src="../res/jiangtao/lib/d3.min.js"></script>
-    <!--<script src="../res/jiangtao/lib/d3.v3.min.js"></script>-->
+    <script src="../res/jiangtao/lib/mdl/material.min.js"></script>
+    <script src="../res/js/jquery-3.0.0.min.js"></script>
+    <script src="../res/jiangtao/lib/vue.min.js"></script>
+    <!--<script src="../res/jiangtao/lib/d3.min.js"></script>-->
+    <script src="../res/jiangtao/lib/d3.v3.min.js"></script>
     <script src="../res/jiangtao/lib/c3.min.js"></script>
     <link href="../res/jiangtao/lib/c3.min.css" rel="stylesheet" type="text/css">
 </head>
@@ -63,21 +63,110 @@
         <section class="mdl-layout__tab-panel" id="fixed-tab-4">
             <div class="page-content">
                 <!-- Your content goes here -->
-                    ##成绩复查
+                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+                    <header class="mdl-layout__header">
+                        <!-- Tabs -->
+                        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                            <a href="#scroll-tab-1" class="mdl-layout__tab is-active">
+                                新的复查
+                                <span class="mdl-badge" data-badge="4"></span>
+                            </a>
+                            <a href="#scroll-tab-2" class="mdl-layout__tab">
+                                更新的复查
+                                <span class="mdl-badge" data-badge="5"></span>
+                            </a>
+                            <a href="#scroll-tab-3" class="mdl-layout__tab">已标记的复查</a>
+                            <a href="#scroll-tab-4" class="mdl-layout__tab">已回执的复查</a>
+                            <a href="#scroll-tab-5" class="mdl-layout__tab">已关闭的复查</a>
+                            <a href="#scroll-tab-6" class="mdl-layout__tab">全部复查信息</a>
+                            <a href="#scroll-tab-7" class="mdl-layout__tab">草稿箱</a>
+                        </div>
+                    </header>
+
+                    <main class="mdl-layout__content">
+                        <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+                            <div class="page-content">
+                                <!-- Your content goes here -->
+
+
+                                <!--新的复查-->
+                            </div>
+                        </section>
+                        <section class="mdl-layout__tab-panel" id="scroll-tab-2">
+                            <div class="page-content">
+                                <!-- Your content goes here -->
+
+
+                                <!--更新的复查-->
+                            </div>
+                        </section>
+                        <section class="mdl-layout__tab-panel" id="scroll-tab-3">
+                            <div class="page-content">
+                                <!-- Your content goes here -->
+
+
+                                <!--已标记的复查-->
+                            </div>
+                        </section>
+                        <section class="mdl-layout__tab-panel" id="scroll-tab-4">
+                            <div class="page-content">
+                                <!-- Your content goes here -->
+
+
+                                <!--已回执的复查-->
+                            </div>
+                        </section>
+                        <section class="mdl-layout__tab-panel" id="scroll-tab-5">
+                            <div class="page-content">
+                                <!-- Your content goes here -->
+
+
+                                <!--已关闭的复查-->
+                            </div>
+                        </section>
+                        <section class="mdl-layout__tab-panel" id="scroll-tab-6">
+                            <div class="page-content">
+                                <!-- Your content goes here -->
+
+
+                                <!--全部复查-->
+                            </div>
+                        </section>
+                        <section class="mdl-layout__tab-panel" id="scroll-tab-7">
+                            <div class="page-content">
+                                <!-- Your content goes here -->
+
+
+                                <!--草稿箱-->
+                            </div>
+                        </section>
+                    </main>
+                </div>
                 <!--content ends-->
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-5">
             <div class="page-content">
                 <!-- Your content goes here -->
-                <meta charset="utf-8">
-                <link rel="stylesheet" href="css/s_and_g.css">
-                <form>
-                    <label><input type="radio" name="mode" value="grouped"> Grouped</label>
-                    <label><input type="radio" name="mode" value="stacked" checked> Stacked</label>
-                </form>
-                <svg width="960" height="500"></svg>
-                <script src="script/s_and_g.js"></script>
+                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+                    <header class="mdl-layout__header">
+                        <!-- Tabs -->
+                        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                            <a href="#static-tab-1" class="mdl-layout__tab is-active">统计与评议</a>
+                            <a href="#static-tab-2" class="mdl-layout__tab">历史评议</a>
+                        </div>
+                    </header>
+                    <main class="mdl-layout__content">
+                        <section class="mdl-layout__tab-panel is-active" id="static-tab-1">
+                            <div class="page-content"><!-- Your content goes here --></div>
+                        </section>
+                        <section class="mdl-layout__tab-panel" id="static-tab-2">
+                            <div class="page-content"><!-- Your content goes here --></div>
+                        </section>
+
+                    </main>
+                </div>
                 <!--content ends-->
             </div>
         </section>

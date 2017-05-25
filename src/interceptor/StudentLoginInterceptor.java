@@ -22,9 +22,9 @@ public class StudentLoginInterceptor extends AbstractInterceptor {
     }
 
     private boolean isCheck(String path) {
-        if (path.endsWith("student/login.action") || path.endsWith("student/verifyImgAction.action")||path.endsWith("student/login.jsp"))
+        if (path.endsWith("student/login.action") || path.endsWith("student/login.jsp"))
             return false;
-        if (path.contains("student") && path.endsWith("jsp"))
+        if (path.contains("/student/"))
             return true;
         return false;
     }
