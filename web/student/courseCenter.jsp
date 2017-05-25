@@ -11,6 +11,7 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 %>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="<%=basePath%>/res/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -66,7 +67,7 @@
     <div class="col s10">
         <div id="courseCenterTabs">
             <ul>
-                <li><a href="#welcome">欢迎</a> <%--<span class="ui-icon ui-icon-close" role="presentation"></span>--%>
+                <li><a href="#welcome">欢迎</a>
                 </li>
             </ul>
             <div id="welcome" style="line-height: 100%;text-align:center;font-size: 36px;">

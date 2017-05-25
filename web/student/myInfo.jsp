@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: lihuibo
+  Date: 5/18/17
+  Time: 2:35 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -21,7 +28,8 @@
     <div class="col s10 offset-s1 white">
         <div class="row">
             <div class="col s2">
-                <img src="<%=basePath%>/<s:property value="#session.currStu.stuId"/>.jpg" id="photoImg" class="circle"
+                <img src="<%=basePath%>/res/img/<s:property value="#session.currStu.stuId"/>.jpg" id="photoImg"
+                     class="circle"
                      width="64" height="64">
             </div>
         </div>
