@@ -58,7 +58,8 @@ public class TestAction extends ActionSupport {
         Map<String,Object> stringObjectMap = new HashMap<>();
         stringObjectMap.put("tch_id","0001");
         stringObjectMap.put("type",5);
-        appealServiceI.getAppealsByCondition(stringObjectMap,true);
+        List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
+        json = JSON.toJSONString(list);
         return SUCCESS;
     }
 }

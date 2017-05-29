@@ -3,6 +3,7 @@ package dao.impl;
 import dao.i.AppealDaoI;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import team.jiangtao.entity.Appeal;
 
@@ -27,16 +28,13 @@ public class AppealDaoImpl implements AppealDaoI{
         if(equalCondition){
             //teacher mod
             Session session = sessionFactory.getCurrentSession();
-
+            List list = null;
             for(Map.Entry<String,Object> entry: conditions.entrySet()){
-                if(entry.getKey().equals("tch_id")){
-                    System.out.println("ID "+ entry.getValue());
-                }
-                if(entry.getKey().equals("type")){
-                    System.out.println("Type "+entry.getValue());
-                }
+                String hql = "from Appeal ";
+                Query query = session.createQuery(hql);
+                list = query.list();
             }
-            return null;
+            return list;
         }else{
             //student mod
             //TODO

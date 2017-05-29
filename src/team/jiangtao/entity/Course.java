@@ -1,5 +1,8 @@
 package team.jiangtao.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -73,6 +76,7 @@ public class Course {
     }
 
     @OneToMany(mappedBy = "courseByCrs")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Exam> getExamsByCrsId() {
         return examsByCrsId;
     }
@@ -82,6 +86,7 @@ public class Course {
     }
 
     @OneToMany(mappedBy = "courseByCrsId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Appeal> getAppealsByCrsId() {
         return appealsByCrsId;
     }
@@ -91,6 +96,7 @@ public class Course {
     }
 
     @OneToMany(mappedBy = "courseByCrs")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Comment> getCommentsByCrsId() {
         return commentsByCrsId;
     }
@@ -100,6 +106,7 @@ public class Course {
     }
 
     @OneToMany(mappedBy = "courseByCrsId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<CourseSchedule> getCourseSchedulesByCrsId() {
         return courseSchedulesByCrsId;
     }
@@ -109,6 +116,7 @@ public class Course {
     }
 
     @OneToMany(mappedBy = "courseByCrsId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<CoursesTable> getCoursesTablesByCrsId() {
         return coursesTablesByCrsId;
     }
@@ -118,6 +126,7 @@ public class Course {
     }
 
     @OneToMany(mappedBy = "courseByCrs")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<StudentSchedule> getStudentSchedulesByCrsId() {
         return studentSchedulesByCrsId;
     }
