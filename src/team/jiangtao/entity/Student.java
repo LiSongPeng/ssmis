@@ -1,5 +1,8 @@
 package team.jiangtao.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -173,6 +176,7 @@ public class Student {
     }
 
     @OneToMany(mappedBy = "studentByStuId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Appeal> getAppealsByStuId() {
         return appealsByStuId;
     }
@@ -182,6 +186,7 @@ public class Student {
     }
 
     @OneToMany(mappedBy = "studentByStu")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<StudentSchedule> getStudentSchedulesByStuId() {
         return studentSchedulesByStuId;
     }

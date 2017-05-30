@@ -40,7 +40,7 @@ public interface CommentDaoI {
      * @return flag of result
      * @throws Exception
      */
-    boolean addCommnet(Comment comment)throws Exception;
+    boolean addComment(Comment comment)throws Exception;
 
     /**
      *
