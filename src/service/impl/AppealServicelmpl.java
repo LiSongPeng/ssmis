@@ -29,7 +29,7 @@ public class AppealServicelmpl implements AppealServiceI {
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional(readOnly = false,isolation = Isolation.READ_COMMITTED)
     public boolean addAppeals(List<Appeal> appeals) throws Exception {
         //TODO
         return false;
@@ -37,7 +37,7 @@ public class AppealServicelmpl implements AppealServiceI {
 
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,isolation = Isolation.READ_COMMITTED)
     public List<Appeal> getAppealsByCondition(Map<String, Object> conditions, boolean equalCondition) throws Exception {
         return appealDaoI.getAppealsByCondition(conditions,equalCondition);
     }

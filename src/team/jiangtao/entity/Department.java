@@ -1,5 +1,9 @@
 package team.jiangtao.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -60,6 +64,7 @@ public class Department {
     }
 
     @OneToMany(mappedBy = "departmentByDpm")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Exam> getExamsByDpmId() {
         return examsByDpmId;
     }
@@ -69,6 +74,7 @@ public class Department {
     }
 
     @OneToMany(mappedBy = "departmentByDpmId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Teacher> getTeachersByDpmId() {
         return teachersByDpmId;
     }
@@ -78,6 +84,7 @@ public class Department {
     }
 
     @OneToMany(mappedBy = "departmentByDpmId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Appeal> getAppealsByDpmId() {
         return appealsByDpmId;
     }
@@ -87,6 +94,7 @@ public class Department {
     }
 
     @OneToMany(mappedBy = "departmentByDpm")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<Comment> getCommentsByDpmId() {
         return commentsByDpmId;
     }
@@ -96,6 +104,7 @@ public class Department {
     }
 
     @OneToMany(mappedBy = "departmentByDpmId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<CourseSchedule> getCourseSchedulesByDpmId() {
         return courseSchedulesByDpmId;
     }
@@ -105,6 +114,7 @@ public class Department {
     }
 
     @OneToMany(mappedBy = "departmentByDpmId")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<CoursesTable> getCoursesTablesByDpmId() {
         return coursesTablesByDpmId;
     }
@@ -114,6 +124,7 @@ public class Department {
     }
 
     @OneToMany(mappedBy = "departmentByDpm")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public Collection<StudentSchedule> getStudentSchedulesByDpmId() {
         return studentSchedulesByDpmId;
     }
