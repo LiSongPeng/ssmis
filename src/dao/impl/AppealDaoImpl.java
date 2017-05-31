@@ -115,7 +115,7 @@ public class AppealDaoImpl implements AppealDaoI{
     }
 
     @Override
-    public boolean addAppeal(List<Appeal> appeals) {
+    public boolean addAppeals(List<Appeal> appeals) {
         boolean flag = true;
         //TO CHECK
         try{
@@ -131,7 +131,7 @@ public class AppealDaoImpl implements AppealDaoI{
     }
 
     @Override
-    public boolean deleteAppeal(List<Appeal> appeals) {
+    public boolean deleteAppeals(List<Appeal> appeals) {
         //TO CHECK
         boolean flag = true;
         try{
@@ -150,7 +150,7 @@ public class AppealDaoImpl implements AppealDaoI{
     }
 
     @Override
-    public boolean updateAppeal(List<Appeal> appeals) {
+    public boolean updateAppeals(List<Appeal> appeals) {
         //TO CHECK
         boolean flag = true;
         try{

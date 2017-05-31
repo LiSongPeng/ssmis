@@ -45,7 +45,7 @@ public interface AppealDaoI {
      * @return flag signed success or failure
      * @throws Exception
      */
-    boolean updateAppeal(List<Appeal> appeals);
+    boolean updateAppeals(List<Appeal> appeals);
 
     /**
      *
@@ -53,7 +53,7 @@ public interface AppealDaoI {
      * @return adding is success or failure
      * @throws Exception
      */
-    boolean addAppeal(List<Appeal> appeals);
+    boolean addAppeals(List<Appeal> appeals);
 
     /**
      *
@@ -61,6 +61,6 @@ public interface AppealDaoI {
      * @return detete is success or failure
      * @throws Exception
      */
-    boolean deleteAppeal(List<Appeal> appeals);
+    boolean deleteAppeals(List<Appeal> appeals);
 
 }

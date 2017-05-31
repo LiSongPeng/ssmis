@@ -10,14 +10,6 @@ import java.util.Map;
  */
 public interface AppealServiceI {
 
-    /**
-     *
-     * @param appeals
-     * @return flag of operation.
-     * @throws Exception
-     */
-    boolean addAppeals(List<Appeal> appeals) throws Exception;
-
 
     /**
      *
@@ -40,10 +32,17 @@ public interface AppealServiceI {
      */
     List<Appeal> getAppealsByCondition(Map<String,Object> conditions, boolean equalCondition) throws Exception;
 
+    /**
+     *
+     * @param appeal with no-null PKs
+     * @return Appeal
+     * @throws Exception
+     */
+    Appeal getAppealByPK(Appeal appeal) throws Exception;
 
     /**
      *
-     * @param appeal
+     * @param appeals
      * @return a flag signaling success or not.
      * @throws Exception
      *
@@ -58,5 +57,21 @@ public interface AppealServiceI {
      *  0, 3 are available for students;
      *  1,2,3,4,5, are available for teachers;
      */
-    boolean updateAppeal(Appeal appeal) throws Exception;
+    boolean updateAppeals(List<Appeal> appeals);
+
+    /**
+     *
+     * @param appeals
+     * @return adding is success or failure
+     * @throws Exception
+     */
+    boolean addAppeals(List<Appeal> appeals);
+
+    /**
+     *
+     * @param appeals
+     * @return detete is success or failure
+     * @throws Exception
+     */
+    boolean deleteAppeals(List<Appeal> appeals);
 }

@@ -11,34 +11,45 @@ import java.util.Map;
 public interface CommentServiceI {
     /**
      *
-     * @param statType
-     * @return Key-Value list.
+     * @param condition
+     * @param equalCondition
+     * @return comment
      * @throws Exception
      */
-    List<Map<String,Double>> getScoreByType(Integer statType) throws Exception;
-
-    /**
-     *
-     * @param tchId
-     * @return List of Comments.
-     * @throws Exception
-     */
-    List<Comment> getAllComment(String tchId) throws Exception;
+    List<Comment> getCommentsByConditions(Map<String,Object> condition, boolean... equalCondition) throws Exception;
 
     /**
      *
      * @param comment
-     * @return flag of operation.
+     * @return
      * @throws Exception
      */
-    boolean addComment(Comment comment) throws Exception;
+    Comment getCommentByPK(Comment comment)throws Exception;
 
     /**
      *
-     * @param comment
-     * @return flag of operation.
+     * @param comments
+     * @return comment
      * @throws Exception
      */
-    boolean updateComent(Comment comment) throws Exception;
+    boolean addComments(List<Comment> comments);
+
+
+    /**
+     *
+     * @param comments
+     * @return flag
+     * @throws Exception
+     */
+    boolean updateComments(List<Comment> comments);
+
+
+    /**
+     *
+     * @param comments
+     * @return flag
+     * @throws Exception
+     */
+    boolean deleteComments(List<Comment> comments);
 
 }

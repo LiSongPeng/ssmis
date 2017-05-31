@@ -32,15 +32,8 @@ public interface CommentDaoI {
      * @return comment
      * @throws Exception
      */
-    boolean addComments(List<Comment> comments)throws Exception;
+    boolean addComments(List<Comment> comments);
 
-    /**
-     *
-     * @param comment
-     * @return flag of result
-     * @throws Exception
-     */
-    boolean addComment(Comment comment)throws Exception;
 
     /**
      *
@@ -48,15 +41,8 @@ public interface CommentDaoI {
      * @return flag
      * @throws Exception
      */
-    boolean updateComments(List<Comment> comments)throws Exception;
+    boolean updateComments(List<Comment> comments);
 
-    /**
-     *
-     * @param comment
-     * @return flag
-     * @throws Exception
-     */
-    boolean updateComment(Comment comment)throws Exception;
 
     /**
      *
@@ -64,13 +50,6 @@ public interface CommentDaoI {
      * @return flag
      * @throws Exception
      */
-    boolean deleteComments(List<Comment> comments)throws Exception;
+    boolean deleteComments(List<Comment> comments);
 
-    /**
-     *
-     * @param comment
-     * @return flag
-     * @throws Exception
-     */
-    boolean deleteComent(Comment comment)throws Exception;
 }
