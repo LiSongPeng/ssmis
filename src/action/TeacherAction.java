@@ -7,10 +7,13 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import service.i.AppealServiceI;
+import service.i.CommentServiceI;
 import team.jiangtao.entity.Appeal;
 import team.jiangtao.entity.Comment;
 import team.jiangtao.entity.Teacher;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -21,15 +24,25 @@ import java.util.Map;
 @Controller
 @Scope(value = "prototype")
 public class TeacherAction extends ActionSupport {
+    private CommentServiceI commentServiceI;
+    private AppealServiceI appealServiceI;
     private Teacher teacher;
-    //
     private Appeal appeal;
     private Comment comment;
     private String operation;
-    //
     private String rsp;
     private Map<String,Object> session;
     private String isRememberPsw;
+
+    @Resource(name = "commentService")
+    public void setCommentServiceI(CommentServiceI commentServiceI) {
+        this.commentServiceI = commentServiceI;
+    }
+
+    @Resource(name = "appealService")
+    public void setAppealServiceI(AppealServiceI appealServiceI) {
+        this.appealServiceI = appealServiceI;
+    }
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
