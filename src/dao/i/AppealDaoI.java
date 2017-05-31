@@ -41,26 +41,26 @@ public interface AppealDaoI {
 
     /**
      *
-     * @param appeal
+     * @param appeals
      * @return flag signed success or failure
      * @throws Exception
      */
-    boolean updateAppeal(Appeal appeal) throws Exception;
+    boolean updateAppeal(List<Appeal> appeals);
 
     /**
      *
-     * @param appeal
+     * @param appeals
      * @return adding is success or failure
      * @throws Exception
      */
-    boolean addAppeal(Appeal appeal)throws Exception;
+    boolean addAppeal(List<Appeal> appeals);
 
     /**
      *
-     * @param appeal
+     * @param appeals
      * @return detete is success or failure
      * @throws Exception
      */
-    boolean deleteAppeal(Appeal appeal)throws Exception;
+    boolean deleteAppeal(List<Appeal> appeals);
 
 }

@@ -15,6 +15,10 @@ import java.util.Map;
 /**
  * Created by tose on 2017/5/23.
  */
+
+/**
+ * @author Jiang Tao
+ */
 @Repository(value = "appealDao")
 public class AppealDaoImpl implements AppealDaoI{
     private SessionFactory sessionFactory;
@@ -26,6 +30,7 @@ public class AppealDaoImpl implements AppealDaoI{
 
     @Override
     public List<Appeal> getAppealsByCondition(Map<String,Object> conditions, boolean equalCondition) throws Exception {
+        //TO CHECK
         if(equalCondition){
             //teacher mod
             Session session = sessionFactory.getCurrentSession();
@@ -99,7 +104,7 @@ public class AppealDaoImpl implements AppealDaoI{
 
     @Override
     public Appeal getAppealByPK(Appeal appeal) throws Exception {
-        //unchecked
+        //TO CHECK
         Session session = sessionFactory.getCurrentSession();
         List list = null;
         String hql = "from Appeal appeal where appeal.crsId=:crsId and appeal.dpmId=:dpmId and appeal.stuId=:stuId and appeal.date=:date";
@@ -110,17 +115,37 @@ public class AppealDaoImpl implements AppealDaoI{
     }
 
     @Override
-    public boolean addAppeal(Appeal appeal) throws Exception {
+    public boolean addAppeal(List<Appeal> appeals) {
+        //TO CHECK
+        try{
+            Session session = sessionFactory.getCurrentSession();
+            for(Appeal appeal : appeals){
+                session.save(appeal);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteAppeal(List<Appeal> appeals) {
         return false;
     }
 
     @Override
-    public boolean deleteAppeal(Appeal appeal) throws Exception {
-        return false;
-    }
-
-    @Override
-    public boolean updateAppeal(Appeal appeal) throws Exception {
-        return false;
+    public boolean updateAppeal(List<Appeal> appeals) {
+        //TO CHECK
+        try{
+            Session session = sessionFactory.getCurrentSession();
+            for(Appeal appeal : appeals){
+                session.update(appeal);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }
