@@ -25,12 +25,60 @@ public class TeacherAction extends ActionSupport {
     //
     private Appeal appeal;
     private Comment comment;
-    private String appealType;
-    private String staticType;
+    private String operation;
     //
     private String rsp;
     private Map<String,Object> session;
     private String isRememberPsw;
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public void setAppeal(Appeal appeal) {
+        this.appeal = appeal;
+    }
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
+
+    public String getRsp() {
+        return rsp;
+    }
+
+    public void setRsp(String rsp) {
+        this.rsp = rsp;
+    }
+
+    public Map<String, Object> getSession() {
+        return session;
+    }
+
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
+    }
+
+    public String getIsRememberPsw() {
+        return isRememberPsw;
+    }
+
+    public void setIsRememberPsw(String isRememberPsw) {
+        this.isRememberPsw = isRememberPsw;
+    }
+
     @Action(value = "login",results = @Result(type = "json",params={"root","rsp"}))
     public String teacherLogin(){
         //write to test.
@@ -121,7 +169,7 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
-    @Action(value = "login",results = @Result(type = "json",params={"root","rsp"}))
+    @Action(value = "addAppeals",results = @Result(type = "json",params={"root","rsp"}))
     public String addAppeal(){
         //TODO
 
@@ -132,6 +180,7 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
+    @Action(value = "updateAppeals",results = @Result(type = "json",params={"root","rsp"}))
     public String updateAppeal(){
         //TODO
 
@@ -141,6 +190,7 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
+    @Action(value = "getAppeals",results = @Result(type = "json",params={"root","rsp"}))
     public String getAppeal(){
         //TODO
 
