@@ -23,6 +23,7 @@ public class Department {
     private Collection<CoursesTable> coursesTablesByDpmId;
     private Collection<StudentSchedule> studentSchedulesByDpmId;
 
+
     @Id
     @Column(name = "dpm_id")
     public String getDpmId() {

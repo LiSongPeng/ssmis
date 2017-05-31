@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by tose on 2017/5/23.
  */
-@Service(value = "commnetService")
+@Service(value = "commentService")
 public class CommentServiceImpl implements CommentServiceI{
     private CommentDaoI commentDaoI;
 
