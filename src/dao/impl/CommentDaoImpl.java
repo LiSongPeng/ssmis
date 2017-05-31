@@ -43,7 +43,7 @@ public class CommentDaoImpl implements CommentDaoI {
         Query query = session.createQuery(hql);
         query.setProperties(comment);
         list = query.list();
-        return list;
+        return (Comment)list.get(0);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class CommentDaoImpl implements CommentDaoI {
     public boolean deleteComments(List<Comment> comments) {
         boolean flag = true;
         try{
-            String hql = "delete from Comment comment where comment.tch=:tch and comment.dpm=:dpm and comment.crs=:crs and comment.date";
+            String hql = "delete from Comment comment where comment.tch=:tch and comment.dpm=:dpm and comment.crs=:crs and comment.date=:date";
             Session session = sessionFactory.getCurrentSession();
             Query query = session.createQuery(hql);
             for(Comment comment:comments){

@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentServiceI{
         return commentDaoI;
     }
 
-    @Resource(name = "appealDao")
+    @Resource(name = "commentDao")
     public void setCommentDaoI(CommentDaoI commentDaoI) {
         this.commentDaoI = commentDaoI;
     }
