@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import team.jiangtao.entity.Appeal;
 import team.jiangtao.entity.Comment;
 
 import javax.annotation.Resource;
