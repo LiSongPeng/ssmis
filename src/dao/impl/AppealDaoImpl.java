@@ -107,7 +107,7 @@ public class AppealDaoImpl implements AppealDaoI{
         //TO CHECK
         Session session = sessionFactory.getCurrentSession();
         List list = null;
-        String hql = "from Appeal appeal where appeal.crsId=:crsId and appeal.dpmId=:dpmId and appeal.stuId=:stuId and appeal.date=:date";
+        String hql = "from Appeal appeal where appeal.stuId=:stuId and appeal.crsId=:crsId and appeal.tchId=:tchId and appeal.dpmId=:dpmId and appeal.date=date";
         Query query = session.createQuery(hql);
         query.setProperties(appeal);
         list = query.list();
@@ -116,6 +116,7 @@ public class AppealDaoImpl implements AppealDaoI{
 
     @Override
     public boolean addAppeal(List<Appeal> appeals) {
+        boolean flag = true;
         //TO CHECK
         try{
             Session session = sessionFactory.getCurrentSession();
@@ -124,19 +125,34 @@ public class AppealDaoImpl implements AppealDaoI{
             }
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            flag = false;
         }
-        return true;
+        return flag;
     }
 
     @Override
     public boolean deleteAppeal(List<Appeal> appeals) {
-        return false;
+        //TO CHECK
+        boolean flag = true;
+        try{
+            String hql = "delete from Appeal appeal where appeal.stuId=:stuId and appeal.crsId=:crsId and appeal.tchId=:tchId and appeal.dpmId=:dpmId and appeal.date=date";
+            Session session = sessionFactory.getCurrentSession();
+            Query query = session.createQuery(hql);
+            for(Appeal appeal:appeals){
+                query.setProperties(appeal);
+                query.executeUpdate();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            flag = false;
+        }
+        return flag;
     }
 
     @Override
     public boolean updateAppeal(List<Appeal> appeals) {
         //TO CHECK
+        boolean flag = true;
         try{
             Session session = sessionFactory.getCurrentSession();
             for(Appeal appeal : appeals){
@@ -144,8 +160,8 @@ public class AppealDaoImpl implements AppealDaoI{
             }
         }catch (Exception e){
             e.printStackTrace();
-            return false;
+            flag = false;
         }
-        return true;
+        return flag;
     }
 }
