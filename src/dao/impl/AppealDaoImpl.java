@@ -1,6 +1,7 @@
 package dao.impl;
 
 import dao.i.AppealDaoI;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -98,7 +99,14 @@ public class AppealDaoImpl implements AppealDaoI{
 
     @Override
     public Appeal getAppealByPK(Appeal appeal) throws Exception {
-        return null;
+        //unchecked
+        Session session = sessionFactory.getCurrentSession();
+        List list = null;
+        String hql = "from Appeal appeal where appeal.crsId=:crsId and appeal.dpmId=:dpmId and appeal.stuId=:stuId and appeal.date=:date";
+        Query query = session.createQuery(hql);
+        query.setProperties(appeal);
+        list = query.list();
+        return (Appeal) list.get(0);
     }
 
     @Override
