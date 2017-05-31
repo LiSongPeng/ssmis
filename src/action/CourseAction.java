@@ -5,15 +5,19 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.CourseServiceI;
 import team.jiangtao.entity.Course;
 import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.CoursesTable;
+import team.jiangtao.entity.Student;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lihuibo on 4/14/17.
@@ -22,7 +26,7 @@ import java.util.List;
 @ParentPackage("ssmis-default")
 @Controller
 @Scope(value = "prototype")
-public class CourseAction extends ActionSupport {
+public class CourseAction extends ActionSupport implements SessionAware {
     private CourseServiceI courseService;
     private CourseSchedule cs;
     private String courseKeyName;
@@ -31,6 +35,7 @@ public class CourseAction extends ActionSupport {
     private String result;
     private String[][] courseTable;
     private Course course;
+    private Map<String, Object> session;
 
     @Action(value = "getCoursesInfo", results = {@Result(name = "error", type = "json", params = {"root", "result"}), @Result(type = "json", params = {"root", "courseSchedules"})})
     public String getCoursesInfo() {
@@ -48,13 +53,14 @@ public class CourseAction extends ActionSupport {
 
     @Action(value = "getCourseTableById", results = @Result(type = "json", params = {"root", "courseTable"}))
     public String getCourseTableById() {
-
+        courseTable = courseService.getCourseTable(cs.getCrsId(), cs.getTchId(), cs.getDpmId());
         return SUCCESS;
     }
 
     @Action(value = "getPersonalCourseTable", results = @Result(type = "json", params = {"root", "courseTable"}))
     public String ggetPersonalCourseTable() {
-
+        String stuId = ((Student) session.get("currStu")).getStuId();
+        courseTable = courseService.getPersonalCourseTable(stuId);
         return SUCCESS;
     }
 
@@ -93,5 +99,10 @@ public class CourseAction extends ActionSupport {
 
     public String[][] getCourseTable() {
         return courseTable;
+    }
+
+    @Override
+    public void setSession(Map<String, Object> session) {
+        this.session = session;
     }
 }

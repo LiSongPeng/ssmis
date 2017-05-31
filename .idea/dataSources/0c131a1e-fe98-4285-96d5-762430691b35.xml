@@ -399,17 +399,16 @@ crs_id</ColNames>
       <Position>4</Position>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
     <column id="92" parent="13" name="off">
       <Position>5</Position>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
     <column id="93" parent="13" name="site">
       <Position>6</Position>
       <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <index id="94" parent="13" name="courses_table_department_dpm_id_fk">
       <ColNames>dpm_id</ColNames>
@@ -421,9 +420,7 @@ crs_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ColNames>crs_id
 dpm_id
-tch_id
-weeks
-off</ColNames>
+tch_id</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="97" parent="13" name="courses_table_department_dpm_id_fk">
