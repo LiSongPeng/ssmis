@@ -6,7 +6,35 @@ $(function () {
     var tabs = $('#courseCenterTabs').tabs()
     var lastTab = 0
     var tabsChain = {}
-    var currPage = 1
+    var currPage = {
+        selectedTabBody: 0,
+        selectableTabBody: 0,
+        selectResultTabBody: 0,
+        courseScheduleTabBody: 0
+    }
+    var timer
+    var resolver = {
+        selectedTabBody: function () {
+
+        },
+
+        selectableTabBody: function () {
+        },
+
+        selectResultTabBody: function () {
+
+        },
+
+        courseScheduleTabBody: function () {
+
+        },
+
+        personalCourseTableTabBody: function () {
+            $.getJSON($("body").prop("title") + "/course/getPersonalCourseTable.action", function (json) {
+                alert(json)
+            })
+        }
+    }
     tabs.on("click", "span.ui-icon-close", function () {
         var tabBodyId = $(this).closest("li").remove().attr("aria-controls");
         $(tabBodyId).prop('display', 'none')
@@ -27,30 +55,17 @@ $(function () {
         $('#' + tabBodyId + ' img[class="loadingImg"]').remove()
     }
 
-    var resolver = {
-        selected: function (pageNumber) {
-
-        },
-
-        selectable: function (pageNumber) {
-            $('#selectableTabBody').append('selectableTabBody')
-            window.setTimeout(function () {
-                endLoading("selectableTabBody")
-            }, 1000)
-        },
-
-        selectResult: function (pageNumber) {
-
-        },
-
-        courseSchedule: function (pageNumber) {
-
-        },
-
-        personalCourseTable: function () {
-            $.getJSON("/ssmis/student")
-        }
+    function refresh(tabBodyId) {
+        endLoading(tabBodyId)
+        var refreshImg = "<img src='/ssmis/res/img/refresh.jpg' class='refreshImg'/>"
+        $('#' + tabBodyId).append(refreshImg)
+        $('#' + tabBodyId + ' img[class="refreshImg"]').click(function () {
+            $(this).remove()
+            loading(tabBodyId)
+            resolver[tabBodyId]()
+        })
     }
+
 
     $('.collection-item').click(
         function () {
@@ -64,7 +79,10 @@ $(function () {
                 tabsChain[tabBodyId] = ++lastTab
                 tabs.tabs('option', 'active', lastTab)
                 loading(tabBodyId)
-                resolver[this.id](1)
+                timer = window.setTimeout(function () {
+                    refresh(tabBodyId)
+                }, 60000)
+                resolver[tabBodyId]()
             } else {
                 tabs.tabs('option', 'active', tabsChain[tabBodyId])
             }

@@ -59,6 +59,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 
     @Action(value = "getPersonalCourseTable", results = @Result(type = "json", params = {"root", "courseTable"}))
     public String ggetPersonalCourseTable() {
+        System.out.println("get personal course");
         String stuId = ((Student) session.get("currStu")).getStuId();
         courseTable = courseService.getPersonalCourseTable(stuId);
         return SUCCESS;
