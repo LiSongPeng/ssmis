@@ -117,7 +117,11 @@ public class TeacherAction extends ActionSupport {
         return SUCCESS;
     }
 
-
+    /**
+     * @author Jiang Tao
+     * @return SUCCESS
+     */
+    @Action(value = "login",results = @Result(type = "json",params={"root","rsp"}))
     public String addAppeal(){
         //TODO
 
@@ -125,7 +129,7 @@ public class TeacherAction extends ActionSupport {
     }
 
     /**
-     * edited by Jiang Tao
+     * @author Jiang Tao
      * @return SUCCESS
      */
     public String updateAppeal(){
@@ -134,7 +138,7 @@ public class TeacherAction extends ActionSupport {
         return SUCCESS;
     }
     /**
-     * edited by Jiang Tao
+     * @author Jiang Tao
      * @return SUCCESS
      */
     public String getAppeal(){
@@ -144,7 +148,7 @@ public class TeacherAction extends ActionSupport {
     }
 
     /**
-     * edited by Jiang Tao
+     * @author Jiang Tao
      * @return SUCCESS
      */
     public String getComments(){
@@ -154,7 +158,7 @@ public class TeacherAction extends ActionSupport {
     }
 
     /**
-     * edited by Jiang Tao
+     * @author Jiang Tao
      * @return SUCCESS
      */
     public String addCommnets(){
@@ -164,7 +168,7 @@ public class TeacherAction extends ActionSupport {
     }
 
     /**
-     * edited by Jiang Tao
+     * @author Jiang Tao
      * @return SUCCESS
      */
     public String updateComments(){
@@ -173,7 +177,7 @@ public class TeacherAction extends ActionSupport {
     }
 
     /**
-     * edited by Jiang Tao
+     * @author Jiang Tao
      * @return SUCCESS
      */
     public String deleteCommnets(){
@@ -183,7 +187,7 @@ public class TeacherAction extends ActionSupport {
     }
 
     /**
-     * edited by Jiang Tao
+     * @author Jiang Tao
      * @return SUCCESS
      */
     public String getStatic(){
