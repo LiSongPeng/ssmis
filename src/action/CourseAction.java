@@ -28,7 +28,6 @@ public class CourseAction extends ActionSupport {
     private String courseKeyName;
     private String courseId;
     private List<CourseSchedule> courseSchedules;
-    private List<CoursesTable> coursesTableList;
     private String result;
     private String[][] courseTable;
     private Course course;
@@ -47,11 +46,18 @@ public class CourseAction extends ActionSupport {
         return ERROR;
     }
 
-    @Action(value = "getCourseTableById", results = @Result(type = "json", params = {"root", "coursesTableList"}))
+    @Action(value = "getCourseTableById", results = @Result(type = "json", params = {"root", "courseTable"}))
     public String getCourseTableById() {
 
         return SUCCESS;
     }
+
+    @Action(value = "getPersonalCourseTable", results = @Result(type = "json", params = {"root", "courseTable"}))
+    public String ggetPersonalCourseTable() {
+
+        return SUCCESS;
+    }
+
     @Resource(name = "courseService")
     public void setCourseService(CourseServiceI courseService) {
         this.courseService = courseService;
@@ -75,10 +81,6 @@ public class CourseAction extends ActionSupport {
 
     public List<CourseSchedule> getCourseSchedules() {
         return courseSchedules;
-    }
-
-    public List<CoursesTable> getCoursesTableList() {
-        return coursesTableList;
     }
 
     public String getResult() {

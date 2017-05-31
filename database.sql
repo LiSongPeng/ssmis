@@ -172,12 +172,12 @@ DROP TABLE IF EXISTS `courses_table`;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `courses_table` (
-  `dpm_id` CHAR(8)     NOT NULL,
-  `crs_id` CHAR(8)     NOT NULL,
-  `tch_id` CHAR(8)     NOT NULL,
-  `weeks`  TINYINT(4)  NOT NULL DEFAULT '0',
-  `off`    TINYINT(4)  NOT NULL DEFAULT '0',
-  `site`   VARCHAR(30) NOT NULL,
+  `dpm_id` CHAR(8)      NOT NULL,
+  `crs_id` CHAR(8)      NOT NULL,
+  `tch_id` CHAR(8)      NOT NULL,
+  `weeks`  VARCHAR(100) NOT NULL,
+  `off`    VARCHAR(100) NOT NULL,
+  `site`    VARCHAR(30) NOT NULL,
   PRIMARY KEY (`crs_id`, `dpm_id`, `tch_id`, `weeks`, `off`),
   KEY `courses_table_teacher_tch_id_fk` (`tch_id`),
   KEY `courses_table_department_dpm_id_fk` (`dpm_id`),

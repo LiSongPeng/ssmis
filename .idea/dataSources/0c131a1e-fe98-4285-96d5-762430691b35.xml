@@ -397,13 +397,13 @@ crs_id</ColNames>
     </column>
     <column id="91" parent="13" name="weeks">
       <Position>4</Position>
-      <DataType>tinyint(4)|0</DataType>
+      <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
     <column id="92" parent="13" name="off">
       <Position>5</Position>
-      <DataType>tinyint(4)|0</DataType>
+      <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>

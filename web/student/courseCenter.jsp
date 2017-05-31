@@ -29,6 +29,16 @@
 
         .tabBody {
             display: none;
+            height: 600px;
+            line-height: 100%;
+            text-align: center;
+        }
+
+        .loadingImg {
+            position: relative;
+            top: 50%;
+            margin: 0 auto;
+            transform: translateY(-50%);
         }
     </style>
 </head>
@@ -70,10 +80,10 @@
                 <li><a href="#welcome">欢迎</a>
                 </li>
             </ul>
-            <div id="welcome" style="line-height: 100%;text-align:center;font-size: 36px;">
+            <div id="welcome" style="line-height: 100%;text-align:center;font-size: 36px;height:600px">
                 欢迎来到课程中心！
             </div>
-            <div id="selectableTabBody" class="tabBody">selectableTabBody</div>
+            <div id="selectableTabBody" class="tabBody"></div>
             <div id="selectedTabBody" class="tabBody">selectedTabBody</div>
             <div id="selectResultTabBody" class="tabBody">selectResultTabBody</div>
             <div id="courseScheduleTabBody" class="tabBody">courseScheduleTabBody</div>
