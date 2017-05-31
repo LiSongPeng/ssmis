@@ -15,6 +15,8 @@ public interface CommentServiceI {
      * @param equalCondition
      * @return comment
      * @throws Exception
+     * type:
+     *
      */
     List<Comment> getCommentsByConditions(Map<String,Object> condition, boolean... equalCondition) throws Exception;
 

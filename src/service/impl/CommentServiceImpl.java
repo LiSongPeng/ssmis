@@ -30,30 +30,30 @@ public class CommentServiceImpl implements CommentServiceI{
     @Override
     @Transactional(readOnly = true,isolation = Isolation.READ_COMMITTED)
     public List<Comment> getCommentsByConditions(Map<String, Object> condition, boolean... equalCondition) throws Exception {
-        return commentDaoI.getCommentsByConditions(condition);
+        return commentDaoI.getCommentsByConditions(condition,equalCondition);
     }
 
     @Override
     @Transactional(readOnly = true,isolation = Isolation.READ_COMMITTED)
     public Comment getCommentByPK(Comment comment) throws Exception {
-        return null;
+        return commentDaoI.getCommentByPK(comment);
     }
 
     @Override
     @Transactional(readOnly = false,isolation = Isolation.READ_COMMITTED)
     public boolean addComments(List<Comment> comments) {
-        return false;
+        return commentDaoI.addComments(comments);
     }
 
     @Override
     @Transactional(readOnly = false,isolation = Isolation.READ_COMMITTED)
     public boolean updateComments(List<Comment> comments) {
-        return false;
+        return commentDaoI.updateComments(comments);
     }
 
     @Override
     @Transactional(readOnly = false,isolation = Isolation.READ_COMMITTED)
     public boolean deleteComments(List<Comment> comments) {
-        return false;
+        return commentDaoI.deleteComments(comments);
     }
 }
