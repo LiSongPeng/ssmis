@@ -29,10 +29,53 @@ public class AppealDaoImpl implements AppealDaoI{
             //teacher mod
             Session session = sessionFactory.getCurrentSession();
             List list = null;
-            for(Map.Entry<String,Object> entry: conditions.entrySet()){
-                String hql = "from Appeal ";
-                Query query = session.createQuery(hql);
-                list = query.list();
+//            for(Map.Entry<String,Object> entry: conditions.entrySet()){
+
+//                String hql = "from Appeal ";
+//                Query query = session.createQuery(hql);
+//                list = query.list();
+//            }
+            Integer con = (Integer) conditions.get("type");
+            switch (con){
+                case -1:{
+                    
+                    break;
+                }
+
+                case 0:{
+
+                    break;
+                }
+
+                case 1:{
+
+                    break;
+                }
+
+                case 2:{
+
+                    break;
+                }
+
+                case 3:{
+
+                    break;
+                }
+
+                case 4:{
+
+                    break;
+                }
+
+                case 5:{
+
+                    break;
+                }
+
+                case 6:{
+
+                    break;
+                }
             }
             return list;
         }else{
