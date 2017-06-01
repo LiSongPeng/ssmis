@@ -23,6 +23,22 @@ function getAppeals(type) {
                 var stuGender = n.studentByStuId.gender;
                 var stuclassNo = n.studentByStuId.classNo;
                 var date = new Date(n.date);
+                var tr = "<tr>" +
+                    '<td><i class="material-icons">input</i></td>' +
+                    "<td>"+dpmName+"("+dpmId+")</td>" +
+                    "<td>"+crsName+"</td>" +
+                    '<td><span class="mdl-chip__text stu-name" id="stu_'+stuId+'">'+stuName+'</span>' +
+                    '<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="stu_'+stuId+'">' +
+                    '<li class="mdl-menu__item">姓名：'+stuName+'</li>' +
+                    '<li class="mdl-menu__item">学号：'+stuId+'</li>' +
+                    '<li class="mdl-menu__item">班级：'+stuclassNo+'</li>' +
+                    '<li class="mdl-menu__item">年级：'+stuGrade+'</li>' +
+                    '</ul>' +
+                    '</td>' +
+                    '<td>'+tchName+"("+tchId+')</td>' +
+                    '<td>'+date+'</td>' +
+                    '</tr>';
+                $("#ap_table").append(tr);
 
                 // console.log(content+" "+crsId+" "+crsName+" "+dpmName+" "+dpmId+" "+ tchId+" "+tchName);
                 // console.log(stuId+" "+stuName+" "+stuGrade+" "+stuclassNo+" "+stuGender);
