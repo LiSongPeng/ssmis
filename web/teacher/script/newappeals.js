@@ -23,7 +23,7 @@ function getAppeals(type) {
                 var stuGender = n.studentByStuId.gender;
                 var stuclassNo = n.studentByStuId.classNo;
                 var date = new Date(n.date);
-                var tr = "<tr style='font-weight:bold;'>" +
+                var tr = "<tr style='font-weight:bold;' class='expand-content'>" +
                     '<td><i class="material-icons">input</i></td>' +
                     "<td>"+dpmName+"("+dpmId+")</td>" +
                     "<td>"+crsName+"</td>" +
@@ -52,5 +52,10 @@ function getAppeals(type) {
 
 $(function () {
     getAppeals(-1);
-    
+    // $("#ap_table").delegate("tr","click",function () {
+    //     console.log("hello world");
+    // })
+    $("tr").on("click",function () {
+            console.log("hello world");
+    })
 })
