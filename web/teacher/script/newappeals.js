@@ -50,7 +50,7 @@ function getAppeals(type) {
                     '</div><div class="mdl-card__supporting-text" align="left">' +content+ '</div>' +
                     '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px">回复</button></div>' +
                     '<div class="mdl-card__menu"><button id="menu_'+aid+'" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="material-icons">more_vert</i></button>' +
-                    '<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_'+aid+'"><li class="mdl-menu__item">Some Action</li><li class="mdl-menu__item">Another Action</li><li disabled class="mdl-menu__item">Disabled Action</li><li class="mdl-menu__item">Yet Another Action</li></ul' +
+                    '<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_'+aid+'"><li class="mdl-menu__item">Some Action</li><li class="mdl-menu__item">Another Action</li><li disabled class="mdl-menu__item">Disabled Action</li><li class="mdl-menu__item">Yet Another Action</li></ul>' +
                     '</div>' +
                     '</div></td></tr>';
                 $("#ap_table").append(tr);
