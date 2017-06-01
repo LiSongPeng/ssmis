@@ -52,10 +52,12 @@ function getAppeals(type) {
 
 $(function () {
     getAppeals(-1);
-    // $("#ap_table").delegate("tr","click",function () {
-    //     console.log("hello world");
-    // })
-    $("tr").on("click",function () {
-            console.log("hello world");
+    $("#ap_table").delegate("tr","click",function () {
+        // console.log("hello world");
+        $(this).css("font-weight","");
+        $(this).next().fadeToggle("fast");
+    })
+    $("#tab-link-1").click(function () {
+        $("#np_tag").fadeOut("fast");
     })
 })
