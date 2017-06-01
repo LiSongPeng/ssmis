@@ -9,30 +9,39 @@ function getAppeals(type) {
             $("#np_tag").attr("data-badge",list.length);
             $("#np_tag").show();
             $("#zone").show();
-            console.log(list[3]);
             $.each(list,function(i,n){
                 var content = n.content;
-                var crs = n.courseByCrsId;
-                var crsName = crs.crsName;
+                var crsName = n.courseByCrsId.crsName;
                 var crsId = n.crsId;
-                var departmentByDpmId = n.departmentByDpmId
-                var dpmName = departmentByDpmId.dpmName;
+                var dpmName = n.departmentByDpmId.dpmName;
                 var dpmId = n.dpmId;
-                var tch = departmentByDpmId.teachersByDpmId[0];
-                var tchName = tch.name;
+                var tchName = n.departmentByDpmId.teachersByDpmId[0].name;
                 var tchId = n.tchId;
+                var stuName = n.studentByStuId.name;
+                var stuId = n.stuId;
+                var stuGrade = n.studentByStuId.grade;
+                var stuGender = n.studentByStuId.gender;
+                var stuclassNo = n.studentByStuId.classNo;
+                var date = new Date(n.date);
                 var tr = "<tr>" +
-                    "<td></td>" +
-                    "<td></td>" +
-                    "<td></td>" +
-                    "<td></td>" +
-                    "<td></td>" +
-                    "<td></td>" +
-                    "<td></td>" +
-                    "</tr>";
+                    '<td><i class="material-icons">input</i></td>' +
+                    "<td>"+dpmName+"("+dpmId+")</td>" +
+                    "<td>"+crsName+"</td>" +
+                    '<td><span class="mdl-chip__text stu-name" id="stu_'+stuId+'">'+stuName+'</span>' +
+                    '<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="stu_'+stuId+'">' +
+                    '<li class="mdl-menu__item">姓名：'+stuName+'</li>' +
+                    '<li class="mdl-menu__item">学号：'+stuId+'</li>' +
+                    '<li class="mdl-menu__item">班级：'+stuclassNo+'</li>' +
+                    '<li class="mdl-menu__item">年级：'+stuGrade+'</li>' +
+                    '</ul>' +
+                    '</td>' +
+                    '<td>'+tchName+"("+tchId+')</td>' +
+                    '<td>'+date+'</td>' +
+                    '</tr>';
                 $("#ap_table").append(tr);
-                // console.log(crs);
-                //console.log(content+" "+crsId+" "+crsName+" "+dpmName+" "+dpmId+" "+ tchId+" "+tchName);
+                console.log(content+" "+crsId+" "+crsName+" "+dpmName+" "+dpmId+" "+ tchId+" "+tchName);
+                console.log(stuId+" "+stuName+" "+stuGrade+" "+stuclassNo+" "+stuGender);
+                console.log(date);
             })
         }
     })
