@@ -12,9 +12,9 @@ public class CoursesTable {
     private String dpmId;
     private String crsId;
     private String tchId;
-    private String weeks;
-    private String off;
-    private String site;
+    private String weeks;//1,2,3,5 代表第1,2,3,5周有课
+    private String off;//一天11节课,一周55节,0,33 代表第1节,第34节有课
+    private String site;//上课地点,1-7(单周):B208,8-16周(双周):C408代表对应的上课地点
     private Department departmentByDpmId;
     private Course courseByCrsId;
     private Teacher teacherByTchId;
@@ -69,7 +69,7 @@ public class CoursesTable {
         this.off = off;
     }
 
-    @Id
+    @Basic
     @Column(name = "site")
     public String getSite() {
         return site;
@@ -92,7 +92,6 @@ public class CoursesTable {
         if (weeks != null ? !weeks.equals(that.weeks) : that.weeks != null) return false;
         if (off != null ? !off.equals(that.off) : that.off != null) return false;
         if (site != null ? !site.equals(that.site) : that.site != null) return false;
-
         return true;
     }
 
@@ -108,7 +107,7 @@ public class CoursesTable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false, updatable = false, insertable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }
@@ -118,7 +117,7 @@ public class CoursesTable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false, updatable = false, insertable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
@@ -128,7 +127,7 @@ public class CoursesTable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false, updatable = false, insertable = false)
     public Teacher getTeacherByTchId() {
         return teacherByTchId;
     }

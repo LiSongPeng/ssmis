@@ -46,7 +46,7 @@
     <li>
         <div class="divider"></div>
     </li>
-    <li><a class="waves-effect btn" href="myInfo.jsp">修改个人信息</a></li>
+    <li><a class="waves-effect btn" href="personalInfoCenter.jsp">修改个人信息</a></li>
 </ul>
 <%--导航栏--%>
 <nav class="nav-extended purple">
@@ -56,7 +56,7 @@
             <li>&nbsp;&nbsp;欢迎您！<s:property value="#session.currStu.name"/>同学</li>
         </ul>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a data-activates="slide-out" id="personalInfo">个人信息</a></li>
+            <li><a data-activates="slide-out" id="personalInfo">个人信息中心</a></li>
             <li><a id="courseCenterBtn">课程中心</a></li>
             <li><a id="testCenterBtn">考试中心</a></li>
         </ul>

@@ -29,10 +29,25 @@
 
         .tabBody {
             display: none;
+            line-height: 100%;
+            text-align: center;
+        }
+
+        .loadingImg {
+            position: relative;
+            margin: 0 auto;
+            height: 200px;
+            width: 200px;
+        }
+
+        .refreshImg {
+            margin: 0 auto;
+            width: 80px;
+            height: 80px;
         }
     </style>
 </head>
-<body>
+<body title="<%=basePath%>">
 <div class="row">
     <div class="col s2">
         <ul class="collapsible" data-collapsible="accordion">
@@ -70,14 +85,14 @@
                 <li><a href="#welcome">欢迎</a>
                 </li>
             </ul>
-            <div id="welcome" style="line-height: 100%;text-align:center;font-size: 36px;">
+            <div id="welcome" style="line-height: 100%;text-align:center;font-size: 36px;height:600px">
                 欢迎来到课程中心！
             </div>
-            <div id="selectableTabBody" class="tabBody">selectableTabBody</div>
-            <div id="selectedTabBody" class="tabBody">selectedTabBody</div>
-            <div id="selectResultTabBody" class="tabBody">selectResultTabBody</div>
-            <div id="courseScheduleTabBody" class="tabBody">courseScheduleTabBody</div>
-            <div id="personalCourseTableTabBody" class="tabBody">personalCourseTableTabBody</div>
+            <div id="selectableTabBody" class="tabBody"></div>
+            <div id="selectedTabBody" class="tabBody"></div>
+            <div id="selectResultTabBody" class="tabBody"></div>
+            <div id="courseScheduleTabBody" class="tabBody"></div>
+            <div id="personalCourseTableTabBody" class="tabBody"></div>
         </div>
     </div>
 </div>

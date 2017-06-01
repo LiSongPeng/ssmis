@@ -45,5 +45,14 @@ public interface CourseServiceI {
     public List<CourseSchedule> getCourseInfoById(String courseId);
 
     List<Course> getallCourse();
-    Integer sercoursetocs(String dpm_id,String crs_id,String tch_id,byte type,byte preriods,byte credit,byte term);
+
+    Integer sercoursetocs(String dpm_id, String crs_id, String tch_id, byte type, byte preriods, byte credit, byte term);
+
+    /**
+     * 根据学号查找学生个人课表
+     *
+     * @param stuId 学生学号
+     * @return 课表
+     */
+    String[][] getPersonalCourseTable(String stuId);
 }

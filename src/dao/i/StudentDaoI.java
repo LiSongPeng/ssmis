@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by 14423 on 2017-03-23.
+ * Created by lihuibo on 2017-03-23.
  */
 public interface StudentDaoI {
 
