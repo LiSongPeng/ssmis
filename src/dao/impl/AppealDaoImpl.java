@@ -36,59 +36,68 @@ public class AppealDaoImpl implements AppealDaoI{
             Session session = sessionFactory.getCurrentSession();
             List list = null;
             Integer con = (Integer) conditions.get("type");
+            String tch_id = (String) conditions.get("tch");
             switch (con){
                 case -1:{
-                    String hql = "from Appeal";
+                    String hql = "from Appeal appeal where appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
+                    query.setParameter("tch",tch_id);
                     list = query.list();
                     break;
                 }
 
                 case 0:{
-                    String hql = "from Appeal appeal where appeal.status = 0";
+                    String hql = "from Appeal appeal where appeal.status = 0 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
+                    query.setParameter("tch",tch_id);
                     list = query.list();
                     break;
                 }
 
                 case 1:{
-                    String hql = "from Appeal appeal where appeal.status = 1";
+                    String hql = "from Appeal appeal where appeal.status = 1 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
+                    query.setParameter("tch",tch_id);
                     list = query.list();
                     break;
                 }
 
                 case 2:{
-                    String hql = "from Appeal appeal where appeal.status = 2";
+                    String hql = "from Appeal appeal where appeal.status = 2 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
+                    query.setParameter("tch",tch_id);
                     list = query.list();
                     break;
                 }
 
                 case 3:{
-                    String hql = "from Appeal appeal where appeal.status = 3";
+                    String hql = "from Appeal appeal where appeal.status = 3 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
+                    query.setParameter("tch",tch_id);
                     list = query.list();
                     break;
                 }
 
                 case 4:{
-                    String hql = "from Appeal appeal where appeal.status = 4";
+                    String hql = "from Appeal appeal where appeal.status = 4 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
+                    query.setParameter("tch",tch_id);
                     list = query.list();
                     break;
                 }
 
                 case 5:{
-                    String hql = "from Appeal appeal where appeal.status = 5";
+                    String hql = "from Appeal appeal where appeal.status = 5 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
+                    query.setParameter("tch",tch_id);
                     list = query.list();
                     break;
                 }
 
                 case 6:{
-                    String hql = "from Appeal appeal where appeal.status = 6";
+                    String hql = "from Appeal appeal where appeal.status = 6 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
+                    query.setParameter("tch",tch_id);
                     list = query.list();
                     break;
                 }
