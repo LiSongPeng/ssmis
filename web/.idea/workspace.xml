@@ -23,8 +23,8 @@
           <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/teacher/main.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="250">
-                  <caret line="89" column="45" lean-forward="false" selection-start-line="89" selection-start-column="41" selection-end-line="89" selection-end-column="45" />
+                <state relative-caret-position="399">
+                  <caret line="101" column="60" lean-forward="false" selection-start-line="101" selection-start-column="60" selection-end-line="101" selection-end-column="60" />
                   <folding>
                     <element signature="n#style#0;n#span#0;n#a#1;n#div#0;n#header#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#div#0;n#div#0;n#section#0;n#main#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -40,8 +40,8 @@
           <file leaf-file-name="newappeals.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/teacher/script/newappeals.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+                <state relative-caret-position="450">
+                  <caret line="32" column="42" lean-forward="false" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
                   <folding>
                     <element signature="n#!!doc;n#getAppeals#0" expanded="false" />
                   </folding>
@@ -297,12 +297,12 @@
       <workItem from="1495438907352" duration="13456000" />
       <workItem from="1495521287685" duration="5939000" />
       <workItem from="1496218404782" duration="3538000" />
-      <workItem from="1496277969368" duration="642000" />
+      <workItem from="1496277969368" duration="3143000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28535000" />
+    <option name="totallyTimeSpent" value="31036000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -483,8 +483,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/teacher/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="89" column="45" lean-forward="false" selection-start-line="89" selection-start-column="41" selection-end-line="89" selection-end-column="45" />
+        <state relative-caret-position="399">
+          <caret line="101" column="60" lean-forward="false" selection-start-line="101" selection-start-column="60" selection-end-line="101" selection-end-column="60" />
           <folding>
             <element signature="n#style#0;n#span#0;n#a#1;n#div#0;n#header#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#section#0;n#main#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -494,8 +494,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/teacher/script/newappeals.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="10" column="27" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+        <state relative-caret-position="450">
+          <caret line="32" column="42" lean-forward="false" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
           <folding>
             <element signature="n#!!doc;n#getAppeals#0" expanded="false" />
           </folding>
