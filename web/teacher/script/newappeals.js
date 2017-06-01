@@ -39,7 +39,6 @@ function getAppeals(type) {
                     '<td>'+date+'</td>' +
                     '</tr>';
                 $("#ap_table").append(tr);
-
                 // console.log(content+" "+crsId+" "+crsName+" "+dpmName+" "+dpmId+" "+ tchId+" "+tchName);
                 // console.log(stuId+" "+stuName+" "+stuGrade+" "+stuclassNo+" "+stuGender);
                 // console.log(date);
