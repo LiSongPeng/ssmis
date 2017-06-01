@@ -25,20 +25,14 @@ function getAppeals(type) {
                 var date = new Date(n.date);
                 var tr = "<tr style='font-weight:bold;' class='expand-content'>" +
                     '<td><i class="material-icons">input</i></td>' +
-                    "<td>"+dpmName+"("+dpmId+")</td>" +
-                    "<td>"+crsName+"</td>" +
-                    '<td><span class="mdl-chip__text stu-name" id="stu_'+stuId+'">'+stuName+'</span>' +
-                    '<ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="stu_'+stuId+'">' +
-                    '<li class="mdl-menu__item">姓名：'+stuName+'</li>' +
-                    '<li class="mdl-menu__item">学号：'+stuId+'</li>' +
-                    '<li class="mdl-menu__item">班级：'+stuclassNo+'</li>' +
-                    '<li class="mdl-menu__item">年级：'+stuGrade+'</li>' +
-                    '</ul>' +
-                    '</td>' +
-                    '<td>'+tchName+"("+tchId+')</td>' +
-                    '<td>'+date+'</td>' +
+                    '<td><span class="mdl-chip"><span class="mdl-chip__text">'+dpmName+"("+dpmId+")</span></span></td>" +
+                    '<td><span class="mdl-chip"><span class="mdl-chip__text">'+crsName+'('+crsId+")</span></span></td>" +
+                    '<td><span class="mdl-chip"><span class="mdl-chip__text">'+stuName+'('+stuId+')</span></span></td>' +
+                    '<td><span class="mdl-chip"><span class="mdl-chip__text">'+tchName+"("+tchId+')</span></span></td>' +
+                    '<td><span class="mdl-chip"><span class="mdl-chip__text">'+date+'</span></span></td>' +
                     '</tr>' +
                     '<tr style="display:none"><td colspan="6"><div style="width: auto;height: 320px;background-color: #00acc1;margin-left: auto;margin-right: auto">' +
+                    '' +
                     '<button class="mdl-button mdl-js-button mdl-button--icon"> <i class="material-icons">more_vert</i> </button>' +
                     '</div></td></tr>';
                 $("#ap_table").append(tr);
@@ -52,8 +46,7 @@ function getAppeals(type) {
 
 $(function () {
     getAppeals(-1);
-    $("#ap_table").delegate("tr","click",function () {
-        // console.log("hello world");
+    $("#ap_table").delegate(".expand-content","click",function () {
         $(this).css("font-weight","");
         $(this).next().fadeToggle("fast");
     })
