@@ -81,10 +81,10 @@
     <div class="col s10">
         <div id="courseCenterTabs">
             <ul>
-                <li><a href="#welcome">欢迎</a>
+                <li><a href="#courseCenterWelcome">欢迎</a>
                 </li>
             </ul>
-            <div id="welcome" style="line-height: 100%;text-align:center;font-size: 36px;height:600px">
+            <div id="courseCenterWelcome" style="line-height: 100%;text-align:center;font-size: 36px;height:600px">
                 欢迎来到课程中心！
             </div>
             <div id="selectableTabBody" class="tabBody"></div>

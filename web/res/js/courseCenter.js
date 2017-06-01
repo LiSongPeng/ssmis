@@ -76,7 +76,65 @@ $(function () {
         },
 
         selectableTabBody: function () {
-
+            var tabBodyId = 'selectableTabBody'
+            $.getJSON($("body").prop("title") + "/student/getSelectableCoursesInfo.action", {'pageNumber': currPage[tabBodyId] + 1}, function (json) {
+                if (json) {
+                    var table = "<table><thead><tr><td>课程编号</td><td>院系编号</td><td>教师编号</td><td>课程名称</td><td>院系名称</td><td>教师名称</td><td>学期</td><td>课程类型</td><td>课时</td><td>学分</td><td>操作</td></tr></thead><tbody>"
+                    currPage[tabBodyId]++
+                    window.clearTimeout(timer)
+                    endLoading(tabBodyId)
+                    for (var i = 0; i < json.length; i++) {
+                        table += "<tr>"
+                        for (var j = 0; j < 10; j++) {
+                            table += "<td>" + json[i][j] + "</td>"
+                        }
+                        table += "<td><a class='waves-effect waves-light btn selectCourse'>选课</a></td>"
+                        table += "</tr>"
+                    }
+                    table += "</tbody></table>"
+                    var control = "<div><a class='waves-effect waves-light btn' id='sttPrevious'>上一页</a>&nbsp;&nbsp;<a class='waves-effect waves-light btn' id='sttNext'>下一页</a></div>"
+                    table += control
+                    $("#" + tabBodyId).html(table)
+                    $(".selectCourse").click(
+                        function () {
+                            var tr = $(this).closest("tr")
+                            var tds = tr.children()
+                            var crsId = tds[0].innerHTML
+                            var dpmId = tds[1].innerHTML
+                            var tchId = tds[2].innerHTML
+                            alert("crsId" + crsId)
+                            $.getJSON($("body").prop("title") + "/student/selectCourse.action", {
+                                'csche.dpmId': dpmId,
+                                'csche.crsId': crsId,
+                                'csche.tchId': tchId
+                            }, function (json) {
+                                json = $.parseJSON(json)
+                                if (json.result = 'Success') {
+                                    Materialize.toast("选课成功", 1000)
+                                    $(tr).remove()
+                                } else {
+                                    Materialize.toast("选课失败,稍后重试", 1000)
+                                }
+                            })
+                        }
+                    )
+                    $("#sttPrevious").click(
+                        function () {
+                            if (currPage[tabBodyId] > 1) {
+                                currPage[tabBodyId] -= 2
+                                resolver[tabBodyId]()
+                            }
+                        }
+                    )
+                    $("#sttNext").click(
+                        function () {
+                            resolver[tabBodyId]()
+                        }
+                    )
+                } else {
+                    Materialize.toast("无数据可显示", 1000)
+                }
+            })
         },
 
         courseScheduleTabBody: function () {
@@ -119,6 +177,12 @@ $(function () {
 
         personalCourseTableTabBody: function () {
             $.getJSON($("body").prop("title") + "/course/getPersonalCourseTable.action", function (json) {
+                if (json.length == 1) {
+                    endLoading("personalCourseTableTabBody")
+                    window.clearTimeout(timer)
+                    Materialize.toast("您还没选择任何课程", 1000)
+                    return
+                }
                 var table = "<table><thead><tr><td></td><td>星期一</td><td>星期二</td><td>星期三</td><td>星期四</td><td>星期五</td></tr></thead></table>"
                 $("#personalCourseTableTabBody").html(table)
                 var tbody = "<tbody>"

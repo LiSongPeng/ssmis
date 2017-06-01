@@ -1,10 +1,7 @@
 package service.impl;
 
 
-import dao.i.CourseScheduleDaoI;
-import dao.i.ExamDaoI;
-import dao.i.StudentDaoI;
-import dao.i.StudentScheduleDaoI;
+import dao.i.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +20,7 @@ public class StudentServiceImpl implements StudentServiceI {
     private CourseScheduleDaoI courseScheduleDao;
     private StudentScheduleDaoI studentScheduleDao;
     private ExamDaoI examDao;
+    private CoursesTableDaoI courseTableDao;
 
     @Resource(name = "examDao")
     public void setExamDao(ExamDaoI examDao) {
@@ -42,6 +40,12 @@ public class StudentServiceImpl implements StudentServiceI {
     @Resource(name = "studentDao")
     public void setStudentDao(StudentDaoI studentDao) {
         this.studentDao = studentDao;
+    }
+
+
+    @Resource(name = "coursesTableDao")
+    public void setCourseTableDao(CoursesTableDaoI courseTableDao) {
+        this.courseTableDao = courseTableDao;
     }
 
     @Override
@@ -68,16 +72,41 @@ public class StudentServiceImpl implements StudentServiceI {
     @Override
     @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
     public boolean selectCourse(String stuId, String tchId, String dpmId, String crsId) {
-        boolean result = false;
+        boolean conflict = false;
         CourseSchedule courseSchedule = courseScheduleDao.findCourseSchedule(crsId, tchId, dpmId);
+        CoursesTable coursesTable = courseTableDao.findCoursesTable(crsId, tchId, dpmId);
+        List<CoursesTable> list = courseTableDao.findPersonalCourseTable(stuId);
+        if (list != null) {
+            String[] weeks = coursesTable.getWeeks().split(",");
+            String eachWeek;
+            String[] offs = coursesTable.getOff().split(",");
+            String eachOff;
+            int i, j;
+            for (CoursesTable each : list) {
+                eachWeek = each.getWeeks();
+                eachOff = each.getOff();
+                for (i = 0; i < weeks.length; i++) {
+                    if (eachWeek.contains(weeks[i]) && (eachWeek.indexOf(weeks[i]) == 0 || eachWeek.charAt(eachWeek.indexOf(weeks[i]) - 1) == ',') && (eachWeek.indexOf(weeks[i]) == eachWeek.length() - 1 || eachWeek.charAt(eachWeek.indexOf(weeks[i]) + 1) == ',')) {
+                        for (j = 0; j < offs.length; j++) {
+                            if (eachOff.contains(offs[i]) && (eachOff.indexOf(offs[i]) == 0 || eachOff.charAt(eachOff.indexOf(offs[i]) - 1) == ',') && (eachOff.indexOf(offs[i]) == eachOff.length() - 1 || eachOff.charAt(eachOff.indexOf(offs[i]) + 1) == ',')) {
+                                conflict = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (conflict)
+            return false;
         StudentSchedule studentSchedule = new StudentSchedule();
         studentSchedule.setCrs(courseSchedule.getCrsId());
         studentSchedule.setDpm(courseSchedule.getDpmId());
         studentSchedule.setTch(courseSchedule.getTchId());
         studentSchedule.setTerm(courseSchedule.getTerm());
+        studentSchedule.setTerm(courseSchedule.getTerm());
+        studentSchedule.setStu(stuId);
         studentScheduleDao.saveStudentSchedule(studentSchedule);
-        result = true;
-        return result;
+        return true;
     }
 
     @Override

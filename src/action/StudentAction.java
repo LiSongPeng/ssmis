@@ -8,6 +8,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import service.i.CourseServiceI;
 import service.i.StudentServiceI;
 import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.Exam;
@@ -27,6 +28,7 @@ import java.util.Map;
 @Scope(value = "prototype")
 public class StudentAction extends ActionSupport implements SessionAware {
     private StudentServiceI studentService;
+    private CourseServiceI courseService;
     private Student stu;
     private String result;
     private Map<String, Object> session;
@@ -35,6 +37,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
     private List<StudentSchedule> schedules;
     private String[][] selected;
     private int pageNumber;
+    private List<CourseSchedule> courseSchedules;
+    private String[][] selectable;
 
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}))
     public String login() {
@@ -133,6 +137,31 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return ERROR;
     }
 
+    @Action(value = "getSelectableCoursesInfo", results = {@Result(name = "error", type = "json", params = {"root", "result"}), @Result(type = "json", params = {"root", "selectable"})})
+    public String getSelectableCoursesInfo() {
+        if (pageNumber > 0) {
+            courseSchedules = courseService.getCourseSchedules(pageNumber);
+        }
+        if (courseSchedules != null) {
+            selectable = new String[courseSchedules.size()][10];
+            for (int i = 0; i < selectable.length; i++) {
+                selectable[i][0] = courseSchedules.get(i).getCrsId();
+                selectable[i][1] = courseSchedules.get(i).getDpmId();
+                selectable[i][2] = courseSchedules.get(i).getTchId();
+                selectable[i][3] = courseSchedules.get(i).getCourseByCrsId().getCrsName();
+                selectable[i][4] = courseSchedules.get(i).getDepartmentByDpmId().getDpmName();
+                selectable[i][5] = courseSchedules.get(i).getTeacherByTchId().getName();
+                selectable[i][6] = courseSchedules.get(i).getTerm() + "学期";
+                selectable[i][7] = (courseSchedules.get(i).getType()) == 0 ? "选修课" : "必修课";
+                selectable[i][8] = courseSchedules.get(i).getPreriods() + "课时";
+                selectable[i][9] = courseSchedules.get(i).getCredit() + "学分";
+            }
+            return SUCCESS;
+        }
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
     @Action(value = "getScoreInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getScoreInfo() {
         Student currStu = (Student) session.get("currStu");
@@ -151,6 +180,11 @@ public class StudentAction extends ActionSupport implements SessionAware {
     @Resource(name = "studentService")
     public void setStudentService(StudentServiceI studentService) {
         this.studentService = studentService;
+    }
+
+    @Resource(name = "courseService")
+    public void setCourseService(CourseServiceI courseService) {
+        this.courseService = courseService;
     }
 
     public String getResult() {
@@ -188,5 +222,9 @@ public class StudentAction extends ActionSupport implements SessionAware {
 
     public void setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
+    }
+
+    public String[][] getSelectable() {
+        return selectable;
     }
 }

@@ -96,8 +96,13 @@ public class CourseServiceImpl implements CourseServiceI {
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public String[][] getPersonalCourseTable(String stuId) {
         List<CoursesTable> tables = coursesTableDao.findPersonalCourseTable(stuId);
-        System.out.println("list" + tables.get(0));
-        String[][] table = new String[5][11];
+        String[][] table = null;
+        if (tables == null) {
+            table = new String[1][1];
+            table[0][0] = "您还未选择任何课程";
+            return table;
+        }
+        table = new String[5][11];
         String site, off, name, teacher;
         String[] offs, sites;
         String content;
