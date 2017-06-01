@@ -17,14 +17,14 @@
     <favorites_list name="web" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.43269908">
+    <splitter split-orientation="horizontal" split-proportion="0.57857645">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/teacher/main.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="399">
-                  <caret line="101" column="60" lean-forward="false" selection-start-line="101" selection-start-column="60" selection-end-line="101" selection-end-column="60" />
+                <state relative-caret-position="374">
+                  <caret line="102" column="44" lean-forward="false" selection-start-line="102" selection-start-column="44" selection-end-line="102" selection-end-column="44" />
                   <folding>
                     <element signature="n#style#0;n#span#0;n#a#1;n#div#0;n#header#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#div#0;n#div#0;n#section#0;n#main#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -33,12 +33,14 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="appeal_demo.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="appeal_demo.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/teacher/appeal_demo.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="56" column="17" lean-forward="false" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="17" />
-                  <folding />
+                <state relative-caret-position="395">
+                  <caret line="82" column="39" lean-forward="true" selection-start-line="82" selection-start-column="39" selection-end-line="82" selection-end-column="39" />
+                  <folding>
+                    <element signature="n#style#0;n#div#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -50,8 +52,8 @@
           <file leaf-file-name="newappeals.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/teacher/script/newappeals.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="355">
-                  <caret line="26" column="51" lean-forward="false" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+                <state relative-caret-position="345">
+                  <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
                   <folding>
                     <element signature="n#!!doc;n#getAppeals#0" expanded="false" />
                   </folding>
@@ -90,8 +92,8 @@
         <option value="$PROJECT_DIR$/teacher/script/teacher.js" />
         <option value="$PROJECT_DIR$/teacher/static_demo.html" />
         <option value="$PROJECT_DIR$/teacher/appeal_demo.html" />
-        <option value="$PROJECT_DIR$/teacher/main.html" />
         <option value="$PROJECT_DIR$/teacher/script/newappeals.js" />
+        <option value="$PROJECT_DIR$/teacher/main.html" />
       </list>
     </option>
   </component>
@@ -307,12 +309,12 @@
       <workItem from="1495438907352" duration="13456000" />
       <workItem from="1495521287685" duration="5939000" />
       <workItem from="1496218404782" duration="3538000" />
-      <workItem from="1496277969368" duration="5226000" />
+      <workItem from="1496277969368" duration="7845000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33119000" />
+    <option name="totallyTimeSpent" value="35738000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -486,31 +488,33 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/teacher/script/teacher.js" />
-    <entry file="file://$PROJECT_DIR$/teacher/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="101" column="60" lean-forward="false" selection-start-line="101" selection-start-column="60" selection-end-line="101" selection-end-column="60" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#a#1;n#div#0;n#header#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#section#0;n#main#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/teacher/appeal_demo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="56" column="17" lean-forward="false" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="17" />
-          <folding />
+        <state relative-caret-position="395">
+          <caret line="82" column="39" lean-forward="true" selection-start-line="82" selection-start-column="39" selection-end-line="82" selection-end-column="39" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/teacher/script/newappeals.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="26" column="51" lean-forward="false" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+        <state relative-caret-position="345">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc;n#getAppeals#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teacher/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="102" column="44" lean-forward="false" selection-start-line="102" selection-start-column="44" selection-end-line="102" selection-end-column="44" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#a#1;n#div#0;n#header#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#section#0;n#main#0;n#div#0;n#div#0;n#section#3;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
