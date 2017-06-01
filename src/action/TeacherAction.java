@@ -1,5 +1,6 @@
 package action;
 
+import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -14,6 +15,8 @@ import team.jiangtao.entity.Comment;
 import team.jiangtao.entity.Teacher;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,7 +32,7 @@ public class TeacherAction extends ActionSupport {
     private Teacher teacher;
     private Appeal appeal;
     private Comment comment;
-    private String operation;
+    private Integer operation;
     private String rsp;
     private Map<String,Object> session;
     private String isRememberPsw;
@@ -60,11 +63,11 @@ public class TeacherAction extends ActionSupport {
         this.comment = comment;
     }
 
-    public String getOperation() {
+    public Integer getOperation() {
         return operation;
     }
 
-    public void setOperation(String operation) {
+    public void setOperation(Integer operation) {
         this.operation = operation;
     }
 
@@ -204,9 +207,13 @@ public class TeacherAction extends ActionSupport {
      * @return SUCCESS
      */
     @Action(value = "getAppeals",results = @Result(type = "json",params={"root","rsp"}))
-    public String getAppeal(){
+    public String getAppeal() throws Exception {
         //TODO
-
+        Map<String,Object> stringObjectMap = new HashMap<>();
+        stringObjectMap.put("tch","00001");
+        stringObjectMap.put("type",operation);
+        List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
+        rsp = JSON.toJSONString(list);
         return SUCCESS;
     }
 

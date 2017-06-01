@@ -32,7 +32,7 @@
             <!--<button class="mdl-button mdl-js-button mdl-js-ripple-effect">-->
                 <!--<i class="material-icons">view_headline</i>-->
             <!--</button>-->
-            <i class="material-icons">highlight_off</i>
+            <i class="material-icons">input</i>
         </td>
         <td class="mdl-data-table__cell--non-numeric">计算机学院 (department id)</td>
         <td>
@@ -57,14 +57,12 @@
             <span class="mdl-chip">
                 <span class="mdl-chip__text stu-name" id="stu_id">学生姓名</span>
             </span>
-            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-                for="stu_id">
+            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="stu_id">
                 <li class="mdl-menu__item">Name</li>
                 <li class="mdl-menu__item">id 000</li>
                 <li  class="mdl-menu__item">Socre</li>
                 <li  class="mdl-menu__item">class </li>
                 <li class="mdl-menu__item">grade </li>
-                </div>
             </ul>
         </td>
         <td>
@@ -83,7 +81,8 @@
         </button>
                 <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
             for="demo-menu-lower-left">
-            <li class="mdl-menu__item showdialog" id="crs_tch_stu">回执</li>
+            <!--<li class="mdl-menu__item showdialog" id="crs_tch_stu">回执</li>-->
+            <li class="mdl-menu__item showdialog">回执</li>
             <li class="mdl-menu__item mdl-menu__item--full-bleed-divider">
                 标记为未读
                </li>
@@ -138,5 +137,22 @@
         dialog.close();
     });
 </script>
+
+<div class="mdl-card">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">title Text Goes Here</h2>
+    </div>
+    <div class="mdl-card__media">
+        <img src="photo.jpg" width="220" height="140" border="0" alt="" style="padding:20px;">
+    </div>
+    <div class="mdl-card__supporting-text">
+        This text might describe the photo and provide further information, such as where and
+        when it was taken.
+    </div>
+    <div class="mdl-card__actions">
+        <a href="(URL or function)">Related Action</a>
+    </div>
+</div>
+
 </body>
 </html>
