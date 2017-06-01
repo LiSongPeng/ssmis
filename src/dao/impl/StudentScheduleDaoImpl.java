@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import team.jiangtao.entity.Student;
 import team.jiangtao.entity.StudentSchedule;
 import team.jiangtao.entity.StudentSchedulePK;
 
@@ -61,6 +62,16 @@ public class StudentScheduleDaoImpl implements StudentScheduleDaoI {
                 query.setParameter(each.getKey(), "%" + each.getValue() + "%");
             i++;
         }
+        return query.list();
+    }
+
+    @Override
+    public List<StudentSchedule> findStudentSchedules(String stuId, int pageNumber) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<StudentSchedule> query = session.createQuery("from StudentSchedule ss where ss.stu=?1", StudentSchedule.class);
+        query.setParameter(1, stuId);
+        query.setMaxResults(10);
+        query.setFirstResult((pageNumber - 1) * 10);
         return query.list();
     }
 

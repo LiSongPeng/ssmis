@@ -32,19 +32,25 @@ public interface CourseScheduleDaoI {
      * @return 标记Int
      */
 
-    Integer fromCoursetoCS(String dpm_id,String crs_id,String tch_id,byte type,byte preriods,byte credit,byte term);
+    Integer fromCoursetoCS(String dpm_id, String crs_id, String tch_id, byte type, byte preriods, byte credit, byte term);
 
     /**
      * 课程修改
-     *
      */
-    Integer modifyCS(String dpm_id,String crs_id,String tch_id,byte type,byte preriods,byte credit,byte term);
+    Integer modifyCS(String dpm_id, String crs_id, String tch_id, byte type, byte preriods, byte credit, byte term);
+
     /**
      * 课程删除
      */
-    Integer deleteCS(String dpm_id,String crs_id,String tch_id);
+    Integer deleteCS(String dpm_id, String crs_id, String tch_id);
 
     List<CourseSchedule> findallCS();
 
-
+    /**
+     * 分页查找课程开设信息
+     *
+     * @param pageNumber 页码
+     * @return 课程开设信息
+     */
+    List<CourseSchedule> findCSByPageNumber(int pageNumber);
 }

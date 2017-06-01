@@ -33,6 +33,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
     private CourseSchedule csche;
     private List<Exam> exams;
     private List<StudentSchedule> schedules;
+    private String[][] selected;
+    private int pageNumber;
 
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}))
     public String login() {
@@ -110,12 +112,23 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return ERROR;
     }
 
-    @Action(value = "getSelectedCoursesInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    @Action(value = "getSelectedCoursesInfo", results = {@Result(type = "json", params = {"root", "selected"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getSelectedCoursesInfo() {
         Student currStu = (Student) session.get("currStu");
-        schedules = studentService.getSelectedCoursesInfo(currStu.getStuId());
-        if (schedules.size() > 0)
+        schedules = studentService.getSelectedCoursesInfo(currStu.getStuId(), pageNumber);
+        if (schedules != null) {
+            selected = new String[schedules.size()][7];
+            for (int i = 0; i < selected.length; i++) {
+                selected[i][0] = schedules.get(i).getCrs();
+                selected[i][1] = schedules.get(i).getDpm();
+                selected[i][2] = schedules.get(i).getTch();
+                selected[i][3] = schedules.get(i).getCourseByCrs().getCrsName();
+                selected[i][4] = schedules.get(i).getDepartmentByDpm().getDpmName();
+                selected[i][5] = schedules.get(i).getTeacherByTch().getName();
+                selected[i][6] = schedules.get(i).getTerm() + "学期";
+            }
             return SUCCESS;
+        }
         result = "{\"result\":\"Error\"}";
         return ERROR;
     }
@@ -167,5 +180,13 @@ public class StudentAction extends ActionSupport implements SessionAware {
 
     public List<StudentSchedule> getSchedules() {
         return schedules;
+    }
+
+    public String[][] getSelected() {
+        return selected;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
     }
 }

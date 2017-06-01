@@ -38,7 +38,7 @@ public class CoursesTableDaoImpl implements CoursesTableDaoI {
     @Override
     public List<CoursesTable> findPersonalCourseTable(String stuId) {
         Session session = sessionFactory.getCurrentSession();
-        Query<CoursesTable> query = session.createQuery("from CoursesTable ct left join CourseSchedule cs left join StudentSchedule ss where ct.crsId=cs.crsId and ct.tchId=cs.tchId and ct.dpmId=cs.dpmId and cs.dpmId=ss.dpm and cs.tchId=ss.tch and cs.crsId=ss.crs and ss.stu=?1", CoursesTable.class);
+        Query<CoursesTable> query = session.createNativeQuery("SELECT courses_table.* FROM courses_table LEFT JOIN course_schedule ON courses_table.crs_id=course_schedule.crs_id AND  courses_table.dpm_id=course_schedule.dpm_id AND courses_table.tch_id=course_schedule.tch_id LEFT JOIN student_schedule ON course_schedule.tch_id=student_schedule.tch and course_schedule.dpm_id=student_schedule.dpm AND course_schedule.crs_id=student_schedule.crs WHERE student_schedule.stu=?1", CoursesTable.class);
         query.setParameter(1, stuId);
         return query.list();
     }

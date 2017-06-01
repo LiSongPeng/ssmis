@@ -27,7 +27,6 @@ public class CourseServiceImpl implements CourseServiceI {
     private CourseDaoI courseDao;
     private CourseScheduleDaoI courseScheduleDao;
     private CoursesTableDaoI coursesTableDao;
-    private StudentScheduleDaoI studentScheduleDao;
 
     @Override
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
@@ -97,6 +96,7 @@ public class CourseServiceImpl implements CourseServiceI {
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public String[][] getPersonalCourseTable(String stuId) {
         List<CoursesTable> tables = coursesTableDao.findPersonalCourseTable(stuId);
+        System.out.println("list" + tables.get(0));
         String[][] table = new String[5][11];
         String site, off, name, teacher;
         String[] offs, sites;
@@ -119,6 +119,12 @@ public class CourseServiceImpl implements CourseServiceI {
         return table;
     }
 
+    @Override
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+    public List<CourseSchedule> getCourseSchedules(int pageNumber) {
+        return courseScheduleDao.findCSByPageNumber(pageNumber);
+    }
+
     @Resource(name = "courseDao")
     public void setCourseDao(CourseDaoI courseDao) {
         this.courseDao = courseDao;
@@ -132,10 +138,5 @@ public class CourseServiceImpl implements CourseServiceI {
     @Resource(name = "coursesTableDao")
     public void setCoursesTableDao(CoursesTableDaoI coursesTableDao) {
         this.coursesTableDao = coursesTableDao;
-    }
-
-    @Resource(name = "studentScheduleDao")
-    public void setStudentScheduleDao(StudentScheduleDaoI studentScheduleDao) {
-        this.studentScheduleDao = studentScheduleDao;
     }
 }

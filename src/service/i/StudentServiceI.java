@@ -69,4 +69,13 @@ public interface StudentServiceI {
      * @return 所有考试成绩信息
      */
     List<StudentSchedule> getAllScoreInfo(String stuId);
+
+    /**
+     * 分页查找学生已选课程信息
+     *
+     * @param stuId      学号
+     * @param pageNumber 页码
+     * @return 已选课程实体集合
+     */
+    List<StudentSchedule> getSelectedCoursesInfo(String stuId, int pageNumber);
 }

@@ -69,11 +69,11 @@
     </div>
 </nav>
 <div id="courseCenter" class="col s12">
-    <iframe src="<%=basePath%>/student/courseCenter.jsp" frameborder="0" scrolling="no" width="100%"
+    <iframe src="<%=basePath%>/student/courseCenter.jsp" frameborder="0" width="100%"
             height="100%"></iframe>
 </div>
 <div id="testCenter" class="col s12">
-    <iframe src="<%=basePath%>/student/testCenter.jsp" frameborder="0" scrolling="no" width="100%"
+    <iframe src="<%=basePath%>/student/testCenter.jsp" frameborder="0" width="100%"
             height="100%"></iframe>
 </div>
 </body>

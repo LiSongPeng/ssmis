@@ -57,7 +57,6 @@
                     <div class="collection">
                         <a disabled="disabled" class="collection-item" id="selectable">可选课程</a>
                         <a class="collection-item" id="selected">已选课程</a>
-                        <a class="collection-item" id="selectResult">选课结果</a>
                     </div>
                 </div>
             </li>
@@ -92,7 +91,9 @@
             <div id="selectedTabBody" class="tabBody"></div>
             <div id="selectResultTabBody" class="tabBody"></div>
             <div id="courseScheduleTabBody" class="tabBody"></div>
-            <div id="personalCourseTableTabBody" class="tabBody"></div>
+            <div id="personalCourseTableTabBody" class="tabBody">
+
+            </div>
         </div>
     </div>
 </div>
