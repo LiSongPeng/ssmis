@@ -20,43 +20,43 @@
     <table id="14" parent="2" name="department"/>
     <table id="15" parent="2" name="student"/>
     <table id="16" parent="2" name="student_schedule"/>
-    <column id="17" parent="7" name="dmp">
-      <Position>1</Position>
-      <DataType>char(8)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="18" parent="7" name="crs">
+    <column id="17" parent="7" name="crs">
       <Position>2</Position>
       <DataType>char(8)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="19" parent="7" name="date">
+    <column id="18" parent="7" name="date">
       <Position>3</Position>
       <DataType>date|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="20" parent="7" name="location">
+    <column id="19" parent="7" name="location">
       <Position>4</Position>
       <DataType>varchar(64)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="21" parent="7" name="status">
+    <column id="20" parent="7" name="status">
       <Position>5</Position>
       <DataType>tinyint(4)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="21" parent="7" name="dpm">
+      <Position>1</Position>
+      <DataType>char(8)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <index id="22" parent="7" name="exam_course_crs_id_fk">
       <ColNames>crs</ColNames>
     </index>
     <key id="23" parent="7" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>dmp
+      <ColNames>dpm
 crs</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="24" parent="7" name="exam_department_dpm_id_fk">
-      <ColNames>dmp</ColNames>
+      <ColNames>dpm</ColNames>
       <RefSchemaName>ssmis</RefSchemaName>
       <RefTableName>department</RefTableName>
       <RefColNames>dpm_id</RefColNames>

@@ -23,15 +23,15 @@ DROP TABLE IF EXISTS `Exam`;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Exam` (
-  `dmp`      CHAR(8)     NOT NULL,
+  `dpm`      CHAR(8)     NOT NULL,
   `crs`      CHAR(8)     NOT NULL,
   `date`     DATE        NOT NULL,
   `location` VARCHAR(64) NOT NULL,
   `status`   TINYINT(4)  NOT NULL DEFAULT '0',
-  PRIMARY KEY (`dmp`, `crs`),
+  PRIMARY KEY (`dpm`, `crs`),
   KEY `exam_course_crs_id_fk` (`crs`),
   CONSTRAINT `exam_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),
-  CONSTRAINT `exam_department_dpm_id_fk` FOREIGN KEY (`dmp`) REFERENCES `department` (`dpm_id`)
+  CONSTRAINT `exam_department_dpm_id_fk` FOREIGN KEY (`dpm`) REFERENCES `department` (`dpm_id`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
