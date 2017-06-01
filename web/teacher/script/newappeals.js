@@ -4,6 +4,7 @@
 function getAppeals(type) {
     var param = {operation:type};
     $.getJSON("getAppeals",param,function (data) {
+        $("#p2").toggle();
         var list = $.parseJSON(data);
         if(list.length>0){
             $("#np_tag").attr("data-badge",list.length);
@@ -24,6 +25,7 @@ function getAppeals(type) {
                 var stuGender = n.studentByStuId.gender;
                 var stuclassNo = n.studentByStuId.classNo;
                 var date = new Date(n.date);
+                var aid = dpmId+"_"+crsId+"_"+tchId+"_"+"_"+stuId+"_"+n.date;
                 var tr = "<tr style='font-weight:bold;' class='expand-content'>" +
                     '<td><i class="material-icons">input</i></td>' +
                     '<td><span class="mdl-chip"><span class="mdl-chip__text">'+dpmName+"("+dpmId+")</span></span></td>" +
@@ -34,20 +36,22 @@ function getAppeals(type) {
                     '</tr>' +
                     '<tr style="display:none"><td colspan="6">' +
                     '<div class="mdl-card mdl-shadow--2dp through mdl-shadow--16dp" style="width:auto" align="left"><div>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">'+stuName+'</span></span>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">'+stuId+'</span></span>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">'+stuGrade+'</span></span>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">'+stuclassNo+'</span></span>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">'+stuGender+'</span></span>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span><span class="mdl-chip__text">'+dpmName+'</span></span>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span><span class="mdl-chip__text">'+dpmId+'</span></span><br/>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span><span class="mdl-chip__text">'+crsName+'</span></span>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span><span class="mdl-chip__text">'+crsId+'</span></span>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">'+tchName+'</span></span>' +
-                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">'+tchId+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">学生：'+stuName+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">学号：'+stuId+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">年级：'+stuGrade+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">班级：'+stuclassNo+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">性别：'+stuGender+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span><span class="mdl-chip__text">院系名：'+dpmName+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span><span class="mdl-chip__text">院系号：'+dpmId+'</span></span><br>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span><span class="mdl-chip__text">课程名称：'+crsName+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span><span class="mdl-chip__text">课程号：'+crsId+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师：'+tchName+'</span></span>' +
+                    '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师号：'+tchId+'</span></span>' +
                     '</div><div class="mdl-card__supporting-text" align="left">' +content+ '</div>' +
-                    '<div mdl-card__actions mdl-card--border><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px">回复</button></div>' +
-                    '<div class="mdl-card__menu"><button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="material-icons">more_vert</i></button></div>' +
+                    '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px">回复</button></div>' +
+                    '<div class="mdl-card__menu"><button id="menu_'+aid+'" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"><i class="material-icons">more_vert</i></button>' +
+                    '<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu_'+aid+'"><li class="mdl-menu__item">Some Action</li><li class="mdl-menu__item">Another Action</li><li disabled class="mdl-menu__item">Disabled Action</li><li class="mdl-menu__item">Yet Another Action</li></ul' +
+                    '</div>' +
                     '</div></td></tr>';
                 $("#ap_table").append(tr);
                 // console.log(content+" "+crsId+" "+crsName+" "+dpmName+" "+dpmId+" "+ tchId+" "+tchName);
