@@ -4,11 +4,13 @@ import dao.i.AppealDaoI;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import team.jiangtao.entity.Appeal;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -164,8 +166,20 @@ public class AppealDaoImpl implements AppealDaoI{
         boolean flag = true;
         try{
             Session session = sessionFactory.getCurrentSession();
+
             for(Appeal appeal : appeals){
-                session.update(appeal);
+                String hql = "update Appeal appeal set";
+                for(Field field:appeal.getClass().getDeclaredFields()){
+                    field.setAccessible(true);
+                    if(field.get(appeal)!=null){
+//                        System.out.println(field.getName()+" "+field.);
+                        hql += " appeal."+field.getName()+"='"+field.get(appeal)+"' ,";
+                    }
+                }
+                hql = hql.substring(0,hql.length()-1);
+                hql += "where appeal.crsId='"+appeal.getCrsId()+"' and appeal.dpmId='"+appeal.getDpmId()+"' and appeal.stuId='"+appeal.getStuId()+"' and appeal.tchId='"+appeal.getTchId()+"' and appeal.date='"+appeal.getDate()+"'";
+                Query query = session.createQuery(hql);
+                query.executeUpdate();
             }
         }catch (Exception e){
             e.printStackTrace();

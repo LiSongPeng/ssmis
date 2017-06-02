@@ -48,7 +48,7 @@ function getAppeals(type) {
                     '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师：'+tchName+'</span></span>' +
                     '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师号：'+tchId+'</span></span>' +
                     '</div><div class="mdl-card__supporting-text" align="left">' +content+ '</div>' +
-                    '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px">回复</button></div>' +
+                    '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px"><i class="material-icons">edit</i>回复</button></div>' +
                     '</div></td></tr>';
                 $("#ap_table").append(tr);
                 // console.log(content+" "+crsId+" "+crsName+" "+dpmName+" "+dpmId+" "+ tchId+" "+tchName);
