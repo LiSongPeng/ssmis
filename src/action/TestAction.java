@@ -12,8 +12,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import com.alibaba.fastjson.*;
 import service.i.AppealServiceI;
+import team.jiangtao.entity.Appeal;
 
 import javax.annotation.Resource;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,11 +58,19 @@ public class TestAction extends ActionSupport {
 
     @Action(value = "hibernate",results = @Result(type = "json",params = {"root","json"}))
     public String testHibernate() throws Exception {
-        Map<String,Object> stringObjectMap = new HashMap<>();
-        stringObjectMap.put("tch_id","0001");
-        stringObjectMap.put("type",5);
-        List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
-        json = JSON.toJSONString(list);
+        List<Appeal> appeals = new ArrayList<>();
+        Appeal temp  = new Appeal();
+        temp.setCrsId("00000");
+        temp.setDpmId("002");
+        temp.setTchId("00001");
+        temp.setStuId("00002");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date parsed = format.parse("2017-05-17");
+        temp.setDate(new java.sql.Date(parsed.getTime()));
+        byte statu = 6;
+        temp.setStatus(statu);
+        appeals.add(temp);
+        boolean flag = appealServiceI.updateAppeals(appeals);
         return SUCCESS;
     }
 }

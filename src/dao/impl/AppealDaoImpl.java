@@ -9,6 +9,7 @@ import team.jiangtao.entity.Appeal;
 import team.jiangtao.entity.AppealPK;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -214,8 +215,20 @@ public class AppealDaoImpl implements AppealDaoI {
         boolean flag = true;
         try {
             Session session = sessionFactory.getCurrentSession();
-            for (Appeal appeal : appeals) {
-                session.update(appeal);
+
+            for(Appeal appeal : appeals){
+                String hql = "update Appeal appeal set";
+                for(Field field:appeal.getClass().getDeclaredFields()){
+                    field.setAccessible(true);
+                    if(field.get(appeal)!=null){
+//                        System.out.println(field.getName()+" "+field.);
+                        hql += " appeal."+field.getName()+"='"+field.get(appeal)+"' ,";
+                    }
+                }
+                hql = hql.substring(0,hql.length()-1);
+                hql += "where appeal.crsId='"+appeal.getCrsId()+"' and appeal.dpmId='"+appeal.getDpmId()+"' and appeal.stuId='"+appeal.getStuId()+"' and appeal.tchId='"+appeal.getTchId()+"' and appeal.date='"+appeal.getDate()+"'";
+                Query query = session.createQuery(hql);
+                query.executeUpdate();
             }
         } catch (Exception e) {
             e.printStackTrace();
