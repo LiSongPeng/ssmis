@@ -65,8 +65,8 @@
                 <div class="collapsible-body">
                     <div class="collection">
                         <a class="collection-item" id="progressAppeal">审核中申诉</a>
-                        <a class="collection-item" id="passedAppeal">已通过申诉</a>
-                        <a class="collection-item" id="failedAppeal">已失败申诉</a>
+                        <a class="collection-item" id="responsedAppeal">已回执申诉</a>
+                        <a class="collection-item" id="closedAppeal">已关闭申诉</a>
                     </div>
                 </div>
             </li>
@@ -83,8 +83,8 @@
             <div id="testPlanTabBody" class="tabBody"></div>
             <div id="testScoreTabBody" class="tabBody"></div>
             <div id="progressAppealTabBody" class="tabBody"></div>
-            <div id="passedAppealTabBody" class="tabBody"></div>
-            <div id="failedAppealTabBody" class="tabBody"></div>
+            <div id="responsedAppealTabBody" class="tabBody"></div>
+            <div id="closedAppealTabBody" class="tabBody"></div>
         </div>
     </div>
 </div>

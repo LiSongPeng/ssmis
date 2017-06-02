@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import team.jiangtao.entity.Appeal;
+import team.jiangtao.entity.AppealPK;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -161,12 +162,32 @@ public class AppealDaoImpl implements AppealDaoI {
     @Override
     public List<Appeal> getAppealsInPage(String stuId, int pageNumber, int appealStatus) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Appeal> query = session.createQuery("from Appeal a where a.stuId=?1 and a.status=?2", Appeal.class);
+        String hql = "from Appeal a where a.stuId=?1 and a.status=?2";
+        if (appealStatus == 0)
+            hql = "from Appeal a where a.stuId=?1 and a.status<?2";
+        Query<Appeal> query = session.createQuery(hql, Appeal.class);
         query.setParameter(1, stuId);
-        query.setParameter(2, appealStatus);
+        if (appealStatus == 0)
+            query.setParameter(2, 4);
+        else
+            query.setParameter(2, appealStatus);
         query.setMaxResults(10);
         query.setFirstResult((pageNumber - 1) * 10);
         return query.list();
+    }
+
+    @Override
+    public int closeAppeal(String stuId, String dpmId, String tchId, String crsId) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("update Appeal a set a.status=?1 where a.id=?2");
+        query.setParameter(1, 5);
+        AppealPK id = new AppealPK();
+        id.setCrsId(crsId);
+        id.setDpmId(dpmId);
+        id.setTchId(tchId);
+        id.setStuId(stuId);
+        query.setParameter(2, id);
+        return query.executeUpdate();
     }
 
     @Override

@@ -169,7 +169,7 @@ public class StudentServiceImpl implements StudentServiceI {
         List<Appeal> list = appealDao.getAppealsInPage(stuId, pageNumber, appealStatus);
         String[][] appeals = null;
         if (list.size() > 0) {
-            int status;
+            String status = null;
             Date date;
             appeals = new String[list.size()][8];
             for (int i = 0; i < appeals.length; i++) {
@@ -181,10 +181,37 @@ public class StudentServiceImpl implements StudentServiceI {
                 date = list.get(i).getDate();
                 appeals[i][5] = date.getYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日" + (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
                 appeals[i][6] = list.get(i).getContent();
-                status = list.get(i).getStatus();
-                appeals[i][7] = status == 0 ? "审核中" : status == 1 ? "未通过" : "已通过";
+                switch (list.get(i).getStatus()) {
+                    case 0:
+                        status = "新建";
+                        break;
+                    case 1:
+                        status = "已读";
+                        break;
+                    case 2:
+                        status = "已标记";
+                        break;
+                    case 3:
+                        status = "已更新";
+                        break;
+                    case 4:
+                        status = "已回执";
+                        break;
+                    case 5:
+                        status = "已关闭";
+                        break;
+                }
+                appeals[i][7] = status;
             }
         }
         return appeals;
+    }
+
+    @Override
+    @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
+    public boolean closeAppeal(String stuId, String dpmId, String tchId, String crsId) {
+        if (appealDao.closeAppeal(stuId, dpmId, tchId, crsId) > 0)
+            return true;
+        return false;
     }
 }

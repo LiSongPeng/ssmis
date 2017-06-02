@@ -201,10 +201,10 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return ERROR;
     }
 
-    @Action(value = "getPassedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
-    public String getPassedAppeal() {
+    @Action(value = "getResponsedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getResponsedAppeal() {
         Student currStu = (Student) session.get("currStu");
-        int appealStatus = 0;//审核中
+        int appealStatus = 4;//已回执
         appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
         if (appeal != null)
             return SUCCESS;
@@ -212,10 +212,10 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return ERROR;
     }
 
-    @Action(value = "getFailedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
-    public String getFailedAppeal() {
+    @Action(value = "getClosedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getClosedAppeal() {
         Student currStu = (Student) session.get("currStu");
-        int appealStatus = 0;//审核中
+        int appealStatus = 5;//已关闭
         appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
         if (appeal != null)
             return SUCCESS;
@@ -226,12 +226,30 @@ public class StudentAction extends ActionSupport implements SessionAware {
     @Action(value = "getProgressAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getProgressAppeal() {
         Student currStu = (Student) session.get("currStu");
-        int appealStatus = 0;//审核中
+        int appealStatus = 0;//审核中,包括新建的,已读的,已标记的,更新的
         appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
         if (appeal != null)
             return SUCCESS;
         result = "{\"result\":\"Error\"}";
         return ERROR;
+    }
+
+    @Action(value = "closeAppeal", results = @Result(type = "json", params = {"root", "appeal"}))
+    public String closeAppeal() {
+        Student currStu = (Student) session.get("currStu");
+        result = "{\"result\":\"Success\"}";
+        if (!studentService.closeAppeal(currStu.getStuId(), csche.getDpmId(), csche.getTchId(), csche.getCrsId()))
+            result = "{\"result\":\"Error\"}";
+        return SUCCESS;
+    }
+
+    @Action(value = "appeal", results = @Result(type = "json", params = {"root", "appeal"}))
+    public String appeal() {
+        Student currStu = (Student) session.get("currStu");
+        result = "{\"result\":\"Success\"}";
+        if (!studentService.closeAppeal(currStu.getStuId(), csche.getDpmId(), csche.getTchId(), csche.getCrsId()))
+            result = "{\"result\":\"Error\"}";
+        return SUCCESS;
     }
 
     public Student getStu() {

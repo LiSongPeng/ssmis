@@ -89,4 +89,15 @@ public interface StudentServiceI {
      * @return 申诉信息
      */
     String[][] getAppeal(String stuId, int pageNumber, int appealStatus);
+
+    /**
+     * 关闭申诉
+     *
+     * @param stuId 学号
+     * @param dpmId 院系编号
+     * @param tchId 教师编号
+     * @param crsId 课程编号
+     * @return 是否关闭
+     */
+    boolean closeAppeal(String stuId, String dpmId, String tchId, String crsId);
 }
