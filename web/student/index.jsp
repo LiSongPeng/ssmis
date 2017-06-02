@@ -47,6 +47,7 @@
         <div class="divider"></div>
     </li>
     <li><a class="waves-effect btn" href="personalInfoCenter.jsp">修改个人信息</a></li>
+    <li><a class="waves-effect btn" id="logout">退出登录</a></li>
 </ul>
 <%--导航栏--%>
 <nav class="nav-extended purple">
@@ -69,11 +70,11 @@
     </div>
 </nav>
 <div id="courseCenter" class="col s12">
-    <iframe src="<%=basePath%>/student/courseCenter.jsp" frameborder="0" scrolling="no" width="100%"
+    <iframe src="<%=basePath%>/student/courseCenter.jsp" frameborder="0" width="100%"
             height="100%"></iframe>
 </div>
 <div id="testCenter" class="col s12">
-    <iframe src="<%=basePath%>/student/testCenter.jsp" frameborder="0" scrolling="no" width="100%"
+    <iframe src="<%=basePath%>/student/testCenter.jsp" frameborder="0" width="100%"
             height="100%"></iframe>
 </div>
 </body>

@@ -8,6 +8,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import service.i.CourseServiceI;
 import service.i.StudentServiceI;
 import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.Exam;
@@ -15,6 +16,7 @@ import team.jiangtao.entity.Student;
 import team.jiangtao.entity.StudentSchedule;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,12 +29,19 @@ import java.util.Map;
 @Scope(value = "prototype")
 public class StudentAction extends ActionSupport implements SessionAware {
     private StudentServiceI studentService;
+    private CourseServiceI courseService;
     private Student stu;
     private String result;
     private Map<String, Object> session;
     private CourseSchedule csche;
-    private List<Exam> exams;
     private List<StudentSchedule> schedules;
+    private String[][] selected;
+    private int pageNumber;
+    private List<CourseSchedule> courseSchedules;
+    private String[][] selectable;
+    private String[][] exams;
+    private String[][] scores;
+    private String[][] appeal;
 
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}))
     public String login() {
@@ -103,28 +112,126 @@ public class StudentAction extends ActionSupport implements SessionAware {
     @Action(value = "getExamInfo", results = {@Result(type = "json", params = {"root", "exams"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getExamInfo() {
         Student currStu = (Student) session.get("currStu");
-        exams = studentService.getExamInfo(currStu.getStuId());
-        if (exams.size() > 0)
+        List<Exam> examList = studentService.getExamInfo(currStu.getStuId());
+        if (examList.size() > 0) {
+            exams = new String[examList.size()][7];
+            Date date;
+            int status;
+            for (int i = 0; i < exams.length; i++) {
+                exams[i][0] = examList.get(i).getCrs();
+                exams[i][1] = examList.get(i).getDpm();
+                exams[i][2] = examList.get(i).getCourseByCrs().getCrsName();
+                exams[i][3] = examList.get(i).getDepartmentByDpm().getDpmName();
+                exams[i][4] = examList.get(i).getLocation();
+                exams[i][5] = examList.get(i).getDate();
+                status = examList.get(i).getStatus();
+                exams[i][6] = status == 0 ? "未编排" : status == 1 ? "编排中" : status == 2 ? "未开始" : "已结束";
+            }
             return SUCCESS;
+        }
         result = "{\"result\":\"Error\"}";
         return ERROR;
     }
 
-    @Action(value = "getSelectedCoursesInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    @Action(value = "getSelectedCoursesInfo", results = {@Result(type = "json", params = {"root", "selected"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getSelectedCoursesInfo() {
         Student currStu = (Student) session.get("currStu");
-        schedules = studentService.getSelectedCoursesInfo(currStu.getStuId());
-        if (schedules.size() > 0)
+        schedules = studentService.getSelectedCoursesInfo(currStu.getStuId(), pageNumber);
+        if (schedules != null) {
+            selected = new String[schedules.size()][7];
+            for (int i = 0; i < selected.length; i++) {
+                selected[i][0] = schedules.get(i).getCrs();
+                selected[i][1] = schedules.get(i).getDpm();
+                selected[i][2] = schedules.get(i).getTch();
+                selected[i][3] = schedules.get(i).getCourseByCrs().getCrsName();
+                selected[i][4] = schedules.get(i).getDepartmentByDpm().getDpmName();
+                selected[i][5] = schedules.get(i).getTeacherByTch().getName();
+                selected[i][6] = schedules.get(i).getTerm() + "学期";
+            }
+            return SUCCESS;
+        }
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
+    @Action(value = "getSelectableCoursesInfo", results = {@Result(name = "error", type = "json", params = {"root", "result"}), @Result(type = "json", params = {"root", "selectable"})})
+    public String getSelectableCoursesInfo() {
+        if (pageNumber > 0) {
+            courseSchedules = courseService.getCourseSchedules(pageNumber);
+        }
+        if (courseSchedules != null) {
+            selectable = new String[courseSchedules.size()][10];
+            for (int i = 0; i < selectable.length; i++) {
+                selectable[i][0] = courseSchedules.get(i).getCrsId();
+                selectable[i][1] = courseSchedules.get(i).getDpmId();
+                selectable[i][2] = courseSchedules.get(i).getTchId();
+                selectable[i][3] = courseSchedules.get(i).getCourseByCrsId().getCrsName();
+                selectable[i][4] = courseSchedules.get(i).getDepartmentByDpmId().getDpmName();
+                selectable[i][5] = courseSchedules.get(i).getTeacherByTchId().getName();
+                selectable[i][6] = courseSchedules.get(i).getTerm() + "学期";
+                selectable[i][7] = (courseSchedules.get(i).getType()) == 0 ? "选修课" : "必修课";
+                selectable[i][8] = courseSchedules.get(i).getPreriods() + "课时";
+                selectable[i][9] = courseSchedules.get(i).getCredit() + "学分";
+            }
+            return SUCCESS;
+        }
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
+    @Action(value = "getScoreInfo", results = {@Result(type = "json", params = {"root", "scores"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getScoreInfo() {
+        Student currStu = (Student) session.get("currStu");
+        schedules = studentService.getAllScoreInfo(currStu.getStuId(), pageNumber);
+        if (schedules.size() > 0) {
+            scores = new String[schedules.size()][8];
+            for (int i = 0; i < scores.length; i++) {
+                scores[i][0] = schedules.get(i).getCrs();
+                scores[i][1] = schedules.get(i).getDpm();
+                scores[i][2] = schedules.get(i).getTch();
+                scores[i][3] = schedules.get(i).getCourseByCrs().getCrsName();
+                scores[i][4] = schedules.get(i).getDepartmentByDpm().getDpmName();
+                scores[i][5] = schedules.get(i).getTeacherByTch().getName();
+                scores[i][6] = schedules.get(i).getTerm() + "学期";
+                scores[i][7] = schedules.get(i).getScore() + "";
+            }
+            return SUCCESS;
+        }
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
+    @Action(value = "getPassedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getPassedAppeal() {
+        Student currStu = (Student) session.get("currStu");
+        int appealStatus = 0;//审核中
+        appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
+        if (appeal != null)
             return SUCCESS;
         result = "{\"result\":\"Error\"}";
         return ERROR;
     }
 
-    @Action(value = "getScoreInfo", results = {@Result(type = "json", params = {"root", "schedules"}), @Result(name = "error", type = "json", params = {"root", "result"})})
-    public String getScoreInfo() {
+    @Action(value = "getFailedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getFailedAppeal() {
         Student currStu = (Student) session.get("currStu");
-        schedules = studentService.getAllScoreInfo(currStu.getStuId());
-        return SUCCESS;
+        int appealStatus = 0;//审核中
+        appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
+        if (appeal != null)
+            return SUCCESS;
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
+    @Action(value = "getProgressAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getProgressAppeal() {
+        Student currStu = (Student) session.get("currStu");
+        int appealStatus = 0;//审核中
+        appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
+        if (appeal != null)
+            return SUCCESS;
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
     }
 
     public Student getStu() {
@@ -138,6 +245,11 @@ public class StudentAction extends ActionSupport implements SessionAware {
     @Resource(name = "studentService")
     public void setStudentService(StudentServiceI studentService) {
         this.studentService = studentService;
+    }
+
+    @Resource(name = "courseService")
+    public void setCourseService(CourseServiceI courseService) {
+        this.courseService = courseService;
     }
 
     public String getResult() {
@@ -161,11 +273,23 @@ public class StudentAction extends ActionSupport implements SessionAware {
         this.csche = csche;
     }
 
-    public List<Exam> getExams() {
-        return exams;
-    }
-
     public List<StudentSchedule> getSchedules() {
         return schedules;
+    }
+
+    public String[][] getSelected() {
+        return selected;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public String[][] getSelectable() {
+        return selectable;
+    }
+
+    public String[][] getScores() {
+        return scores;
     }
 }

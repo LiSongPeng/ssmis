@@ -36,76 +36,75 @@ public class ExamDaoImpl implements ExamDaoI {
 
     @Override
     public List<Exam> findAllExams() {
-        Session session=sessionFactory.getCurrentSession();
-        final String sql="select * from exam";
-        List<Exam> list=new ArrayList<>();
-        Exam exam=new Exam();
-       try{
-        session.doWork(
-                new Work() {
-                    @Override
-                    public void execute(Connection connection) throws SQLException {
-                        PreparedStatement ps = connection.prepareStatement( sql );
-                        ResultSet rs = ps.executeQuery();
+        Session session = sessionFactory.getCurrentSession();
+        final String sql = "select * from exam";
+        List<Exam> list = new ArrayList<>();
+        Exam exam = new Exam();
+        try {
+            session.doWork(
+                    new Work() {
+                        @Override
+                        public void execute(Connection connection) throws SQLException {
+                            PreparedStatement ps = connection.prepareStatement(sql);
+                            ResultSet rs = ps.executeQuery();
 
-                        while (rs.next()) {
-                          exam.setDpm(rs.getString("dpm"));
-                          exam.setCrs(rs.getString("crs"));
-                          exam.setDate(rs.getDate("date"));
-                          exam.setLocation(rs.getString("location"));
-                          exam.setStatus(rs.getByte("status"));
-                          list.add(exam);
+                            while (rs.next()) {
+                                exam.setDpm(rs.getString("dpm"));
+                                exam.setCrs(rs.getString("crs"));
+                                exam.setDate(rs.getString("date"));
+                                exam.setLocation(rs.getString("location"));
+                                exam.setStatus(rs.getByte("status"));
+                                list.add(exam);
+                            }
+
                         }
-
                     }
-                }
-        );
-    }catch(Exception ex){
-        ex.printStackTrace();
-    }
-        finally{
-        this.doClose(session, null, null);
-    }
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            this.doClose(session, null, null);
+        }
 
         return list;
     }
 
     @Override
-    public void modifyExam(String dpm,                                                                       String crs, Date date, String location, byte status) {
-        Session session=sessionFactory.getCurrentSession();
-        ExamPK examPK=new ExamPK();
+    public void modifyExam(String dpm, String crs, String date, String location, byte status) {
+        Session session = sessionFactory.getCurrentSession();
+        ExamPK examPK = new ExamPK();
         examPK.setCrs(crs);
         examPK.setDpm(dpm);
-        Query<Exam> updatequery=session.createQuery("from Exam e where e.id in ?1",Exam.class);
-        List<Exam> list=updatequery.setParameter(1,examPK).list();
-        Exam exam=list.get(0);
+        Query<Exam> updatequery = session.createQuery("from Exam e where e.id in ?1", Exam.class);
+        List<Exam> list = updatequery.setParameter(1, examPK).list();
+        Exam exam = list.get(0);
         exam.setDate(date);
         exam.setLocation(location);
         exam.setStatus(status);
     }
 
     @Override
-    public void fromCStoExam(String dpm, String crs, Date date, String location, byte status) {
-       Session session=sessionFactory.getCurrentSession();
-       Exam exam=new Exam();
-       exam.setDpm(dpm);
-       exam.setCrs(crs);
-       exam.setLocation(location);
-       exam.setDate(date);
-       exam.setLocation(location);
-       session.save(exam);
+    public void fromCStoExam(String dpm, String crs, String date, String location, byte status) {
+        Session session = sessionFactory.getCurrentSession();
+        Exam exam = new Exam();
+        exam.setDpm(dpm);
+        exam.setCrs(crs);
+        exam.setLocation(location);
+        exam.setDate(date);
+        exam.setLocation(location);
+        session.save(exam);
 
     }
 
     @Override
     public void delExam(String dpm, String crs) {
-      Session session=sessionFactory.getCurrentSession();
-      ExamPK examPK=new ExamPK();
-      examPK.setDpm(dpm);
-      examPK.setCrs(crs);
-      Query<Exam> query=session.createQuery("delete from Exam e where e.id in ?1");
-      query.setParameter(1,examPK);
-      query.executeUpdate();
+        Session session = sessionFactory.getCurrentSession();
+        ExamPK examPK = new ExamPK();
+        examPK.setDpm(dpm);
+        examPK.setCrs(crs);
+        Query<Exam> query = session.createQuery("delete from Exam e where e.id in ?1");
+        query.setParameter(1, examPK);
+        query.executeUpdate();
 
     }
 

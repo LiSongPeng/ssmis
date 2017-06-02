@@ -63,4 +63,12 @@ public interface AppealDaoI {
      */
     boolean deleteAppeals(List<Appeal> appeals);
 
+    /**
+     * 分页查询申诉信息
+     * @param stuId 学生学号
+     * @param pageNumber 页码
+     * @param appealStatus 要查询的申诉信息的申诉状态
+     * @return 申诉信息
+     */
+    List<Appeal> getAppealsInPage(String stuId, int pageNumber, int appealStatus);
 }

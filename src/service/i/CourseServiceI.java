@@ -55,4 +55,11 @@ public interface CourseServiceI {
      * @return 课表
      */
     String[][] getPersonalCourseTable(String stuId);
+
+    /**
+     * 分页查询课程开设信息
+     * @param pageNumber 页码
+     * @return 课程开设信息
+     */
+    List<CourseSchedule> getCourseSchedules(int pageNumber);
 }

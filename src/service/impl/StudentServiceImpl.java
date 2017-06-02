@@ -1,10 +1,7 @@
 package service.impl;
 
 
-import dao.i.CourseScheduleDaoI;
-import dao.i.ExamDaoI;
-import dao.i.StudentDaoI;
-import dao.i.StudentScheduleDaoI;
+import dao.i.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,10 +9,7 @@ import service.i.StudentServiceI;
 import team.jiangtao.entity.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service(value = "studentService")
 public class StudentServiceImpl implements StudentServiceI {
@@ -23,6 +17,8 @@ public class StudentServiceImpl implements StudentServiceI {
     private CourseScheduleDaoI courseScheduleDao;
     private StudentScheduleDaoI studentScheduleDao;
     private ExamDaoI examDao;
+    private CoursesTableDaoI courseTableDao;
+    private AppealDaoI appealDao;
 
     @Resource(name = "examDao")
     public void setExamDao(ExamDaoI examDao) {
@@ -42,6 +38,17 @@ public class StudentServiceImpl implements StudentServiceI {
     @Resource(name = "studentDao")
     public void setStudentDao(StudentDaoI studentDao) {
         this.studentDao = studentDao;
+    }
+
+
+    @Resource(name = "coursesTableDao")
+    public void setCourseTableDao(CoursesTableDaoI courseTableDao) {
+        this.courseTableDao = courseTableDao;
+    }
+
+    @Resource(name = "appealDao")
+    public void setAppealDao(AppealDaoI appealDao) {
+        this.appealDao = appealDao;
     }
 
     @Override
@@ -68,16 +75,49 @@ public class StudentServiceImpl implements StudentServiceI {
     @Override
     @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
     public boolean selectCourse(String stuId, String tchId, String dpmId, String crsId) {
-        boolean result = false;
+        boolean conflict = false;
+        Map<String, Object> condtions = new HashMap<>(4);
+        condtions.put("stu", stuId);
+        condtions.put("dpm", dpmId);
+        condtions.put("tch", tchId);
+        condtions.put("crs", crsId);
+        List<StudentSchedule> studentSchedules = studentScheduleDao.findStudentScheduleByConditions(condtions);
+        if (studentSchedules.size() > 0)
+            return false;
         CourseSchedule courseSchedule = courseScheduleDao.findCourseSchedule(crsId, tchId, dpmId);
+        CoursesTable coursesTable = courseTableDao.findCoursesTable(crsId, tchId, dpmId);
+        List<CoursesTable> list = courseTableDao.findPersonalCourseTable(stuId);
+        if (list != null) {
+            String[] weeks = coursesTable.getWeeks().split(",");
+            String eachWeek;
+            String[] offs = coursesTable.getOff().split(",");
+            String eachOff;
+            int i, j;
+            for (CoursesTable each : list) {
+                eachWeek = each.getWeeks();
+                eachOff = each.getOff();
+                for (i = 0; i < weeks.length; i++) {
+                    if (eachWeek.contains(weeks[i]) && (eachWeek.indexOf(weeks[i]) == 0 || eachWeek.charAt(eachWeek.indexOf(weeks[i]) - 1) == ',') && (eachWeek.indexOf(weeks[i]) == eachWeek.length() - 1 || eachWeek.charAt(eachWeek.indexOf(weeks[i]) + 1) == ',')) {
+                        for (j = 0; j < offs.length; j++) {
+                            if (eachOff.contains(offs[i]) && (eachOff.indexOf(offs[i]) == 0 || eachOff.charAt(eachOff.indexOf(offs[i]) - 1) == ',') && (eachOff.indexOf(offs[i]) == eachOff.length() - 1 || eachOff.charAt(eachOff.indexOf(offs[i]) + 1) == ',')) {
+                                conflict = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (conflict)
+            return false;
         StudentSchedule studentSchedule = new StudentSchedule();
         studentSchedule.setCrs(courseSchedule.getCrsId());
         studentSchedule.setDpm(courseSchedule.getDpmId());
         studentSchedule.setTch(courseSchedule.getTchId());
         studentSchedule.setTerm(courseSchedule.getTerm());
+        studentSchedule.setTerm(courseSchedule.getTerm());
+        studentSchedule.setStu(stuId);
         studentScheduleDao.saveStudentSchedule(studentSchedule);
-        result = true;
-        return result;
+        return true;
     }
 
     @Override
@@ -113,9 +153,38 @@ public class StudentServiceImpl implements StudentServiceI {
 
     @Override
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
-    public List<StudentSchedule> getAllScoreInfo(String stuId) {
-        Map<String,Object> condition=new HashMap<>(1);
-        condition.put("stu",stuId);
-        return studentScheduleDao.findStudentScheduleByConditions(condition);
+    public List<StudentSchedule> getAllScoreInfo(String stuId, int pageNumber) {
+        return studentScheduleDao.findStudentSchedules(stuId, pageNumber);
+    }
+
+    @Override
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+    public List<StudentSchedule> getSelectedCoursesInfo(String stuId, int pageNumber) {
+        return studentScheduleDao.findStudentSchedules(stuId, pageNumber);
+    }
+
+    @Override
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+    public String[][] getAppeal(String stuId, int pageNumber, int appealStatus) {
+        List<Appeal> list = appealDao.getAppealsInPage(stuId, pageNumber, appealStatus);
+        String[][] appeals = null;
+        if (list.size() > 0) {
+            int status;
+            Date date;
+            appeals = new String[list.size()][8];
+            for (int i = 0; i < appeals.length; i++) {
+                appeals[i][0] = list.get(i).getCrsId();
+                appeals[i][1] = list.get(i).getDpmId();
+                appeals[i][2] = list.get(i).getTchId();
+                appeals[i][3] = list.get(i).getCourseByCrsId().getCrsName();
+                appeals[i][4] = list.get(i).getDepartmentByDpmId().getDpmName();
+                date = list.get(i).getDate();
+                appeals[i][5] = date.getYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日" + (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
+                appeals[i][6] = list.get(i).getContent();
+                status = list.get(i).getStatus();
+                appeals[i][7] = status == 0 ? "审核中" : status == 1 ? "未通过" : "已通过";
+            }
+        }
+        return appeals;
     }
 }

@@ -11,9 +11,9 @@ import java.sql.Date;
 public class Exam {
     private String dpm;
     private String crs;
-    private Date date;
+    private String date;//06月01日13:30-15:00
     private String location;
-    private byte status;
+    private byte status;//0 未编排,1 编排中,2未开始,3 已结束
     private Department departmentByDpm;
     private Course courseByCrs;
 
@@ -24,7 +24,7 @@ public class Exam {
     }
 
     public void setDpm(String dpm) {
-        this.dpm =dpm;
+        this.dpm = dpm;
     }
 
     @Id
@@ -39,11 +39,11 @@ public class Exam {
 
     @Basic
     @Column(name = "date")
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -94,7 +94,7 @@ public class Exam {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false, updatable = false, insertable = false)
     public Department getDepartmentByDpm() {
         return departmentByDpm;
     }
@@ -104,7 +104,7 @@ public class Exam {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false, updatable = false, insertable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }

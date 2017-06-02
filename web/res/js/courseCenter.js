@@ -9,29 +9,197 @@ $(function () {
     var currPage = {
         selectedTabBody: 0,
         selectableTabBody: 0,
-        selectResultTabBody: 0,
         courseScheduleTabBody: 0
     }
     var timer
     var resolver = {
         selectedTabBody: function () {
-
+            var tabBodyId = 'selectedTabBody'
+            $.getJSON($("body").prop("title") + "/student/getSelectedCoursesInfo.action", {'pageNumber': currPage[tabBodyId] + 1}, function (json) {
+                if (json) {
+                    var table = "<table><thead><tr><td>课程编号</td><td>院系编号</td><td>教师编号</td><td>课程名称</td><td>院系名称</td><td>教师名称</td><td>学期</td><td>操作</td></tr></thead><tbody>"
+                    currPage[tabBodyId]++
+                    window.clearTimeout(timer)
+                    endLoading(tabBodyId)
+                    for (var i = 0; i < json.length; i++) {
+                        table += "<tr>"
+                        for (var j = 0; j < 7; j++) {
+                            table += "<td>" + json[i][j] + "</td>"
+                        }
+                        table += "<td><a class='waves-effect waves-light btn cancelCourse'>退选</a></td>"
+                        table += "</tr>"
+                    }
+                    table += "</tbody></table>"
+                    var control = "<div><a class='waves-effect waves-light btn' id='stPrevious'>上一页</a>&nbsp;&nbsp;<a class='waves-effect waves-light btn' id='stNext'>下一页</a></div>"
+                    table += control
+                    $("#" + tabBodyId).html(table)
+                    $(".cancelCourse").click(
+                        function () {
+                            var tr = $(this).closest("tr")
+                            var tds = $(tr).children()
+                            var crsId = tds[0].innerHTML
+                            var dpmId = tds[1].innerHTML
+                            var tchId = tds[2].innerHTML
+                            $.getJSON($("body").prop("title") + "/student/cancalCourse.action", {
+                                'csche.dpmId': dpmId,
+                                'csche.crsId': crsId,
+                                'csche.tchId': tchId
+                            }, function (json) {
+                                json = $.parseJSON(json)
+                                if (json.result == 'Success') {
+                                    Materialize.toast("退选成功", 1000)
+                                    $(tr).remove()
+                                } else {
+                                    Materialize.toast("退选失败,稍后重试", 1000)
+                                }
+                            })
+                        }
+                    )
+                    $("#stPrevious").click(
+                        function () {
+                            if (currPage[tabBodyId] > 1) {
+                                currPage[tabBodyId] -= 2
+                                resolver[tabBodyId]()
+                            }
+                        }
+                    )
+                    $("#stNext").click(
+                        function () {
+                            resolver[tabBodyId]()
+                        }
+                    )
+                } else {
+                    Materialize.toast("无数据可显示", 1000)
+                }
+            })
         },
 
         selectableTabBody: function () {
-        },
-
-        selectResultTabBody: function () {
-
+            var tabBodyId = 'selectableTabBody'
+            $.getJSON($("body").prop("title") + "/student/getSelectableCoursesInfo.action", {'pageNumber': currPage[tabBodyId] + 1}, function (json) {
+                if (json) {
+                    var table = "<table><thead><tr><td>课程编号</td><td>院系编号</td><td>教师编号</td><td>课程名称</td><td>院系名称</td><td>教师名称</td><td>学期</td><td>课程类型</td><td>课时</td><td>学分</td><td>操作</td></tr></thead><tbody>"
+                    currPage[tabBodyId]++
+                    window.clearTimeout(timer)
+                    endLoading(tabBodyId)
+                    for (var i = 0; i < json.length; i++) {
+                        table += "<tr>"
+                        for (var j = 0; j < 10; j++) {
+                            table += "<td>" + json[i][j] + "</td>"
+                        }
+                        table += "<td><a class='waves-effect waves-light btn selectCourse'>选课</a></td>"
+                        table += "</tr>"
+                    }
+                    table += "</tbody></table>"
+                    var control = "<div><a class='waves-effect waves-light btn' id='sttPrevious'>上一页</a>&nbsp;&nbsp;<a class='waves-effect waves-light btn' id='sttNext'>下一页</a></div>"
+                    table += control
+                    $("#" + tabBodyId).html(table)
+                    $(".selectCourse").click(
+                        function () {
+                            var tr = $(this).closest("tr")
+                            var tds = tr.children()
+                            var crsId = tds[0].innerHTML
+                            var dpmId = tds[1].innerHTML
+                            var tchId = tds[2].innerHTML
+                            $.getJSON($("body").prop("title") + "/student/selectCourse.action", {
+                                'csche.dpmId': dpmId,
+                                'csche.crsId': crsId,
+                                'csche.tchId': tchId
+                            }, function (json) {
+                                json = $.parseJSON(json)
+                                if (json.result == 'Success') {
+                                    Materialize.toast("选课成功", 1000)
+                                } else {
+                                    Materialize.toast("课程冲突,或者您已经选择了此课程!", 1000)
+                                }
+                            })
+                        }
+                    )
+                    $("#sttPrevious").click(
+                        function () {
+                            if (currPage[tabBodyId] > 1) {
+                                currPage[tabBodyId] -= 2
+                                resolver[tabBodyId]()
+                            }
+                        }
+                    )
+                    $("#sttNext").click(
+                        function () {
+                            resolver[tabBodyId]()
+                        }
+                    )
+                } else {
+                    Materialize.toast("无数据可显示", 1000)
+                }
+            })
         },
 
         courseScheduleTabBody: function () {
-
+            var tabBodyId = 'courseScheduleTabBody'
+            $.getJSON($("body").prop("title") + "/course/getCoursesSchedule.action", {'pageNumber': currPage[tabBodyId] + 1}, function (json) {
+                if (json) {
+                    var table = "<table><thead><tr><td>课程编号</td><td>课程名称</td><td>任课教师</td><td>学分</td><td>课时</td><td>学期</td><td>课程类型</td><td>开设院系</td></tr></thead><tbody>"
+                    currPage[tabBodyId]++
+                    window.clearTimeout(timer)
+                    endLoading(tabBodyId)
+                    for (var i = 0; i < json.length; i++) {
+                        table += "<tr>"
+                        for (var j = 0; j < 8; j++) {
+                            table += "<td>" + json[i][j] + "</td>"
+                        }
+                        table += "</tr>"
+                    }
+                    table += "</tbody></table>"
+                    var control = "<div><a class='waves-effect waves-light btn' id='csPrevious'>上一页</a>&nbsp;&nbsp;<a class='waves-effect waves-light btn' id='csNext'>下一页</a></div>"
+                    table += control
+                    $("#" + tabBodyId).html(table)
+                    $("#csPrevious").click(
+                        function () {
+                            if (currPage[tabBodyId] > 1) {
+                                currPage[tabBodyId] -= 2
+                                resolver[tabBodyId]()
+                            }
+                        }
+                    )
+                    $("#csNext").click(
+                        function () {
+                            resolver[tabBodyId]()
+                        }
+                    )
+                } else {
+                    Materialize.toast("无数据可显示", 1000)
+                }
+            })
         },
 
         personalCourseTableTabBody: function () {
             $.getJSON($("body").prop("title") + "/course/getPersonalCourseTable.action", function (json) {
-                alert(json)
+                if (json.length == 1) {
+                    endLoading("personalCourseTableTabBody")
+                    window.clearTimeout(timer)
+                    Materialize.toast("您还没选择任何课程", 1000)
+                    return
+                }
+                var table = "<table><thead><tr><td></td><td>星期一</td><td>星期二</td><td>星期三</td><td>星期四</td><td>星期五</td></tr></thead></table>"
+                $("#personalCourseTableTabBody").html(table)
+                var tbody = "<tbody>"
+                for (var i = 0; i < 11; i++) {
+                    tbody += "<tr><td>第" + (i + 1) + "节</td>"
+                    for (var j = 0; j < 5; j++) {
+                        tbody += "<td class='" + i + j + "'></td>"
+                    }
+                    tbody += "</tr>"
+                }
+                tbody += "</tbody>"
+                $("#personalCourseTableTabBody table").append(tbody)
+                for (var i = 0; i < 5; i++) {
+                    for (var j = 0; j < 11; j++) {
+                        if (json[i][j])
+                            $("." + j + i).html(json[i][j])
+                    }
+                }
+                endLoading("personalCourseTableTabBody")
+                window.clearTimeout(timer)
             })
         }
     }
@@ -42,6 +210,7 @@ $(function () {
             if (tabsChain[each] > tabsChain[tabBodyId])
                 tabsChain[each]--
         }
+        currPage[tabBodyId] = 0
         delete tabsChain[tabBodyId]
         tabs.tabs("refresh")
         lastTab--

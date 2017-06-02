@@ -35,4 +35,12 @@ public interface StudentScheduleDaoI {
      * @return 实体对象集合
      */
     List<StudentSchedule> findStudentScheduleByConditions(Map<String, Object> conditions, boolean... equalConditions);
+
+    /**
+     * 分页查找学生已选课程
+     * @param stuId 学号
+     * @param pageNumber 页码
+     * @return 学生选课实体
+     */
+    List<StudentSchedule> findStudentSchedules(String stuId, int pageNumber);
 }
