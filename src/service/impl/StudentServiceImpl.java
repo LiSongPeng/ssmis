@@ -73,6 +73,14 @@ public class StudentServiceImpl implements StudentServiceI {
     @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
     public boolean selectCourse(String stuId, String tchId, String dpmId, String crsId) {
         boolean conflict = false;
+        Map<String, Object> condtions = new HashMap<>(4);
+        condtions.put("stu", stuId);
+        condtions.put("dpm", dpmId);
+        condtions.put("tch", tchId);
+        condtions.put("crs", crsId);
+        List<StudentSchedule> studentSchedules = studentScheduleDao.findStudentScheduleByConditions(condtions);
+        if (studentSchedules.size() > 0)
+            return false;
         CourseSchedule courseSchedule = courseScheduleDao.findCourseSchedule(crsId, tchId, dpmId);
         CoursesTable coursesTable = courseTableDao.findCoursesTable(crsId, tchId, dpmId);
         List<CoursesTable> list = courseTableDao.findPersonalCourseTable(stuId);
@@ -142,10 +150,8 @@ public class StudentServiceImpl implements StudentServiceI {
 
     @Override
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
-    public List<StudentSchedule> getAllScoreInfo(String stuId) {
-        Map<String, Object> condition = new HashMap<>(1);
-        condition.put("stu", stuId);
-        return studentScheduleDao.findStudentScheduleByConditions(condition);
+    public List<StudentSchedule> getAllScoreInfo(String stuId, int pageNumber) {
+        return studentScheduleDao.findStudentSchedules(stuId, pageNumber);
     }
 
     @Override

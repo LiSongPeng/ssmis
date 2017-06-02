@@ -47,6 +47,7 @@
         <div class="divider"></div>
     </li>
     <li><a class="waves-effect btn" href="personalInfoCenter.jsp">修改个人信息</a></li>
+    <li><a class="waves-effect btn" id="logout">退出登录</a></li>
 </ul>
 <%--导航栏--%>
 <nav class="nav-extended purple">

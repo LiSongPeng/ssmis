@@ -38,7 +38,6 @@ $(function () {
                             var tr = $(this).closest("tr")
                             var tds = $(tr).children()
                             var crsId = tds[0].innerHTML
-                            alert("crsId" + crsId)
                             var dpmId = tds[1].innerHTML
                             var tchId = tds[2].innerHTML
                             $.getJSON($("body").prop("title") + "/student/cancalCourse.action", {
@@ -47,7 +46,7 @@ $(function () {
                                 'csche.tchId': tchId
                             }, function (json) {
                                 json = $.parseJSON(json)
-                                if (json.result = 'Success') {
+                                if (json.result == 'Success') {
                                     Materialize.toast("退选成功", 1000)
                                     $(tr).remove()
                                 } else {
@@ -102,18 +101,16 @@ $(function () {
                             var crsId = tds[0].innerHTML
                             var dpmId = tds[1].innerHTML
                             var tchId = tds[2].innerHTML
-                            alert("crsId" + crsId)
                             $.getJSON($("body").prop("title") + "/student/selectCourse.action", {
                                 'csche.dpmId': dpmId,
                                 'csche.crsId': crsId,
                                 'csche.tchId': tchId
                             }, function (json) {
                                 json = $.parseJSON(json)
-                                if (json.result = 'Success') {
+                                if (json.result == 'Success') {
                                     Materialize.toast("选课成功", 1000)
-                                    $(tr).remove()
                                 } else {
-                                    Materialize.toast("选课失败,稍后重试", 1000)
+                                    Materialize.toast("课程冲突,或者您已经选择了此课程!", 1000)
                                 }
                             })
                         }

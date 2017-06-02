@@ -7,7 +7,6 @@ $(function () {
     var lastTab = 0
     var tabsChain = {}
     var currPage = {
-        testPlanTabBody: 0,
         testScoreTabBody: 0,
         progressAppealTabBody: 0,
         passedAppealTabBody: 0,
@@ -17,6 +16,64 @@ $(function () {
     var resolver = {
         testPlanTabBody: function () {
             var tabBodyId = 'testPlanTabBody'
+            $.getJSON($("body").prop("title") + "/student/getExamInfo.action",function (json) {
+                if (json) {
+                    var table = "<table><thead><tr><td>课程编号</td><td>院系编号</td><td>教师编号</td><td>课程名称</td><td>院系名称</td><td>教师名称</td><td>学期</td><td>操作</td></tr></thead><tbody>"
+                    currPage[tabBodyId]++
+                    window.clearTimeout(timer)
+                    endLoading(tabBodyId)
+                    for (var i = 0; i < json.length; i++) {
+                        table += "<tr>"
+                        for (var j = 0; j < 7; j++) {
+                            table += "<td>" + json[i][j] + "</td>"
+                        }
+                        table += "<td><a class='waves-effect waves-light btn cancelCourse'>退选</a></td>"
+                        table += "</tr>"
+                    }
+                    table += "</tbody></table>"
+                    var control = "<div><a class='waves-effect waves-light btn' id='stPrevious'>上一页</a>&nbsp;&nbsp;<a class='waves-effect waves-light btn' id='stNext'>下一页</a></div>"
+                    table += control
+                    $("#" + tabBodyId).html(table)
+                    $(".cancelCourse").click(
+                        function () {
+                            var tr = $(this).closest("tr")
+                            var tds = $(tr).children()
+                            var crsId = tds[0].innerHTML
+                            alert("crsId" + crsId)
+                            var dpmId = tds[1].innerHTML
+                            var tchId = tds[2].innerHTML
+                            $.getJSON($("body").prop("title") + "/student/cancalCourse.action", {
+                                'csche.dpmId': dpmId,
+                                'csche.crsId': crsId,
+                                'csche.tchId': tchId
+                            }, function (json) {
+                                json = $.parseJSON(json)
+                                if (json.result == 'Success') {
+                                    Materialize.toast("退选成功", 1000)
+                                    $(tr).remove()
+                                } else {
+                                    Materialize.toast("退选失败,稍后重试", 1000)
+                                }
+                            })
+                        }
+                    )
+                    $("#stPrevious").click(
+                        function () {
+                            if (currPage[tabBodyId] > 1) {
+                                currPage[tabBodyId] -= 2
+                                resolver[tabBodyId]()
+                            }
+                        }
+                    )
+                    $("#stNext").click(
+                        function () {
+                            resolver[tabBodyId]()
+                        }
+                    )
+                } else {
+                    Materialize.toast("无数据可显示", 1000)
+                }
+            })
         },
 
         testScoreTabBody: function () {

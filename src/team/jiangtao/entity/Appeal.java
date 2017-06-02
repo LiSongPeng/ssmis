@@ -17,7 +17,7 @@ public class Appeal {
     private Date date;
     private String content;
     private String response;
-    private byte status;
+    private byte status;//0 审核中,1 未通过,2 已通过
     private Department departmentByDpmId;
     private Course courseByCrsId;
     private Student studentByStuId;
@@ -135,7 +135,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false, updatable = false, insertable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }
@@ -145,7 +145,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false, updatable = false, insertable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
@@ -155,7 +155,7 @@ public class Appeal {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "stu_id", referencedColumnName = "stu_id", nullable = false, updatable = false, insertable = false)
     public Student getStudentByStuId() {
         return studentByStuId;
     }

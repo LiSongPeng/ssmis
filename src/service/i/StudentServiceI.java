@@ -66,9 +66,10 @@ public interface StudentServiceI {
      * 根据学号查询学生所有成绩信息
      *
      * @param stuId 学生学号
+     * @param pageNumber 页码
      * @return 所有考试成绩信息
      */
-    List<StudentSchedule> getAllScoreInfo(String stuId);
+    List<StudentSchedule> getAllScoreInfo(String stuId, int pageNumber);
 
     /**
      * 分页查找学生已选课程信息
