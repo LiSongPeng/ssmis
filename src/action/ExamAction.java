@@ -37,10 +37,6 @@ public class ExamAction extends ActionSupport {
             @Result(name = "error", type = "json", params = {"root", "result"}),
             @Result(type = "json", params = {"root", "list"})})
     public String modExam() {
-        java.util.Date date1=new java.util.Date();
-        Date date=new Date(date1.getTime());
-        byte b=1;
-        examServiceI.sermodExam("1","1",date,"qqq",b);
         return SUCCESS;
     }
 
@@ -48,10 +44,6 @@ public class ExamAction extends ActionSupport {
             @Result(name = "error", type = "json", params = {"root", "result"}),
             @Result(type = "json", params = {"root", "list"})})
     public String fromCStoExam() {
-        java.util.Date date1=new java.util.Date();
-        Date date=new Date(date1.getTime());
-        byte b=1;
-        examServiceI.serfromCStoExam("1","1",date,"王运发",b);
         return SUCCESS;
     }
 

@@ -20,7 +20,7 @@ import java.util.Map;
  * @author Jiang Tao
  */
 @Repository(value = "appealDao")
-public class AppealDaoImpl implements AppealDaoI{
+public class AppealDaoImpl implements AppealDaoI {
     private SessionFactory sessionFactory;
 
     @Resource(name = "sessionFactory")
@@ -29,81 +29,81 @@ public class AppealDaoImpl implements AppealDaoI{
     }
 
     @Override
-    public List<Appeal> getAppealsByCondition(Map<String,Object> conditions, boolean equalCondition) throws Exception {
+    public List<Appeal> getAppealsByCondition(Map<String, Object> conditions, boolean equalCondition) throws Exception {
         //TO CHECK
-        if(equalCondition){
+        if (equalCondition) {
             //teacher mod
             Session session = sessionFactory.getCurrentSession();
             List list = null;
             Integer con = (Integer) conditions.get("type");
             String tch_id = (String) conditions.get("tch");
-            switch (con){
-                case -1:{
+            switch (con) {
+                case -1: {
                     String hql = "from Appeal appeal where appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
-                    query.setParameter("tch",tch_id);
+                    query.setParameter("tch", tch_id);
                     list = query.list();
                     break;
                 }
 
-                case 0:{
+                case 0: {
                     String hql = "from Appeal appeal where appeal.status = 0 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
-                    query.setParameter("tch",tch_id);
+                    query.setParameter("tch", tch_id);
                     list = query.list();
                     break;
                 }
 
-                case 1:{
+                case 1: {
                     String hql = "from Appeal appeal where appeal.status = 1 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
-                    query.setParameter("tch",tch_id);
+                    query.setParameter("tch", tch_id);
                     list = query.list();
                     break;
                 }
 
-                case 2:{
+                case 2: {
                     String hql = "from Appeal appeal where appeal.status = 2 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
-                    query.setParameter("tch",tch_id);
+                    query.setParameter("tch", tch_id);
                     list = query.list();
                     break;
                 }
 
-                case 3:{
+                case 3: {
                     String hql = "from Appeal appeal where appeal.status = 3 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
-                    query.setParameter("tch",tch_id);
+                    query.setParameter("tch", tch_id);
                     list = query.list();
                     break;
                 }
 
-                case 4:{
+                case 4: {
                     String hql = "from Appeal appeal where appeal.status = 4 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
-                    query.setParameter("tch",tch_id);
+                    query.setParameter("tch", tch_id);
                     list = query.list();
                     break;
                 }
 
-                case 5:{
+                case 5: {
                     String hql = "from Appeal appeal where appeal.status = 5 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
-                    query.setParameter("tch",tch_id);
+                    query.setParameter("tch", tch_id);
                     list = query.list();
                     break;
                 }
 
-                case 6:{
+                case 6: {
                     String hql = "from Appeal appeal where appeal.status = 6 and appeal.tchId=:tch";
                     Query query = session.createQuery(hql);
-                    query.setParameter("tch",tch_id);
+                    query.setParameter("tch", tch_id);
                     list = query.list();
                     break;
                 }
             }
             return list;
-        }else{
+        } else {
             //student mod
             //TODO
             return null;
@@ -127,12 +127,12 @@ public class AppealDaoImpl implements AppealDaoI{
     public boolean addAppeals(List<Appeal> appeals) {
         boolean flag = true;
         //TO CHECK
-        try{
+        try {
             Session session = sessionFactory.getCurrentSession();
-            for(Appeal appeal : appeals){
+            for (Appeal appeal : appeals) {
                 session.save(appeal);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             flag = false;
         }
@@ -143,15 +143,15 @@ public class AppealDaoImpl implements AppealDaoI{
     public boolean deleteAppeals(List<Appeal> appeals) {
         //TO CHECK
         boolean flag = true;
-        try{
+        try {
             String hql = "delete from Appeal appeal where appeal.stuId=:stuId and appeal.crsId=:crsId and appeal.tchId=:tchId and appeal.dpmId=:dpmId and appeal.date=date";
             Session session = sessionFactory.getCurrentSession();
             Query query = session.createQuery(hql);
-            for(Appeal appeal:appeals){
+            for (Appeal appeal : appeals) {
                 query.setProperties(appeal);
                 query.executeUpdate();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             flag = false;
         }
@@ -159,15 +159,26 @@ public class AppealDaoImpl implements AppealDaoI{
     }
 
     @Override
+    public List<Appeal> getAppealsInPage(String stuId, int pageNumber, int appealStatus) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Appeal> query = session.createQuery("from Appeal a where a.stuId=?1 and a.status=?2", Appeal.class);
+        query.setParameter(1, stuId);
+        query.setParameter(2, appealStatus);
+        query.setMaxResults(10);
+        query.setFirstResult((pageNumber - 1) * 10);
+        return query.list();
+    }
+
+    @Override
     public boolean updateAppeals(List<Appeal> appeals) {
         //TO CHECK
         boolean flag = true;
-        try{
+        try {
             Session session = sessionFactory.getCurrentSession();
-            for(Appeal appeal : appeals){
+            for (Appeal appeal : appeals) {
                 session.update(appeal);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             flag = false;
         }

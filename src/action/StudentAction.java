@@ -42,6 +42,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     private String[][] exams;
     private String[][] scores;
     private String[][] appeal;
+
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}))
     public String login() {
         Student student = studentService.loginByStuIdAndPass(stu.getStuId(), stu.getPassword());
@@ -122,8 +123,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
                 exams[i][2] = examList.get(i).getCourseByCrs().getCrsName();
                 exams[i][3] = examList.get(i).getDepartmentByDpm().getDpmName();
                 exams[i][4] = examList.get(i).getLocation();
-                date = examList.get(i).getDate();
-                exams[i][5] = date.getYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日" + (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
+                exams[i][5] = examList.get(i).getDate();
                 status = examList.get(i).getStatus();
                 exams[i][6] = status == 0 ? "未编排" : status == 1 ? "编排中" : status == 2 ? "未开始" : "已结束";
             }
@@ -201,24 +201,35 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return ERROR;
     }
 
+    @Action(value = "getPassedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getPassedAppeal() {
+        Student currStu = (Student) session.get("currStu");
+        int appealStatus = 0;//审核中
+        appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
+        if (appeal != null)
+            return SUCCESS;
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
+    @Action(value = "getFailedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
+    public String getFailedAppeal() {
+        Student currStu = (Student) session.get("currStu");
+        int appealStatus = 0;//审核中
+        appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
+        if (appeal != null)
+            return SUCCESS;
+        result = "{\"result\":\"Error\"}";
+        return ERROR;
+    }
+
     @Action(value = "getProgressAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getProgressAppeal() {
         Student currStu = (Student) session.get("currStu");
-        schedules = studentService.getAllScoreInfo(currStu.getStuId(), pageNumber);
-        if (schedules.size() > 0) {
-            scores = new String[schedules.size()][8];
-            for (int i = 0; i < scores.length; i++) {
-                scores[i][0] = schedules.get(i).getCrs();
-                scores[i][1] = schedules.get(i).getDpm();
-                scores[i][2] = schedules.get(i).getTch();
-                scores[i][3] = schedules.get(i).getCourseByCrs().getCrsName();
-                scores[i][4] = schedules.get(i).getDepartmentByDpm().getDpmName();
-                scores[i][5] = schedules.get(i).getTeacherByTch().getName();
-                scores[i][6] = schedules.get(i).getTerm() + "学期";
-                scores[i][7] = schedules.get(i).getScore() + "";
-            }
+        int appealStatus = 0;//审核中
+        appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
+        if (appeal != null)
             return SUCCESS;
-        }
         result = "{\"result\":\"Error\"}";
         return ERROR;
     }

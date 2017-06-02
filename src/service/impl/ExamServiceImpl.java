@@ -7,7 +7,6 @@ import service.i.ExamServiceI;
 import team.jiangtao.entity.Exam;
 
 import javax.annotation.Resource;
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -25,13 +24,13 @@ public class ExamServiceImpl implements ExamServiceI {
 
     @Override
     @Transactional
-    public void sermodExam(String dpm, String crs, Date date, String location, byte status) {
+    public void sermodExam(String dpm, String crs, String date, String location, byte status) {
         examDaoI.modifyExam(dpm, crs, date, location, status);
     }
 
     @Override
     @Transactional
-    public void serfromCStoExam(String dpm, String crs, Date date, String location, byte status) {
+    public void serfromCStoExam(String dpm, String crs, String date, String location, byte status) {
            examDaoI.fromCStoExam(dpm, crs, date, location, status);
     }
 

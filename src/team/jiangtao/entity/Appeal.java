@@ -17,7 +17,7 @@ public class Appeal {
     private Date date;
     private String content;
     private String response;
-    private byte status;//0 审核中,1 未通过,2 已通过
+    private byte status;//0 新的复查 1已读 2 已标记 3 更新的 4 已回执的 5 关闭的
     private Department departmentByDpmId;
     private Course courseByCrsId;
     private Student studentByStuId;

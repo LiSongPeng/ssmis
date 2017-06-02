@@ -11,7 +11,7 @@ import java.sql.Date;
 public class Exam {
     private String dpm;
     private String crs;
-    private Date date;
+    private String date;//06月01日13:30-15:00
     private String location;
     private byte status;//0 未编排,1 编排中,2未开始,3 已结束
     private Department departmentByDpm;
@@ -39,11 +39,11 @@ public class Exam {
 
     @Basic
     @Column(name = "date")
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

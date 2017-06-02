@@ -12,10 +12,10 @@ public class CourseSchedule {
     private String dpmId;
     private String crsId;
     private String tchId;
-    private byte type;
-    private byte preriods;
-    private byte credit;
-    private byte term;
+    private byte type;//0 选修,1 必修
+    private byte preriods;//课时
+    private byte credit;//学分
+    private byte term;//学期(1-8)
     private Department departmentByDpmId;
     private Course courseByCrsId;
     private Teacher teacherByTchId;
@@ -121,7 +121,7 @@ public class CourseSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false, updatable = false, insertable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
     }
@@ -131,7 +131,7 @@ public class CourseSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false, updatable = false, insertable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
     }
@@ -141,7 +141,7 @@ public class CourseSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false, updatable = false, insertable = false)
     public Teacher getTeacherByTchId() {
         return teacherByTchId;
     }

@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `Exam`;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Exam` (
-  `dpm`      CHAR(8)     NOT NULL,
-  `crs`      CHAR(8)     NOT NULL,
-  `date`     DATE        NOT NULL,
-  `location` VARCHAR(64) NOT NULL,
-  `status`   TINYINT(4)  NOT NULL DEFAULT '0',
+  `dpm`      CHAR(8)      NOT NULL,
+  `crs`      CHAR(8)      NOT NULL,
+  `date`     VARCHAR(100) NOT NULL,
+  `location` VARCHAR(64)  NOT NULL,
+  `status`   TINYINT(4)   NOT NULL DEFAULT '0',
   PRIMARY KEY (`dpm`, `crs`),
   KEY `exam_course_crs_id_fk` (`crs`),
   CONSTRAINT `exam_course_crs_id_fk` FOREIGN KEY (`crs`) REFERENCES `course` (`crs_id`),

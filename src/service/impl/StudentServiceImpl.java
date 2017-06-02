@@ -9,10 +9,7 @@ import service.i.StudentServiceI;
 import team.jiangtao.entity.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service(value = "studentService")
 public class StudentServiceImpl implements StudentServiceI {
@@ -21,6 +18,7 @@ public class StudentServiceImpl implements StudentServiceI {
     private StudentScheduleDaoI studentScheduleDao;
     private ExamDaoI examDao;
     private CoursesTableDaoI courseTableDao;
+    private AppealDaoI appealDao;
 
     @Resource(name = "examDao")
     public void setExamDao(ExamDaoI examDao) {
@@ -46,6 +44,11 @@ public class StudentServiceImpl implements StudentServiceI {
     @Resource(name = "coursesTableDao")
     public void setCourseTableDao(CoursesTableDaoI courseTableDao) {
         this.courseTableDao = courseTableDao;
+    }
+
+    @Resource(name = "appealDao")
+    public void setAppealDao(AppealDaoI appealDao) {
+        this.appealDao = appealDao;
     }
 
     @Override
@@ -158,5 +161,30 @@ public class StudentServiceImpl implements StudentServiceI {
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public List<StudentSchedule> getSelectedCoursesInfo(String stuId, int pageNumber) {
         return studentScheduleDao.findStudentSchedules(stuId, pageNumber);
+    }
+
+    @Override
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
+    public String[][] getAppeal(String stuId, int pageNumber, int appealStatus) {
+        List<Appeal> list = appealDao.getAppealsInPage(stuId, pageNumber, appealStatus);
+        String[][] appeals = null;
+        if (list.size() > 0) {
+            int status;
+            Date date;
+            appeals = new String[list.size()][8];
+            for (int i = 0; i < appeals.length; i++) {
+                appeals[i][0] = list.get(i).getCrsId();
+                appeals[i][1] = list.get(i).getDpmId();
+                appeals[i][2] = list.get(i).getTchId();
+                appeals[i][3] = list.get(i).getCourseByCrsId().getCrsName();
+                appeals[i][4] = list.get(i).getDepartmentByDpmId().getDpmName();
+                date = list.get(i).getDate();
+                appeals[i][5] = date.getYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日" + (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
+                appeals[i][6] = list.get(i).getContent();
+                status = list.get(i).getStatus();
+                appeals[i][7] = status == 0 ? "审核中" : status == 1 ? "未通过" : "已通过";
+            }
+        }
+        return appeals;
     }
 }

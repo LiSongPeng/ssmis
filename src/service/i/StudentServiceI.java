@@ -65,7 +65,7 @@ public interface StudentServiceI {
     /**
      * 根据学号查询学生所有成绩信息
      *
-     * @param stuId 学生学号
+     * @param stuId      学生学号
      * @param pageNumber 页码
      * @return 所有考试成绩信息
      */
@@ -79,4 +79,14 @@ public interface StudentServiceI {
      * @return 已选课程实体集合
      */
     List<StudentSchedule> getSelectedCoursesInfo(String stuId, int pageNumber);
+
+    /**
+     * 查询申诉信息
+     *
+     * @param stuId        学生学号
+     * @param pageNumber   页码
+     * @param appealStatus 要查询的申诉的申诉状态
+     * @return 申诉信息
+     */
+    String[][] getAppeal(String stuId, int pageNumber, int appealStatus);
 }
