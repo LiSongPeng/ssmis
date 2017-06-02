@@ -56,7 +56,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
         if (pageNumber > 0) {
             courseSchedules = courseService.getCourseSchedules(pageNumber);
         }
-        if (courseSchedules != null) {
+        if (courseSchedules != null && courseSchedules.size() > 0) {
             schedule = new String[courseSchedules.size()][8];
             for (int i = 0; i < schedule.length; i++) {
                 schedule[i][0] = courseSchedules.get(i).getCrsId();

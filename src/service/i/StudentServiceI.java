@@ -88,7 +88,7 @@ public interface StudentServiceI {
      * @param appealStatus 要查询的申诉的申诉状态
      * @return 申诉信息
      */
-    String[][] getAppeal(String stuId, int pageNumber, int appealStatus);
+    String[][] getAppeal(String stuId, int pageNumber, byte appealStatus);
 
     /**
      * 关闭申诉
@@ -100,4 +100,16 @@ public interface StudentServiceI {
      * @return 是否关闭
      */
     boolean closeAppeal(String stuId, String dpmId, String tchId, String crsId);
+
+    /**
+     * 申诉
+     *
+     * @param stuId         学号
+     * @param dpmId         院系编号
+     * @param tchId         教师编号
+     * @param crsId         课程编号
+     * @param appealContent 申诉内容
+     * @return 是否记录成功
+     */
+    boolean appeal(String stuId, String dpmId, String tchId, String crsId, String appealContent);
 }

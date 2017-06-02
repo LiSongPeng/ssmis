@@ -43,7 +43,7 @@ public interface StudentDaoI {
      * 更新student
      * @param student
      */
-    void updateStudent(Student student);
+    boolean updateStudent(Student student);
 
     /**
      * 添加student

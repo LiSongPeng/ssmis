@@ -45,6 +45,42 @@
             width: 80px;
             height: 80px;
         }
+
+        #appealModal {
+            width: 800px;
+            height: 200px;
+            background-color: white;
+            margin: 0 auto;
+        }
+
+        #footer, #header {
+            text-align: center;
+            color: black;
+        }
+
+        #back {
+            background-color: black;
+            opacity: 0.7;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 100;
+            left: 0px;
+            top: 0px;
+        }
+
+        .background {
+            display: none;
+        }
     </style>
 </head>
 <body title="<%=basePath%>">
@@ -85,6 +121,24 @@
             <div id="progressAppealTabBody" class="tabBody"></div>
             <div id="responsedAppealTabBody" class="tabBody"></div>
             <div id="closedAppealTabBody" class="tabBody"></div>
+        </div>
+    </div>
+</div>
+<div id="back" class="background"></div>
+<div id="container" class="background">
+    <div id="appealModal">
+        <div id="header">
+            <h4>申诉内容</h4>
+        </div>
+        <div id="content">
+            <div class="input-field">
+                <input id="appealContent" type="text" class="validate">
+                <label for="appealContent">填写申诉内容</label>
+            </div>
+        </div>
+        <div id="footer">
+            <a id="cancelAppeal" class="waves-effect waves-light btn">取消</a>
+            <a id="confirmAppeal" class="waves-effect waves-light btn">确认</a>
         </div>
     </div>
 </div>

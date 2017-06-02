@@ -9,7 +9,10 @@ import service.i.StudentServiceI;
 import team.jiangtao.entity.*;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service(value = "studentService")
 public class StudentServiceImpl implements StudentServiceI {
@@ -66,10 +69,7 @@ public class StudentServiceImpl implements StudentServiceI {
     @Override
     @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
     public boolean changeStudentInfo(Student currStu) {
-        boolean result = false;
-        studentDao.updateStudent(currStu);
-        result = true;
-        return result;
+        return studentDao.updateStudent(currStu);
     }
 
     @Override
@@ -165,13 +165,13 @@ public class StudentServiceImpl implements StudentServiceI {
 
     @Override
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
-    public String[][] getAppeal(String stuId, int pageNumber, int appealStatus) {
+    public String[][] getAppeal(String stuId, int pageNumber, byte appealStatus) {
         List<Appeal> list = appealDao.getAppealsInPage(stuId, pageNumber, appealStatus);
         String[][] appeals = null;
         if (list.size() > 0) {
             String status = null;
-            Date date;
-            appeals = new String[list.size()][8];
+            java.sql.Date date;
+            appeals = new String[list.size()][9];
             for (int i = 0; i < appeals.length; i++) {
                 appeals[i][0] = list.get(i).getCrsId();
                 appeals[i][1] = list.get(i).getDpmId();
@@ -179,7 +179,7 @@ public class StudentServiceImpl implements StudentServiceI {
                 appeals[i][3] = list.get(i).getCourseByCrsId().getCrsName();
                 appeals[i][4] = list.get(i).getDepartmentByDpmId().getDpmName();
                 date = list.get(i).getDate();
-                appeals[i][5] = date.getYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日" + (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
+                appeals[i][5] = date.toLocaleString();
                 appeals[i][6] = list.get(i).getContent();
                 switch (list.get(i).getStatus()) {
                     case 0:
@@ -202,6 +202,7 @@ public class StudentServiceImpl implements StudentServiceI {
                         break;
                 }
                 appeals[i][7] = status;
+                appeals[i][8] = list.get(i).getResponse();
             }
         }
         return appeals;
@@ -213,5 +214,18 @@ public class StudentServiceImpl implements StudentServiceI {
         if (appealDao.closeAppeal(stuId, dpmId, tchId, crsId) > 0)
             return true;
         return false;
+    }
+
+    @Override
+    @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
+    public boolean appeal(String stuId, String dpmId, String tchId, String crsId, String appealContent) {
+        Appeal appeal = new Appeal();
+        appeal.setContent(appealContent);
+        appeal.setCrsId(crsId);
+        appeal.setTchId(tchId);
+        appeal.setDpmId(dpmId);
+        appeal.setDate(new java.sql.Date(new java.util.Date().getTime()));
+        appeal.setStuId(stuId);
+        return appealDao.saveAppeal(appeal);
     }
 }

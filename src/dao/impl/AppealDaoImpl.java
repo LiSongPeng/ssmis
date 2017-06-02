@@ -1,7 +1,6 @@
 package dao.impl;
 
 import dao.i.AppealDaoI;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -10,6 +9,7 @@ import team.jiangtao.entity.Appeal;
 import team.jiangtao.entity.AppealPK;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -160,20 +160,27 @@ public class AppealDaoImpl implements AppealDaoI {
     }
 
     @Override
-    public List<Appeal> getAppealsInPage(String stuId, int pageNumber, int appealStatus) {
+    public List<Appeal> getAppealsInPage(String stuId, int pageNumber, byte appealStatus) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "from Appeal a where a.stuId=?1 and a.status=?2";
         if (appealStatus == 0)
             hql = "from Appeal a where a.stuId=?1 and a.status<?2";
         Query<Appeal> query = session.createQuery(hql, Appeal.class);
         query.setParameter(1, stuId);
-        if (appealStatus == 0)
-            query.setParameter(2, 4);
-        else
+        if (appealStatus == 0) {
+            byte status = 4;
+            query.setParameter(2, status);
+        } else
             query.setParameter(2, appealStatus);
         query.setMaxResults(10);
         query.setFirstResult((pageNumber - 1) * 10);
-        return query.list();
+        List<Appeal> list = new ArrayList<>();
+        try {
+            list = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     @Override
@@ -188,6 +195,17 @@ public class AppealDaoImpl implements AppealDaoI {
         id.setStuId(stuId);
         query.setParameter(2, id);
         return query.executeUpdate();
+    }
+
+    @Override
+    public boolean saveAppeal(Appeal appeal) {
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            session.saveOrUpdate(appeal);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @Override

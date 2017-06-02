@@ -11,9 +11,11 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 @Repository(value = "studentDao")
 public class StudentDaoImpl implements StudentDaoI {
     private SessionFactory sessionFactory;
+
     @Resource(name = "sessionFactory")
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -21,7 +23,7 @@ public class StudentDaoImpl implements StudentDaoI {
 
     @Override
     public List<Student> findStudentByConditions(Map<String, Object> conditions, boolean... equalConditions) {
-        Session session=sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         StringBuilder hql = new StringBuilder("from Student stu where ");
         int i = 1;
         Set<Map.Entry<String, Object>> entries = conditions.entrySet();
@@ -46,7 +48,7 @@ public class StudentDaoImpl implements StudentDaoI {
 
     @Override
     public void updateStudentPropertiesByStu_id(Map<String, Object> newValues, String stu_id) {
-        Session session=sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         StringBuilder hql = new StringBuilder("update Student stu set ");
         Set<Map.Entry<String, Object>> entries = newValues.entrySet();
         for (Map.Entry<String, Object> each : entries) {
@@ -61,7 +63,7 @@ public class StudentDaoImpl implements StudentDaoI {
 
     @Override
     public void deleteStudentByConditions(Map<String, Object> conditions, boolean... equalConditions) {
-        Session session=sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         StringBuilder hql = new StringBuilder("delete from Student stu where ");
         int i = 1;
         Set<Map.Entry<String, Object>> entries = conditions.entrySet();
@@ -86,7 +88,7 @@ public class StudentDaoImpl implements StudentDaoI {
 
     @Override
     public void addStudents(List<Student> students) {
-        Session session=sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         if (students.size() == 0)
             return;
         for (Student each : students) {
@@ -95,14 +97,19 @@ public class StudentDaoImpl implements StudentDaoI {
     }
 
     @Override
-    public void updateStudent(Student student) {
-        Session session=sessionFactory.getCurrentSession();
-        session.update(student);
+    public boolean updateStudent(Student student) {
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            session.saveOrUpdate(student);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void addStudent(Student student) {
-        Session session=sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         session.save(student);
     }
 }

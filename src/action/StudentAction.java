@@ -42,6 +42,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     private String[][] exams;
     private String[][] scores;
     private String[][] appeal;
+    private String appealContent;
 
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}))
     public String login() {
@@ -137,7 +138,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     public String getSelectedCoursesInfo() {
         Student currStu = (Student) session.get("currStu");
         schedules = studentService.getSelectedCoursesInfo(currStu.getStuId(), pageNumber);
-        if (schedules != null) {
+        if (schedules != null && schedules.size() > 0) {
             selected = new String[schedules.size()][7];
             for (int i = 0; i < selected.length; i++) {
                 selected[i][0] = schedules.get(i).getCrs();
@@ -159,7 +160,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
         if (pageNumber > 0) {
             courseSchedules = courseService.getCourseSchedules(pageNumber);
         }
-        if (courseSchedules != null) {
+        if (courseSchedules != null && courseSchedules.size() > 0) {
             selectable = new String[courseSchedules.size()][10];
             for (int i = 0; i < selectable.length; i++) {
                 selectable[i][0] = courseSchedules.get(i).getCrsId();
@@ -193,7 +194,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
                 scores[i][4] = schedules.get(i).getDepartmentByDpm().getDpmName();
                 scores[i][5] = schedules.get(i).getTeacherByTch().getName();
                 scores[i][6] = schedules.get(i).getTerm() + "学期";
-                scores[i][7] = schedules.get(i).getScore() + "";
+                scores[i][7] = schedules.get(i).getScore() < 0 ? "未录入" : schedules.get(i).getScore() + "";
             }
             return SUCCESS;
         }
@@ -204,7 +205,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     @Action(value = "getResponsedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getResponsedAppeal() {
         Student currStu = (Student) session.get("currStu");
-        int appealStatus = 4;//已回执
+        byte appealStatus = 4;//已回执
         appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
         if (appeal != null)
             return SUCCESS;
@@ -215,7 +216,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     @Action(value = "getClosedAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getClosedAppeal() {
         Student currStu = (Student) session.get("currStu");
-        int appealStatus = 5;//已关闭
+        byte appealStatus = 5;//已关闭
         appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
         if (appeal != null)
             return SUCCESS;
@@ -226,7 +227,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     @Action(value = "getProgressAppeal", results = {@Result(type = "json", params = {"root", "appeal"}), @Result(name = "error", type = "json", params = {"root", "result"})})
     public String getProgressAppeal() {
         Student currStu = (Student) session.get("currStu");
-        int appealStatus = 0;//审核中,包括新建的,已读的,已标记的,更新的
+        byte appealStatus = 0;//审核中,包括新建的,已读的,已标记的,更新的
         appeal = studentService.getAppeal(currStu.getStuId(), pageNumber, appealStatus);
         if (appeal != null)
             return SUCCESS;
@@ -243,11 +244,11 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return SUCCESS;
     }
 
-    @Action(value = "appeal", results = @Result(type = "json", params = {"root", "appeal"}))
+    @Action(value = "appeal", results = @Result(type = "json", params = {"root", "result"}))
     public String appeal() {
         Student currStu = (Student) session.get("currStu");
         result = "{\"result\":\"Success\"}";
-        if (!studentService.closeAppeal(currStu.getStuId(), csche.getDpmId(), csche.getTchId(), csche.getCrsId()))
+        if (!studentService.appeal(currStu.getStuId(), csche.getDpmId(), csche.getTchId(), csche.getCrsId(), appealContent))
             result = "{\"result\":\"Error\"}";
         return SUCCESS;
     }
@@ -309,5 +310,13 @@ public class StudentAction extends ActionSupport implements SessionAware {
 
     public String[][] getScores() {
         return scores;
+    }
+
+    public void setAppealContent(String appealContent) {
+        this.appealContent = appealContent;
+    }
+
+    public String[][] getAppeal() {
+        return appeal;
     }
 }

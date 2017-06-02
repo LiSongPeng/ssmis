@@ -65,7 +65,7 @@ public interface AppealDaoI {
      * @param appealStatus 要查询的申诉信息的申诉状态
      * @return 申诉信息
      */
-    List<Appeal> getAppealsInPage(String stuId, int pageNumber, int appealStatus);
+    List<Appeal> getAppealsInPage(String stuId, int pageNumber, byte appealStatus);
 
     /**
      * 将Appeal表对应记录状态改成已关闭5状态
@@ -77,4 +77,6 @@ public interface AppealDaoI {
      * @return 影响的列
      */
     int closeAppeal(String stuId, String dpmId, String tchId, String crsId);
+
+    boolean saveAppeal(Appeal appeal);
 }

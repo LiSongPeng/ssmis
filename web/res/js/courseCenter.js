@@ -16,11 +16,11 @@ $(function () {
         selectedTabBody: function () {
             var tabBodyId = 'selectedTabBody'
             $.getJSON($("body").prop("title") + "/student/getSelectedCoursesInfo.action", {'pageNumber': currPage[tabBodyId] + 1}, function (json) {
-                if (json) {
+                window.clearTimeout(timer)
+                endLoading(tabBodyId)
+                if (typeof json != 'string') {
                     var table = "<table><thead><tr><td>课程编号</td><td>院系编号</td><td>教师编号</td><td>课程名称</td><td>院系名称</td><td>教师名称</td><td>学期</td><td>操作</td></tr></thead><tbody>"
                     currPage[tabBodyId]++
-                    window.clearTimeout(timer)
-                    endLoading(tabBodyId)
                     for (var i = 0; i < json.length; i++) {
                         table += "<tr>"
                         for (var j = 0; j < 7; j++) {
@@ -77,11 +77,11 @@ $(function () {
         selectableTabBody: function () {
             var tabBodyId = 'selectableTabBody'
             $.getJSON($("body").prop("title") + "/student/getSelectableCoursesInfo.action", {'pageNumber': currPage[tabBodyId] + 1}, function (json) {
-                if (json) {
+                window.clearTimeout(timer)
+                endLoading(tabBodyId)
+                if (typeof json != 'string') {
                     var table = "<table><thead><tr><td>课程编号</td><td>院系编号</td><td>教师编号</td><td>课程名称</td><td>院系名称</td><td>教师名称</td><td>学期</td><td>课程类型</td><td>课时</td><td>学分</td><td>操作</td></tr></thead><tbody>"
                     currPage[tabBodyId]++
-                    window.clearTimeout(timer)
-                    endLoading(tabBodyId)
                     for (var i = 0; i < json.length; i++) {
                         table += "<tr>"
                         for (var j = 0; j < 10; j++) {
@@ -137,11 +137,11 @@ $(function () {
         courseScheduleTabBody: function () {
             var tabBodyId = 'courseScheduleTabBody'
             $.getJSON($("body").prop("title") + "/course/getCoursesSchedule.action", {'pageNumber': currPage[tabBodyId] + 1}, function (json) {
-                if (json) {
+                window.clearTimeout(timer)
+                endLoading(tabBodyId)
+                if (typeof json != 'string') {
                     var table = "<table><thead><tr><td>课程编号</td><td>课程名称</td><td>任课教师</td><td>学分</td><td>课时</td><td>学期</td><td>课程类型</td><td>开设院系</td></tr></thead><tbody>"
                     currPage[tabBodyId]++
-                    window.clearTimeout(timer)
-                    endLoading(tabBodyId)
                     for (var i = 0; i < json.length; i++) {
                         table += "<tr>"
                         for (var j = 0; j < 8; j++) {
@@ -173,15 +173,16 @@ $(function () {
         },
 
         personalCourseTableTabBody: function () {
+            var tabBodyId = "personalCourseTableTabBody"
             $.getJSON($("body").prop("title") + "/course/getPersonalCourseTable.action", function (json) {
+                endLoading(tabBodyId)
+                window.clearTimeout(timer)
                 if (json.length == 1) {
-                    endLoading("personalCourseTableTabBody")
-                    window.clearTimeout(timer)
                     Materialize.toast("您还没选择任何课程", 1000)
                     return
                 }
                 var table = "<table><thead><tr><td></td><td>星期一</td><td>星期二</td><td>星期三</td><td>星期四</td><td>星期五</td></tr></thead></table>"
-                $("#personalCourseTableTabBody").html(table)
+                $("#" + tabBodyId).html(table)
                 var tbody = "<tbody>"
                 for (var i = 0; i < 11; i++) {
                     tbody += "<tr><td>第" + (i + 1) + "节</td>"
@@ -191,15 +192,13 @@ $(function () {
                     tbody += "</tr>"
                 }
                 tbody += "</tbody>"
-                $("#personalCourseTableTabBody table").append(tbody)
+                $("#" + tabBodyId + " table").append(tbody)
                 for (var i = 0; i < 5; i++) {
                     for (var j = 0; j < 11; j++) {
                         if (json[i][j])
                             $("." + j + i).html(json[i][j])
                     }
                 }
-                endLoading("personalCourseTableTabBody")
-                window.clearTimeout(timer)
             })
         }
     }
@@ -217,7 +216,7 @@ $(function () {
     })
     function loading(tabBodyId) {
         var loadingImg = "<img src='/ssmis/res/img/loading.gif' class='loadingImg'/>"
-        $('#' + tabBodyId).append(loadingImg)
+        $('#' + tabBodyId).html(loadingImg)
     }
 
     function endLoading(tabBodyId) {
@@ -234,7 +233,6 @@ $(function () {
             resolver[tabBodyId]()
         })
     }
-
 
     $('.collection-item').click(
         function () {

@@ -176,6 +176,7 @@ crs</ColNames>
     <column id="48" parent="9" name="response">
       <Position>7</Position>
       <DataType>varchar(128)|0</DataType>
+      <DefaultExpression>&apos;未回执&apos;</DefaultExpression>
     </column>
     <column id="49" parent="9" name="status">
       <Position>8</Position>
@@ -216,7 +217,7 @@ date</ColNames>
     <foreign-key id="56" parent="9" name="appeal_teacher_tch_id_fk">
       <ColNames>tch_id</ColNames>
       <RefSchemaName>ssmis</RefSchemaName>
-      <RefTableName>teacher</RefTableName>
+      <RefTableName>Teacher</RefTableName>
       <RefColNames>tch_id</RefColNames>
     </foreign-key>
     <foreign-key id="57" parent="9" name="appeal_student_stu_id_fk">
@@ -570,7 +571,7 @@ tch_id</ColNames>
       <Position>6</Position>
       <DataType>float|0</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <DefaultExpression>&apos;-1&apos;</DefaultExpression>
     </column>
     <index id="127" parent="16" name="student_chedule_course_crs_id_fk">
       <ColNames>crs</ColNames>
