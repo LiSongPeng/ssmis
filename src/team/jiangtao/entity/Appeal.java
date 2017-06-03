@@ -163,4 +163,21 @@ public class Appeal {
     public void setStudentByStuId(Student studentByStuId) {
         this.studentByStuId = studentByStuId;
     }
+
+    @Override
+    public String toString() {
+        return "Appeal{" +
+                "dpmId='" + dpmId + '\'' +
+                ", crsId='" + crsId + '\'' +
+                ", tchId='" + tchId + '\'' +
+                ", stuId='" + stuId + '\'' +
+                ", date=" + date +
+                ", content='" + content + '\'' +
+                ", response='" + response + '\'' +
+                ", status=" + status +
+                ", departmentByDpmId=" + departmentByDpmId +
+                ", courseByCrsId=" + courseByCrsId +
+                ", studentByStuId=" + studentByStuId +
+                '}';
+    }
 }
