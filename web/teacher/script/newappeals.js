@@ -49,7 +49,10 @@ function getAppeals(type) {
                     '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师：'+tchName+'</span></span>' +
                     '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师号：'+tchId+'</span></span>' +
                     '</div><div class="mdl-card__supporting-text" align="left">' +content+ '</div>' +
-                    '<div class="mdl-card__actions mdl-card--border" style="display: none"><div class="mdl-textfield mdl-js-textfield"><textarea class="mdl-textfield__input" type="text" rows= "3" id="rsp_'+aid+'" ></textarea><label class="mdl-textfield__label" for="rsp_'+aid+'">回复内容</label></div></div>' +
+                    '<div class="mdl-card__actions mdl-card--border" style="display: none"><div class="mdl-textfield mdl-js-textfield" style="width:100%;margin: 0 auto"><textarea class="mdl-textfield__input" type="text" rows= "3" id="rsp_'+aid+'" ></textarea><label class="mdl-textfield__label" for="rsp_'+aid+'">回复内容</label></div>' +
+                    '<div><button class="send-rsp mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"><i class="material-icons">send</i></button>' +
+                    '<button class="send-rsp mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect"><i class="material-icons">cancel</i></button>' +
+                    '</div></div>' +
                     '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="appeal-respond mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px"><i class="material-icons">edit</i>回复</button></div>' +
                     '</div></td></tr>';
                 $("#ap_table").append(tr);
@@ -88,6 +91,7 @@ $(function () {
 
     $("#ap_table").delegate(".appeal-respond","click",function () {
         $(this).parent().prev().fadeToggle("fast");
-        console.log($(this).attr("id"));
+        $(this).fadeToggle("fast");
+        //console.log($(this).attr("id"));
     })
 })
