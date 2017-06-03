@@ -11,4 +11,5 @@ public interface CourseScheduleServiceI {
     Integer ModifyCS(String dpm_id,String crs_id,String tch_id,byte type,byte preriods,byte credit,byte term);
     Integer deleCS(String dpm_id,String crs_id,String tch_id);
     List<CourseSchedule> serfindAllCS();
+    CourseSchedule serfindbyid(String crsId, String tchId, String dpmId);
 }

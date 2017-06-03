@@ -37,6 +37,12 @@ public class CourseScheduleServiceImpl implements CourseScheduleServiceI {
         return courseScheduleDaoI.findallCS();
     }
 
+    @Override
+    @Transactional
+    public CourseSchedule serfindbyid(String crsId, String tchId, String dpmId) {
+        return courseScheduleDaoI.findCourseSchedule(crsId, tchId, dpmId);
+    }
+
     @Resource(name = "courseScheduleDao")
     public void setCourseScheduleDao(CourseScheduleDaoI courseScheduleDao) {
         this.courseScheduleDaoI = courseScheduleDao;

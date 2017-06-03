@@ -20,10 +20,10 @@ public interface TeacherDaoI {
 
     /**
      *
-     * @param teacher with a not-null PK
+     * @param tid with a not-null PK
      * @return teacher
      */
-    Teacher findTeacherByPK(Teacher teacher);
+    Teacher findTeacherByPK(String tid);
 
     /**
      *

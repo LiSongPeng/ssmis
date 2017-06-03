@@ -12,8 +12,9 @@
 
     <link rel="stylesheet" href="res/jiangtao/lib/mdl/material.indigo-pink.min.css">
     <link rel="stylesheet" href="res/jiangtao/lib/mdl/icon.css">
-    <script defer src="res/jiangtao/lib/mdl/material.min.js"></script>
-    <script defer src="res/js/jquery-3.0.0.min.js"></script>
+    <script  src="res/jiangtao/lib/mdl/material.min.js"></script>
+    <script  src="res/js/jquery-3.0.0.min.js"></script>
+    <script src="res/js/jquery.cookie.js"></script>
 
 </head>
 <body>
@@ -49,9 +50,8 @@
                     <br>
 
                     <div>
-                        <button id="tch_sbm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float: left">
-                            登陆
-                        </button>
+                        <input type="button" value="登录" id="tch_sbm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float: left"/>
+
                         <button class="mdl-button mdl-js-button mdl-button--accent">
                             忘记密码
                         </button>
@@ -101,15 +101,128 @@
         </section>
     </main>
 </div>
-<script>
-    $(function () {
-        $("#tch_sbm").click(function () {|
-            if($("#tch_id").val()==""||$("#tch_pw").val()==""){
 
+<dialog class="mdl-dialog">
+    <h4 class="mdl-dialog__title">您的账号或密码不正确！</h4>
+    <div class="mdl-dialog__content">
+        <p>
+            登录失败，请重新登录！
+        </p>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button ok">确定</button>
+        <button type="button" class="mdl-button close">取消</button>
+    </div>
+</dialog>
+
+
+<script>
+
+    if ($.cookie("rmbUser") == "true") {
+        $("#ck_rmbUser").attr("checked", true);
+        $.ajax({
+            type:"post",
+            url:"teacher/login",
+            data:{
+                "teacher.tchId":$.cookie("username"),
+                "teacher.password":$.cookie("password"),
+            },
+            success:function(data){
+                if(data.rsp==1){
+                    sessionStorage.tchid=data.tch.tchId
+                    sessionStorage.tdpm=data.tch.dpmId
+                    window.location.href="http://localhost:8080/ssmis/teacher/main.html"
+                }else {
+                    var dialog = document.querySelector('dialog');
+                    dialog.showModal();
+                    if (! dialog.showModal) {
+                        dialogPolyfill.registerDialog(dialog);
+                    }
+                    dialog.querySelector('.ok').addEventListener('click', function() {
+                        dialog.close();
+                    });
+                    dialog.querySelector('.close').addEventListener('click', function() {
+                        dialog.close();
+                    });
+                }
             }
         })
+    }else {
+        $("#tch_sbm").click(function () {
+            if($("#tch_rm").get(0).checked){
+                var str_username = $("#tch_id").val();
+                var str_password = $("#tch_pw").val();
+                $.cookie("rmbUser", "true", { expires: 7 }); //存储一个带7天期限的cookie
+                $.cookie("username", str_username, { expires: 7 });
+                $.cookie("password", str_password, { expires: 7 });
+                $.ajax({
+                    type:"post",
+                    url:"teacher/login",
+                    data:{
+                        "teacher.tchId":$("#tch_id").val(),
+                        "teacher.password":$("#tch_pw").val(),
+                    },
+                    success:function(data){
+                        if(data.rsp==1){
 
-    })
+                            sessionStorage.tchid=data.tch.tchId
+                            sessionStorage.tdpm=data.tch.dpmId
+                            window.location.href="http://localhost:8080/ssmis/teacher/main.html"
+                        }else {
+                            var dialog = document.querySelector('dialog');
+                            dialog.showModal();
+                            if (! dialog.showModal) {
+                                dialogPolyfill.registerDialog(dialog);
+                            }
+                            dialog.querySelector('.ok').addEventListener('click', function() {
+                                dialog.close();
+                            });
+                            dialog.querySelector('.close').addEventListener('click', function() {
+                                dialog.close();
+                            });
+                        }
+                    }
+                })
+            }else {
+                $.cookie("rmbUser", "false", { expire: -1 });
+                $.cookie("username", "", { expires: -1 });
+                $.cookie("password", "", { expires: -1 });
+                $.ajax({
+                    type:"post",
+                    url:"teacher/login",
+                    data:{
+                        "teacher.tchId":$("#tch_id").val(),
+                        "teacher.password":$("#tch_pw").val(),
+                    },
+                    success:function(data){
+                        if(data.rsp==1){
+                            sessionStorage.tchname=data.tch.name
+                            sessionStorage.dep=data.tch.departmentByDpmId.dpmName
+                            sessionStorage.tchid=data.tch.tchId
+                            sessionStorage.tdpm=data.tch.dpmId
+                            window.location.href="http://localhost:8080/ssmis/teacher/main.html"
+                        }else {
+                            var dialog = document.querySelector('dialog');
+                            dialog.showModal();
+                            if (! dialog.showModal) {
+                                dialogPolyfill.registerDialog(dialog);
+                            }
+                            dialog.querySelector('.ok').addEventListener('click', function() {
+                                dialog.close();
+                            });
+                            dialog.querySelector('.close').addEventListener('click', function() {
+                                dialog.close();
+                            });
+                        }
+                    }
+                })
+            }
+        })}
+
+
+
+
+
 </script>
 </body>
 </html>

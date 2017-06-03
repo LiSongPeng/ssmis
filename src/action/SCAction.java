@@ -11,6 +11,7 @@ import service.i.CourseScheduleServiceI;
 import service.i.CourseServiceI;
 import team.jiangtao.entity.Course;
 import team.jiangtao.entity.CourseSchedule;
+import team.jiangtao.entity.CourseSchedulePK;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -27,6 +28,8 @@ public class SCAction extends ActionSupport{
     private List<Course> course1;
     private List<CourseSchedule> courseSchedules;
     private CourseScheduleServiceI courseScheduleServiceI;
+    private CourseSchedule courseSchedule;
+    private CourseSchedulePK courseSchedulePK;
     @Action(value = "getAllclass", results = {
             @Result(name = "error", type = "json", params = {"root", "result"}),
             @Result(type = "json", params = {"root", "course1"})})
@@ -37,12 +40,21 @@ public class SCAction extends ActionSupport{
     }
     @Action(value = "fromctocs", results = {
             @Result(name = "error", type = "json", params = {"root", "result"}),
-            @Result(type = "json", params = {"root", "courseSchedule"})})
+            @Result(type = "json", params = {"root", ""})})
     public String fromctocs() {
-        byte b=0;
-       courseServiceI.sercoursetocs("1","1","1",b,b,b,b);
+
+       courseServiceI.sercoursetocs(courseSchedule.getDpmId(),courseSchedule.getCrsId(),courseSchedule.getTchId(),courseSchedule.getType(),courseSchedule.getPreriods(),courseSchedule.getCredit(),courseSchedule.getTerm());
         return SUCCESS;
     }
+    @Action(value = "csfindbyid", results = {
+            @Result(name = "error", type = "json", params = {"root", "result"}),
+            @Result(type = "json", params = {"root", "courseSchedule"})})
+    public String csfindbyid() {
+        courseSchedule=courseScheduleServiceI.serfindbyid(courseSchedulePK.getCrsId(),courseSchedulePK.getTchId(),courseSchedulePK.getDpmId());
+       // System.out.println(courseSchedulePK.getCrsId()+courseSchedulePK.getTchId()+courseSchedulePK.getDpmId());
+        return SUCCESS;
+    }
+
     @Action(value = "modcs", results = {
             @Result(name = "error", type = "json", params = {"root", "result"}),
             @Result(type = "json", params = {"root", "courseSchedule"})})
@@ -90,5 +102,21 @@ public class SCAction extends ActionSupport{
 
     public void setCourseSchedules(List<CourseSchedule> courseSchedules) {
         this.courseSchedules = courseSchedules;
+    }
+
+    public CourseSchedule getCourseSchedule() {
+        return courseSchedule;
+    }
+
+    public void setCourseSchedule(CourseSchedule courseSchedule) {
+        this.courseSchedule = courseSchedule;
+    }
+
+    public CourseSchedulePK getCourseSchedulePK() {
+        return courseSchedulePK;
+    }
+
+    public void setCourseSchedulePK(CourseSchedulePK courseSchedulePK) {
+        this.courseSchedulePK = courseSchedulePK;
     }
 }
