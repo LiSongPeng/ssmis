@@ -43,17 +43,60 @@
     </div>
     <main class="mdl-layout__content">
         <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-            <div class="page-content" >
-                <iframe src="allCourse.html" frameborder="0" width="300" scrolling="No" height="200" leftmargin="0"  topmargin="0">
+        <div class="page-content">
+            <!-- Your content goes here -->
+            <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+                <header class="mdl-layout__header">
+                    <!-- Tabs -->
+                    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                        <a href="#allclass" class="mdl-layout__tab is-active">所有可发布课程</a>
+                        <a href="#allcs" class="mdl-layout__tab">已发布课程</a>
+                    </div>
+                </header>
+                <main class="mdl-layout__content">
+        <section class="mdl-layout__tab-panel is-active" id="allclass">
+            <div class="page-content"><iframe src="allCourse.html" frameborder="0" width="300" height="1000" scrolling="No" leftmargin="0"  topmargin="0">
 
-                </iframe>
-            </div>
+            </iframe></div>
         </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-            <div class="page-content">
-                <iframe src="allExam.html" frameborder="0" width="300" scrolling="No" height="200" leftmargin="0"  topmargin="0">
+        <section class="mdl-layout__tab-panel" id="allcs">
+            <div class="page-content"><iframe src="allCourseS.html" frameborder="0" width="300" scrolling="No" height="1000" leftmargin="0"  topmargin="0">
 
-                </iframe>
+            </iframe></div>
+        </section>
+
+    </main>
+</div>
+<!--content ends-->
+</div>
+</section>
+<section class="mdl-layout__tab-panel" id="fixed-tab-2">
+    <div class="page-content">
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+            <header class="mdl-layout__header">
+                <!-- Tabs -->
+                <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                    <a href="#allcstoexam" class="mdl-layout__tab is-active">可发布考试课程</a>
+                    <a href="#allexam" class="mdl-layout__tab">所有考试信息</a>
+                </div>
+            </header>
+            <main class="mdl-layout__content">
+                <section class="mdl-layout__tab-panel is-active" id="allcstoexam">
+                    <div class="page-content"><iframe src="allCstoexam.html" frameborder="0" width="300" scrolling="No" height="200" leftmargin="0"  topmargin="0">
+                    </iframe>
+                    </div>
+                </section>
+                <section class="mdl-layout__tab-panel" id="allexam">
+                    <div class="page-content"><iframe src="allExam.html" frameborder="0" width="300" scrolling="No" height="200" leftmargin="0"  topmargin="0">
+
+                    </iframe></div>
+                </section>
+
+            </main>
+        </div>
+               </iframe>
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">

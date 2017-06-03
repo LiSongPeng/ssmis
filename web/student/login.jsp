@@ -17,16 +17,10 @@
 </head>
 <body title="<%=basePath%>">
 <div class="row light-blue">
-    <div class="col s2 white-text"><h4>学生用户登录</h4></div>
-    <div class="col s2 offset-s6">
-        <div style="height: 20px;"></div>
-        <button class="btn waves-effect waves-light pink" type="submit">联系我们
-        </button>
+    <div class="col s4 white-text"><h4>学生用户登录</h4></div>
+    <div class="col s3 offset-s2">
     </div>
-    <div class="col s2">
-        <div style="height: 20px;"></div>
-        <button class="btn waves-effect waves-light pink" type="submit">网站信息
-        </button>
+    <div class="col s3">
     </div>
 </div>
 <div class="row container">

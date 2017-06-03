@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.AppealServiceI;
 import service.i.CommentServiceI;
+import service.i.TeacherServiceI;
 import team.jiangtao.entity.Appeal;
 import team.jiangtao.entity.Comment;
 import team.jiangtao.entity.Teacher;
@@ -32,9 +33,10 @@ public class TeacherAction extends ActionSupport {
     private Teacher teacher;
     private Appeal appeal;
     private Comment comment;
-    private Integer operation;
+    private String operation;
     private String rsp;
-    private Map<String,Object> session;
+    private TeacherServiceI teacherServiceI;
+    private Map<String,Object> session=new HashMap<>();
     private String isRememberPsw;
 
 
@@ -52,6 +54,10 @@ public class TeacherAction extends ActionSupport {
         this.teacher = teacher;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
     public void setAppeal(Appeal appeal) {
         this.appeal = appeal;
     }
@@ -64,11 +70,11 @@ public class TeacherAction extends ActionSupport {
         this.comment = comment;
     }
 
-    public Integer getOperation() {
+    public String getOperation() {
         return operation;
     }
 
-    public void setOperation(Integer operation) {
+    public void setOperation(String operation) {
         this.operation = operation;
     }
 
@@ -96,18 +102,33 @@ public class TeacherAction extends ActionSupport {
         this.isRememberPsw = isRememberPsw;
     }
 
-    @Action(value = "login",results = @Result(type = "json",params={"root","rsp"}))
+    @Resource(name = "TeacherService")
+    public void setTeacherServiceI(TeacherServiceI teacherServiceI) {
+        this.teacherServiceI = teacherServiceI;
+    }
+
+    @Action(value = "login",results = @Result(type = "json",params={"root","session"}))
     public String teacherLogin(){
         //write to test.
         isRememberPsw="0";
         rsp="0";
-        if(teacher.getTchId().equals(teacher.getPassword())){
-            session.put("tch_id", teacher);
+        String tid=teacher.getTchId();
+        String tpw=teacher.getPassword();
+        Teacher teacher2=new Teacher();
+        teacher=teacherServiceI.findTeacherbuid(tid);
+        teacher2.setTchId(teacher.getTchId());
+        teacher2.setDpmId(teacher.getDpmId());
+        teacher2.setPassword(teacher.getPassword());
+        teacher2.setName(teacher.getName());
+        teacher2.setDepartmentByDpmId(teacher.getDepartmentByDpmId());
+        if(tpw.equals(teacher2.getPassword())){
+            session.put("tch", teacher2);
             rsp="1";
-        }
-        rsp = "{"+rsp+","+isRememberPsw+"}";
+            session.put("rsp",rsp);
+        };
         return SUCCESS;
     }
+
 
     public String teahcerLogout(){
         //TODO
@@ -115,11 +136,6 @@ public class TeacherAction extends ActionSupport {
 
     }
 
-    public String getTeacher(){
-        //TODO
-        return SUCCESS;
-
-    }
 
     public String modifyTeacher(){
         //TODO

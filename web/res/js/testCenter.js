@@ -62,6 +62,11 @@ $(function () {
                             var appealContent
                             var tr = $(this).closest("tr")
                             var tds = tr.children()
+                            var score = tds[7].innerHTML
+                            if (score == '未录入') {
+                                Materialize.toast("成绩尚未录入!", 1000)
+                                return
+                            }
                             var crsId = tds[0].innerHTML
                             var dpmId = tds[1].innerHTML
                             var tchId = tds[2].innerHTML

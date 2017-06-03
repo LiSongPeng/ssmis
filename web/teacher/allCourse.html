@@ -3,45 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>学生选课-全部课程</title>
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/icon.css">
     <script src="../res/js/jquery-3.0.0.min.js"></script>
     <script src="../res/js/materialize.min.js"></script>
-    <script type="text/javascript">
-        $.ajax({
-            type:"post",
-            url:"getAllclass",
-            success:function(data){
-                var tb="";
-                for(var index in data){
-                    tb+="<tr>";
-                    tb+="<td>"
-                        +data[index].crsId
-                        +"</td>"
-                    tb+="<td>"
-                        +data[index].crsName
-                        +"</td>"
-                    tb+="<td>"
-                        +data[index].summarization
-                        +"</td>"
+    <script  src="../res/jiangtao/lib/mdl/material.min.js"></script>
 
-                    tb+="<td>"
-                      +"<input type='button' value='发布课程' onclick=''/>"
-                      +"</td>"
-
-                    tb+="</tr>"
-                }
-                $("tbody").html(tb);
-            }
-        })
-    </script>
     <html>
     <head>
         <title></title>
     </head>
 <body>
-<table >
+<table align="center" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
     <thead>
     <tr>
-        <th data-field="crs_id">课程编号</th>
+        <th class="mdl-data-table__cell--non-numeric" data-field="crs_id">课程编号</th>
         <th data-field="crs_name">课程名称 </th>
         <th data-field="summarization">说明</th>
         <th data-field="ap">操作</th>
@@ -53,7 +29,176 @@
 
     </tbody>
 </table>
+<style>
+    .demo-list-item {
+        width: 300px;
+    }
+</style>
+
+<dialog name="dialog" class="mdl-dialog--full-width">
+    <h2 class="mdl-dialog__title">发布课程信息</h2>
+    <div class="mdl-dialog__content">
+        <ul class="demo-list-item mdl-list">
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   教师编号:<div id="tidmin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   教师姓名:<div id="tnamemin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   院系编号:<div id="depidmin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   院系名称:<div id="depnamemin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程编号:<div id="cidmin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程名称:<div id="cnamemin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程类型:<!-- Numeric Textfield -->
+                      <div id="coursetype" class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
+                        <label class="mdl-textfield__label" for="sample2">0 选修,1 必修</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                      </div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程课时:<!-- Numeric Textfield -->
+                      <div id="preriods" class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
+                        <label class="mdl-textfield__label" for="sample2">课时</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                      </div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程学分:<!-- Numeric Textfield -->
+                      <div id="credit" class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
+                        <label class="mdl-textfield__label" for="sample2">学分</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                      </div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程学期:<!-- Numeric Textfield -->
+                      <div id="term" class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
+                        <label class="mdl-textfield__label" for="sample2">学期(1-8)</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                      </div>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button ok">确定</button>
+        <button type="button" class="mdl-button close">取消</button>
+    </div>
+</dialog>
+<input type="hidden" name="hcid" id="hcid"/>
+
+<script type="text/javascript">
+    var tidmin=sessionStorage.tchid
+    var tnamemin=sessionStorage.tchname
+    var tdepid=sessionStorage.tdpm
+    var tdepname=sessionStorage.dep
+    $.ajax({
+        type:"post",
+        url:"getAllclass",
+        success:function(data){
+            var tb="";
+            for(var index in data){
+                tb+="<tr>";
+                tb+="<td class='mdl-data-table__cell--non-numeric'>"
+                    +data[index].crsId
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].crsName
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].summarization
+                    +"</td>"
+                var tbb="<td>"
+                    + "<input class='mdl-button mdl-js-button mdl-button--raised' type='button' value='发布课程' onclick='outclass(" + data[index].crsId + "," + '"' + data[index].crsName + '"' + ")'/>"
+                    + "</td>"
+
+                $.ajax({
+                    type:"post",
+                    url:"csfindbyid",
+                    async:false,
+                    data:{
+                        "courseSchedulePK.dpmId":tdepid,
+                        "courseSchedulePK.crsId":data[index].crsId,
+                        "courseSchedulePK.tchId":tidmin,
+                    },
+                    success:function(data) {
+                       if(data==null){
+                           tb += tbb
+                       }else {
+
+                           tb += "<td>"
+                               + "<input class='mdl-button mdl-js-button mdl-button--raised def' disabled type='button' value='已经发布' />"
+                               + "</td>"
+                       }
+
+                    }
+                })
+                tb+="</tr>"
+            }
+            $("tbody").html(tb);
+        }
+    })
+    function outclass(classid,claname) {
+        $("#hcid").val(classid)
+        document.getElementById("tidmin").innerHTML=tidmin
+        document.getElementById("cidmin").innerHTML=classid
+        document.getElementById("cnamemin").innerHTML=claname
+        document.getElementById("tnamemin").innerHTML=tnamemin
+        document.getElementById("depidmin").innerHTML=tdepid
+        document.getElementById("depnamemin").innerHTML=tdepname
+        var dialog = document.querySelector('dialog')
+        dialog.showModal();
+        if (! dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.querySelector('.ok').addEventListener('click', function() {
+            var odpmid=tdepid
+            var ocrsid=$("#hcid").val()
+            var otchid=tidmin
+            var otype=document.getElementById("coursetype").innerHTML
+            var opre=document.getElementById("preriods").innerHTML
+            var ocre=document.getElementById("credit").innerHTML
+            var oterm=document.getElementById("term").innerHTML
+            $.ajax()
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        });
+    }
 
 
+</script>
 </body>
 </html>
