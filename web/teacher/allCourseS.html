@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生选课-全部已发布课程</title>
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/icon.css">
+    <script src="../res/js/jquery-3.0.0.min.js"></script>
+    <script src="../res/js/materialize.min.js"></script>
+    <script  src="../res/jiangtao/lib/mdl/material.min.js"></script>
+</head>
+<body>
+
+
+<table align="center" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+    <tr>
+        <th class="mdl-data-table__cell--non-numeric" data-field="crs_id">课程编号</th>
+        <th data-field="crs_name">课程名称 </th>
+        <th data-field="summarization">说明</th>
+        <th data-field="ap">操作</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+
+    </tbody>
+</table>
+<script type="text/javascript">
+    $.ajax({
+        type:"post",
+        url:"getAllclass",
+        success:function(data){
+            var tb="";
+            for(var index in data){
+                tb+="<tr>";
+                tb+="<td class='mdl-data-table__cell--non-numeric'>"
+                    +data[index].crsId
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].crsName
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].summarization
+                    +"</td>"
+
+
+                tb+="<td>"
+                    +"<input type='button' value='发布课程' onclick='outclass("+data[index].crsId+","+data[index].crsName+")'/>"
+                    +"</td>"
+
+                tb+="</tr>"
+            }
+            $("tbody").html(tb);
+        }
+    })
+</script>
+</body>
+</html>
