@@ -37,6 +37,7 @@ public class TeacherAction extends ActionSupport {
     private Map<String,Object> session;
     private String isRememberPsw;
 
+
     @Resource(name = "commentService")
     public void setCommentServiceI(CommentServiceI commentServiceI) {
         this.commentServiceI = commentServiceI;
@@ -198,19 +199,24 @@ public class TeacherAction extends ActionSupport {
      */
     @Action(value = "updateAppeals",results = @Result(type = "json",params={"root","rsp"}))
     public String updateAppeal(){
-        //TODO
-
+        System.out.println(appeal.toString());
         return SUCCESS;
     }
+
+    public Appeal getAppeal() {
+        return appeal;
+    }
+
     /**
      * @author Jiang Tao
      * @return SUCCESS
+
      */
     @Action(value = "getAppeals",results = @Result(type = "json",params={"root","rsp"}))
-    public String getAppeal() throws Exception {
-        //TODO
+    public String getAppealByType() throws Exception {
+        //TO FINISH
         Map<String,Object> stringObjectMap = new HashMap<>();
-        stringObjectMap.put("tch","00001");
+        stringObjectMap.put("tch","00001");//Instead of Session
         stringObjectMap.put("type",operation);
         List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
         rsp = JSON.toJSONString(list);

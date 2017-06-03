@@ -59,6 +59,22 @@ function getAppeals(type) {
     })
 }
 
+function update() {
+    var appeal={
+
+        'appeal.dpmId':0001,
+        'appeal.crsId':0002,
+        'appeal.tchId':0003,
+        'appeal.stuId':0004,
+        'appeal.status':5
+
+    };
+    var json = $.param(appeal);
+    console.log(json);
+    $.getJSON('updateAppeals',json,function () {
+
+    })
+}
 $(function () {
     $("#ly_4").click(function () {
         getAppeals(-1);
@@ -70,4 +86,5 @@ $(function () {
             $("#np_tag").fadeOut("fast");
         })
     })
+    update();
 })

@@ -63,7 +63,7 @@ public class TestAction extends ActionSupport {
         temp.setCrsId("00000");
         temp.setDpmId("002");
         temp.setTchId("00001");
-        temp.setStuId("00002");
+        temp.setStuId("00001");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date parsed = format.parse("2017-05-17");
         temp.setDate(new java.sql.Date(parsed.getTime()));
