@@ -16,9 +16,7 @@ import team.jiangtao.entity.Comment;
 import team.jiangtao.entity.Teacher;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by tose on 2017/4/12.
@@ -38,7 +36,15 @@ public class TeacherAction extends ActionSupport {
     private TeacherServiceI teacherServiceI;
     private Map<String,Object> session=new HashMap<>();
     private String isRememberPsw;
+    private long date;
 
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
 
     @Resource(name = "commentService")
     public void setCommentServiceI(CommentServiceI commentServiceI) {
@@ -208,7 +214,13 @@ public class TeacherAction extends ActionSupport {
      */
     @Action(value = "updateAppeals",results = @Result(type = "json",params={"root","rsp"}))
     public String updateAppeal(){
-        //System.out.println(appeal.toString());
+        Date dd = new Date(date);
+        appeal.setDate(new java.sql.Date(dd.getTime()));
+//        System.out.println(appeal.toString());
+        List<Appeal> appeals = new ArrayList<>();
+        appeals.add(appeal);
+        appealServiceI.updateAppeals(appeals);
+
         return SUCCESS;
     }
 

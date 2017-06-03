@@ -26,7 +26,8 @@ function getAppeals(type) {
                 var stuGender = n.studentByStuId.gender;
                 var stuclassNo = n.studentByStuId.classNo;
                 var date = new Date(n.date);
-                var aid = dpmId+"_"+crsId+"_"+tchId+"_"+"_"+stuId+"_"+n.date;
+                var aid = dpmId+"_"+crsId+"_"+tchId+"_"+stuId+"_"+n.date;
+
                 var tr = "<tr style='font-weight:bold;' class='expand-content'>" +
                     '<td><i class="material-icons">input</i></td>' +
                     '<td><span class="mdl-chip"><span class="mdl-chip__text">'+dpmName+"("+dpmId+")</span></span></td>" +
@@ -62,25 +63,58 @@ function getAppeals(type) {
     })
 }
 
-function updateStatus(appealId,status) {
+function updateStatus(appealId, status) {
+    var idArray = appealId.split("_");
     var appeal={
-        'appeal.dpmId':0001,
-        'appeal.crsId':0002,
-        'appeal.tchId':0003,
-        'appeal.stuId':0004,
-        'appeal.date': 00000,
+        'appeal.dpmId':idArray[1],
+        'appeal.crsId':idArray[2],
+        'appeal.tchId':idArray[3],
+        'appeal.stuId':idArray[4],
+        'date': idArray[5],
         'appeal.status':status
+    };
+    var json = $.param(appeal);
+    // console.log(json);
+    $.getJSON('updateAppeals',json,function () {});
+}
+
+function updateAppealContent(appealId, content) {
+    var idArray = appealId.split("_");
+    var appeal={
+        'appeal.dpmId':idArray[1],
+        'appeal.crsId':idArray[2],
+        'appeal.tchId':idArray[3],
+        'appeal.stuId':idArray[4],
+        'date': idArray[5],
+        'appeal.content': content
     };
     var json = $.param(appeal);
     $.getJSON('updateAppeals',json,function () {});
 }
 
+function saveDraw(appealId, content) {
+    var idArray = appealId.split("_");
+    var appeal={
+        'appeal.dpmId':idArray[1],
+        'appeal.crsId':idArray[2],
+        'appeal.tchId':idArray[3],
+        'appeal.stuId':idArray[4],
+        'date': idArray[5],
+        'appeal.content': content,
+        'appeal.status': 6
+    };
+    var json = $.param(appeal);
+    $.getJSON('updateAppeals',json,function () {});
+}
 $(function () {
     $("#ly_4").click(function () {
-        getAppeals(-1);
+        getAppeals(0);
         $("#ap_table").delegate(".expand-content","click",function () {
             $(this).css("font-weight","");
             $(this).next().fadeToggle("fast");
+            var obj = $(this).next().find("button").get(2);
+            var id = $(obj).attr("id");
+            updateStatus(id,1)
         })
         $("#tab-link-1").click(function () {
             $("#np_tag").fadeOut("fast");
@@ -102,6 +136,7 @@ $(function () {
         var text = $(this).parent().prev().children("textarea").get(0);
         var id = '#'+$(text).attr("id");
         var content = $(id).val();
-        updateStatus($(text).attr("id"),3);
+        updateStatus($(text).attr("id"),4);
+        updateAppealContent(content);
     })
 })
