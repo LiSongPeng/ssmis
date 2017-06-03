@@ -319,4 +319,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
     public String[][] getAppeal() {
         return appeal;
     }
+
+    public String[][] getExams() {
+        return exams;
+    }
 }
