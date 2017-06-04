@@ -10,6 +10,7 @@ import team.jiangtao.entity.StudentSchedule;
 import team.jiangtao.entity.StudentSchedulePK;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -72,6 +73,41 @@ public class StudentScheduleDaoImpl implements StudentScheduleDaoI {
         query.setParameter(1, stuId);
         query.setMaxResults(10);
         query.setFirstResult((pageNumber - 1) * 10);
+        return query.list();
+    }
+
+    @Override
+    public List<Student> findStudentsByCrsAndDpm(String dpm, String crs) {
+        String hql = "from StudentSchedule where dpm = ? and crs = ?";
+        Session session = sessionFactory.getCurrentSession();
+        Query<StudentSchedule> query = session.createQuery(hql, StudentSchedule.class);
+        query.setParameter(0, dpm);
+        query.setParameter(1, crs);
+        List<StudentSchedule> list = query.list();
+        List<Student> students = new ArrayList<>();
+        for (StudentSchedule studentSchedule : list) {
+            students.add(studentSchedule.getStudentByStu());
+        }
+        return students;
+    }
+
+    @Override
+    public StudentSchedule findByStuAndCrsAndDpm(String stu, String crs, String dpm) {
+        String hql = "from StudentSchedule where stu = ? and crs = ? and dpm =?";
+        Session session = sessionFactory.getCurrentSession();
+        Query<StudentSchedule> query = session.createQuery(hql, StudentSchedule.class);
+        query.setParameter(0, stu);
+        query.setParameter(1, crs);
+        query.setParameter(2, dpm);
+        return query.uniqueResult();
+    }
+
+    @Override
+    public List<StudentSchedule> findTeacherCourses(String tid) {
+        String hql = "from StudentSchedule where tch = ?";
+        Session session = sessionFactory.getCurrentSession();
+        Query<StudentSchedule> query = session.createQuery(hql, StudentSchedule.class);
+        query.setParameter(0, tid);
         return query.list();
     }
 

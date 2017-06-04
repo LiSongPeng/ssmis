@@ -228,4 +228,19 @@ public class StudentServiceImpl implements StudentServiceI {
         appeal.setStuId(stuId);
         return appealDao.saveAppeal(appeal);
     }
+
+    @Override
+    @Transactional
+    public List<Student> findStudentsByCrsAndDpm(String dpm, String crs) {
+        return studentScheduleDao.findStudentsByCrsAndDpm(dpm, crs);
+    }
+
+    @Override
+    @Transactional
+    public void enterScore(List<StudentSchedule> studentSchedules) {
+        studentSchedules.forEach(studentSchedule -> {
+            StudentSchedule schedule = studentScheduleDao.findByStuAndCrsAndDpm(studentSchedule.getStu(), studentSchedule.getCrs(), studentSchedule.getDpm());
+            schedule.setScore(studentSchedule.getScore());
+        });
+    }
 }

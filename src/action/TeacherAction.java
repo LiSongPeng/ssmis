@@ -38,6 +38,7 @@ public class TeacherAction extends ActionSupport {
     private TeacherServiceI teacherServiceI;
     private Map<String,Object> session=new HashMap<>();
     private String isRememberPsw;
+    private String tid;
 
 
     @Resource(name = "commentService")
@@ -126,6 +127,12 @@ public class TeacherAction extends ActionSupport {
             rsp="1";
             session.put("rsp",rsp);
         };
+        return SUCCESS;
+    }
+
+    @Action(value = "selfInfo",results = @Result(type = "json",params={"root","teacher"}))
+    public String  getSelfInfo(){
+        teacher =  teacherServiceI.findTeacherbuid(tid);
         return SUCCESS;
     }
 
@@ -285,5 +292,13 @@ public class TeacherAction extends ActionSupport {
     public String getStatic(){
         //TODO
         return SUCCESS;
+    }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
     }
 }

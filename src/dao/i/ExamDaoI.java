@@ -24,4 +24,7 @@ public interface ExamDaoI {
     void fromCStoExam(String dpm, String crs, String date, String location, byte status);
 
     void delExam(String dpm, String crs);
+
+    @SuppressWarnings("unchecked")
+    List<Exam> getExamed(String dpmId);
 }

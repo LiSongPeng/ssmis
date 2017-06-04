@@ -19,6 +19,9 @@ import java.util.List;
  */
 @Repository(value = "examDao")
 public class ExamDaoImpl implements ExamDaoI {
+    private static final String Examed_HQL = "from Exam e where e.status = 3 and dpm = ?";
+
+
     private SessionFactory sessionFactory;
 
     @Resource(name = "sessionFactory")
@@ -128,5 +131,14 @@ public class ExamDaoImpl implements ExamDaoI {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Exam> getExamed(String dpmId){
+        Session session = sessionFactory.getCurrentSession();
+        Query<Exam> query = session.createQuery(Examed_HQL, Exam.class);
+        query.setParameter(0, dpmId);
+        return query.list();
     }
 }

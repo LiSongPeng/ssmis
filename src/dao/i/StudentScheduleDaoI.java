@@ -1,5 +1,6 @@
 package dao.i;
 
+import team.jiangtao.entity.Student;
 import team.jiangtao.entity.StudentSchedule;
 
 import java.util.List;
@@ -43,4 +44,10 @@ public interface StudentScheduleDaoI {
      * @return 学生选课实体
      */
     List<StudentSchedule> findStudentSchedules(String stuId, int pageNumber);
+
+    List<Student> findStudentsByCrsAndDpm(String dpm, String crs);
+
+    StudentSchedule findByStuAndCrsAndDpm(String stu, String crs, String dpm);
+
+    List<StudentSchedule> findTeacherCourses(String tid);
 }

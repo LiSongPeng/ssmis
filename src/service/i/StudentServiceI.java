@@ -1,6 +1,7 @@
 package service.i;
 
 
+import org.springframework.transaction.annotation.Transactional;
 import team.jiangtao.entity.Exam;
 import team.jiangtao.entity.Student;
 import team.jiangtao.entity.StudentSchedule;
@@ -112,4 +113,8 @@ public interface StudentServiceI {
      * @return 是否记录成功
      */
     boolean appeal(String stuId, String dpmId, String tchId, String crsId, String appealContent);
+
+    List<Student> findStudentsByCrsAndDpm(String dpm, String crs);
+
+    void enterScore(List<StudentSchedule> studentSchedules);
 }

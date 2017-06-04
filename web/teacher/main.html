@@ -12,6 +12,12 @@
     <script src="../res/jiangtao/lib/d3.v3.min.js"></script>
     <script src="../res/jiangtao/lib/c3.min.js"></script>
     <link href="../res/jiangtao/lib/c3.min.css" rel="stylesheet" type="text/css">
+    <style>
+        .info{
+            font-size:14px;
+            line-height:20px !important;
+        }
+    </style>
 </head>
 <body>
 <!-- Simple header with fixed tabs. -->
@@ -33,9 +39,9 @@
     </header>
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">教师管理系统</span>
+        <span class="mdl-layout-title info">个人信息</span>
         <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="#">个人信息</a>
-        <a class="mdl-navigation__link" href="#">退出登陆</a>
+        <a class="mdl-navigation__link" href="#" id="logout">退出登陆</a>
         </nav>
     </div>
     <main class="mdl-layout__content">
@@ -97,7 +103,7 @@
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-            <div class="page-content">
+            <div class="page-content" id="enterScore">
                 <!-- Your content goes here -->
                     ##成绩录入
                 <!--content ends-->
@@ -233,3 +239,4 @@
 </div>
 </body>
 </html>
+<script src="./js/loadenterscore.js"></script>

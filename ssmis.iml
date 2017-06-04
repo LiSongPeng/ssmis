@@ -72,5 +72,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="junit-4.12" level="project" />
+    <orderEntry type="library" name="jackson-annotations-2.9.0.pr3" level="project" />
   </component>
 </module>

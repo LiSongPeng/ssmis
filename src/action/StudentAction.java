@@ -44,6 +44,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
     private String[][] appeal;
     private String appealContent;
 
+
     @Action(value = "login", results = @Result(type = "json", params = {"root", "result"}))
     public String login() {
         Student student = studentService.loginByStuIdAndPass(stu.getStuId(), stu.getPassword());
@@ -253,6 +254,9 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return SUCCESS;
     }
 
+
+
+
     public Student getStu() {
         return stu;
     }
@@ -323,4 +327,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
     public String[][] getExams() {
         return exams;
     }
+
+
+
+
 }
