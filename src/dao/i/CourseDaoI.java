@@ -26,4 +26,6 @@ public interface CourseDaoI {
      */
     List<Course> findallCourse();
 
+    List<Course> findbyname(String name);
+
 }

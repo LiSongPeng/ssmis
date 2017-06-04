@@ -139,10 +139,23 @@
                 tb+="<td>"
                     +data[index].location
                     +"</td>"
-
+                if(data[index].status==0){
                 tb+="<td>"
-                    +data[index].status
+                    +"未编排"
                     +"</td>"
+                }else if(data[index].status==1){
+                    tb+="<td>"
+                        +"编排中"
+                        +"</td>"
+                }else if(data[index].status==2){
+                    tb+="<td>"
+                        +"未开始"
+                        +"</td>"
+                }else if(data[index].status==3){
+                    tb+="<td>"
+                        +"已结束"
+                        +"</td>"
+                }
                 var ddp=data[index].dpm
                 var ccs=data[index].crs
                 var flag=0

@@ -62,4 +62,6 @@ public interface CourseServiceI {
      * @return 课程开设信息
      */
     List<CourseSchedule> getCourseSchedules(int pageNumber);
+
+    List<Course> getbyname(String name);
 }
