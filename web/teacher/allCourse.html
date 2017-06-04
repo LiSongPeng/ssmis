@@ -73,8 +73,8 @@
                 <span class="mdl-list__item-primary-content">
                    课程类型:<!-- Numeric Textfield -->
                       <div id="coursetype" class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
-                        <label class="mdl-textfield__label" for="sample2">0 选修,1 必修</label>
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="otype">
+                        <label class="mdl-textfield__label" for="otype">0 选修,1 必修</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
                       </div>
                 </span>
@@ -83,8 +83,8 @@
                 <span class="mdl-list__item-primary-content">
                    课程课时:<!-- Numeric Textfield -->
                       <div id="preriods" class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
-                        <label class="mdl-textfield__label" for="sample2">课时</label>
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="opre">
+                        <label class="mdl-textfield__label" for="opre">课时</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
                       </div>
                 </span>
@@ -93,8 +93,8 @@
                 <span class="mdl-list__item-primary-content">
                    课程学分:<!-- Numeric Textfield -->
                       <div id="credit" class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
-                        <label class="mdl-textfield__label" for="sample2">学分</label>
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="ocre">
+                        <label class="mdl-textfield__label" for="ocre">学分</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
                       </div>
                 </span>
@@ -103,8 +103,8 @@
                 <span class="mdl-list__item-primary-content">
                    课程学期:<!-- Numeric Textfield -->
                       <div id="term" class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
-                        <label class="mdl-textfield__label" for="sample2">学期(1-8)</label>
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="oterm">
+                        <label class="mdl-textfield__label" for="oterm">学期(1-8)</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
                       </div>
                 </span>
@@ -118,6 +118,7 @@
     </div>
 </dialog>
 <input type="hidden" name="hcid" id="hcid"/>
+
 
 <script type="text/javascript">
     var tidmin=sessionStorage.tchid
@@ -187,11 +188,30 @@
             var odpmid=tdepid
             var ocrsid=$("#hcid").val()
             var otchid=tidmin
-            var otype=document.getElementById("coursetype").innerHTML
-            var opre=document.getElementById("preriods").innerHTML
-            var ocre=document.getElementById("credit").innerHTML
-            var oterm=document.getElementById("term").innerHTML
-            $.ajax()
+            var otype=$("#otype").val()
+            var opre=$("#opre").val()
+            var ocre=$("#ocre").val()
+            var oterm=$("#oterm").val()
+
+            console.log(odpmid+ocrsid+otchid+otype+opre+ocre+oterm)
+            $.ajax({
+                type:"post",
+                url:"fromctocs",
+                data:{
+                    "courseSchedule.dpmId":odpmid,
+                    "courseSchedule.crsId":ocrsid,
+                    "courseSchedule.tchId":otchid,
+                    "courseSchedule.type":otype,
+                    "courseSchedule.preriods":opre,
+                    "courseSchedule.credit":ocre,
+                    "courseSchedule.term":oterm,
+                },
+                success:function(data){
+                    alert("发布成功")
+                    parent.location.reload()
+                    //window.location.href="http://localhost:8080/ssmis/teacher/main.html"
+                }
+            })
         });
         dialog.querySelector('.close').addEventListener('click', function() {
             dialog.close();

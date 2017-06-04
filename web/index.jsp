@@ -129,6 +129,8 @@
             },
             success:function(data){
                 if(data.rsp==1){
+                    sessionStorage.tchname=data.tch.name
+                    sessionStorage.dep=data.tch.departmentByDpmId.dpmName
                     sessionStorage.tchid=data.tch.tchId
                     sessionStorage.tdpm=data.tch.dpmId
                     window.location.href="http://localhost:8080/ssmis/teacher/main.html"
@@ -164,7 +166,8 @@
                     },
                     success:function(data){
                         if(data.rsp==1){
-
+                            sessionStorage.tchname=data.tch.name
+                            sessionStorage.dep=data.tch.departmentByDpmId.dpmName
                             sessionStorage.tchid=data.tch.tchId
                             sessionStorage.tdpm=data.tch.dpmId
                             window.location.href="http://localhost:8080/ssmis/teacher/main.html"

@@ -53,4 +53,6 @@ public interface CourseScheduleDaoI {
      * @return 课程开设信息
      */
     List<CourseSchedule> findCSByPageNumber(int pageNumber);
+
+    List<CourseSchedule> findCSbytwo(String tid);
 }

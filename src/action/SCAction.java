@@ -42,7 +42,7 @@ public class SCAction extends ActionSupport{
             @Result(name = "error", type = "json", params = {"root", "result"}),
             @Result(type = "json", params = {"root", ""})})
     public String fromctocs() {
-
+        System.out.println(courseSchedule.getDpmId()+courseSchedule.getCrsId()+courseSchedule.getTchId()+courseSchedule.getType()+courseSchedule.getPreriods()+courseSchedule.getCredit()+courseSchedule.getTerm());
        courseServiceI.sercoursetocs(courseSchedule.getDpmId(),courseSchedule.getCrsId(),courseSchedule.getTchId(),courseSchedule.getType(),courseSchedule.getPreriods(),courseSchedule.getCredit(),courseSchedule.getTerm());
         return SUCCESS;
     }
@@ -59,16 +59,16 @@ public class SCAction extends ActionSupport{
             @Result(name = "error", type = "json", params = {"root", "result"}),
             @Result(type = "json", params = {"root", "courseSchedule"})})
     public String modcs() {
-        byte b=1;
-       courseScheduleServiceI.ModifyCS("1","1","1",b,b,b,b);
+
+       courseScheduleServiceI.ModifyCS(courseSchedule.getDpmId(),courseSchedule.getCrsId(),courseSchedule.getTchId(),courseSchedule.getType(),courseSchedule.getPreriods(),courseSchedule.getCredit(),courseSchedule.getTerm());
         return SUCCESS;
     }
     @Action(value = "delcs", results = {
             @Result(name = "error", type = "json", params = {"root", "result"}),
-            @Result(type = "json", params = {"root", "courseSchedule"})})
+            @Result(type = "json", params = {"root", ""})})
     public String delcs() {
 
-        courseScheduleServiceI.deleCS("1","1","1");
+        courseScheduleServiceI.deleCS(courseSchedule.getDpmId(),courseSchedule.getCrsId(),courseSchedule.getTchId());
         return SUCCESS;
     }
     @Action(value = "allCS", results = {

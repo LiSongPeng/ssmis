@@ -3,8 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <title>考试信息发布-所有可发布考试课程信息</title>
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="../res/jiangtao/lib/mdl/icon.css">
+    <script src="../res/js/jquery-3.0.0.min.js"></script>
+    <script src="../res/js/materialize.min.js"></script>
+    <script  src="../res/jiangtao/lib/mdl/material.min.js"></script>
 </head>
 <body>
-考试信息发布-所有可发布考试信息
-</body>
+
+<table align="center" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+    <tr>
+        <th class="mdl-data-table__cell--non-numeric" data-field="crs_id">教师编号</th>
+        <th data-field="tid">教师名称 </th>
+        <th data-field="tname">院系编号</th>
+        <th data-field="depid">院系名称</th>
+        <th data-field="cid">课程编号</th>
+        <th data-field="cname">课程名称</th>
+        <th data-field="ctype">课程类型</th>
+        <th data-field="cpre">课程课时</th>
+        <th data-field="ccre">课程学分</th>
+        <th data-field="cterm">课程学期</th>
+        <th data-field="toexam">发布考试</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<dialog name="dialog" class="mdl-dialog--full-width">
+    <h2 class="mdl-dialog__title">发布课程信息</h2>
+    <div class="mdl-dialog__content">
+        <ul class="demo-list-item mdl-list">
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   教师编号:<div id="tidmin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   教师姓名:<div id="tnamemin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   院系编号:<div id="depidmin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   院系名称:<div id="depnamemin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程编号:<div id="cidmin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程名称:<div id="cnamemin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   考试时间:<!-- Numeric Textfield -->
+                    <!-- Simple Textfield -->
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="otime">
+                    <label class="mdl-textfield__label" for="otime">XX月XX日XX:XX-XX:XX</label>
+                  </div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   考试地点:<!-- Numeric Textfield -->
+                      <div id="preriods" class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="olocation">
+                        <label class="mdl-textfield__label" for="olocation">地点</label>
+                      </div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   考试标志:<!-- Numeric Textfield -->
+                      <div id="credit" class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="ostatus">
+                        <label class="mdl-textfield__label" for="ostatus">0 未编排,1 编排中,2未开始,3 已结束</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                      </div>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button ok">确定</button>
+        <button type="button" class="mdl-button close">取消</button>
+    </div>
+</dialog>
+<script type="text/javascript">
+    var tidmin=sessionStorage.tchid
+    var tnamemin=sessionStorage.tchname
+    var tdepid=sessionStorage.tdpm
+    var tdepname=sessionStorage.dep
+
+    $.ajax({
+        type:"post",
+        url:"allCS",
+        success:function(data){
+            var tb="";
+            for(var index in data){
+                tb+="<tr>";
+                tb+="<td class='mdl-data-table__cell--non-numeric'>"
+                    +data[index].tchId
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].teacherByTchId.name
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].dpmId
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].departmentByDpmId.dpmName
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].crsId
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].courseByCrsId.crsName
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].type
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].preriods
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].credit
+                    +"</td>"
+                tb+="<td>"
+                    +data[index].term
+                    +"</td>"
+               var sta=data[index].tchId
+               var tbb="<td>"
+                    +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' value='发布考试' onclick='toexam(" + data[index].crsId + "," + '"' + data[index].courseByCrsId.crsName + '"'+")'/>"
+                    +"</td>"
+                $.ajax({
+                    type:"post",
+                    url:"findbyid",
+                    async:false,
+                    data:{
+                       "examPK.dpm":data[index].dpmId,
+                       "examPK.crs":data[index].crsId
+                    },
+                    success:function(data) {
+                        console.log(".."+tidmin+".."+sta+".."+data)
+                        if (tidmin==sta&&data==null){
+                            tb+=tbb
+                        }else {
+                            tb+="<td>"
+                                +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' disabled value='无法发布'/>"
+                                +"</td>"
+
+                        }
+                    }
+                    })
+
+
+                tb+="</tr>"
+            }
+            $("tbody").html(tb);
+        }
+    })
+
+    function toexam(classid,claname) {
+        document.getElementById("tidmin").innerHTML=tidmin
+        document.getElementById("cidmin").innerHTML=classid
+        document.getElementById("cnamemin").innerHTML=claname
+        document.getElementById("tnamemin").innerHTML=tnamemin
+        document.getElementById("depidmin").innerHTML=tdepid
+        document.getElementById("depnamemin").innerHTML=tdepname
+        var dialog = document.querySelector('dialog')
+        dialog.showModal();
+        if (! dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.querySelector('.ok').addEventListener('click', function() {
+            var odpmid=tdepid
+            var ocrsid=classid
+            var odate=$("#otime").val()
+            var olocation=$("#olocation").val()
+            var ostatu=$("#ostatus").val()
+            $.ajax({
+                type:"post",
+                url:"fromCStoExam",
+                data:{
+                    "exam.dpm":odpmid,
+                    "exam.crs":ocrsid,
+                    "exam.date":odate,
+                    "exam.location":olocation,
+                    "exam.status":ostatu,
+                },
+                success:function(data){
+                    alert("发布成功")
+                    parent.location.reload()
+                    //window.location.href="http://localhost:8080/ssmis/teacher/main.html"
+                }
+            })
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        });
+
+
+        }
+</script>
+
+    </body>
 </html>

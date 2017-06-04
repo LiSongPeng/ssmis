@@ -3,15 +3,12 @@ package dao.impl;
 import dao.i.CourseScheduleDaoI;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.jdbc.Work;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import team.jiangtao.entity.Course;
 import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.CourseSchedulePK;
 
 import javax.annotation.Resource;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,32 +56,34 @@ public class CourseScheduleDaoImpl implements CourseScheduleDaoI {
 
     @Override
     public Integer modifyCS(String dpm_id, String crs_id, String tch_id, byte type, byte preriods, byte credit, byte term) {
+        System.out.println("www"+dpm_id+crs_id+tch_id+type+preriods+credit+term);
         Session session = sessionFactory.getCurrentSession();
         CourseSchedulePK pk = new CourseSchedulePK();
         pk.setCrsId(crs_id);
         pk.setDpmId(dpm_id);
         pk.setTchId(tch_id);
         Query<CourseSchedule> queryupdate = session.createQuery("from CourseSchedule cs where cs.id in ?1", CourseSchedule.class);
-
         List<CourseSchedule> list = queryupdate.setParameter(1, pk).list();
         CourseSchedule courseSchedule = list.get(0);
         courseSchedule.setType(type);
         courseSchedule.setPreriods(preriods);
         courseSchedule.setCredit(credit);
         courseSchedule.setTerm(term);
+
         return 1;
     }
 
     @Override
     public Integer deleteCS(String dpm_id, String crs_id, String tch_id) {
+        System.out.println("zzz"+dpm_id+crs_id+tch_id+"zzz");
         Session session = sessionFactory.getCurrentSession();
-        CourseSchedulePK pk = new CourseSchedulePK();
-        pk.setCrsId(crs_id);
-        pk.setDpmId(dpm_id);
-        pk.setTchId(tch_id);
-        Query query = session.createQuery("delete from CourseSchedule cs where cs.id=?1");
-        query.setParameter(1, pk);
-        int flag = query.executeUpdate();
+
+        Query query = session.createQuery("delete from CourseSchedule cs where cs.crsId=? and cs.dpmId=? and cs.tchId=?");
+        query.setParameter(0,crs_id);
+        query.setParameter(1,dpm_id);
+        query.setParameter(2,tch_id);
+        query.executeUpdate();
+        int flag=1;
 
         return flag;
     }
@@ -93,36 +92,9 @@ public class CourseScheduleDaoImpl implements CourseScheduleDaoI {
     public List<CourseSchedule> findallCS() {
         Session session = sessionFactory.getCurrentSession();
         List<CourseSchedule> list = new ArrayList<>();
-        final String sql = "select * from course_schedule";
-        CourseSchedule courseSchedule = new CourseSchedule();
-        try {
-            session.doWork(
-                    new Work() {
-                        @Override
-                        public void execute(Connection connection) throws SQLException {
-                            PreparedStatement ps = connection.prepareStatement(sql);
-                            ResultSet rs = ps.executeQuery();
-                            while (rs.next()) {
-                                courseSchedule.setCrsId(rs.getString("crs_id"));
-                                courseSchedule.setDpmId(rs.getString("dpm_id"));
-                                courseSchedule.setTchId(rs.getString("tch_id"));
-                                courseSchedule.setType(rs.getByte("type"));
-                                courseSchedule.setPreriods(rs.getByte("preriods"));
-                                courseSchedule.setCredit(rs.getByte("credit"));
-                                courseSchedule.setTerm(rs.getByte("term"));
-                                list.add(courseSchedule);
-                            }
-
-
-                        }
-                    }
-            );
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            this.doClose(session, null, null);
-        }
-        return list;
+        String hql="from CourseSchedule";
+        Query<CourseSchedule> query=session.createQuery(hql,CourseSchedule.class);
+        return query.list();
     }
 
     @Override
@@ -134,26 +106,12 @@ public class CourseScheduleDaoImpl implements CourseScheduleDaoI {
         return query.list();
     }
 
-    protected void doClose(Session session, Statement stmt, ResultSet rs) {
-        if (rs != null) {
-            try {
-                rs.close();
-                rs = null;
-            } catch (Exception ex) {
-                rs = null;
-                ex.printStackTrace();
-            }
-        }
-        // Statement对象关闭时,会自动释放其管理的一个ResultSet对象
-        if (stmt != null) {
-            try {
-                stmt.close();
-                stmt = null;
-            } catch (Exception ex) {
-                stmt = null;
-                ex.printStackTrace();
-            }
-        }
+    @Override
+    public List<CourseSchedule> findCSbytwo(String tid) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<CourseSchedule> query = session.createQuery("from CourseSchedule cs where cs.tchId=?", CourseSchedule.class);
+        query.setParameter(0,tid);
+        return query.list();
     }
 
 

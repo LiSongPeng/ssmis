@@ -5,34 +5,24 @@
     <title>考试信息发布-所有已发布课程</title>
 </head>
 <body>
+<link rel="stylesheet" href="../res/jiangtao/lib/mdl/material.indigo-pink.min.css">
+<link rel="stylesheet" href="../res/jiangtao/lib/mdl/icon.css">
 <script src="../res/js/jquery-3.0.0.min.js"></script>
 <script src="../res/js/materialize.min.js"></script>
-<script type="text/javascript">
+<script  src="../res/jiangtao/lib/mdl/material.min.js"></script>
 
-    $.ajax({
-        type:"post",
-        url:"allCS",
-        success:function(data){
-            var tb="";
-            for(var index in data){
-                tb+="<tr>";
-                tb+="<td>"
-
-                    +"</td>"
-
-                tb+="</tr>"
-            }
-            $("tbody").html(tb);
-        }
-    })
-</script>
-<table >
+<table align="center" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
     <thead>
     <tr>
-        <th data-field="crs_id">课程编号</th>
-        <th data-field="crs_name">课程名称 </th>
-        <th data-field="summarization">说明</th>
-        <th data-field="ap">操作</th>
+        <th class="mdl-data-table__cell--non-numeric" data-field="deid">院系编号</th>
+        <th data-field="depid">院系名称</th>
+        <th data-field="cid">课程编号</th>
+        <th data-field="cname">课程名称</th>
+        <th data-field="etime">考试时间</th>
+        <th data-field="elocation">考试地点</th>
+        <th data-field="estatu">考试状态</th>
+        <th data-field="emod">修改考试信息</th>
+        <th data-field="edel">删除考试信息</th>
     </tr>
     </thead>
 
@@ -42,5 +32,213 @@
     </tbody>
 </table>
 
+<dialog name="dialog" class="mdl-dialog--full-width">
+    <h2 class="mdl-dialog__title">发布课程信息</h2>
+    <div class="mdl-dialog__content">
+        <ul class="demo-list-item mdl-list">
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   教师编号:<div id="tidmin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   教师姓名:<div id="tnamemin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   院系编号:<div id="depidmin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   院系名称:<div id="depnamemin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程编号:<div id="cidmin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   课程名称:<div id="cnamemin"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   考试时间:<!-- Numeric Textfield -->
+                      <div id="coursetype" class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="otime">
+                        <label class="mdl-textfield__label" for="otime">mm月dd日hh:mm-gg:mm</label>
+                      </div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   考试地点:<!-- Numeric Textfield -->
+                      <div id="preriods" class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="olocation">
+                        <label class="mdl-textfield__label" for="olocation">考试地点</label>
+                      </div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   考试状态:<!-- Numeric Textfield -->
+                      <div id="credit" class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="ostatu">
+                        <label class="mdl-textfield__label" for="ostatu">0 未编排,1 编排中,2未开始,3 已结束</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                      </div>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button ok">确定</button>
+        <button type="button" class="mdl-button close">取消</button>
+    </div>
+</dialog>
+
+<script type="text/javascript">
+    var tidmin=sessionStorage.tchid
+    var tnamemin=sessionStorage.tchname
+    var tdepid=sessionStorage.tdpm
+    var tdepname=sessionStorage.dep
+    $.ajax({
+        type:"post",
+        url:"getAllexam",
+        success:function(data){
+            var tb="";
+            for(var index in data){
+
+                tb+="<tr>";
+                tb+="<td class='mdl-data-table__cell--non-numeric'>"
+                    +data[index].dpm
+                    +"</td>"
+
+                tb+="<td>"
+                    +data[index].departmentByDpm.dpmName
+                    +"</td>"
+
+                tb+="<td>"
+                    +data[index].crs
+                    +"</td>"
+
+                tb+="<td>"
+                    +data[index].courseByCrs.crsName
+                    +"</td>"
+
+                tb+="<td>"
+                    +data[index].date
+                    +"</td>"
+
+                tb+="<td>"
+                    +data[index].location
+                    +"</td>"
+
+                tb+="<td>"
+                    +data[index].status
+                    +"</td>"
+                var ddp=data[index].dpm
+                var ccs=data[index].crs
+                var flag=0
+                $.ajax({
+                    type: "post",
+                    url: "findbytwo",
+                    async: false,
+                    data: {
+                       "tid":tidmin
+                    },
+                    success: function (data) {
+
+                        for(var index in data){
+                            if(data[index].crsId==ccs&&ddp==tdepid){
+                                flag=1
+                            }
+                        }
+                    }
+                })
+                if (flag==1){
+                    tb+="<td>"
+                        +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' value='修改课程信息' onclick='modexam("+data[index].crs+","+ '"' +data[index].courseByCrs.crsName+ '"' +")'/>"
+                        +"</td>"
+                    tb+="<td>"
+                        +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' value='删除考试信息' onclick='delexam("+data[index].crs+")'/>"
+                        +"</td>"
+                }else {
+                    tb+="<td>"
+                        +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' disabled value='无权修改'/>"
+                        +"</td>"
+                    tb+="<td>"
+                        +"<input type='button'class='mdl-button mdl-js-button mdl-button--raised' disabled value='无权删除'/>"
+                        +"</td>"
+
+                }
+
+
+                    tb += "</tr>"
+            }
+            $("tbody").html(tb);
+        }
+
+    })
+
+    function modexam(clasid,clasname) {
+        document.getElementById("tidmin").innerHTML=tidmin
+        document.getElementById("cidmin").innerHTML=clasid
+        document.getElementById("cnamemin").innerHTML=clasname
+        document.getElementById("tnamemin").innerHTML=tnamemin
+        document.getElementById("depidmin").innerHTML=tdepid
+        document.getElementById("depnamemin").innerHTML=tdepname
+
+        var dialog = document.querySelector('dialog')
+        dialog.showModal();
+        if (! dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.querySelector('.ok').addEventListener('click', function() {
+        $.ajax({
+            type: "post",
+            url: "modExam",
+            data: {
+                "exam.dpm":tdepid,
+                "exam.crs":clasid,
+                "exam.date":$("#otime").val(),
+                "exam.location":$("#olocation").val(),
+                "exam.status":$("#ostatu").val()
+            },
+            success: function (data) {
+                alert("修改成功")
+                parent.location.reload()
+            }
+        })
+        })
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        });
+    }
+
+    function delexam(claid) {
+        $.ajax({
+            type:"post",
+            url:"delExam",
+            data: {
+                "exam.dpm":tdepid,
+                "exam.crs":claid,
+            },
+            success:function() {
+                alert("删除成功")
+                parent.location.reload()
+            }
+        })
+
+
+    }
+
+</script>
 </body>
 </html>
