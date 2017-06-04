@@ -19,10 +19,6 @@
     <style>
         a{ text-decoration:none}
 
-        .info{
-            font-size:14px;
-            line-height:20px !important;
-        }
     </style>
 </head>
 <body>
@@ -415,12 +411,30 @@
 
     $("#logout").click(function () {
         sessionStorage.clear()
-        $.cookie("rmbUser",null)
-        $.cookie("username",null );
-        $.cookie("password", null);
+        delCookie("rmbUser");
+        delCookie("username");
+        delCookie("password");
         window.location.href="http://localhost:8080/ssmis/"
 
     })
+
+    function delCookie(name)
+    {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval=getCookie(name);
+        if(cval!=null)
+            document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+    }
+
+    function getCookie(name)
+    {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
 </script>
 </body>
 </html>
