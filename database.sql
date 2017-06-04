@@ -241,12 +241,13 @@ DROP TABLE IF EXISTS `student_schedule`;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `student_schedule` (
-  `dpm`   CHAR(8)    NOT NULL,
-  `crs`   CHAR(8)    NOT NULL,
-  `tch`   CHAR(8)    NOT NULL,
-  `stu`   CHAR(8)    NOT NULL,
-  `term`  TINYINT(4) NOT NULL,
-  `score` FLOAT      NOT NULL DEFAULT '-1',
+  `dpm`         CHAR(8)    NOT NULL,
+  `crs`         CHAR(8)    NOT NULL,
+  `tch`         CHAR(8)    NOT NULL,
+  `stu`         CHAR(8)    NOT NULL,
+  `term`        TINYINT(4) NOT NULL,
+  `score`       FLOAT      NOT NULL DEFAULT '-1',
+  `exam_status` TINYINT    NOT NULL DEFAULT '0',
   PRIMARY KEY (`dpm`, `crs`, `tch`, `stu`),
   KEY `student_chedule_teacher_tch_id_fk` (`tch`),
   KEY `student_chedule_student_stu_id_fk` (`stu`),

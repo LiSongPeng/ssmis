@@ -3,7 +3,6 @@ package service.impl;
 import dao.i.CourseDaoI;
 import dao.i.CourseScheduleDaoI;
 import dao.i.CoursesTableDaoI;
-import dao.i.StudentScheduleDaoI;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +10,6 @@ import service.i.CourseServiceI;
 import team.jiangtao.entity.Course;
 import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.CoursesTable;
-import team.jiangtao.entity.StudentSchedule;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -128,6 +126,12 @@ public class CourseServiceImpl implements CourseServiceI {
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public List<CourseSchedule> getCourseSchedules(int pageNumber) {
         return courseScheduleDao.findCSByPageNumber(pageNumber);
+    }
+
+    @Override
+    @Transactional
+    public List<Course> getbyname(String name) {
+        return courseDao.findbyname(name);
     }
 
     @Resource(name = "courseDao")

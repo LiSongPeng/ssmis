@@ -43,11 +43,11 @@ $(function () {
                 window.clearTimeout(timer)
                 endLoading(tabBodyId)
                 if (typeof json != 'string') {
-                    var table = "<table><thead><tr><td>课程编号</td><td>院系编号</td><td>教师编号</td><td>课程名称</td><td>院系名称</td><td>教师名称</td><td>学期</td><td>得分</td><td>操作</td></tr></thead><tbody>"
+                    var table = "<table><thead><tr><td>课程编号</td><td>院系编号</td><td>教师编号</td><td>课程名称</td><td>院系名称</td><td>教师名称</td><td>学期</td><td>得分</td><td>状态</td><td>操作</td></tr></thead><tbody>"
                     currPage[tabBodyId]++
                     for (var i = 0; i < json.length; i++) {
                         table += "<tr>"
-                        for (var j = 0; j < 8; j++) {
+                        for (var j = 0; j < 9; j++) {
                             table += "<td>" + json[i][j] + "</td>"
                         }
                         table += "<td><a class='waves-effect waves-light btn appeal'>申诉</a></td>"
@@ -63,6 +63,11 @@ $(function () {
                             var tr = $(this).closest("tr")
                             var tds = tr.children()
                             var score = tds[7].innerHTML
+                            var examStatus = tds[8].innerHTML
+                            if (examStatus != "正常") {
+                                Materialize.toast("你由于" + examStatus + ",无法进行申诉", 1000)
+                                return
+                            }
                             if (score == '未录入') {
                                 Materialize.toast("成绩尚未录入!", 1000)
                                 return

@@ -36,6 +36,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
     private Map<String, Object> session;
     private int pageNumber;
     private String[][] schedule;
+    private List<Course> list;
 
     @Action(value = "getCoursesInfo", results = {@Result(name = "error", type = "json", params = {"root", "result"}), @Result(type = "json", params = {"root", "courseSchedules"})})
     public String getCoursesInfo() {
@@ -86,6 +87,11 @@ public class CourseAction extends ActionSupport implements SessionAware {
         courseTable = courseService.getPersonalCourseTable(stuId);
         return SUCCESS;
     }
+    @Action(value = "getbyname", results = @Result(type = "json", params = {"root", "list"}))
+    public String getbyname() {
+        list=courseService.getbyname(courseKeyName);
+        return SUCCESS;
+    }
 
     @Resource(name = "courseService")
     public void setCourseService(CourseServiceI courseService) {
@@ -124,6 +130,14 @@ public class CourseAction extends ActionSupport implements SessionAware {
         return courseTable;
     }
 
+    public List<Course> getList() {
+        return list;
+    }
+
+    public void setList(List<Course> list) {
+        this.list = list;
+    }
+
     @Override
     public void setSession(Map<String, Object> session) {
         this.session = session;
@@ -136,4 +150,5 @@ public class CourseAction extends ActionSupport implements SessionAware {
     public String[][] getSchedule() {
         return schedule;
     }
+
 }

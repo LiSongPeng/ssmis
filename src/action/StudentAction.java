@@ -186,7 +186,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
         Student currStu = (Student) session.get("currStu");
         schedules = studentService.getAllScoreInfo(currStu.getStuId(), pageNumber);
         if (schedules.size() > 0) {
-            scores = new String[schedules.size()][8];
+            scores = new String[schedules.size()][9];
+            byte examStatus;
             for (int i = 0; i < scores.length; i++) {
                 scores[i][0] = schedules.get(i).getCrs();
                 scores[i][1] = schedules.get(i).getDpm();
@@ -196,6 +197,8 @@ public class StudentAction extends ActionSupport implements SessionAware {
                 scores[i][5] = schedules.get(i).getTeacherByTch().getName();
                 scores[i][6] = schedules.get(i).getTerm() + "学期";
                 scores[i][7] = schedules.get(i).getScore() < 0 ? "未录入" : schedules.get(i).getScore() + "";
+                examStatus = schedules.get(i).getExamStatus();
+                scores[i][8] = examStatus == 0 ? "正常" : (examStatus == 1 ? "缺考" : "禁止考试");
             }
             return SUCCESS;
         }

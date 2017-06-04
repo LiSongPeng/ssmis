@@ -84,6 +84,14 @@ public class CourseDaoImpl implements CourseDaoI {
         return list;
     }
 
+    @Override
+    public List<Course> findbyname(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql="from Course c where c.crsName like '%" + name + "%'";
+        Query<Course> query=session.createQuery(hql,Course.class);
+        return query.list();
+    }
+
     protected void doClose(Session session, Statement stmt, ResultSet rs) {
         if (rs != null) {
             try {
