@@ -16,9 +16,7 @@ import team.jiangtao.entity.Comment;
 import team.jiangtao.entity.Teacher;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by tose on 2017/4/12.
@@ -33,13 +31,21 @@ public class TeacherAction extends ActionSupport {
     private Teacher teacher;
     private Appeal appeal;
     private Comment comment;
-    private String operation;
+    private Integer operation;
     private String rsp;
     private TeacherServiceI teacherServiceI;
     private Map<String,Object> session=new HashMap<>();
     private String isRememberPsw;
+    private long date;
     private String tid;
 
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
 
     @Resource(name = "commentService")
     public void setCommentServiceI(CommentServiceI commentServiceI) {
@@ -71,13 +77,6 @@ public class TeacherAction extends ActionSupport {
         this.comment = comment;
     }
 
-    public String getOperation() {
-        return operation;
-    }
-
-    public void setOperation(String operation) {
-        this.operation = operation;
-    }
 
     public String getRsp() {
         return rsp;
@@ -222,7 +221,13 @@ public class TeacherAction extends ActionSupport {
      */
     @Action(value = "updateAppeals",results = @Result(type = "json",params={"root","rsp"}))
     public String updateAppeal(){
-        System.out.println(appeal.toString());
+        Date dd = new Date(date);
+        appeal.setDate(new java.sql.Date(dd.getTime()));
+//        System.out.println(appeal.toString());
+        List<Appeal> appeals = new ArrayList<>();
+        appeals.add(appeal);
+        appealServiceI.updateAppeals(appeals);
+
         return SUCCESS;
     }
 
@@ -292,6 +297,14 @@ public class TeacherAction extends ActionSupport {
     public String getStatic(){
         //TODO
         return SUCCESS;
+    }
+
+    public Integer getOperation() {
+        return operation;
+    }
+
+    public void setOperation(Integer operation) {
+        this.operation = operation;
     }
 
     public String getTid() {

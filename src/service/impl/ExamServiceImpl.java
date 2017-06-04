@@ -1,5 +1,6 @@
 package service.impl;
 
+import dao.i.CourseScheduleDaoI;
 import dao.i.ExamDaoI;
 import dao.i.StudentScheduleDaoI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.i.ExamServiceI;
 import team.jiangtao.entity.Course;
+import team.jiangtao.entity.CourseSchedule;
 import team.jiangtao.entity.Exam;
 import team.jiangtao.entity.ExamPK;
 import team.jiangtao.entity.StudentSchedule;
@@ -21,12 +23,22 @@ import java.util.List;
 @Service("examService")
 public class ExamServiceImpl implements ExamServiceI {
     private ExamDaoI examDaoI;
+    private CourseScheduleDaoI courseScheduleDaoI;
+    private List<ExamPK> list1=new ArrayList<>();
     private StudentScheduleDaoI studentScheduleDaoI;
     @Override
     @Transactional
     public List<Exam> findallExam() {
         examDaoI.findAllExams();
         return examDaoI.findAllExams();
+    }
+
+    @Override
+    @Transactional
+    public List<Exam> findExambyid(ExamPK examPK) {
+
+
+        return examDaoI.findebyid(examPK);
     }
 
     @Override
@@ -67,6 +79,19 @@ public class ExamServiceImpl implements ExamServiceI {
         return courses;
     }
 
+
+
+    @Override
+    @Transactional
+    public List<CourseSchedule> findbytwo(String tid) {
+        return courseScheduleDaoI.findCSbytwo(tid);
+    }
+
+
+    @Resource(name = "courseScheduleDao")
+    public void setCourseScheduleDaoI(CourseScheduleDaoI courseScheduleDaoI) {
+        this.courseScheduleDaoI = courseScheduleDaoI;
+    }
 
 
     @Resource(name = "examDao")

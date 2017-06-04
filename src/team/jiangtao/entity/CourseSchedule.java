@@ -120,7 +120,7 @@ public class CourseSchedule {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dpm_id", referencedColumnName = "dpm_id", nullable = false, updatable = false, insertable = false)
     public Department getDepartmentByDpmId() {
         return departmentByDpmId;
@@ -130,7 +130,7 @@ public class CourseSchedule {
         this.departmentByDpmId = departmentByDpmId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "crs_id", referencedColumnName = "crs_id", nullable = false, updatable = false, insertable = false)
     public Course getCourseByCrsId() {
         return courseByCrsId;
@@ -140,7 +140,7 @@ public class CourseSchedule {
         this.courseByCrsId = courseByCrsId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tch_id", referencedColumnName = "tch_id", nullable = false, updatable = false, insertable = false)
     public Teacher getTeacherByTchId() {
         return teacherByTchId;

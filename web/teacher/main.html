@@ -8,11 +8,16 @@
     <script src="../res/jiangtao/lib/mdl/material.min.js"></script>
     <script src="../res/js/jquery-3.0.0.min.js"></script>
     <script src="../res/jiangtao/lib/vue.min.js"></script>
-    <!--<script src="../res/jiangtao/lib/d3.min.js"></script>-->
     <script src="../res/jiangtao/lib/d3.v3.min.js"></script>
     <script src="../res/jiangtao/lib/c3.min.js"></script>
     <link href="../res/jiangtao/lib/c3.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../res/jiangtao/lib/bootstrap/bootstrap.css">
+    <script src="../res/jiangtao/lib/bootstrap/bootstrap.js"></script>
+    <link rel="stylesheet" href="../res/jiangtao/lib/dist/summernote.css">
+    <script src="../res/jiangtao/lib/dist/summernote.min.js"></script>
     <style>
+        a{ text-decoration:none}
+
         .info{
             font-size:14px;
             line-height:20px !important;
@@ -87,12 +92,12 @@
             </header>
             <main class="mdl-layout__content">
                 <section class="mdl-layout__tab-panel is-active" id="allcstoexam">
-                    <div class="page-content"><iframe src="allCstoexam.html" frameborder="0" width="300" scrolling="No" height="200" leftmargin="0"  topmargin="0">
+                    <div class="page-content"><iframe src="allCstoexam.html" frameborder="0" width="300" scrolling="No" height="1000" leftmargin="0"  topmargin="0">
                     </iframe>
                     </div>
                 </section>
                 <section class="mdl-layout__tab-panel" id="allexam">
-                    <div class="page-content"><iframe src="allExam.html" frameborder="0" width="300" scrolling="No" height="200" leftmargin="0"  topmargin="0">
+                    <div class="page-content"><iframe src="allExam.html" frameborder="0" width="300" scrolling="No" height="1000" leftmargin="0"  topmargin="0">
 
                     </iframe></div>
                 </section>
@@ -124,7 +129,7 @@
                                 更新的复查
                                 <span class="mdl-badge" data-badge="5" style="display: none"></span>
                             </a>
-                            <a href="#scroll-tab-3" class="mdl-layout__tab">已标记的复查</a>
+                            <!--<a href="#scroll-tab-3" class="mdl-layout__tab">已标记的复查</a>-->
                             <a href="#scroll-tab-4" class="mdl-layout__tab">已回执的复查</a>
                             <a href="#scroll-tab-5" class="mdl-layout__tab">已关闭的复查</a>
                             <a href="#scroll-tab-6" class="mdl-layout__tab">全部复查信息</a>
@@ -153,6 +158,8 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+                                <div></div>
                                 <!--新的复查-->
                             </div>
                             <script src="script/newappeals.js"></script>

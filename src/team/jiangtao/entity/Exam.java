@@ -93,7 +93,7 @@ public class Exam {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false, updatable = false, insertable = false)
     public Department getDepartmentByDpm() {
         return departmentByDpm;
@@ -103,7 +103,7 @@ public class Exam {
         this.departmentByDpm = departmentByDpm;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false, updatable = false, insertable = false)
     public Course getCourseByCrs() {
         return courseByCrs;

@@ -27,4 +27,5 @@ public interface ExamDaoI {
 
     @SuppressWarnings("unchecked")
     List<Exam> getExamed(String dpmId);
+    List<Exam> findebyid(ExamPK id);
 }
