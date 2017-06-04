@@ -241,6 +241,7 @@ public class StudentServiceImpl implements StudentServiceI {
         studentSchedules.forEach(studentSchedule -> {
             StudentSchedule schedule = studentScheduleDao.findByStuAndCrsAndDpm(studentSchedule.getStu(), studentSchedule.getCrs(), studentSchedule.getDpm());
             schedule.setScore(studentSchedule.getScore());
+            schedule.setExamStatus(studentSchedule.getExamStatus());
         });
     }
 }

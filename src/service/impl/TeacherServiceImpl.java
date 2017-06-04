@@ -21,6 +21,17 @@ public class TeacherServiceImpl implements TeacherServiceI {
         return teacherDaoI.findTeacherByPK(id);
     }
 
+    @Override
+    @Transactional
+    public void updateTeacherInfo(Teacher teacher) {
+        Teacher t = teacherDaoI.findTeacherByPK(teacher.getTchId());
+        t.setAddress(teacher.getAddress());
+        t.setBirthday(teacher.getBirthday());
+        t.setEmail(teacher.getEmail());
+        t.setName(teacher.getName());
+        t.setPhone(teacher.getPhone());
+        t.setBiography(teacher.getBiography());
+    }
 
     @Resource(name = "TeacherDao")
     public void setTeacherDaoI(TeacherDaoI teacherDaoI) {

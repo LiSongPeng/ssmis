@@ -143,6 +143,7 @@ public class ExamAction extends ActionSupport {
                 schedule.setStu((String)map.get("stu"));
                 schedule.setCrs((String)map.get("crs"));
                 schedule.setDpm((String)map.get("dpm"));
+                schedule.setExamStatus(Byte.parseByte((String)map.get("examStatus")));
                 schedule.setScore(Double.parseDouble((String)map.get("score")));
                 studentScheduleList.add(schedule);
             }

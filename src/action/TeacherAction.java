@@ -135,6 +135,12 @@ public class TeacherAction extends ActionSupport {
         return SUCCESS;
     }
 
+    @Action(value = "updateInfo", results = @Result(type = "json",params={"root",""}))
+    public String updateTeacherInfo(){
+        teacherServiceI.updateTeacherInfo(teacher);
+        return SUCCESS;
+    }
+
 
     public String teahcerLogout(){
         //TODO

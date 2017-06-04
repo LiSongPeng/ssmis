@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../res/jiangtao/lib/bootstrap/bootstrap.css">
     <script src="../res/jiangtao/lib/bootstrap/bootstrap.js"></script>
     <link rel="stylesheet" href="../res/jiangtao/lib/dist/summernote.css">
+    <script src="../res/js/jquery.cookie.js"></script>
     <script src="../res/jiangtao/lib/dist/summernote.min.js"></script>
     <style>
         a{ text-decoration:none}
@@ -44,8 +45,9 @@
     </header>
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">教师管理系统</span>
-        <span class="mdl-layout-title info">个人信息</span>
         <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="#" id="info">个人信息</a>
+        <a class="mdl-navigation__link" href="#" id="mod">修改信息</a>
         <a class="mdl-navigation__link" href="#" id="logout">退出登陆</a>
         </nav>
     </div>
@@ -244,6 +246,182 @@
         </section>
     </main>
 </div>
+
+<dialog name="dialog" class="mdl-dialog--full-width">
+    <h2 class="mdl-dialog__title" id="dia-title"></h2>
+    <div class="mdl-dialog__content">
+        <ul class="demo-list-item mdl-list">
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   教师编号:<div id="tchId"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   姓名:<div id="name"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   电话:<div id="phone"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   邮件:<div id="email"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   性别:<div id="gender"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   地址:<div id="address"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   生日:<div id="birthday"></div>
+                </span>
+            </li>
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   个人简介:<div id="biography"></div>
+                </span>
+            </li>
+
+            <li class="mdl-list__item">
+                <span class="mdl-list__item-primary-content">
+                   所在院系:<div id="dpmName"></div>
+                </span>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button ok">确定</button>
+        <button type="button" class="mdl-button close">取消</button>
+    </div>
+</dialog>
+
+<script type="text/javascript">
+
+    $("#info").click(function () {
+        $("#dia-title").text("个人信息");
+        $.ajax({
+            type:"post",
+            url:"/ssmis/teacher/selfInfo",
+            data:{
+                tid:sessionStorage.tchid
+            },
+            success:function(data){
+                console.log(data);
+                var tchId = data.tchId;
+                var name = data.name;
+                var phone = data.phone;
+                var email = data.email;
+                var gender = data.gender == 0? "男":"女";
+                var address = data.address;
+                var birthday = data.birthday.split("T")[0];
+                var dpmName = data.departmentByDpmId.dpmName;
+                var biography = data.biography;
+                $("#tchId").text(tchId);
+                $("#name").text(name);
+                $("#phone").text(phone);
+                $("#email").text(email);
+                $("#gender").text(gender);
+                $("#address").text(address);
+                $("#birthday").text(birthday);
+                $("#dpmName").text(dpmName);
+                $("#biography").text(biography);
+            }
+        });
+        var dialog = document.querySelector('dialog')
+        dialog.showModal();
+        if (! dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.querySelector('.ok').addEventListener('click', function() {
+
+            dialog.close();
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        })
+
+    });
+
+    $("#mod").click(function () {
+
+        $.ajax({
+            type:"post",
+            url:"/ssmis/teacher/selfInfo",
+            data:{
+                tid:sessionStorage.tchid
+            },
+            success:function(data){
+                console.log(data);
+                var tchId = data.tchId;
+                var name = data.name;
+                var phone = data.phone;
+                var email = data.email;
+                var gender = data.gender == 0? "男":"女";
+                var address = data.address;
+                var birthday = data.birthday.split("T")[0];
+                var dpmName = data.departmentByDpmId.dpmName;
+                var biography = data.biography;
+                $("#tchId").text(tchId);
+                $("#name").html("<input type='text' id='nameInput' value='"+name+"'/>");
+                $("#phone").html("<input type='text' id='phoneInput' value='"+phone+"'/>");
+                $("#email").html("<input type='text' id='emailInput' value='"+email+"'/>");
+                $("#gender").html(gender);
+                $("#address").html("<input type='text' id='addressInput' value='"+address+"'/>");
+                $("#birthday").html("<input type='text' id='birthdayInput' value='"+birthday+"'/>");
+                $("#dpmName").html(dpmName);
+                $("#biography").html("<input type='text' id='biographyInput' value='"+biography+"'/>");
+            }
+        });
+        var dialog = document.querySelector('dialog')
+        dialog.showModal();
+        if (! dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.querySelector('.ok').addEventListener('click', function() {
+            var data = {
+                'teacher.tchId':$("#tchId").text(),
+                'teacher.name':$("#nameInput").val(),
+                'teacher.email':$("#emailInput").val(),
+                'teacher.address':$("#addressInput").val(),
+                'teacher.phone':$("#phoneInput").val(),
+                'teacher.birthday':$("#birthdayInput").val(),
+                'teacher.biography':$("#biographyInput").val()
+            };
+            $.ajax({
+                type:"post",
+                url:"/ssmis/teacher/updateInfo",
+                data:data,
+                success:function(data){
+                }
+            })
+            dialog.close();
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+        })
+    })
+
+    $("#logout").click(function () {
+        sessionStorage.clear()
+        $.cookie("rmbUser",null)
+        $.cookie("username",null );
+        $.cookie("password", null);
+        window.location.href="http://localhost:8080/ssmis/"
+
+    })
+</script>
 </body>
 </html>
 <script src="./js/loadenterscore.js"></script>

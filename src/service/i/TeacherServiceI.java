@@ -7,4 +7,6 @@ import team.jiangtao.entity.Teacher;
  */
 public interface TeacherServiceI {
     Teacher findTeacherbuid(String id);
+
+    void updateTeacherInfo(Teacher teacher);
 }
