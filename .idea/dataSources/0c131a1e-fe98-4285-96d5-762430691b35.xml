@@ -573,16 +573,21 @@ tch_id</ColNames>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;-1&apos;</DefaultExpression>
     </column>
-    <index id="127" parent="16" name="student_chedule_course_crs_id_fk">
+    <column id="127" parent="16" name="exam_status">
+      <Position>7</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="128" parent="16" name="student_chedule_course_crs_id_fk">
       <ColNames>crs</ColNames>
     </index>
-    <index id="128" parent="16" name="student_chedule_student_stu_id_fk">
+    <index id="129" parent="16" name="student_chedule_student_stu_id_fk">
       <ColNames>stu</ColNames>
     </index>
-    <index id="129" parent="16" name="student_chedule_teacher_tch_id_fk">
+    <index id="130" parent="16" name="student_chedule_teacher_tch_id_fk">
       <ColNames>tch</ColNames>
     </index>
-    <key id="130" parent="16" name="PRIMARY">
+    <key id="131" parent="16" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>dpm
 crs
@@ -590,25 +595,25 @@ tch
 stu</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="131" parent="16" name="student_chedule_department_dpm_id_fk">
+    <foreign-key id="132" parent="16" name="student_chedule_department_dpm_id_fk">
       <ColNames>dpm</ColNames>
       <RefSchemaName>ssmis</RefSchemaName>
       <RefTableName>department</RefTableName>
       <RefColNames>dpm_id</RefColNames>
     </foreign-key>
-    <foreign-key id="132" parent="16" name="student_chedule_course_crs_id_fk">
+    <foreign-key id="133" parent="16" name="student_chedule_course_crs_id_fk">
       <ColNames>crs</ColNames>
       <RefSchemaName>ssmis</RefSchemaName>
       <RefTableName>course</RefTableName>
       <RefColNames>crs_id</RefColNames>
     </foreign-key>
-    <foreign-key id="133" parent="16" name="student_schedule_Teacher_tch_id_fk">
+    <foreign-key id="134" parent="16" name="student_schedule_Teacher_tch_id_fk">
       <ColNames>tch</ColNames>
       <RefSchemaName>ssmis</RefSchemaName>
       <RefTableName>Teacher</RefTableName>
       <RefColNames>tch_id</RefColNames>
     </foreign-key>
-    <foreign-key id="134" parent="16" name="student_chedule_student_stu_id_fk">
+    <foreign-key id="135" parent="16" name="student_chedule_student_stu_id_fk">
       <ColNames>stu</ColNames>
       <RefSchemaName>ssmis</RefSchemaName>
       <RefTableName>student</RefTableName>

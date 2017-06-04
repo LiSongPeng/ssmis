@@ -15,6 +15,7 @@ public class StudentSchedule {
     private String stu;
     private byte term;
     private double score;
+    private byte examStatus;//0 代表正常(默认值),1代表 缺考 2 代表禁止考试
     private Department departmentByDpm;
     private Course courseByCrs;
     private Teacher teacherByTch;
@@ -80,6 +81,16 @@ public class StudentSchedule {
         this.score = score;
     }
 
+    public void setExamStatus(byte examStatus) {
+        this.examStatus = examStatus;
+    }
+
+    @Basic
+    @Column(name = "exam_status")
+    public byte getExamStatus() {
+        return examStatus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,6 +104,7 @@ public class StudentSchedule {
         if (crs != null ? !crs.equals(that.crs) : that.crs != null) return false;
         if (tch != null ? !tch.equals(that.tch) : that.tch != null) return false;
         if (stu != null ? !stu.equals(that.stu) : that.stu != null) return false;
+        if (examStatus != that.examStatus) return false;
 
         return true;
     }
@@ -106,13 +118,14 @@ public class StudentSchedule {
         result = 31 * result + (tch != null ? tch.hashCode() : 0);
         result = 31 * result + (stu != null ? stu.hashCode() : 0);
         result = 31 * result + (int) term;
+        result = 31 * result + (int) examStatus;
         temp = Double.doubleToLongBits(score);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "dpm", referencedColumnName = "dpm_id", nullable = false, updatable = false, insertable = false)
     public Department getDepartmentByDpm() {
         return departmentByDpm;
     }
@@ -122,7 +135,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "crs", referencedColumnName = "crs_id", nullable = false, updatable = false, insertable = false)
     public Course getCourseByCrs() {
         return courseByCrs;
     }
@@ -132,7 +145,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tch", referencedColumnName = "tch_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "tch", referencedColumnName = "tch_id", nullable = false, updatable = false, insertable = false)
     public Teacher getTeacherByTch() {
         return teacherByTch;
     }
@@ -142,7 +155,7 @@ public class StudentSchedule {
     }
 
     @ManyToOne
-    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false,updatable = false,insertable = false)
+    @JoinColumn(name = "stu", referencedColumnName = "stu_id", nullable = false, updatable = false, insertable = false)
     public Student getStudentByStu() {
         return studentByStu;
     }
