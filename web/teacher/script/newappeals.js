@@ -12,55 +12,59 @@ function writeToTbody(tbodyid,appeals) {
     $(tbodyid).html("");
     $.each(appeals,function(i,n){
         var content = n.content;
-        var crsName = n.courseByCrsId.crsName;
         var crsId = n.crsId;
-        var dpmName = n.departmentByDpmId.dpmName;
+        var crsName = "";//fixme
+        var dpmName = "";
         var dpmId = n.dpmId;
-        var tchName = n.departmentByDpmId.teachersByDpmId[0].name;
         var tchId = n.tchId;
-        var stuName = n.studentByStuId.name;
-        var stuId = n.stuId;
-        var stuGrade = "女";
-        if(n.studentByStuId.grade=='1') stuGender = "男";
-        var stuGender = n.studentByStuId.gender;
-        var stuclassNo = n.studentByStuId.classNo;
-        var date = new Date(n.date);
-        var response = n.response;
-        var aid = dpmId+"_"+crsId+"_"+tchId+"_"+stuId+"_"+n.date;
+        var tchName = "";//fixme
+        $.getJSON("selfInfo",{tid:tchId},function (tdata) {
+            tchName = tdata.name;
+            dpmName = tdata.departmentByDpmId.dpmName;
+            var stuName = n.studentByStuId.name;
+            var stuId = n.stuId;
+            var stuGrade = "女";
+            if(n.studentByStuId.grade=='1') stuGender = "男";
+            var stuGender = n.studentByStuId.gender;
+            var stuclassNo = n.studentByStuId.classNo;
+            var date = new Date(n.date);
+            var response = n.response;
+            var aid = dpmId+"_"+crsId+"_"+tchId+"_"+stuId+"_"+n.date;
 
-        var tr = "<tr style='font-weight:bold;' class='expand-content'>" +
-            '<td><i class="material-icons">input</i></td>' +
-            '<td><span class="mdl-chip"><span class="mdl-chip__text">'+dpmName+"("+dpmId+")</span></span></td>" +
-            '<td><span class="mdl-chip"><span class="mdl-chip__text">'+crsName+'('+crsId+")</span></span></td>" +
-            '<td><span class="mdl-chip"><span class="mdl-chip__text">'+stuName+'('+stuId+')</span></span></td>' +
-            '<td><span class="mdl-chip"><span class="mdl-chip__text">'+tchName+"("+tchId+')</span></span></td>' +
-            '<td><span class="mdl-chip"><span class="mdl-chip__text">'+date+'</span></span></td>' +
-            '</tr>' +
-            '<tr style="display:none"><td colspan="6">' +
-            '<div class="mdl-card mdl-shadow--2dp through mdl-shadow--16dp" style="width:auto" align="left"><div>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">学生：'+stuName+'</span></span>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">学号：'+stuId+'</span></span>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">年级：'+stuGrade+'</span></span>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">班级：'+stuclassNo+'</span></span>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">性别：'+stuGender+'</span></span>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span><span class="mdl-chip__text">院系名：'+dpmName+'</span></span>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span><span class="mdl-chip__text">院系号：'+dpmId+'</span></span><br>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span><span class="mdl-chip__text">课程名称：'+crsName+'</span></span>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span><span class="mdl-chip__text">课程号：'+crsId+'</span></span>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师：'+tchName+'</span></span>' +
-            '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师号：'+tchId+'</span></span>' +
-            '</div><div class="mdl-card__supporting-text" align="left">' +content+ '</div>'+
-            '<div class="mdl-card__actions mdl-card--border" style="display: none"><div class="mdl-textfield mdl-js-textfield" style="width:100%;margin: 0 auto"><textarea class="mdl-textfield__input" type="text" rows= "3" id="rsp_'+aid+'" >'+response+'</textarea><label class="mdl-textfield__label" for="rsp_'+aid+'"></label></div>' +
-            '<div><button class="send-rsp mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">send</i></button>' +
-            '<button class="send-rsp-cancel mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">cancel</i></button></div></div>' +
-            '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="appeal-respond mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px"><i class="material-icons">edit</i>回复</button></div></div></td></tr>';
+            var tr = "<tr style='font-weight:bold;' class='expand-content'>" +
+                '<td><i class="material-icons">input</i></td>' +
+                '<td><span class="mdl-chip"><span class="mdl-chip__text">'+dpmName+"("+dpmId+")</span></span></td>" +
+                '<td><span class="mdl-chip"><span class="mdl-chip__text">'+crsName+'('+crsId+")</span></span></td>" +
+                '<td><span class="mdl-chip"><span class="mdl-chip__text">'+stuName+'('+stuId+')</span></span></td>' +
+                '<td><span class="mdl-chip"><span class="mdl-chip__text">'+tchName+"("+tchId+')</span></span></td>' +
+                '<td><span class="mdl-chip"><span class="mdl-chip__text">'+date+'</span></span></td>' +
+                '</tr>' +
+                '<tr style="display:none"><td colspan="6">' +
+                '<div class="mdl-card mdl-shadow--2dp through mdl-shadow--16dp" style="width:auto" align="left"><div>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">学生：'+stuName+'</span></span>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">学号：'+stuId+'</span></span>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">年级：'+stuGrade+'</span></span>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">班级：'+stuclassNo+'</span></span>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">S</span><span class="mdl-chip__text">性别：'+stuGender+'</span></span>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span><span class="mdl-chip__text">院系名：'+dpmName+'</span></span>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span><span class="mdl-chip__text">院系号：'+dpmId+'</span></span><br>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span><span class="mdl-chip__text">课程名称：'+crsName+'</span></span>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span><span class="mdl-chip__text">课程号：'+crsId+'</span></span>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师：'+tchName+'</span></span>' +
+                '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师号：'+tchId+'</span></span>' +
+                '</div><div class="mdl-card__supporting-text" align="left">' +content+ '</div>'+
+                '<div class="mdl-card__actions mdl-card--border" style="display: none"><div class="mdl-textfield mdl-js-textfield" style="width:100%;margin: 0 auto"><textarea class="mdl-textfield__input" type="text" rows= "3" id="rsp_'+aid+'" >'+response+'</textarea><label class="mdl-textfield__label" for="rsp_'+aid+'"></label></div>' +
+                '<div><button class="send-rsp mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">send</i></button>' +
+                '<button class="send-rsp-cancel mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">cancel</i></button></div></div>' +
+                '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="appeal-respond mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px"><i class="material-icons">edit</i>回复</button></div></div></td></tr>';
 
-        $(tbodyid).append(tr);
+            $(tbodyid).append(tr);
+        })
 
     })
 }
-function writeUpdate() {
-
+function getAllApeeals() {
+    
 }
 function getNewAppeals() {
     var param = {operation:0};
@@ -81,6 +85,22 @@ function getNewAppeals() {
     })
 }
 
+function getUpdatedAppeals() {
+    var param = {operation:3};
+    $.getJSON("getAppeals",param,function (data) {
+        var list = $.parseJSON(data);
+        if(list.length>0){
+            $("#np_tag_updated").attr("data-badge",list.length);
+            $("#np_tag_updated").show();
+            $("#zone1").show();
+            writeToTbody("upd_ap_table",list);
+        }
+        else{
+            $("#zone1").hide();
+            $("#zone1").parent().html("<h2 style='width: 25%;margin: 0 auto'>无更新的复查请求</h2>")
+        }
+    })
+}
 
 function updateStatus(appealId, status) {
     var idArray = appealId.split("_");
@@ -125,18 +145,23 @@ function saveDraw(appealId, content) {
         'appeal.tchId':idArray[3],
         'appeal.stuId':idArray[4],
         'date': idArray[5],
-        'appeal.content': content,
-        'appeal.status': 6
+        'appeal.response': content,
+        'appeal.status':6
     };
     var json = $.param(appeal);
-    $.getJSON('updateAppeals',json,function () {});
+
+    $.getJSON('updateAppeals',json,function (data) {
+        var obj = $.parseJSON(data);
+        rs = obj.result;
+    });
 }
 $(function () {
     $("#ly_4").click(function () {
         getNewAppeals();
+        getUpdatedAppeals();
     })
 
-    $("#ap_table").delegate(".expand-content","click",function () {
+    $("tbody").delegate(".expand-content","click",function () {
         $(this).css("font-weight","");
         $(this).next().fadeToggle("fast");
         var obj = $(this).next().find("button").get(2);
@@ -148,18 +173,28 @@ $(function () {
         $("#np_tag").fadeOut("fast");
     })
 
-    $("#ap_table").delegate(".appeal-respond","click",function () {
+    $(".tag-link").click(function () {
+        $(this).children("span").fadeOut("fast");
+    })
+    $("tbody").delegate(".appeal-respond","click",function () {
         $(this).parent().prev().slideToggle("fast");
         $(this).parent().slideToggle("fast");
 
     })
 
-    $("#ap_table").delegate(".send-rsp-cancel","click",function(){
+    $("tbody").delegate(".send-rsp-cancel","click",function(){
+        var text = $(this).parent().prev().children("textarea").get(0);
+        var id = '#'+$(text).attr("id");
+        var content = $(id).val();
+        saveDraw($(text).attr("id"),content)
         $(this).parent().parent().slideToggle("fast");
         $(this).parent().parent().next().slideToggle("fast");
+        boxMessage("已保存为草稿");
 
     })
-    $("#ap_table").delegate(".send-rsp","click",function () {
+
+
+    $("tbody").delegate(".send-rsp","click",function () {
         var text = $(this).parent().prev().children("textarea").get(0);
         var id = '#'+$(text).attr("id");
         var content = $(id).val();

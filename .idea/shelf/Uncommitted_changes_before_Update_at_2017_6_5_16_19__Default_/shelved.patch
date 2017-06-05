@@ -1,0 +1,111 @@
+Index: web/teacher/script/newappeals.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**\n * Created by tose on 2017/5/31.\n */\nfunction writeToTbody(tbodyid,appeals) {\n    tbodyid = '#'+tbodyid;\n    $(tbodyid).html(\"\");\n    $.each(appeals,function(i,n){\n        var content = n.content;\n        var crsName = n.courseByCrsId.crsName;\n        var crsId = n.crsId;\n        var dpmName = n.departmentByDpmId.dpmName;\n        var dpmId = n.dpmId;\n        var tchName = n.departmentByDpmId.teachersByDpmId[0].name;\n        var tchId = n.tchId;\n        var stuName = n.studentByStuId.name;\n        var stuId = n.stuId;\n        var stuGrade = \"女\";\n        if(n.studentByStuId.grade=='1') stuGender = \"男\";\n        var stuGender = n.studentByStuId.gender;\n        var stuclassNo = n.studentByStuId.classNo;\n        var date = new Date(n.date);\n        var aid = dpmId+\"_\"+crsId+\"_\"+tchId+\"_\"+stuId+\"_\"+n.date;\n\n        var tr = \"<tr style='font-weight:bold;' class='expand-content'>\" +\n            '<td><i class=\"material-icons\">input</i></td>' +\n            '<td><span class=\"mdl-chip\"><span class=\"mdl-chip__text\">'+dpmName+\"(\"+dpmId+\")</span></span></td>\" +\n            '<td><span class=\"mdl-chip\"><span class=\"mdl-chip__text\">'+crsName+'('+crsId+\")</span></span></td>\" +\n            '<td><span class=\"mdl-chip\"><span class=\"mdl-chip__text\">'+stuName+'('+stuId+')</span></span></td>' +\n            '<td><span class=\"mdl-chip\"><span class=\"mdl-chip__text\">'+tchName+\"(\"+tchId+')</span></span></td>' +\n            '<td><span class=\"mdl-chip\"><span class=\"mdl-chip__text\">'+date+'</span></span></td>' +\n            '</tr>' +\n            '<tr style=\"display:none\"><td colspan=\"6\">' +\n            '<div class=\"mdl-card mdl-shadow--2dp through mdl-shadow--16dp\" style=\"width:auto\" align=\"left\"><div>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">S</span><span class=\"mdl-chip__text\">学生：'+stuName+'</span></span>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">S</span><span class=\"mdl-chip__text\">学号：'+stuId+'</span></span>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">S</span><span class=\"mdl-chip__text\">年级：'+stuGrade+'</span></span>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">S</span><span class=\"mdl-chip__text\">班级：'+stuclassNo+'</span></span>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">S</span><span class=\"mdl-chip__text\">性别：'+stuGender+'</span></span>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">D</span><span class=\"mdl-chip__text\">院系名：'+dpmName+'</span></span>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">D</span><span class=\"mdl-chip__text\">院系号：'+dpmId+'</span></span><br>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">C</span><span class=\"mdl-chip__text\">课程名称：'+crsName+'</span></span>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">C</span><span class=\"mdl-chip__text\">课程号：'+crsId+'</span></span>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">T</span><span class=\"mdl-chip__text\">教师：'+tchName+'</span></span>' +\n            '<span class=\"mdl-chip mdl-chip--contact\"><span class=\"mdl-chip__contact mdl-color--teal mdl-color-text--white\">T</span><span class=\"mdl-chip__text\">教师号：'+tchId+'</span></span>' +\n            '</div><div class=\"mdl-card__supporting-text\" align=\"left\">' +content+ '</div>' +\n            '<div class=\"mdl-card__actions mdl-card--border\" style=\"display: none\"><div class=\"mdl-textfield mdl-js-textfield\" style=\"width:100%;margin: 0 auto\"><textarea class=\"mdl-textfield__input\" type=\"text\" rows= \"3\" id=\"rsp_'+aid+'\" ></textarea><label class=\"mdl-textfield__label\" for=\"rsp_'+aid+'\"></label></div>' +\n            '<div><button class=\"send-rsp mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\"><i class=\"material-icons\">send</i></button>' +\n            '<button class=\"send-rsp-cancel mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\"><i class=\"material-icons\">cancel</i></button></div></div>' +\n            '<div class=\"mdl-card__actions mdl-card--border\"><button id=\"btn_'+aid+'\" class=\"appeal-respond mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" style=\"width: 96px\"><i class=\"material-icons\">edit</i>回复</button></div></div></td></tr>';\n\n        $(tbodyid).append(tr);\n\n    })\n}\nfunction getNewAppeals() {\n    var param = {operation:0};\n    $.getJSON(\"getAppeals\",param,function (data) {\n        $(\"#p2\").hide();\n        var list = $.parseJSON(data);\n        if(list.length>0){\n            $(\"#np_tag\").attr(\"data-badge\",list.length);\n            $(\"#np_tag\").show();\n            $(\"#zone\").show();\n            writeToTbody(\"ap_table\",list);\n        }\n        else{\n            $(\"#zone\").hide();\n            $(\"#np_tag\").hide();\n            $(\"#zone\").parent().html(\"<h1>无新的复查请求</h1>\")\n        }\n    })\n}\n\n\nfunction updateStatus(appealId, status) {\n    var idArray = appealId.split(\"_\");\n    var appeal={\n        'appeal.dpmId':idArray[1],\n        'appeal.crsId':idArray[2],\n        'appeal.tchId':idArray[3],\n        'appeal.stuId':idArray[4],\n        'date': idArray[5],\n        'appeal.status':status\n    };\n    var json = $.param(appeal);\n    // console.log(json);\n    $.getJSON('updateAppeals',json,function () {});\n}\n\nfunction updateAppealContent(appealId, content) {\n    var idArray = appealId.split(\"_\");\n    var appeal={\n        'appeal.dpmId':idArray[1],\n        'appeal.crsId':idArray[2],\n        'appeal.tchId':idArray[3],\n        'appeal.stuId':idArray[4],\n        'date': idArray[5],\n        'appeal.content': content\n    };\n    var json = $.param(appeal);\n    $.getJSON('updateAppeals',json,function () {});\n}\n\nfunction saveDraw(appealId, content) {\n    var idArray = appealId.split(\"_\");\n    var appeal={\n        'appeal.dpmId':idArray[1],\n        'appeal.crsId':idArray[2],\n        'appeal.tchId':idArray[3],\n        'appeal.stuId':idArray[4],\n        'date': idArray[5],\n        'appeal.content': content,\n        'appeal.status': 6\n    };\n    var json = $.param(appeal);\n    $.getJSON('updateAppeals',json,function () {});\n}\n$(function () {\n    $(\"#ly_4\").click(function () {\n        getNewAppeals();\n        $(\"#ap_table\").delegate(\".expand-content\",\"click\",function () {\n            $(this).css(\"font-weight\",\"\");\n            $(this).next().fadeToggle(\"fast\");\n            var obj = $(this).next().find(\"button\").get(2);\n            var id = $(obj).attr(\"id\");\n            updateStatus(id,1)\n        })\n        $(\"#tab-link-1\").click(function () {\n            $(\"#np_tag\").fadeOut(\"fast\");\n        })\n    })\n\n    $(\"#ap_table\").delegate(\".appeal-respond\",\"click\",function () {\n        $(this).parent().prev().slideToggle(\"fast\");\n        $(this).parent().slideToggle(\"fast\");\n\n    })\n\n    $(\"#ap_table\").delegate(\".send-rsp-cancel\",\"click\",function(){\n        $(this).parent().parent().slideToggle(\"fast\");\n        $(this).parent().parent().next().slideToggle(\"fast\");\n\n    })\n    $(\"#ap_table\").delegate(\".send-rsp\",\"click\",function () {\n        var text = $(this).parent().prev().children(\"textarea\").get(0);\n        var id = '#'+$(text).attr(\"id\");\n        var content = $(id).val();\n        updateStatus($(text).attr(\"id\"),4);\n        updateAppealContent(content);\n    })\n})
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- web/teacher/script/newappeals.js	(revision b369c2c00ee68dbbdff95ac2f2e8b28b7ac0fdc4)
++++ web/teacher/script/newappeals.js	(revision )
+@@ -66,7 +66,7 @@
+         else{
+             $("#zone").hide();
+             $("#np_tag").hide();
+-            $("#zone").parent().html("<h1>无新的复查请求</h1>")
++            $("#zone").parent().html("<h1 style='width: 20%;margin: 0 auto'>无新的复查请求</h1>")
+         }
+     })
+ }
+@@ -84,10 +84,10 @@
+     };
+     var json = $.param(appeal);
+     // console.log(json);
+-    $.getJSON('updateAppeals',json,function () {});
++    $.getJSON('updateAppeals',json,function (data) {});
+ }
+ 
+-function updateAppealContent(appealId, content) {
++function updateAppealResponse(appealId, content) {
+     var idArray = appealId.split("_");
+     var appeal={
+         'appeal.dpmId':idArray[1],
+@@ -95,10 +95,16 @@
+         'appeal.tchId':idArray[3],
+         'appeal.stuId':idArray[4],
+         'date': idArray[5],
+-        'appeal.content': content
++        'appeal.response': content,
++        'appeal.status':4
+     };
+     var json = $.param(appeal);
+-    $.getJSON('updateAppeals',json,function () {});
++
++    $.getJSON('updateAppeals',json,function (data) {
++        var obj = $.parseJSON(data);
++        rs = obj.result;
++    });
++
+ }
+ 
+ function saveDraw(appealId, content) {
+@@ -118,16 +124,18 @@
+ $(function () {
+     $("#ly_4").click(function () {
+         getNewAppeals();
+-        $("#ap_table").delegate(".expand-content","click",function () {
+-            $(this).css("font-weight","");
+-            $(this).next().fadeToggle("fast");
+-            var obj = $(this).next().find("button").get(2);
+-            var id = $(obj).attr("id");
+-            updateStatus(id,1)
+-        })
+-        $("#tab-link-1").click(function () {
+-            $("#np_tag").fadeOut("fast");
+-        })
++    })
++
++    $("#ap_table").delegate(".expand-content","click",function () {
++        $(this).css("font-weight","");
++        $(this).next().fadeToggle("fast");
++        var obj = $(this).next().find("button").get(2);
++        var id = $(obj).attr("id");
++        updateStatus(id,1)
++    })
++
++    $("#tab-link-1").click(function () {
++        $("#np_tag").fadeOut("fast");
+     })
+ 
+     $("#ap_table").delegate(".appeal-respond","click",function () {
+@@ -145,7 +153,8 @@
+         var text = $(this).parent().prev().children("textarea").get(0);
+         var id = '#'+$(text).attr("id");
+         var content = $(id).val();
+-        updateStatus($(text).attr("id"),4);
+-        updateAppealContent(content);
++        var rsl = updateAppealResponse($(text).attr("id"),content);
++        console.log(rsl);
++
+     })
+ })
+\ No newline at end of file
+Index: src/action/TeacherAction.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package action;\n\nimport com.alibaba.fastjson.JSON;\nimport com.opensymphony.xwork2.ActionSupport;\nimport org.apache.struts2.convention.annotation.Action;\nimport org.apache.struts2.convention.annotation.Namespace;\nimport org.apache.struts2.convention.annotation.ParentPackage;\nimport org.apache.struts2.convention.annotation.Result;\nimport org.springframework.context.annotation.Scope;\nimport org.springframework.stereotype.Controller;\nimport service.i.AppealServiceI;\nimport service.i.CommentServiceI;\nimport service.i.TeacherServiceI;\nimport team.jiangtao.entity.Appeal;\nimport team.jiangtao.entity.Comment;\nimport team.jiangtao.entity.Teacher;\n\nimport javax.annotation.Resource;\nimport java.util.*;\n\n/**\n * Created by tose on 2017/4/12.\n */\n@Namespace(\"/teacher\")\n@ParentPackage(\"ssmis-default\")\n@Controller\n@Scope(value = \"prototype\")\npublic class TeacherAction extends ActionSupport {\n    private CommentServiceI commentServiceI;\n    private AppealServiceI appealServiceI;\n    private Teacher teacher;\n    private Appeal appeal;\n    private Comment comment;\n    private Integer operation;\n    private String rsp;\n    private TeacherServiceI teacherServiceI;\n    private Map<String,Object> session=new HashMap<>();\n    private String isRememberPsw;\n    private long date;\n\n    public long getDate() {\n        return date;\n    }\n\n    public void setDate(long date) {\n        this.date = date;\n    }\n\n    @Resource(name = \"commentService\")\n    public void setCommentServiceI(CommentServiceI commentServiceI) {\n        this.commentServiceI = commentServiceI;\n    }\n\n    @Resource(name = \"appealService\")\n    public void setAppealServiceI(AppealServiceI appealServiceI) {\n        this.appealServiceI = appealServiceI;\n    }\n\n    public void setTeacher(Teacher teacher) {\n        this.teacher = teacher;\n    }\n\n    public Teacher getTeacher() {\n        return teacher;\n    }\n\n    public void setAppeal(Appeal appeal) {\n        this.appeal = appeal;\n    }\n\n    public Comment getComment() {\n        return comment;\n    }\n\n    public void setComment(Comment comment) {\n        this.comment = comment;\n    }\n\n\n    public String getRsp() {\n        return rsp;\n    }\n\n    public void setRsp(String rsp) {\n        this.rsp = rsp;\n    }\n\n    public Map<String, Object> getSession() {\n        return session;\n    }\n\n    public void setSession(Map<String, Object> session) {\n        this.session = session;\n    }\n\n    public String getIsRememberPsw() {\n        return isRememberPsw;\n    }\n\n    public void setIsRememberPsw(String isRememberPsw) {\n        this.isRememberPsw = isRememberPsw;\n    }\n\n    @Resource(name = \"TeacherService\")\n    public void setTeacherServiceI(TeacherServiceI teacherServiceI) {\n        this.teacherServiceI = teacherServiceI;\n    }\n\n    @Action(value = \"login\",results = @Result(type = \"json\",params={\"root\",\"session\"}))\n    public String teacherLogin(){\n        //write to test.\n        isRememberPsw=\"0\";\n        rsp=\"0\";\n        String tid=teacher.getTchId();\n        String tpw=teacher.getPassword();\n        Teacher teacher2=new Teacher();\n        teacher=teacherServiceI.findTeacherbuid(tid);\n        teacher2.setTchId(teacher.getTchId());\n        teacher2.setDpmId(teacher.getDpmId());\n        teacher2.setPassword(teacher.getPassword());\n        teacher2.setName(teacher.getName());\n        teacher2.setDepartmentByDpmId(teacher.getDepartmentByDpmId());\n        if(tpw.equals(teacher2.getPassword())){\n            session.put(\"tch\", teacher2);\n            rsp=\"1\";\n            session.put(\"rsp\",rsp);\n        };\n        return SUCCESS;\n    }\n\n\n    public String teahcerLogout(){\n        //TODO\n        return SUCCESS;\n\n    }\n\n\n    public String modifyTeacher(){\n        //TODO\n        return SUCCESS;\n\n    }\n\n    public String addCourses(){\n        //TODO\n        return SUCCESS;\n\n    }\n\n    public String addCourse(){\n        //TODO\n        return SUCCESS;\n\n    }\n\n    public String modifyCourses(){\n        //TODO\n        return SUCCESS;\n\n    }\n\n    public String modifyCourse(){\n        //TODO\n        return SUCCESS;\n\n    }\n\n    public String deleteCourses(){\n        //TODO\n        return SUCCESS;\n\n    }\n\n    public String deleteCourse(){\n        //TODO\n        return SUCCESS;\n    }\n\n    public String addExams(){\n        //TODO\n        return SUCCESS;\n    }\n\n    public String addExam(){\n        //TODO\n        return SUCCESS;\n    }\n\n    public String modifyExams(){\n        //TODO\n        return SUCCESS;\n    }\n\n    public String modifyExam(){\n        //TODO\n        return SUCCESS;\n    }\n\n    /**\n     * @author Jiang Tao\n     * @return SUCCESS\n     */\n    @Action(value = \"addAppeals\",results = @Result(type = \"json\",params={\"root\",\"rsp\"}))\n    public String addAppeal(){\n        //TODO\n\n        return  SUCCESS;\n    }\n\n    /**\n     * @author Jiang Tao\n     * @return SUCCESS\n     */\n    @Action(value = \"updateAppeals\",results = @Result(type = \"json\",params={\"root\",\"rsp\"}))\n    public String updateAppeal(){\n        Date dd = new Date(date);\n        appeal.setDate(new java.sql.Date(dd.getTime()));\n//        System.out.println(appeal.toString());\n        List<Appeal> appeals = new ArrayList<>();\n        appeals.add(appeal);\n        appealServiceI.updateAppeals(appeals);\n\n        return SUCCESS;\n    }\n\n    public Appeal getAppeal() {\n        return appeal;\n    }\n\n    /**\n     * @author Jiang Tao\n     * @return SUCCESS\n\n     */\n    @Action(value = \"getAppeals\",results = @Result(type = \"json\",params={\"root\",\"rsp\"}))\n    public String getAppealByType() throws Exception {\n        //TO FINISH\n        Map<String,Object> stringObjectMap = new HashMap<>();\n        stringObjectMap.put(\"tch\",\"00001\");//Instead of Session\n        stringObjectMap.put(\"type\",operation);\n        List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);\n        rsp = JSON.toJSONString(list);\n        return SUCCESS;\n    }\n\n    /**\n     * @author Jiang Tao\n     * @return SUCCESS\n     */\n    public String getComments(){\n       //TODO\n\n        return SUCCESS;\n    }\n\n    /**\n     * @author Jiang Tao\n     * @return SUCCESS\n     */\n    public String addCommnets(){\n        //TODO\n\n        return SUCCESS;\n    }\n\n    /**\n     * @author Jiang Tao\n     * @return SUCCESS\n     */\n    public String updateComments(){\n        //TODO\n        return SUCCESS;\n    }\n\n    /**\n     * @author Jiang Tao\n     * @return SUCCESS\n     */\n    public String deleteCommnets(){\n        //TODO\n\n        return SUCCESS;\n    }\n\n    /**\n     * @author Jiang Tao\n     * @return SUCCESS\n     */\n    public String getStatic(){\n        //TODO\n        return SUCCESS;\n    }\n\n    public Integer getOperation() {\n        return operation;\n    }\n\n    public void setOperation(Integer operation) {\n        this.operation = operation;\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/action/TeacherAction.java	(revision b369c2c00ee68dbbdff95ac2f2e8b28b7ac0fdc4)
++++ src/action/TeacherAction.java	(revision )
+@@ -219,8 +219,8 @@
+ //        System.out.println(appeal.toString());
+         List<Appeal> appeals = new ArrayList<>();
+         appeals.add(appeal);
+-        appealServiceI.updateAppeals(appeals);
+-
++        boolean flag = appealServiceI.updateAppeals(appeals);
++        rsp = "{\"result\" : \""+flag+"\"}";
+         return SUCCESS;
+     }
+ 

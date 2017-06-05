@@ -77,6 +77,10 @@ public class AppealDaoImpl implements AppealDaoI {
                     Query query = session.createQuery(hql);
                     query.setParameter("tch", tch_id);
                     list = query.list();
+                    List<Appeal> temp = (List<Appeal>) list;
+                    for(Appeal appeal:temp){
+                        System.out.println(appeal.toString());
+                    }
                     break;
                 }
 

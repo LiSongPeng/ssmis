@@ -121,11 +121,11 @@
                         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
                             <a id="tab-link-1" href="#scroll-tab-1" class="mdl-layout__tab is-active">
                                 新的复查
-                                <span id="np_tag" class="mdl-badge" data-badge="0"></span>
+                                <span id="np_tag" class="mdl-badge" data-badge="0" style="display: none"></span>
                             </a>
-                            <a href="#scroll-tab-2" class="mdl-layout__tab">
+                            <a href="#scroll-tab-2" class="mdl-layout__tab tag-link">
                                 更新的复查
-                                <span class="mdl-badge" data-badge="5" style="display: none"></span>
+                                <span id="np_tag_updated" class="mdl-badge" data-badge="5" style="display: none"></span>
                             </a>
                             <!--<a href="#scroll-tab-3" class="mdl-layout__tab">已标记的复查</a>-->
                             <a href="#scroll-tab-4" class="mdl-layout__tab">已回执的复查</a>
@@ -166,7 +166,22 @@
                             <div class="page-content">
                                 <!-- Your content goes here -->
 
-
+                                <div id="zone1" style="width: 75%; margin: 0 auto;text-align: center;display: none">
+                                    <table  class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                                        <thead>
+                                        <tr>
+                                            <th class="mdl-data-table__cell--non-numeric"></th>
+                                            <th>所在院系</th>
+                                            <th>课程名称</th>
+                                            <th>学生姓名</th>
+                                            <th>任课教师</th>
+                                            <th>更新日期</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="upd_ap_table">
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <!--更新的复查-->
                             </div>
                         </section>

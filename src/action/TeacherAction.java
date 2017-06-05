@@ -254,6 +254,7 @@ public class TeacherAction extends ActionSupport {
         stringObjectMap.put("type",operation);
         List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
         rsp = JSON.toJSONString(list);
+//        System.out.println(rsp);
         return SUCCESS;
     }
 
