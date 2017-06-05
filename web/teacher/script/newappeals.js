@@ -66,7 +66,7 @@ function getNewAppeals() {
         else{
             $("#zone").hide();
             $("#np_tag").hide();
-            $("#zone").parent().html("<h1>无新的复查请求</h1>")
+            $("#zone").parent().html("<h2 style='width: 25%;margin: 0 auto'>无新的复查请求</h2>")
         }
     })
 }
@@ -84,10 +84,10 @@ function updateStatus(appealId, status) {
     };
     var json = $.param(appeal);
     // console.log(json);
-    $.getJSON('updateAppeals',json,function () {});
+    $.getJSON('updateAppeals',json,function (data) {});
 }
 
-function updateAppealContent(appealId, content) {
+function updateAppealResponse(appealId, content) {
     var idArray = appealId.split("_");
     var appeal={
         'appeal.dpmId':idArray[1],
@@ -95,10 +95,16 @@ function updateAppealContent(appealId, content) {
         'appeal.tchId':idArray[3],
         'appeal.stuId':idArray[4],
         'date': idArray[5],
-        'appeal.content': content
+        'appeal.response': content,
+        'appeal.status':4
     };
     var json = $.param(appeal);
-    $.getJSON('updateAppeals',json,function () {});
+
+    $.getJSON('updateAppeals',json,function (data) {
+        var obj = $.parseJSON(data);
+        rs = obj.result;
+    });
+
 }
 
 function saveDraw(appealId, content) {
@@ -118,16 +124,18 @@ function saveDraw(appealId, content) {
 $(function () {
     $("#ly_4").click(function () {
         getNewAppeals();
-        $("#ap_table").delegate(".expand-content","click",function () {
-            $(this).css("font-weight","");
-            $(this).next().fadeToggle("fast");
-            var obj = $(this).next().find("button").get(2);
-            var id = $(obj).attr("id");
-            updateStatus(id,1)
-        })
-        $("#tab-link-1").click(function () {
-            $("#np_tag").fadeOut("fast");
-        })
+    })
+
+    $("#ap_table").delegate(".expand-content","click",function () {
+        $(this).css("font-weight","");
+        $(this).next().fadeToggle("fast");
+        var obj = $(this).next().find("button").get(2);
+        var id = $(obj).attr("id");
+        updateStatus(id,1)
+    })
+
+    $("#tab-link-1").click(function () {
+        $("#np_tag").fadeOut("fast");
     })
 
     $("#ap_table").delegate(".appeal-respond","click",function () {
@@ -145,7 +153,8 @@ $(function () {
         var text = $(this).parent().prev().children("textarea").get(0);
         var id = '#'+$(text).attr("id");
         var content = $(id).val();
-        updateStatus($(text).attr("id"),4);
-        updateAppealContent(content);
+        updateAppealResponse($(text).attr("id"),content);
+        console.log($(this).parent().parent().parent().parent());
+
     })
 })

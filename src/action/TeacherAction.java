@@ -232,8 +232,8 @@ public class TeacherAction extends ActionSupport {
 //        System.out.println(appeal.toString());
         List<Appeal> appeals = new ArrayList<>();
         appeals.add(appeal);
-        appealServiceI.updateAppeals(appeals);
-
+        boolean flag = appealServiceI.updateAppeals(appeals);
+        rsp = "{\"result\" : \""+flag+"\"}";
         return SUCCESS;
     }
 

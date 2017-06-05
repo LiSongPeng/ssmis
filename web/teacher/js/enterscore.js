@@ -10,7 +10,6 @@
             "tid":sessionStorage.tchid
         },
         success:function(data){
-            console.log(data)
             var content = "<table align='center' class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'>";
             for(var i in data){
                 var crsId = data[i].crsId;
