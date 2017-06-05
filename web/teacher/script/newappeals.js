@@ -12,21 +12,21 @@ function writeToTbody(tbodyid,appeals) {
     $(tbodyid).html("");
     $.each(appeals,function(i,n){
         var content = n.content;
-        var crsName = n.courseByCrsId.crsName;
+        var crsName = n.crsName;
         var crsId = n.crsId;
-        var dpmName = n.departmentByDpmId.dpmName;
+        var dpmName = n.departmentName;
         var dpmId = n.dpmId;
-        var tchName = n.departmentByDpmId.teachersByDpmId[0].name;
+        var tchName = n.teacherName;
         var tchId = n.tchId;
-        var stuName = n.studentByStuId.name;
+        var stuName = n.studentName;
         var stuId = n.stuId;
-        var stuGrade = "女";
-        if(n.studentByStuId.grade=='1') stuGender = "男";
-        var stuGender = n.studentByStuId.gender;
-        var stuclassNo = n.studentByStuId.classNo;
+        var stuGrade = n.stuGrade;
+        var stuGender = "女";
+        if(n.stuGender=='1') stuGender = "男";
+        var stuclassNo = n.stuClassNo;
         var date = new Date(n.date);
         var aid = dpmId+"_"+crsId+"_"+tchId+"_"+stuId+"_"+n.date;
-
+        var response = n.response;
         var tr = "<tr style='font-weight:bold;' class='expand-content'>" +
             '<td><i class="material-icons">input</i></td>' +
             '<td><span class="mdl-chip"><span class="mdl-chip__text">'+dpmName+"("+dpmId+")</span></span></td>" +
@@ -53,7 +53,6 @@ function writeToTbody(tbodyid,appeals) {
             '<div><button class="send-rsp mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">send</i></button>' +
             '<button class="send-rsp-cancel mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">cancel</i></button></div></div>' +
             '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="appeal-respond mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px"><i class="material-icons">edit</i>回复</button></div></div></td></tr>';
-        console.log(i);
         $(tbodyid).append(tr);
 
 
