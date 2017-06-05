@@ -63,9 +63,7 @@ function writeToTbody(tbodyid,appeals) {
 
     })
 }
-function getAllApeeals() {
-    
-}
+
 function getNewAppeals() {
     var param = {operation:0};
     $.getJSON("getAppeals",param,function (data) {
@@ -74,6 +72,23 @@ function getNewAppeals() {
         if(list.length>0){
             $("#np_tag").attr("data-badge",list.length);
             $("#np_tag").show();
+            $("#zone").show();
+            writeToTbody("ap_table",list);
+        }
+        else{
+            $("#zone").hide();
+            $("#np_tag").hide();
+            $("#zone").parent().html("<h2 style='width: 25%;margin: 0 auto'>无新的复查请求</h2>")
+        }
+    })
+}
+
+function getAllApeeals() {
+    var param = {operation:6};
+    $.getJSON("getAppeals",param,function (data) {
+        $("#p2").hide();
+        var list = $.parseJSON(data);
+        if(list.length>0){
             $("#zone").show();
             writeToTbody("ap_table",list);
         }
