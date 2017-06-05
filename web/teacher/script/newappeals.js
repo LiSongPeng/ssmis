@@ -1,6 +1,12 @@
 /**
  * Created by tose on 2017/5/31.
  */
+
+function boxMessage(msg){
+    var snackbarContainer = document.querySelector('#toast');
+    var data = {message:msg};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+}
 function writeToTbody(tbodyid,appeals) {
     tbodyid = '#'+tbodyid;
     $(tbodyid).html("");
@@ -19,6 +25,7 @@ function writeToTbody(tbodyid,appeals) {
         var stuGender = n.studentByStuId.gender;
         var stuclassNo = n.studentByStuId.classNo;
         var date = new Date(n.date);
+        var response = n.response;
         var aid = dpmId+"_"+crsId+"_"+tchId+"_"+stuId+"_"+n.date;
 
         var tr = "<tr style='font-weight:bold;' class='expand-content'>" +
@@ -42,8 +49,8 @@ function writeToTbody(tbodyid,appeals) {
             '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span><span class="mdl-chip__text">课程号：'+crsId+'</span></span>' +
             '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师：'+tchName+'</span></span>' +
             '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">T</span><span class="mdl-chip__text">教师号：'+tchId+'</span></span>' +
-            '</div><div class="mdl-card__supporting-text" align="left">' +content+ '</div>' +
-            '<div class="mdl-card__actions mdl-card--border" style="display: none"><div class="mdl-textfield mdl-js-textfield" style="width:100%;margin: 0 auto"><textarea class="mdl-textfield__input" type="text" rows= "3" id="rsp_'+aid+'" ></textarea><label class="mdl-textfield__label" for="rsp_'+aid+'"></label></div>' +
+            '</div><div class="mdl-card__supporting-text" align="left">' +content+ '</div>'+
+            '<div class="mdl-card__actions mdl-card--border" style="display: none"><div class="mdl-textfield mdl-js-textfield" style="width:100%;margin: 0 auto"><textarea class="mdl-textfield__input" type="text" rows= "3" id="rsp_'+aid+'" >'+response+'</textarea><label class="mdl-textfield__label" for="rsp_'+aid+'"></label></div>' +
             '<div><button class="send-rsp mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">send</i></button>' +
             '<button class="send-rsp-cancel mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">cancel</i></button></div></div>' +
             '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="appeal-respond mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px"><i class="material-icons">edit</i>回复</button></div></div></td></tr>';
@@ -51,6 +58,9 @@ function writeToTbody(tbodyid,appeals) {
         $(tbodyid).append(tr);
 
     })
+}
+function writeUpdate() {
+
 }
 function getNewAppeals() {
     var param = {operation:0};
@@ -154,7 +164,8 @@ $(function () {
         var id = '#'+$(text).attr("id");
         var content = $(id).val();
         updateAppealResponse($(text).attr("id"),content);
-        console.log($(this).parent().parent().parent().parent());
-
+        $(this).parent().parent().parent().parent().parent().slideToggle("fast");
+        $(this).parent().parent().parent().parent().parent().prev().slideToggle("fast");
+        boxMessage("成功！");
     })
 })
