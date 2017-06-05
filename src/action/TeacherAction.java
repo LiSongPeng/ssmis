@@ -12,6 +12,7 @@ import service.i.AppealServiceI;
 import service.i.CommentServiceI;
 import service.i.TeacherServiceI;
 import team.jiangtao.entity.Appeal;
+import team.jiangtao.entity.AppealInfo;
 import team.jiangtao.entity.Comment;
 import team.jiangtao.entity.Teacher;
 
@@ -252,8 +253,30 @@ public class TeacherAction extends ActionSupport {
         Map<String,Object> stringObjectMap = new HashMap<>();
         stringObjectMap.put("tch","00001");//Instead of Session
         stringObjectMap.put("type",operation);
+//        teacher.setName("aaaaa");
         List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
-        rsp = JSON.toJSONString(list);
+        List<Appeal> temp =(List<Appeal>) list;
+        List<AppealInfo> appealInfos = new ArrayList<>();
+        for(Appeal ap:temp){
+            AppealInfo appealInfo = new AppealInfo();
+            appealInfo.setDpmId(ap.getDpmId());
+            appealInfo.setCrsId(ap.getCrsId());
+            appealInfo.setTchId(ap.getTchId());
+            appealInfo.setStuId(ap.getStuId());
+            appealInfo.setDate(ap.getDate());
+            appealInfo.setContent(ap.getContent());
+            appealInfo.setResponse(ap.getResponse());
+            appealInfo.setStatus(ap.getStatus());
+            appealInfo.setDepartmentName(ap.getDepartmentByDpmId().getDpmName());
+            appealInfo.setTeacherName("tchname");
+            appealInfo.setStudentName(ap.getStudentByStuId().getName());
+            appealInfo.setStuGender(ap.getStudentByStuId().getGender());
+            appealInfo.setStuGrade(ap.getStudentByStuId().getGrade());
+            appealInfo.setStuClassNo(ap.getStudentByStuId().getClassNo());
+
+            appealInfos.add(appealInfo);
+        }
+        rsp = JSON.toJSONString(appealInfos);
 //        System.out.println(rsp);
         return SUCCESS;
     }

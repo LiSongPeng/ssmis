@@ -10,14 +10,14 @@ import java.sql.Date;
 @IdClass(AppealPK.class)
 @Table(name = "appeal")
 public class Appeal {
-    private String dpmId;
-    private String crsId;
-    private String tchId;
-    private String stuId;
-    private Date date;
-    private String content;
-    private String response;
-    private byte status;//0 新的复查 1已读  3 更新的 4 已回执的 5 关闭的 6 草稿
+    protected String dpmId;
+    protected String crsId;
+    protected String tchId;
+    protected String stuId;
+    protected Date date;
+    protected String content;
+    protected String response;
+    protected byte status;//0 新的复查 1已读  3 更新的 4 已回执的 5 关闭的 6 草稿
     private Department departmentByDpmId;
     private Course courseByCrsId;
     private Student studentByStuId;

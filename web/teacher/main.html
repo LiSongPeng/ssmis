@@ -128,10 +128,10 @@
                                 <span id="np_tag_updated" class="mdl-badge" data-badge="5" style="display: none"></span>
                             </a>
                             <!--<a href="#scroll-tab-3" class="mdl-layout__tab">已标记的复查</a>-->
-                            <a href="#scroll-tab-4" class="mdl-layout__tab">已回执的复查</a>
-                            <a href="#scroll-tab-5" class="mdl-layout__tab">已关闭的复查</a>
-                            <a href="#scroll-tab-6" class="mdl-layout__tab">全部复查信息</a>
-                            <a href="#scroll-tab-7" class="mdl-layout__tab">草稿箱</a>
+                            <a id="link-rsp" href="#scroll-tab-4" class="mdl-layout__tab">已回执的复查</a>
+                            <a id="link-closed" href="#scroll-tab-5" class="mdl-layout__tab">已关闭的复查</a>
+                            <a id="link-all" href="#scroll-tab-6" class="mdl-layout__tab">全部复查信息</a>
+                            <a id="link-draw" href="#scroll-tab-7" class="mdl-layout__tab">草稿箱</a>
                         </div>
                     </header>
 
@@ -262,8 +262,22 @@
                         <section class="mdl-layout__tab-panel" id="scroll-tab-7">
                             <div class="page-content">
                                 <!-- Your content goes here -->
-
-
+                                <div id="zone5" style="width: 75%; margin: 0 auto;text-align: center;display: none">
+                                    <table  class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                                        <thead>
+                                        <tr>
+                                            <th class="mdl-data-table__cell--non-numeric"></th>
+                                            <th>所在院系</th>
+                                            <th>课程名称</th>
+                                            <th>学生姓名</th>
+                                            <th>任课教师</th>
+                                            <th>更新日期</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="draw_ap_table">
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <!--草稿箱-->
                             </div>
                         </section>
