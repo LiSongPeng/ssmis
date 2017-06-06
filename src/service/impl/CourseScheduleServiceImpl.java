@@ -49,6 +49,7 @@ public class CourseScheduleServiceImpl implements CourseScheduleServiceI {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CourseSchedule> findCSbytwo(String tid) {
         return courseScheduleDaoI.findCSbytwo(tid);
     }

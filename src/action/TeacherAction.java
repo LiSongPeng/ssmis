@@ -247,6 +247,8 @@ public class TeacherAction extends ActionSupport {
     @Action(value = "pullTchCrs",results = @Result(type = "json", params = {"root","rsp"}))
     public String pullTchCrs(){
         List list = courseScheduleServiceI.findCSbytwo("00001");
+        rsp = JSON.toJSONString(list);
+        System.out.println(rsp);
         return SUCCESS;
     }
 
@@ -261,7 +263,6 @@ public class TeacherAction extends ActionSupport {
         Map<String,Object> stringObjectMap = new HashMap<>();
         stringObjectMap.put("tch","00001");//Instead of Session
         stringObjectMap.put("type",operation);
-//        teacher.setName("aaaaa");
         List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
         List<Appeal> temp =(List<Appeal>) list;
         List<AppealInfo> appealInfos = new ArrayList<>();
