@@ -2,19 +2,15 @@ package action;
 
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
+import dao.i.CourseScheduleDaoI;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import service.i.AppealServiceI;
-import service.i.CommentServiceI;
-import service.i.TeacherServiceI;
-import team.jiangtao.entity.Appeal;
-import team.jiangtao.entity.AppealInfo;
-import team.jiangtao.entity.Comment;
-import team.jiangtao.entity.Teacher;
+import service.i.*;
+import team.jiangtao.entity.*;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -39,6 +35,7 @@ public class TeacherAction extends ActionSupport {
     private String isRememberPsw;
     private long date;
     private String tid;
+    private CourseScheduleServiceI courseScheduleServiceI;
 
     public long getDate() {
         return date;
@@ -56,6 +53,11 @@ public class TeacherAction extends ActionSupport {
     @Resource(name = "appealService")
     public void setAppealServiceI(AppealServiceI appealServiceI) {
         this.appealServiceI = appealServiceI;
+    }
+
+    @Resource(name="csService")
+    public void setCourseScheduleServiceI(CourseScheduleServiceI courseScheduleServiceI) {
+        this.courseScheduleServiceI = courseScheduleServiceI;
     }
 
     public void setTeacher(Teacher teacher) {
@@ -240,6 +242,12 @@ public class TeacherAction extends ActionSupport {
 
     public Appeal getAppeal() {
         return appeal;
+    }
+
+    @Action(value = "pullTchCrs",results = @Result(type = "json", params = {"root","rsp"}))
+    public String pullTchCrs(){
+
+        return SUCCESS;
     }
 
     /**
