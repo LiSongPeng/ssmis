@@ -246,8 +246,23 @@ public class TeacherAction extends ActionSupport {
 
     @Action(value = "pullTchCrs",results = @Result(type = "json", params = {"root","rsp"}))
     public String pullTchCrs(){
-        List list = courseScheduleServiceI.findCSbytwo("00001");
-        rsp = JSON.toJSONString(list);
+        List<CourseSchedule> list = courseScheduleServiceI.findCSbytwo("00001");
+        List<CrsInfo> crsInfos = new ArrayList<>();
+        CrsInfo temp;
+        for(CourseSchedule courseSchedule : list){
+            temp = new CrsInfo();
+            temp.setCrsName(courseSchedule.getCourseByCrsId().getCrsName());
+            temp.setDpmName(courseSchedule.getDepartmentByDpmId().getDpmName());
+            temp.setTchName(courseSchedule.getTeacherByTchId().getName());
+            temp.setDpmId(courseSchedule.getDpmId());
+            temp.setCrsId(courseSchedule.getCrsId());
+            temp.setTchId(courseSchedule.getTchId());
+            temp.setCredit(courseSchedule.getCredit());
+            temp.setPreriods(courseSchedule.getPreriods());
+            temp.setTerm(courseSchedule.getTerm());
+            crsInfos.add(temp);
+        }
+        rsp = JSON.toJSONString(crsInfos);
         System.out.println(rsp);
         return SUCCESS;
     }

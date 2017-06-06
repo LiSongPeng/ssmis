@@ -9,13 +9,13 @@ import javax.persistence.*;
 @Table(name = "course_schedule", schema = "ssmis", catalog = "")
 @IdClass(CourseSchedulePK.class)
 public class CourseSchedule {
-    private String dpmId;
-    private String crsId;
-    private String tchId;
-    private byte type;//0 选修,1 必修
-    private byte preriods;//课时
-    private byte credit;//学分
-    private byte term;//学期(1-8)
+    protected String dpmId;
+    protected String crsId;
+    protected String tchId;
+    protected byte type;//0 选修,1 必修
+    protected byte preriods;//课时
+    protected byte credit;//学分
+    protected byte term;//学期(1-8)
     private Department departmentByDpmId;
     private Course courseByCrsId;
     private Teacher teacherByTchId;

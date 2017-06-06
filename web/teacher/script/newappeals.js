@@ -285,4 +285,7 @@ $(function () {
     $("#link-draw").click(function () {
         getDrawAppeals();
     })
+
+
+
 })
