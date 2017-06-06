@@ -309,10 +309,12 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
-    @Action(value = "getAppeals",results = @Result(type = "json",params={"root","rsp"}))
-    public String getComments(){
-       //TODO
 
+    @Action(value = "getComment",results = @Result(type = "json",params={"root","rsp"}))
+    public String getComments() throws Exception {
+        Map<String,Object> stringObjectMap = new HashMap<>();
+        stringObjectMap.put("tchId","00001");
+        List list = commentServiceI.getCommentsByConditions(stringObjectMap);
         return SUCCESS;
     }
 
@@ -320,9 +322,18 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
+    @Action(value = "addComment",results = @Result(type = "json",params={"root","rsp"}))
     public String addCommnets(){
-        //TODO
-
+        boolean flag;
+        Comment commentTemp = comment;
+        Date date = new Date();
+        commentTemp.setDate(new java.sql.Date(date.getTime()));
+        List<Comment> comments = new ArrayList<>();
+        comments.add(commentTemp);
+        flag = commentServiceI.addComments(comments);
+        Map<String,Boolean> f = new HashMap<>();
+        f.put("result",flag);
+        rsp = JSON.toJSONString(f);
         return SUCCESS;
     }
 

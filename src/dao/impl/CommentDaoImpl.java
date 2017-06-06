@@ -27,7 +27,7 @@ public class CommentDaoImpl implements CommentDaoI {
     @Override
     public List<Comment> getCommentsByConditions(Map<String, Object> condition, boolean... equalCondition) throws Exception {
         String tchId = (String) condition.get("tch_id");
-        List list = null;
+        List list;
         String hql = "from Comment comment where comment.tch=:tchId";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(hql);
