@@ -309,6 +309,7 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
+    @Action(value = "getAppeals",results = @Result(type = "json",params={"root","rsp"}))
     public String getComments(){
        //TODO
 
