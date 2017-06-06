@@ -329,7 +329,6 @@ public class TeacherAction extends ActionSupport {
             commentInfos.add(commentInfo);
         }
         rsp = JSON.toJSONString(commentInfos);
-        System.out.println(rsp);
         return SUCCESS;
     }
 
@@ -356,8 +355,18 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
+    @Action(value = "updateComment",results = @Result(type = "json",params={"root","rsp"}))
     public String updateComments(){
-        //TODO
+        Date d = new Date(date);
+        Comment queryCommnet = new Comment();
+        queryCommnet.setCrs(comment.getCrs());
+        queryCommnet.setDate(new java.sql.Date(d.getTime()));
+        queryCommnet.setContent(comment.getContent());
+        queryCommnet.setDpm(comment.getDpm());
+        queryCommnet.setTch(comment.getTch());
+        List<Comment> comments = new ArrayList<>();
+        comments.add(queryCommnet);
+        commentServiceI.updateComments(comments);
         return SUCCESS;
     }
 
@@ -395,4 +404,5 @@ public class TeacherAction extends ActionSupport {
     public void setTid(String tid) {
         this.tid = tid;
     }
+
 }

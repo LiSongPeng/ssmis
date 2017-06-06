@@ -152,18 +152,18 @@
                 var list = $.parseJSON(data);
                 var li = '<div class="mdl-list">';
                 $.each(list,function (i,n) {
-                    var cid = 'c_'+n.dpm+"_"+n.crs+"_"+n.tch;
+                    var cid = 'c_'+n.dpm+"_"+n.crs+"_"+n.tch+"_"+n.date;
                     var d = new Date(n.date);
                     li = li + '<div class="mdl-list__item">' +
                         ' <span class="mdl-list__item-primary-content"><span>'+n.dpmName+'('+n.dpm+')</span></span>' +
                         '<span class="mdl-list__item-primary-content"><span>'+n.crsName+'('+n.crs+')</span></span>' +
                         '<span class="mdl-list__item-primary-content"><span>'+d+'</span></span>' +
-                        '<a class="epand_more mdl-list__item-secondary-action" href="#"><i class="material-icons">expand_more</i></a>' +
+                        '<a class="expand_more mdl-list__item-secondary-action" href="#"><i class="material-icons">expand_more</i></a>' +
                         '</div>' +
                         '<div style="display:none" class="mdl-list__item">' +
                         '<span class="mdl-list__item-primary-content">' +
                         '<span>' +
-                        '<div class="mdl-textfield mdl-js-textfield"><textarea class="mdl-textfield__input" type="text" rows= "3" id="'+cid+'" ></textarea><label class="mdl-textfield__label" for="'+cid+'">Text lines...</label></div>' +
+                        '<div class="mdl-textfield mdl-js-textfield"><textarea class="mdl-textfield__input" type="text" rows= "3" id="'+cid+'" >'+n.content+'</textarea><label class="mdl-textfield__label" for="'+cid+'"></label></div>' +
                         '</span>' +
                         '<span class="mdf mdl-list__item-primary-content"><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">修改</button></span>' +
                         '</span>' +
@@ -178,6 +178,23 @@
             })
         })
 
+        $("div").delegate(".expand_more",'click',function () {
+            $(this).parent().next().slideToggle("fast");
+        })
+
+        $("div").delegate(".mdf","click",function () {
+            var d= $(this).prev().find("textarea").attr("id").split("_");
+            var param = {
+                'comment.dpm': d[1],
+                'comment.crs': d[2],
+                'comment.tch': d[3],
+                date: d[4],
+                'comment.content':$(this).prev().find("textarea").val()
+            }
+            $.getJSON("updateComment",param,function () {
+                boxMessage("修改成功");
+            })
+        })
     })
 </script>
 </html>

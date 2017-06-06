@@ -68,15 +68,15 @@ public class CommentDaoImpl implements CommentDaoI {
         try{
             Session session = sessionFactory.getCurrentSession();
             for(Comment comment:comments){
-                String hql = "update Comment comment set";
+                String hql = "update Comment comment set ";
                 for(Field field:comment.getClass().getDeclaredFields()){
                     field.setAccessible(true);
                     if(field.get(comment)!=null){
-                        hql += "comment."+field.getName()+"="+field.get(comment)+",";
+                        hql += "comment."+field.getName()+"='"+field.get(comment)+"',";
                     }
                 }
                 hql = hql.substring(0,hql.length()-1);
-                hql += "where commnent.dpm='"+comment.getDpm()+"' and comment.crs='"+comment.getCrs()+"' and comment.tch='"+comment.getTch()+"' and comment.date='"+comment.getDate()+"'";//
+                hql += "where comment.dpm='"+comment.getDpm()+"' and comment.crs='"+comment.getCrs()+"' and comment.tch='"+comment.getTch()+"' and comment.date='"+comment.getDate()+"'";//
                 Query query = session.createQuery(hql);
                 query.executeUpdate();
             }

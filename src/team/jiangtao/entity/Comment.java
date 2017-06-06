@@ -18,6 +18,19 @@ public class Comment {
     private Department departmentByDpm;
     private Course courseByCrs;
 
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "dpm='" + dpm + '\'' +
+                ", crs='" + crs + '\'' +
+                ", tch='" + tch + '\'' +
+                ", date=" + date +
+                ", content='" + content + '\'' +
+                ", departmentByDpm=" + departmentByDpm +
+                ", courseByCrs=" + courseByCrs +
+                '}';
+    }
+
     @Id
     @Column(name = "dpm")
     public String getDpm() {
