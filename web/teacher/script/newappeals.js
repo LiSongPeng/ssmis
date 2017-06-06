@@ -22,6 +22,7 @@ function writeToTbody(tbodyid,appeals) {
         var stuId = n.stuId;
         var stuGrade = n.stuGrade;
         var stuGender = "女";
+
         if(n.stuGender=='1') stuGender = "男";
         var stuclassNo = n.stuClassNo;
         var date = new Date(n.date);
@@ -51,7 +52,9 @@ function writeToTbody(tbodyid,appeals) {
             '</div><div class="mdl-card__supporting-text" align="left">' +content+ '</div>'+
             '<div class="mdl-card__actions mdl-card--border" style="display: none"><div class="mdl-textfield mdl-js-textfield" style="width:100%;margin: 0 auto"><textarea class="mdl-textfield__input" type="text" rows= "3" id="rsp_'+aid+'" >'+response+'</textarea><label class="mdl-textfield__label" for="rsp_'+aid+'"></label></div>' +
             '<div><button class="send-rsp mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">send</i></button>' +
-            '<button class="send-rsp-cancel mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">cancel</i></button></div></div>' +
+            '<button class="send-rsp-cancel mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><i class="material-icons">cancel</i></button>' +
+            '<button class="close-rsp mdl-button mdl-js-button mdl-js-ripple-effect">关闭</button>' +
+            '</div></div>' +
             '<div class="mdl-card__actions mdl-card--border"><button id="btn_'+aid+'" class="appeal-respond mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width: 96px"><i class="material-icons">edit</i>回复</button></div></div></td></tr>';
         $(tbodyid).append(tr);
 
@@ -255,6 +258,18 @@ $(function () {
         $(this).parent().parent().parent().parent().parent().slideToggle("fast");
         $(this).parent().parent().parent().parent().parent().prev().slideToggle("fast");
         boxMessage("成功！");
+    })
+
+    $("tbody").delegate(".close-rsp","click",function () {
+        var text = $(this).parent().prev().children("textarea").get(0);
+        var id = '#'+$(text).attr("id");
+        var content = $(id).val();
+        console.log($(text).attr("id"));
+        updateStatus($(text).attr("id"),5);
+        $(this).parent().parent().slideToggle("fast");
+        $(this).parent().parent().next().slideToggle("fast");
+        boxMessage("已关闭");
+
     })
     $("#link-rsp").click(function () {
         getRspAppeals();

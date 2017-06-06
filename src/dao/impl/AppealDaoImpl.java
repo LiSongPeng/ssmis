@@ -215,7 +215,6 @@ public class AppealDaoImpl implements AppealDaoI {
 
     @Override
     public boolean updateAppeals(List<Appeal> appeals) {
-        //TO CHECK
         boolean flag = true;
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -225,7 +224,6 @@ public class AppealDaoImpl implements AppealDaoI {
                 for(Field field:appeal.getClass().getDeclaredFields()){
                     field.setAccessible(true);
                     if(field.get(appeal)!=null){
-//                        System.out.println(field.getName()+" "+field.);
                         hql += " appeal."+field.getName()+"='"+field.get(appeal)+"' ,";
                     }
                 }
