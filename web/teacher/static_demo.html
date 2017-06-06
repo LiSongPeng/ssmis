@@ -34,7 +34,7 @@
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
             <a href="#fixed-tab-1" class="mdl-layout__tab is-active">评议</a>
-            <a href="#fixed-tab-2" class="mdl-layout__tab">历史评议</a>
+            <a id="all-com" href="#fixed-tab-2" class="mdl-layout__tab">历史评议</a>
         </div>
     </header>
 
@@ -57,7 +57,8 @@
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-            <div class="page-content"><!-- Your content goes here --></div>
+            <div id="history" class="page-content">
+                <!-- Your content goes here --></div>
         </section>
     </main>
 </div>
@@ -144,6 +145,37 @@
 
         $("#jump").click(function () {
             window.location.href = "main.html";
+        })
+
+        $("#all-com").click(function () {
+            $.getJSON("getComment",function (data) {
+                var list = $.parseJSON(data);
+                var li = '<div class="mdl-list">';
+                $.each(list,function (i,n) {
+                    var cid = 'c_'+n.dpm+"_"+n.crs+"_"+n.tch;
+                    var d = new Date(n.date);
+                    li = li + '<div class="mdl-list__item">' +
+                        ' <span class="mdl-list__item-primary-content"><span>'+n.dpmName+'('+n.dpm+')</span></span>' +
+                        '<span class="mdl-list__item-primary-content"><span>'+n.crsName+'('+n.crs+')</span></span>' +
+                        '<span class="mdl-list__item-primary-content"><span>'+d+'</span></span>' +
+                        '<a class="epand_more mdl-list__item-secondary-action" href="#"><i class="material-icons">expand_more</i></a>' +
+                        '</div>' +
+                        '<div style="display:none" class="mdl-list__item">' +
+                        '<span class="mdl-list__item-primary-content">' +
+                        '<span>' +
+                        '<div class="mdl-textfield mdl-js-textfield"><textarea class="mdl-textfield__input" type="text" rows= "3" id="'+cid+'" ></textarea><label class="mdl-textfield__label" for="'+cid+'">Text lines...</label></div>' +
+                        '</span>' +
+                        '<span class="mdf mdl-list__item-primary-content"><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">修改</button></span>' +
+                        '</span>' +
+                        '</div>'
+                })
+
+                li  = li + '</div>';
+
+                $("#history").html("");
+                $("#history").append(li);
+
+            })
         })
 
     })

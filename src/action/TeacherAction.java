@@ -313,8 +313,23 @@ public class TeacherAction extends ActionSupport {
     @Action(value = "getComment",results = @Result(type = "json",params={"root","rsp"}))
     public String getComments() throws Exception {
         Map<String,Object> stringObjectMap = new HashMap<>();
-        stringObjectMap.put("tchId","00001");
-        List list = commentServiceI.getCommentsByConditions(stringObjectMap);
+        stringObjectMap.put("tch_id","00001");
+        List<Comment> list = commentServiceI.getCommentsByConditions(stringObjectMap);
+        CommentInfo commentInfo;
+        List<CommentInfo> commentInfos = new ArrayList<>();
+        for(Comment tcom :list){
+            commentInfo = new CommentInfo();
+            commentInfo.setDpm(tcom.getDpm());
+            commentInfo.setCrs(tcom.getCrs());
+            commentInfo.setTch(tcom.getTch());
+            commentInfo.setDate(tcom.getDate());
+            commentInfo.setContent(tcom.getContent());
+            commentInfo.setDpmName(tcom.getDepartmentByDpm().getDpmName());
+            commentInfo.setCrsName(tcom.getCourseByCrs().getCrsName());
+            commentInfos.add(commentInfo);
+        }
+        rsp = JSON.toJSONString(commentInfos);
+        System.out.println(rsp);
         return SUCCESS;
     }
 
