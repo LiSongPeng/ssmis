@@ -3,6 +3,8 @@ package action;
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
 import dao.i.CourseScheduleDaoI;
+import dao.i.StudentScheduleDaoI;
+import dao.impl.StudentScheduleDaoImpl;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -25,6 +27,7 @@ import java.util.*;
 public class TeacherAction extends ActionSupport {
     private CommentServiceI commentServiceI;
     private AppealServiceI appealServiceI;
+    private StudentScheduleDaoI studentScheduleDaoI;
     private Teacher teacher;
     private Appeal appeal;
     private Comment comment;
@@ -59,6 +62,7 @@ public class TeacherAction extends ActionSupport {
     public void setCourseScheduleServiceI(CourseScheduleServiceI courseScheduleServiceI) {
         this.courseScheduleServiceI = courseScheduleServiceI;
     }
+
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
@@ -144,7 +148,15 @@ public class TeacherAction extends ActionSupport {
         return SUCCESS;
     }
 
-
+    @Action(value = "pullCS", results = @Result(type = "json",params={"root","rsp"}))
+    public String pullCrsSc(){
+        studentScheduleDaoI = new StudentScheduleDaoImpl();
+        List<StudentSchedule> studentScheduleList = studentScheduleDaoI.findTeacherCourses("00001");
+        for (StudentSchedule studentSchedule :studentScheduleList){
+            System.out.println(studentSchedule.toString());
+        }
+        return SUCCESS;
+    }
     public String teahcerLogout(){
         //TODO
         return SUCCESS;

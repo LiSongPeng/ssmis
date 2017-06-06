@@ -110,6 +110,23 @@ public class StudentSchedule {
     }
 
     @Override
+    public String toString() {
+        return "StudentSchedule{" +
+                "dpm='" + dpm + '\'' +
+                ", crs='" + crs + '\'' +
+                ", tch='" + tch + '\'' +
+                ", stu='" + stu + '\'' +
+                ", term=" + term +
+                ", score=" + score +
+                ", examStatus=" + examStatus +
+                ", departmentByDpm=" + departmentByDpm +
+                ", courseByCrs=" + courseByCrs +
+                ", teacherByTch=" + teacherByTch +
+                ", studentByStu=" + studentByStu +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         int result;
         long temp;
