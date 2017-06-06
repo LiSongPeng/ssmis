@@ -47,4 +47,9 @@ public class CourseScheduleServiceImpl implements CourseScheduleServiceI {
     public void setCourseScheduleDao(CourseScheduleDaoI courseScheduleDao) {
         this.courseScheduleDaoI = courseScheduleDao;
     }
+
+    @Override
+    public List<CourseSchedule> findCSbytwo(String tid) {
+        return courseScheduleDaoI.findCSbytwo(tid);
+    }
 }

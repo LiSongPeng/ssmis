@@ -246,7 +246,7 @@ public class TeacherAction extends ActionSupport {
 
     @Action(value = "pullTchCrs",results = @Result(type = "json", params = {"root","rsp"}))
     public String pullTchCrs(){
-
+        List list = courseScheduleServiceI.findCSbytwo("00001");
         return SUCCESS;
     }
 
