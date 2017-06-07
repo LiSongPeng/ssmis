@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ssmis">
+    <output-path>E:/专业设计/ssmis/out/artifacts/ssmis</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ssmis" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="antlr-2.7.7" />
+          <element id="library" level="project" name="javax.ejb" />
+          <element id="library" level="project" name="jackson-annotations-2.9.0.pr3" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="ssmis/web/Web" />
+    </root>
+  </artifact>
+</component>
