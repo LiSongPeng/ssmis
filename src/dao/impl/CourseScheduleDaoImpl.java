@@ -103,8 +103,8 @@ public class CourseScheduleDaoImpl implements CourseScheduleDaoI {
     public List<CourseSchedule> findCSByPageNumber(int pageNumber) {
         Session session = sessionFactory.getCurrentSession();
         Query<CourseSchedule> query = session.createQuery("from CourseSchedule cs", CourseSchedule.class);
-        query.setMaxResults(10);
-        query.setFirstResult((pageNumber - 1) * 10);
+        query.setMaxResults(5);
+        query.setFirstResult((pageNumber - 1) * 5);
         return query.list();
     }
 

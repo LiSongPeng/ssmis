@@ -177,8 +177,8 @@ public class AppealDaoImpl implements AppealDaoI {
             query.setParameter(2, status);
         } else
             query.setParameter(2, appealStatus);
-        query.setMaxResults(10);
-        query.setFirstResult((pageNumber - 1) * 10);
+        query.setMaxResults(5);
+        query.setFirstResult((pageNumber - 1) * 5);
         List<Appeal> list = new ArrayList<>();
         try {
             list = query.list();

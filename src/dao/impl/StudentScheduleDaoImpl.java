@@ -71,8 +71,8 @@ public class StudentScheduleDaoImpl implements StudentScheduleDaoI {
         Session session = sessionFactory.getCurrentSession();
         Query<StudentSchedule> query = session.createQuery("from StudentSchedule ss where ss.stu=?1", StudentSchedule.class);
         query.setParameter(1, stuId);
-        query.setMaxResults(10);
-        query.setFirstResult((pageNumber - 1) * 10);
+        query.setMaxResults(5);
+        query.setFirstResult((pageNumber - 1) * 5);
         return query.list();
     }
 

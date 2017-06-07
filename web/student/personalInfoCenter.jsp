@@ -104,8 +104,14 @@
         <div class="row">
             <div class="input-field col s9">
                 <i class="material-icons prefix">email</i>
-                <input id="gender" type="text" disabled="disabled"
-                       value="<s:property value="#session.currStu.gender"/>">
+                <s:if test="#session.currStu.gender==1">
+                    <input id="gender" type="text" disabled="disabled"
+                           value="男">
+                </s:if>
+                <s:else>
+                    <input id="gender" type="text" disabled="disabled"
+                           value="女">
+                </s:else>
                 <label for="gender">性别</label>
             </div>
         </div>
@@ -128,8 +134,14 @@
         <div class="row">
             <div class="input-field col s9">
                 <i class="material-icons prefix">email</i>
-                <input id="stuStatus" type="text" disabled="disabled"
-                       value="<s:property value="#session.currStu.stuStatus"/>">
+                <s:if test="#session.currStu.stuStatus==0">
+                    <input id="stuStatus" type="text" disabled="disabled"
+                           value="正常">
+                </s:if>
+                <s:else>
+                    <input id="stuStatus" type="text" disabled="disabled"
+                           value="异常">
+                </s:else>
                 <label for="stuStatus">学生状态</label>
             </div>
         </div>
