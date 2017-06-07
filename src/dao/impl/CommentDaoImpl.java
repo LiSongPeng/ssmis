@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import team.jiangtao.entity.Comment;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class CommentDaoImpl implements CommentDaoI {
     @Override
     public List<Comment> getCommentsByConditions(Map<String, Object> condition, boolean... equalCondition) throws Exception {
         String tchId = (String) condition.get("tch_id");
-        List list = null;
+        List list;
         String hql = "from Comment comment where comment.tch=:tchId";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(hql);
@@ -67,7 +68,17 @@ public class CommentDaoImpl implements CommentDaoI {
         try{
             Session session = sessionFactory.getCurrentSession();
             for(Comment comment:comments){
-                session.update(comment);
+                String hql = "update Comment comment set ";
+                for(Field field:comment.getClass().getDeclaredFields()){
+                    field.setAccessible(true);
+                    if(field.get(comment)!=null){
+                        hql += "comment."+field.getName()+"='"+field.get(comment)+"',";
+                    }
+                }
+                hql = hql.substring(0,hql.length()-1);
+                hql += "where comment.dpm='"+comment.getDpm()+"' and comment.crs='"+comment.getCrs()+"' and comment.tch='"+comment.getTch()+"' and comment.date='"+comment.getDate()+"'";//
+                Query query = session.createQuery(hql);
+                query.executeUpdate();
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -12,4 +12,5 @@ public interface CourseScheduleServiceI {
     Integer deleCS(String dpm_id,String crs_id,String tch_id);
     List<CourseSchedule> serfindAllCS();
     CourseSchedule serfindbyid(String crsId, String tchId, String dpmId);
+    List<CourseSchedule> findCSbytwo(String tid);
 }

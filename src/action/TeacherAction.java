@@ -2,18 +2,17 @@ package action;
 
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
+import dao.i.CourseScheduleDaoI;
+import dao.i.StudentScheduleDaoI;
+import dao.impl.StudentScheduleDaoImpl;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import service.i.AppealServiceI;
-import service.i.CommentServiceI;
-import service.i.TeacherServiceI;
-import team.jiangtao.entity.Appeal;
-import team.jiangtao.entity.Comment;
-import team.jiangtao.entity.Teacher;
+import service.i.*;
+import team.jiangtao.entity.*;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -28,6 +27,7 @@ import java.util.*;
 public class TeacherAction extends ActionSupport {
     private CommentServiceI commentServiceI;
     private AppealServiceI appealServiceI;
+    private StudentServiceI studentServiceI;
     private Teacher teacher;
     private Appeal appeal;
     private Comment comment;
@@ -38,6 +38,7 @@ public class TeacherAction extends ActionSupport {
     private String isRememberPsw;
     private long date;
     private String tid;
+    private CourseScheduleServiceI courseScheduleServiceI;
 
     public long getDate() {
         return date;
@@ -56,6 +57,17 @@ public class TeacherAction extends ActionSupport {
     public void setAppealServiceI(AppealServiceI appealServiceI) {
         this.appealServiceI = appealServiceI;
     }
+
+    @Resource(name="csService")
+    public void setCourseScheduleServiceI(CourseScheduleServiceI courseScheduleServiceI) {
+        this.courseScheduleServiceI = courseScheduleServiceI;
+    }
+
+    @Resource(name="studentService")
+    public void setStudentServiceI(StudentServiceI studentServiceI) {
+        this.studentServiceI = studentServiceI;
+    }
+
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
@@ -141,7 +153,32 @@ public class TeacherAction extends ActionSupport {
         return SUCCESS;
     }
 
-
+    @Action(value = "pullCS", results = @Result(type = "json",params={"root","rsp"}))
+    public String pullCrsSc() throws Exception {
+        List<StudentSchedule> studentScheduleList = studentServiceI.pullSSbyTch("00001");
+        Map<String,List<Double>> stringDoubleMap = new HashMap<>();
+        for(StudentSchedule studentSchedule:studentScheduleList){
+            if(stringDoubleMap.get(studentSchedule.getCrs())==null){
+                stringDoubleMap.put(studentSchedule.getCrs(),new ArrayList<>());
+            }
+            stringDoubleMap.get(studentSchedule.getCrs()).add(studentSchedule.getScore());
+        }
+//        Map<String,Double> stringDoubleMap = new HashMap<>();
+//        for (StudentSchedule studentSchedule :studentScheduleList){
+//            if(stringDoubleMap.get(studentSchedule.getCrs())!=null){
+//                Double temp = stringDoubleMap.get(studentSchedule.getCrs()) + studentSchedule.getScore();
+//                stringDoubleMap.put(studentSchedule.getCrs(), temp);
+//            }
+//            stringDoubleMap.put(studentSchedule.getCrs(),studentSchedule.getScore());
+//        }
+//        int len = studentScheduleList.size();
+//        for(Map.Entry<String,Double> entry:stringDoubleMap.entrySet()){
+//            stringDoubleMap.put(entry.getKey(),entry.getValue()/len);
+//        }
+        rsp = JSON.toJSONString(stringDoubleMap);
+        System.out.println(rsp);
+        return SUCCESS;
+    }
     public String teahcerLogout(){
         //TODO
         return SUCCESS;
@@ -232,13 +269,36 @@ public class TeacherAction extends ActionSupport {
 //        System.out.println(appeal.toString());
         List<Appeal> appeals = new ArrayList<>();
         appeals.add(appeal);
-        appealServiceI.updateAppeals(appeals);
-
+        boolean flag = appealServiceI.updateAppeals(appeals);
+        rsp = "{\"result\" : \""+flag+"\"}";
         return SUCCESS;
     }
 
     public Appeal getAppeal() {
         return appeal;
+    }
+
+    @Action(value = "pullTchCrs",results = @Result(type = "json", params = {"root","rsp"}))
+    public String pullTchCrs(){
+        List<CourseSchedule> list = courseScheduleServiceI.findCSbytwo("00001");
+        List<CrsInfo> crsInfos = new ArrayList<>();
+        CrsInfo temp;
+        for(CourseSchedule courseSchedule : list){
+            temp = new CrsInfo();
+            temp.setCrsName(courseSchedule.getCourseByCrsId().getCrsName());
+            temp.setDpmName(courseSchedule.getDepartmentByDpmId().getDpmName());
+            temp.setTchName(courseSchedule.getTeacherByTchId().getName());
+            temp.setDpmId(courseSchedule.getDpmId());
+            temp.setCrsId(courseSchedule.getCrsId());
+            temp.setTchId(courseSchedule.getTchId());
+            temp.setCredit(courseSchedule.getCredit());
+            temp.setPreriods(courseSchedule.getPreriods());
+            temp.setTerm(courseSchedule.getTerm());
+            crsInfos.add(temp);
+        }
+        rsp = JSON.toJSONString(crsInfos);
+        System.out.println(rsp);
+        return SUCCESS;
     }
 
     /**
@@ -253,7 +313,29 @@ public class TeacherAction extends ActionSupport {
         stringObjectMap.put("tch","00001");//Instead of Session
         stringObjectMap.put("type",operation);
         List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
-        rsp = JSON.toJSONString(list);
+        List<Appeal> temp =(List<Appeal>) list;
+        List<AppealInfo> appealInfos = new ArrayList<>();
+        for(Appeal ap:temp){
+            AppealInfo appealInfo = new AppealInfo();
+            appealInfo.setDpmId(ap.getDpmId());
+            appealInfo.setCrsId(ap.getCrsId());
+            appealInfo.setTchId(ap.getTchId());
+            appealInfo.setStuId(ap.getStuId());
+            appealInfo.setDate(ap.getDate());
+            appealInfo.setContent(ap.getContent());
+            appealInfo.setResponse(ap.getResponse());
+            appealInfo.setStatus(ap.getStatus());
+            appealInfo.setDepartmentName(ap.getDepartmentByDpmId().getDpmName());
+            appealInfo.setTeacherName("tchname");
+            appealInfo.setStudentName(ap.getStudentByStuId().getName());
+            appealInfo.setStuGender(ap.getStudentByStuId().getGender());
+            appealInfo.setStuGrade(ap.getStudentByStuId().getGrade());
+            appealInfo.setStuClassNo(ap.getStudentByStuId().getClassNo());
+
+            appealInfos.add(appealInfo);
+        }
+        rsp = JSON.toJSONString(appealInfos);
+//        System.out.println(rsp);
         return SUCCESS;
     }
 
@@ -261,9 +343,26 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
-    public String getComments(){
-       //TODO
 
+    @Action(value = "getComment",results = @Result(type = "json",params={"root","rsp"}))
+    public String getComments() throws Exception {
+        Map<String,Object> stringObjectMap = new HashMap<>();
+        stringObjectMap.put("tch_id","00001");
+        List<Comment> list = commentServiceI.getCommentsByConditions(stringObjectMap);
+        CommentInfo commentInfo;
+        List<CommentInfo> commentInfos = new ArrayList<>();
+        for(Comment tcom :list){
+            commentInfo = new CommentInfo();
+            commentInfo.setDpm(tcom.getDpm());
+            commentInfo.setCrs(tcom.getCrs());
+            commentInfo.setTch(tcom.getTch());
+            commentInfo.setDate(tcom.getDate());
+            commentInfo.setContent(tcom.getContent());
+            commentInfo.setDpmName(tcom.getDepartmentByDpm().getDpmName());
+            commentInfo.setCrsName(tcom.getCourseByCrs().getCrsName());
+            commentInfos.add(commentInfo);
+        }
+        rsp = JSON.toJSONString(commentInfos);
         return SUCCESS;
     }
 
@@ -271,9 +370,18 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
+    @Action(value = "addComment",results = @Result(type = "json",params={"root","rsp"}))
     public String addCommnets(){
-        //TODO
-
+        boolean flag;
+        Comment commentTemp = comment;
+        Date date = new Date();
+        commentTemp.setDate(new java.sql.Date(date.getTime()));
+        List<Comment> comments = new ArrayList<>();
+        comments.add(commentTemp);
+        flag = commentServiceI.addComments(comments);
+        Map<String,Boolean> f = new HashMap<>();
+        f.put("result",flag);
+        rsp = JSON.toJSONString(f);
         return SUCCESS;
     }
 
@@ -281,8 +389,18 @@ public class TeacherAction extends ActionSupport {
      * @author Jiang Tao
      * @return SUCCESS
      */
+    @Action(value = "updateComment",results = @Result(type = "json",params={"root","rsp"}))
     public String updateComments(){
-        //TODO
+        Date d = new Date(date);
+        Comment queryCommnet = new Comment();
+        queryCommnet.setCrs(comment.getCrs());
+        queryCommnet.setDate(new java.sql.Date(d.getTime()));
+        queryCommnet.setContent(comment.getContent());
+        queryCommnet.setDpm(comment.getDpm());
+        queryCommnet.setTch(comment.getTch());
+        List<Comment> comments = new ArrayList<>();
+        comments.add(queryCommnet);
+        commentServiceI.updateComments(comments);
         return SUCCESS;
     }
 
@@ -320,4 +438,5 @@ public class TeacherAction extends ActionSupport {
     public void setTid(String tid) {
         this.tid = tid;
     }
+
 }

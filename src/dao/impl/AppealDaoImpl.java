@@ -77,6 +77,10 @@ public class AppealDaoImpl implements AppealDaoI {
                     Query query = session.createQuery(hql);
                     query.setParameter("tch", tch_id);
                     list = query.list();
+                    List<Appeal> temp = (List<Appeal>) list;
+                    for(Appeal appeal:temp){
+                        System.out.println(appeal.toString());
+                    }
                     break;
                 }
 
@@ -211,7 +215,6 @@ public class AppealDaoImpl implements AppealDaoI {
 
     @Override
     public boolean updateAppeals(List<Appeal> appeals) {
-        //TO CHECK
         boolean flag = true;
         try {
             Session session = sessionFactory.getCurrentSession();
@@ -221,7 +224,6 @@ public class AppealDaoImpl implements AppealDaoI {
                 for(Field field:appeal.getClass().getDeclaredFields()){
                     field.setAccessible(true);
                     if(field.get(appeal)!=null){
-//                        System.out.println(field.getName()+" "+field.);
                         hql += " appeal."+field.getName()+"='"+field.get(appeal)+"' ,";
                     }
                 }

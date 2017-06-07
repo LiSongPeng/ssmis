@@ -10,13 +10,26 @@ import java.sql.Date;
 @IdClass(CommentPK.class)
 @Table(name = "comment")
 public class Comment {
-    private String dpm;
-    private String crs;
-    private String tch;
-    private Date date;
-    private String content;
+    protected String dpm;
+    protected String crs;
+    protected String tch;
+    protected Date date;
+    protected String content;
     private Department departmentByDpm;
     private Course courseByCrs;
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "dpm='" + dpm + '\'' +
+                ", crs='" + crs + '\'' +
+                ", tch='" + tch + '\'' +
+                ", date=" + date +
+                ", content='" + content + '\'' +
+                ", departmentByDpm=" + departmentByDpm +
+                ", courseByCrs=" + courseByCrs +
+                '}';
+    }
 
     @Id
     @Column(name = "dpm")

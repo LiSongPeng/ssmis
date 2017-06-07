@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="../res/jiangtao/lib/mdl/icon.css">
     <script src="../res/jiangtao/lib/mdl/material.min.js"></script>
     <script src="../res/js/jquery-3.0.0.min.js"></script>
-    <!--<script src="../res/jiangtao/lib/d3.min.js"></script>-->
-    <!--<script src="script/vue.js"></script>-->
     <script src="../res/jiangtao/lib/d3.v3.min.js"></script>
     <script src="../res/jiangtao/lib/c3.min.js"></script>
     <link href="../res/jiangtao/lib/c3.min.css" rel="stylesheet" type="text/css">
@@ -19,45 +17,98 @@
     <script src="../res/jiangtao/lib/dist/summernote.min.js"></script>
 </head>
 <body>
-<div id="chart"></div>
-<script>
-    var chart = c3.generate({
-        bindto: '#chart',
-        data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25]
-            ]
-        }
-    });
-</script>
-<hr>
-<ul class="demo-list-two mdl-list">
-    <li class="mdl-list__item mdl-list__item--two-line">
-    <span class="mdl-list__item-primary-content">
-      <i class="material-icons mdl-list__item-icon">subject</i>
-      <span>Class Name</span>
-      <span class="mdl-list__item-sub-title">00001</span>
-    </span>
-        <span class="mdl-list__item-secondary-content">
-      <span class="mdl-list__item-secondary-info">编辑</span>
-      <a class="mdl-list__item-secondary-action" href="#">
-      <i class="material-icons">create</i>
-      </a>
-    </span>
-    </li>
-
-</ul>
-<hr>
-<h4>Undo</h4>
-<div id="p_ed">
-    <div id="editor">评议信息...</div>
+<div id="toast" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
 </div>
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+                mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">
+                <span class="mdl-layout-title"><button id="jump" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored"><i class="material-icons">keyboard_arrow_left</i></button> </span>
+            </span>
+        </div>
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href="#fixed-tab-1" class="mdl-layout__tab is-active">评议</a>
+            <a id="all-com" href="#fixed-tab-2" class="mdl-layout__tab">历史评议</a>
+        </div>
+    </header>
+
+    <main class="mdl-layout__content">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+            <div class="page-content">
+                <!-- Your content goes here -->
+                <div id="chart"></div>
+                <div id="list"></div>
+                <hr>
+                <div id="p_ed" style="display: none">
+                    <div id="editor">评议信息...</div>
+                    <button id="rsp" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                        提交
+                    </button>
+                    <button id="cnl" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                        取消
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+            <div id="history" class="page-content">
+                <!-- Your content goes here --></div>
+        </section>
+    </main>
+</div>
+
+
+
+
+
+<!-- Raised button with ripple -->
+
+</body>
 <script>
+    function boxMessage(msg){
+        var snackbarContainer = document.querySelector('#toast');
+        var data = {message:msg};
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    }
     $(function () {
+        $.getJSON("pullCS",function (data) {
+            var list = $.parseJSON(data);
+            var chart = c3.generate({
+                data: {
+                    json: list,
+                    types: {
+                        data1: 'area-spline',
+                        data2: 'area-spline'
+                        // 'line', 'spline', 'step', 'area', 'area-step' are also available to stack
+                    },
+                    groups: [['data1', 'data2']]
+                }
+            });
+        })
+        $.getJSON("pullTchCrs", function (data) {
+            var list = $.parseJSON(data);
+            var ul = '<ul class="mdl-list">';
+            $.each(list,function (i,n) {
+                    ul  = ul +'<li id="li_'+n.dpmId+'_'+n.crsId+'_'+n.tchId+'" class="mdl-list__item mdl-list__item--two-line">' +
+                        '<span class="mdl-list__item-primary-content">' +
+                        '<i class="material-icons mdl-list__item-icon">subject</i><span>'+n.crsName+'</span>' +
+                        '<span class="mdl-list__item-sub-title"> 课程号：'+n.crsId+'</span>' +
+                        '</span>' +
+                        '<span class="mdl-list__item-secondary-content"><span class="mdl-list__item-secondary-info">编辑</span><a csid="'+n.dpmId+'_'+n.crsId+'_'+n.tchId+'" class="edit-com mdl-list__item-secondary-action"><i class="material-icons">create</i></a></span>' +
+                        '</li>'
+            })
+            ul = ul + '</ul>'
+            $("#list").html("");
+            $("#list").append(ul);
+        })
         $("#editor").summernote({
             toolbar: [
-                // [groupName, [list of button]]
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough', 'superscript', 'subscript']],
                 ['fontsize', ['fontsize']],
@@ -70,27 +121,85 @@
             maxHeight: null,             // set maximum height of editor
             focus: true,
             callbacks: {
-                onEnter: function() {
-                    console.log($("#editor").summernote('code'));//set key
+                onEnter: function () {
+//                    console.log();//set key
                 }
             }
         });
-        console.log($("#editor").summernote('code',''));//set text
-//        console.log(e.code());
-    })
-</script>
-<!-- Raised button with ripple -->
-<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-    Button
-</button>
+        $("body").delegate(".edit-com","click",function () {
 
-<script>
-    $("button").click(function () {
-//        $("#p_ed").slideToggle();
-        $.getJSON("http://localhost:8080/test/hibernate",function (data) {
-            console.log($.parseJSON(data));
+            $("#editor").attr("csid",$(this).attr("csid"));
+            $("#p_ed").slideToggle("fast");
+        })
+
+        $("#rsp").click(function () {
+            var id = $("#editor").attr("csid").split("_");
+            var param = {
+                'comment.dpm': id[0],
+                'comment.crs': id[1],
+                'comment.tch': id[2],
+                'comment.content':$("#editor").summernote('code'),
+            }
+            $.getJSON("addComment",param,function (data) {})
+            boxMessage("提交成功");
+            $("#p_ed").slideToggle("fast");
+            var lid = '#li_'+$("#editor").attr("csid");
+            $(lid).slideToggle("fast");
+            $("#editor").summernote('code','');
+        })
+
+        $("#jump").click(function () {
+            window.location.href = "main.html";
+        })
+
+        $("#all-com").click(function () {
+            $.getJSON("getComment",function (data) {
+                var list = $.parseJSON(data);
+                var li = '<div class="mdl-list">';
+                $.each(list,function (i,n) {
+                    var cid = 'c_'+n.dpm+"_"+n.crs+"_"+n.tch+"_"+n.date;
+                    var d = new Date(n.date);
+                    li = li + '<div class="mdl-list__item">' +
+                        ' <span class="mdl-list__item-primary-content"><span>'+n.dpmName+'('+n.dpm+')</span></span>' +
+                        '<span class="mdl-list__item-primary-content"><span>'+n.crsName+'('+n.crs+')</span></span>' +
+                        '<span class="mdl-list__item-primary-content"><span>'+d+'</span></span>' +
+                        '<a class="expand_more mdl-list__item-secondary-action" href="#"><i class="material-icons">expand_more</i></a>' +
+                        '</div>' +
+                        '<div style="display:none" class="mdl-list__item">' +
+                        '<span class="mdl-list__item-primary-content">' +
+                        '<span>' +
+                        '<div class="mdl-textfield mdl-js-textfield"><textarea class="mdl-textfield__input" type="text" rows= "3" id="'+cid+'" >'+n.content+'</textarea><label class="mdl-textfield__label" for="'+cid+'"></label></div>' +
+                        '</span>' +
+                        '<span class="mdf mdl-list__item-primary-content"><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">修改</button></span>' +
+                        '</span>' +
+                        '</div>'
+                })
+
+                li  = li + '</div>';
+
+                $("#history").html("");
+                $("#history").append(li);
+
+            })
+        })
+
+        $("div").delegate(".expand_more",'click',function () {
+            $(this).parent().next().slideToggle("fast");
+        })
+
+        $("div").delegate(".mdf","click",function () {
+            var d= $(this).prev().find("textarea").attr("id").split("_");
+            var param = {
+                'comment.dpm': d[1],
+                'comment.crs': d[2],
+                'comment.tch': d[3],
+                date: d[4],
+                'comment.content':$(this).prev().find("textarea").val()
+            }
+            $.getJSON("updateComment",param,function () {
+                boxMessage("修改成功");
+            })
         })
     })
 </script>
-</body>
 </html>

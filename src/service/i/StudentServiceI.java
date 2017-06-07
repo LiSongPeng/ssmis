@@ -117,4 +117,7 @@ public interface StudentServiceI {
     List<Student> findStudentsByCrsAndDpm(String dpm, String crs);
 
     void enterScore(List<StudentSchedule> studentSchedules);
+
+
+    List<StudentSchedule> pullSSbyTch(String tchId)throws Exception;
 }
