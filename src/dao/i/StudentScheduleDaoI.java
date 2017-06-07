@@ -50,4 +50,6 @@ public interface StudentScheduleDaoI {
     StudentSchedule findByStuAndCrsAndDpm(String stu, String crs, String dpm);
 
     List<StudentSchedule> findTeacherCourses(String tid);
+
+    List<Object[]> findTeacherCoursess(String tid);
 }

@@ -111,6 +111,15 @@ public class StudentScheduleDaoImpl implements StudentScheduleDaoI {
         return query.list();
     }
 
+    @Override
+    public List<Object[]> findTeacherCoursess(String tid) {
+        String hql = "select distinct s.crs, c.crsName from StudentSchedule s left join Course c on s.crs = c.crsId where s.tch = ?";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hql);
+        query.setParameter(0, tid);
+        return query.list();
+    }
+
     @Resource(name = "sessionFactory")
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
