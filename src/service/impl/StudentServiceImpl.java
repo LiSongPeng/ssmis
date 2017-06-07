@@ -244,4 +244,10 @@ public class StudentServiceImpl implements StudentServiceI {
             schedule.setExamStatus(studentSchedule.getExamStatus());
         });
     }
+
+    @Override
+    @Transactional
+    public List<StudentSchedule> pullSSbyTch(String tchId)throws Exception{
+        return studentScheduleDao.findTeacherCourses(tchId);
+   }
 }

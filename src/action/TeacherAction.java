@@ -27,7 +27,7 @@ import java.util.*;
 public class TeacherAction extends ActionSupport {
     private CommentServiceI commentServiceI;
     private AppealServiceI appealServiceI;
-    private StudentScheduleDaoI studentScheduleDaoI;
+    private StudentServiceI studentServiceI;
     private Teacher teacher;
     private Appeal appeal;
     private Comment comment;
@@ -61,6 +61,11 @@ public class TeacherAction extends ActionSupport {
     @Resource(name="csService")
     public void setCourseScheduleServiceI(CourseScheduleServiceI courseScheduleServiceI) {
         this.courseScheduleServiceI = courseScheduleServiceI;
+    }
+
+    @Resource(name="studentService")
+    public void setStudentServiceI(StudentServiceI studentServiceI) {
+        this.studentServiceI = studentServiceI;
     }
 
 
@@ -149,12 +154,29 @@ public class TeacherAction extends ActionSupport {
     }
 
     @Action(value = "pullCS", results = @Result(type = "json",params={"root","rsp"}))
-    public String pullCrsSc(){
-        studentScheduleDaoI = new StudentScheduleDaoImpl();
-        List<StudentSchedule> studentScheduleList = studentScheduleDaoI.findTeacherCourses("00001");
-        for (StudentSchedule studentSchedule :studentScheduleList){
-            System.out.println(studentSchedule.toString());
+    public String pullCrsSc() throws Exception {
+        List<StudentSchedule> studentScheduleList = studentServiceI.pullSSbyTch("00001");
+        Map<String,List<Double>> stringDoubleMap = new HashMap<>();
+        for(StudentSchedule studentSchedule:studentScheduleList){
+            if(stringDoubleMap.get(studentSchedule.getCrs())==null){
+                stringDoubleMap.put(studentSchedule.getCrs(),new ArrayList<>());
+            }
+            stringDoubleMap.get(studentSchedule.getCrs()).add(studentSchedule.getScore());
         }
+//        Map<String,Double> stringDoubleMap = new HashMap<>();
+//        for (StudentSchedule studentSchedule :studentScheduleList){
+//            if(stringDoubleMap.get(studentSchedule.getCrs())!=null){
+//                Double temp = stringDoubleMap.get(studentSchedule.getCrs()) + studentSchedule.getScore();
+//                stringDoubleMap.put(studentSchedule.getCrs(), temp);
+//            }
+//            stringDoubleMap.put(studentSchedule.getCrs(),studentSchedule.getScore());
+//        }
+//        int len = studentScheduleList.size();
+//        for(Map.Entry<String,Double> entry:stringDoubleMap.entrySet()){
+//            stringDoubleMap.put(entry.getKey(),entry.getValue()/len);
+//        }
+        rsp = JSON.toJSONString(stringDoubleMap);
+        System.out.println(rsp);
         return SUCCESS;
     }
     public String teahcerLogout(){
