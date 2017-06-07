@@ -1,5 +1,6 @@
 package service.impl;
 
+import page.Page;
 import dao.i.CourseDaoI;
 import dao.i.CourseScheduleDaoI;
 import dao.i.CoursesTableDaoI;
@@ -79,8 +80,8 @@ public class CourseServiceImpl implements CourseServiceI {
 
     @Override
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
-    public List<Course> getallCourse() {
-        return courseDao.findallCourse();
+    public Page  getallCourse(int cpage) {
+        return courseDao.findallCourse(cpage);
     }
 
     @Override

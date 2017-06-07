@@ -13,7 +13,7 @@
     <head>
         <title></title>
         <style>
-            .div-height{min-height: 200px;text-align:center}
+            .div-height{height: 200px;text-align:center;overflow: auto}
         </style>
     </head>
 <body>
@@ -23,11 +23,11 @@
         <input class="mdl-textfield__input" type="text" id="mohu">
         <label class="mdl-textfield__label" for="mohu">请输入课程名称</label>
     </div>
-    <button id="find" value="模糊查询"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">模糊查询</button>
+    <button id="find" value="关键字查询"  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">关键字查询</button>
 </div>
 
-<div class="div-height">
-<table width="380" align="center" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+<div class="div-height" >
+<table width="380"  align="center" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
     <thead>
     <tr>
         <th class="mdl-data-table__cell--non-numeric" data-field="crs_id">课程编号</th>
@@ -42,6 +42,7 @@
 </div>
 
 <h5 align="center">显示全部课程</h5>
+<div class="setheight">
 <table align="center" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
     <thead>
     <tr>
@@ -57,9 +58,24 @@
 
     </tbody>
 </table>
+</div>
+<div align="center">
+    <!-- Raised button with ripple -->
+    <button id="before" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        上一页
+    </button>
+    第<span id="page">1</span>页
+    <button id="next" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        下一页
+    </button>
+    共<span id="allpage"></span>页
+</div>
 <style>
     .demo-list-item {
         width: 300px;
+    }
+    .setheight{
+        height: 415px;
     }
 </style>
 
@@ -100,7 +116,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    课程类型:<!-- Numeric Textfield -->
-                      <div id="coursetype" class="mdl-textfield mdl-js-textfield">
+                      <div id="coursetype" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="otype">
                         <label class="mdl-textfield__label" for="otype">0 选修,1 必修</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
@@ -110,7 +126,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    课程课时:<!-- Numeric Textfield -->
-                      <div id="preriods" class="mdl-textfield mdl-js-textfield">
+                      <div id="preriods" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="opre">
                         <label class="mdl-textfield__label" for="opre">课时</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
@@ -120,7 +136,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    课程学分:<!-- Numeric Textfield -->
-                      <div id="credit" class="mdl-textfield mdl-js-textfield">
+                      <div id="credit" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="ocre">
                         <label class="mdl-textfield__label" for="ocre">学分</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
@@ -130,7 +146,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    课程学期:<!-- Numeric Textfield -->
-                      <div id="term" class="mdl-textfield mdl-js-textfield">
+                      <div id="term" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="oterm">
                         <label class="mdl-textfield__label" for="oterm">学期(1-8)</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
@@ -154,24 +170,32 @@
     var tnamemin=sessionStorage.tchname
     var tdepid=sessionStorage.tdpm
     var tdepname=sessionStorage.dep
+    var page=$("#page").html();
+    if(page==1){
+        $("#before").attr('disabled',true);
+    }
+
     $.ajax({
         type:"post",
         url:"getAllclass",
+        data:{
+          "cpage"  :page,
+        },
         success:function(data){
             var tb="";
-            for(var index in data){
+            for(var index in data.data){
                 tb+="<tr>";
                 tb+="<td class='mdl-data-table__cell--non-numeric'>"
-                    +data[index].crsId
+                    +data.data[index].crsId
                     +"</td>"
                 tb+="<td>"
-                    +data[index].crsName
+                    +data.data[index].crsName
                     +"</td>"
                 tb+="<td>"
-                    +data[index].summarization
+                    +data.data[index].summarization
                     +"</td>"
                 var tbb="<td>"
-                    + "<input class='mdl-button mdl-js-button mdl-button--raised' type='button' value='发布课程' onclick='outclass(" + data[index].crsId + "," + '"' + data[index].crsName + '"' + ")'/>"
+                    + "<input class='mdl-button mdl-js-button mdl-button--raised' type='button' value='发布课程' onclick='outclass(" + data.data[index].crsId + "," + '"' + data.data[index].crsName + '"' + ")'/>"
                     + "</td>"
 
                 $.ajax({
@@ -180,7 +204,7 @@
                     async:false,
                     data:{
                         "courseSchedulePK.dpmId":tdepid,
-                        "courseSchedulePK.crsId":data[index].crsId,
+                        "courseSchedulePK.crsId":data.data[index].crsId,
                         "courseSchedulePK.tchId":tidmin,
                     },
                     success:function(data) {
@@ -198,8 +222,14 @@
                 tb+="</tr>"
             }
             $("#tbody1").html(tb);
+
+            $("#allpage").html(Math.ceil(data.totalCount/6))
+
         }
     })
+    if (page==parseInt($("#allpage").html())){
+        $("#next").attr('disabled',true)
+    }
     function outclass(classid,claname) {
         $("#hcid").val(classid)
         document.getElementById("tidmin").innerHTML=tidmin
@@ -301,6 +331,127 @@
        })
 
    })
+
+    $("#before").click(function () {
+
+        $("#page").html(parseInt($("#page").html())-1)
+        $.ajax({
+            type:"post",
+            url:"getAllclass",
+            data:{
+                "cpage"  :$("#page").html(),
+            },
+            success:function(data){
+                var tb="";
+                for(var index in data.data){
+                    tb+="<tr>";
+                    tb+="<td class='mdl-data-table__cell--non-numeric'>"
+                        +data.data[index].crsId
+                        +"</td>"
+                    tb+="<td>"
+                        +data.data[index].crsName
+                        +"</td>"
+                    tb+="<td>"
+                        +data.data[index].summarization
+                        +"</td>"
+                    var tbb="<td>"
+                        + "<input class='mdl-button mdl-js-button mdl-button--raised' type='button' value='发布课程' onclick='outclass(" + data.data[index].crsId + "," + '"' + data.data[index].crsName + '"' + ")'/>"
+                        + "</td>"
+
+                    $.ajax({
+                        type:"post",
+                        url:"csfindbyid",
+                        async:false,
+                        data:{
+                            "courseSchedulePK.dpmId":tdepid,
+                            "courseSchedulePK.crsId":data.data[index].crsId,
+                            "courseSchedulePK.tchId":tidmin,
+                        },
+                        success:function(data) {
+                            if(data==null){
+                                tb += tbb
+                            }else {
+
+                                tb += "<td>"
+                                    + "<input class='mdl-button mdl-js-button mdl-button--raised def' disabled type='button' value='已经发布' />"
+                                    + "</td>"
+                            }
+
+                        }
+                    })
+                    tb+="</tr>"
+                }
+                $("#tbody1").html(tb);
+
+            }
+        })
+        if (parseInt($("#page").html())==1){
+            $("#before").attr('disabled',true)
+        }
+        if(parseInt($("#page").html())==parseInt($("#allpage").html())-1){
+            $("#next").attr('disabled',false);
+        }
+    })
+
+    $("#next").click(function () {
+        $("#page").html(parseInt($("#page").html())+1)
+        $.ajax({
+            type:"post",
+            url:"getAllclass",
+            data:{
+                "cpage"  :$("#page").html(),
+            },
+            success:function(data){
+                var tb="";
+                for(var index in data.data){
+                    tb+="<tr>";
+                    tb+="<td class='mdl-data-table__cell--non-numeric'>"
+                        +data.data[index].crsId
+                        +"</td>"
+                    tb+="<td>"
+                        +data.data[index].crsName
+                        +"</td>"
+                    tb+="<td>"
+                        +data.data[index].summarization
+                        +"</td>"
+                    var tbb="<td>"
+                        + "<input class='mdl-button mdl-js-button mdl-button--raised' type='button' value='发布课程' onclick='outclass(" + data.data[index].crsId + "," + '"' + data.data[index].crsName + '"' + ")'/>"
+                        + "</td>"
+
+                    $.ajax({
+                        type:"post",
+                        url:"csfindbyid",
+                        async:false,
+                        data:{
+                            "courseSchedulePK.dpmId":tdepid,
+                            "courseSchedulePK.crsId":data.data[index].crsId,
+                            "courseSchedulePK.tchId":tidmin,
+                        },
+                        success:function(data) {
+                            if(data==null){
+                                tb += tbb
+                            }else {
+
+                                tb += "<td>"
+                                    + "<input class='mdl-button mdl-js-button mdl-button--raised def' disabled type='button' value='已经发布' />"
+                                    + "</td>"
+                            }
+
+                        }
+                    })
+                    tb+="</tr>"
+                }
+                $("#tbody1").html(tb);
+            }
+        })
+        if (parseInt($("#page").html())==parseInt($("#allpage").html())){
+            $("#next").attr('disabled',true)
+        }
+        if(parseInt($("#page").html())>1){
+            $("#before").attr('disabled',false);
+        }
+
+    })
 
 </script>
 </body>

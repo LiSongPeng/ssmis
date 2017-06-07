@@ -3,15 +3,12 @@ package dao.impl;
 import dao.i.ExamDaoI;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.jdbc.Work;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import team.jiangtao.entity.Exam;
 import team.jiangtao.entity.ExamPK;
 
 import javax.annotation.Resource;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +64,7 @@ public class ExamDaoImpl implements ExamDaoI {
         exam.setCrs(crs);
         exam.setLocation(location);
         exam.setDate(date);
-        exam.setLocation(location);
+        exam.setStatus(status);
         session.save(exam);
 
     }

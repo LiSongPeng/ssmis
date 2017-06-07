@@ -1,5 +1,6 @@
 package service.i;
 
+import page.Page;
 import team.jiangtao.entity.Course;
 import team.jiangtao.entity.CourseSchedule;
 
@@ -44,7 +45,7 @@ public interface CourseServiceI {
      */
     public List<CourseSchedule> getCourseInfoById(String courseId);
 
-    List<Course> getallCourse();
+    Page getallCourse(int cpage);
 
     Integer sercoursetocs(String dpm_id, String crs_id, String tch_id, byte type, byte preriods, byte credit, byte term);
 
