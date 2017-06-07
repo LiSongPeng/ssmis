@@ -7,6 +7,7 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import page.Page;
 import service.i.CourseScheduleServiceI;
 import service.i.CourseServiceI;
 import team.jiangtao.entity.Course;
@@ -15,6 +16,8 @@ import team.jiangtao.entity.CourseSchedulePK;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+
 
 /**
  * Created by Administrator on 2017/5/7 0007.
@@ -30,11 +33,14 @@ public class SCAction extends ActionSupport{
     private CourseScheduleServiceI courseScheduleServiceI;
     private CourseSchedule courseSchedule;
     private CourseSchedulePK courseSchedulePK;
+    private String cpage;
+    private Page page;
     @Action(value = "getAllclass", results = {
             @Result(name = "error", type = "json", params = {"root", "result"}),
-            @Result(type = "json", params = {"root", "course1"})})
+            @Result(type = "json", params = {"root", "page"})})
     public String getAllclass() {
-      course1=courseServiceI.getallCourse();
+
+      page=courseServiceI.getallCourse(Integer.parseInt(cpage));
 //        System.out.println(course1.get(0).getAppealsByCrsId());
         return SUCCESS;
     }
@@ -118,5 +124,21 @@ public class SCAction extends ActionSupport{
 
     public void setCourseSchedulePK(CourseSchedulePK courseSchedulePK) {
         this.courseSchedulePK = courseSchedulePK;
+    }
+
+    public String getCpage() {
+        return cpage;
+    }
+
+    public void setCpage(String cpage) {
+        this.cpage = cpage;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
     }
 }

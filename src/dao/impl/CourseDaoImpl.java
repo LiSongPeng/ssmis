@@ -1,5 +1,6 @@
 package dao.impl;
 
+import page.Page;
 import dao.i.CourseDaoI;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,6 +22,7 @@ import java.util.Set;
 @Repository(value = "courseDao")
 public class CourseDaoImpl implements CourseDaoI {
     private SessionFactory sessionFactory;
+
     @Resource(name = "sessionFactory")
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -28,69 +30,77 @@ public class CourseDaoImpl implements CourseDaoI {
 
     @Override
     public List<Course> findCourseByConditions(Map<String, Object> conditions, boolean... equalConditions) {
-        Session session=sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         StringBuilder hql = new StringBuilder("from Course c where ");
         int i = 1;
         Set<Map.Entry<String, Object>> entries = conditions.entrySet();
         for (Map.Entry<String, Object> each : entries) {
-            if(equalConditions.length==0||equalConditions[i-1])
-                hql.append("c."+each.getKey()+"=:"+each.getKey()+" and ");
+            if (equalConditions.length == 0 || equalConditions[i - 1])
+                hql.append("c." + each.getKey() + "=:" + each.getKey() + " and ");
             else
-                hql.append("c."+each.getKey()+" like :"+each.getKey()+" and ");
+                hql.append("c." + each.getKey() + " like :" + each.getKey() + " and ");
             i++;
         }
         Query<Course> query = session.createQuery(hql.substring(0, hql.length() - 5), Course.class);
         i = 1;
         for (Map.Entry<String, Object> each : entries) {
-            if(equalConditions.length==0||equalConditions[i-1])
-                query.setParameter(each.getKey(),each.getValue());
+            if (equalConditions.length == 0 || equalConditions[i - 1])
+                query.setParameter(each.getKey(), each.getValue());
             else
-                query.setParameter(each.getKey(),"%"+each.getValue()+"%");
+                query.setParameter(each.getKey(), "%" + each.getValue() + "%");
             i++;
         }
         return query.list();
     }
 
     @Override
-    public List<Course> findallCourse() {
-        Session session=sessionFactory.getCurrentSession();
-        List<Course> list=new ArrayList<>();
-        final String sql="select * from course";
+    public Page findallCourse(int cpage) {
+        Session session = sessionFactory.getCurrentSession();
+        String countHql = "select count(*) from Course";
+        Query<Long> query = session.createQuery(countHql, Long.class);
+        Long count = query.uniqueResult();
+        Page page = new Page();
+        page.setCurrentPage(cpage);
+        page.setTotalCount(count);
 
-        try{
-        session.doWork(
-                new Work() {
-                    @Override
-                    public void execute(Connection connection) throws SQLException {
-                        PreparedStatement ps = connection.prepareStatement( sql );
-                        ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                            Course course=new Course();
-                          course.setCrsId(rs.getString("crs_id"));
-                          course.setCrsName(rs.getString("crs_name"));
-                          course.setSummarization(rs.getString("summarization"));
-                          list.add(course);
+        List<Course> list = new ArrayList<>();
+        int startindex = (cpage - 1) * 6;
+        try {
+            session.doWork(
+                    new Work() {
+                        @Override
+                        public void execute(Connection connection) throws SQLException {
+                            String sql = "select * from course limit " + startindex + ", 6";
+                            PreparedStatement ps = connection.prepareStatement(sql);
+                            ResultSet rs = ps.executeQuery();
+                            while (rs.next()) {
+                                Course course = new Course();
+                                course.setCrsId(rs.getString("crs_id"));
+                                course.setCrsName(rs.getString("crs_name"));
+                                course.setSummarization(rs.getString("summarization"));
+                                list.add(course);
+                            }
+
                         }
-
                     }
-                }
-        );
-    }catch(Exception ex){
-        ex.printStackTrace();
-    }
-        finally{
-        this.doClose(session, null, null);
-    }
-        return list;
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            this.doClose(session, null, null);
+        }
+        page.setData(list);
+        return page;
     }
 
     @Override
     public List<Course> findbyname(String name) {
         Session session = sessionFactory.getCurrentSession();
-        String hql="from Course c where c.crsName like '%" + name + "%'";
-        Query<Course> query=session.createQuery(hql,Course.class);
+        String hql = "from Course c where c.crsName like '%" + name + "%'";
+        Query<Course> query = session.createQuery(hql, Course.class);
         return query.list();
     }
+
 
     protected void doClose(Session session, Statement stmt, ResultSet rs) {
         if (rs != null) {

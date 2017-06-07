@@ -22,7 +22,7 @@ public class Appeal {
     private Course courseByCrsId;
     private Student studentByStuId;
 
-    @Id
+    @Id                                                                                  
     @Column(name = "dpm_id")
     public String getDpmId() {
         return dpmId;

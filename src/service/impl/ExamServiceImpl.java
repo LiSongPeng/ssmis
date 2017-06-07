@@ -65,14 +65,17 @@ public class ExamServiceImpl implements ExamServiceI {
         //先查考试完成的所有课程
         List<Exam> examed = examDaoI.getExamed(dpmId);
         //拿到老师教的所有课程
-        List<StudentSchedule> teacherCourses = studentScheduleDaoI.findTeacherCourses(teacherId);
+        List<Object[]> teacherCourses = studentScheduleDaoI.findTeacherCoursess(teacherId);
 
         //拿到老师教的考完的课程
         List<Course> courses = new ArrayList<>();
         teacherCourses.forEach(teacherCourse ->{
             examed.forEach(exam -> {
-                if(teacherCourse.getCrs().equals(exam.getCrs())){
-                    courses.add(teacherCourse.getCourseByCrs());
+                if(teacherCourse[0].equals(exam.getCrs())){
+                    Course c = new Course();
+                    c.setCrsId((String) teacherCourse[0]);
+                    c.setCrsName((String) teacherCourse[1]);
+                    courses.add(c);
                 }
             });
         });

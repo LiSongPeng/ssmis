@@ -33,7 +33,7 @@
 </table>
 
 <dialog name="dialog" class="mdl-dialog--full-width">
-    <h2 class="mdl-dialog__title">发布课程信息</h2>
+    <h2 class="mdl-dialog__title">修改考试信息</h2>
     <div class="mdl-dialog__content">
         <ul class="demo-list-item mdl-list">
             <li class="mdl-list__item">
@@ -69,7 +69,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    考试时间:<!-- Numeric Textfield -->
-                      <div id="coursetype" class="mdl-textfield mdl-js-textfield">
+                      <div id="coursetype" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="otime">
                         <label class="mdl-textfield__label" for="otime">mm月dd日hh:mm-gg:mm</label>
                       </div>
@@ -78,7 +78,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    考试地点:<!-- Numeric Textfield -->
-                      <div id="preriods" class="mdl-textfield mdl-js-textfield">
+                      <div id="preriods" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="olocation">
                         <label class="mdl-textfield__label" for="olocation">考试地点</label>
                       </div>
@@ -87,7 +87,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    考试状态:<!-- Numeric Textfield -->
-                      <div id="credit" class="mdl-textfield mdl-js-textfield">
+                      <div id="credit" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="ostatu">
                         <label class="mdl-textfield__label" for="ostatu">0 未编排,1 编排中,2未开始,3 已结束</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>

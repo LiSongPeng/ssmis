@@ -2,6 +2,7 @@ package dao.i;
 
 
 
+import page.Page;
 import team.jiangtao.entity.Course;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface CourseDaoI {
      *
      * @return
      */
-    List<Course> findallCourse();
+    Page findallCourse(int cpage);
 
     List<Course> findbyname(String name);
 

@@ -10,12 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import service.impl.CourseServiceImpl;
-import team.jiangtao.entity.Course;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,17 +58,17 @@ public class StudentDaoTest {
 //
 //
 //    }
-    @Test
-    public void testfindallcourse(){
-        CourseServiceImpl courseService=new CourseServiceImpl();
-        List<Course> list=courseService.getallCourse();
-        Iterator iterable= list.iterator();
-        while (iterable.hasNext()){
-            Course course= (Course) iterable.next();
-            System.out.println(course.getCrsId()+course.getCrsName()+course.getSummarization());
-        }
-
-    }
+//    @Test
+//    public void testfindallcourse(){
+//        CourseServiceImpl courseService=new CourseServiceImpl();
+//        List<Course> list=courseService.getallCourse();
+//        Iterator iterable= list.iterator();
+//        while (iterable.hasNext()){
+//            Course course= (Course) iterable.next();
+//            System.out.println(course.getCrsId()+course.getCrsName()+course.getSummarization());
+//        }
+//
+//    }
 
     @Test
     public void t(){

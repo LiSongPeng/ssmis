@@ -37,7 +37,7 @@
 </table>
 
 <dialog name="dialog" class="mdl-dialog--full-width">
-    <h2 class="mdl-dialog__title">发布课程信息</h2>
+    <h2 class="mdl-dialog__title">修改已发布课程信息</h2>
     <div class="mdl-dialog__content">
         <ul class="demo-list-item mdl-list">
             <li class="mdl-list__item">
@@ -73,7 +73,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    课程类型:<!-- Numeric Textfield -->
-                      <div id="coursetype" class="mdl-textfield mdl-js-textfield">
+                      <div id="coursetype" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="otype">
                         <label class="mdl-textfield__label" for="otype">0 选修,1 必修</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
@@ -83,7 +83,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    课程课时:<!-- Numeric Textfield -->
-                      <div id="preriods" class="mdl-textfield mdl-js-textfield">
+                      <div id="preriods" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="opre">
                         <label class="mdl-textfield__label" for="opre">课时</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
@@ -93,7 +93,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    课程学分:<!-- Numeric Textfield -->
-                      <div id="credit" class="mdl-textfield mdl-js-textfield">
+                      <div id="credit" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="ocre">
                         <label class="mdl-textfield__label" for="ocre">学分</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
@@ -103,7 +103,7 @@
             <li class="mdl-list__item">
                 <span class="mdl-list__item-primary-content">
                    课程学期:<!-- Numeric Textfield -->
-                      <div id="term" class="mdl-textfield mdl-js-textfield">
+                      <div id="term" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="oterm">
                         <label class="mdl-textfield__label" for="oterm">学期(1-8)</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
