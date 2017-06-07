@@ -6,7 +6,7 @@
         type:"post",
         url:"/ssmis/teacher/getExamed",
         data:{
-            "dpm":"1",
+            "dpm":sessionStorage.tdpm,
             "tid":sessionStorage.tchid
         },
         success:function(data){
@@ -39,7 +39,7 @@ function enter(crs) {
         type:"post",
         url:"/ssmis/teacher/getChooseCourseStudents",
         data:{
-            "dpm":"1",
+            "dpm":sessionStorage.tdpm,
             "crs":crs,
         },
         success:function(data){
