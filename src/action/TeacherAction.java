@@ -2,13 +2,11 @@ package action;
 
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionSupport;
-import dao.i.CourseScheduleDaoI;
-import dao.i.StudentScheduleDaoI;
-import dao.impl.StudentScheduleDaoImpl;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import service.i.*;
@@ -24,7 +22,7 @@ import java.util.*;
 @ParentPackage("ssmis-default")
 @Controller
 @Scope(value = "prototype")
-public class TeacherAction extends ActionSupport {
+public class TeacherAction extends ActionSupport implements SessionAware {
     private CommentServiceI commentServiceI;
     private AppealServiceI appealServiceI;
     private StudentServiceI studentServiceI;
@@ -34,12 +32,11 @@ public class TeacherAction extends ActionSupport {
     private Integer operation;
     private String rsp;
     private TeacherServiceI teacherServiceI;
-    private Map<String,Object> session=new HashMap<>();
+    private Map<String,Object> session;
     private String isRememberPsw;
     private long date;
     private String tid;
     private CourseScheduleServiceI courseScheduleServiceI;
-
     public long getDate() {
         return date;
     }
@@ -155,7 +152,8 @@ public class TeacherAction extends ActionSupport {
 
     @Action(value = "pullCS", results = @Result(type = "json",params={"root","rsp"}))
     public String pullCrsSc() throws Exception {
-        List<StudentSchedule> studentScheduleList = studentServiceI.pullSSbyTch("00001");
+        Teacher t = (Teacher) session.get("tch");
+        List<StudentSchedule> studentScheduleList = studentServiceI.pullSSbyTch(t.getTchId());
         Map<String,List<Double>> stringDoubleMap = new HashMap<>();
         for(StudentSchedule studentSchedule:studentScheduleList){
             if(stringDoubleMap.get(studentSchedule.getCrs())==null){
@@ -280,7 +278,8 @@ public class TeacherAction extends ActionSupport {
 
     @Action(value = "pullTchCrs",results = @Result(type = "json", params = {"root","rsp"}))
     public String pullTchCrs(){
-        List<CourseSchedule> list = courseScheduleServiceI.findCSbytwo("00001");
+        Teacher t = (Teacher) session.get("tch");
+        List<CourseSchedule> list = courseScheduleServiceI.findCSbytwo(t.getTchId());
         List<CrsInfo> crsInfos = new ArrayList<>();
         CrsInfo temp;
         for(CourseSchedule courseSchedule : list){
@@ -310,7 +309,8 @@ public class TeacherAction extends ActionSupport {
     public String getAppealByType() throws Exception {
         //TO FINISH
         Map<String,Object> stringObjectMap = new HashMap<>();
-        stringObjectMap.put("tch","00001");//Instead of Session
+        Teacher t = (Teacher) session.get("tch");
+        stringObjectMap.put("tch",t.getTchId());//Instead of Session
         stringObjectMap.put("type",operation);
         List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
         List<Appeal> temp =(List<Appeal>) list;
@@ -347,7 +347,8 @@ public class TeacherAction extends ActionSupport {
     @Action(value = "getComment",results = @Result(type = "json",params={"root","rsp"}))
     public String getComments() throws Exception {
         Map<String,Object> stringObjectMap = new HashMap<>();
-        stringObjectMap.put("tch_id","00001");
+        Teacher t = (Teacher) session.get("tch");
+        stringObjectMap.put("tch_id",t.getTchId());
         List<Comment> list = commentServiceI.getCommentsByConditions(stringObjectMap);
         CommentInfo commentInfo;
         List<CommentInfo> commentInfos = new ArrayList<>();
