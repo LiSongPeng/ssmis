@@ -14,13 +14,21 @@ import javax.annotation.Resource;
 @Service("TeacherService")
 public class TeacherServiceImpl implements TeacherServiceI {
     private TeacherDaoI teacherDaoI;
-
+/*
+* 获取教师信息通过id
+* 返回教师对象
+*
+*
+* */
     @Override
     @Transactional
     public Teacher findTeacherbuid(String id) {
         return teacherDaoI.findTeacherByPK(id);
     }
-
+/*
+* 更新教师信息
+*
+* */
     @Override
     @Transactional
     public void updateTeacherInfo(Teacher teacher) {

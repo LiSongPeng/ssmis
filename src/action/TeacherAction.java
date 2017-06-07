@@ -137,12 +137,19 @@ public class TeacherAction extends ActionSupport implements SessionAware {
         };
         return SUCCESS;
     }
-
+/*
+* 获取教师信息
+* 返回教师信息Json串
+* */
     @Action(value = "selfInfo",results = @Result(type = "json",params={"root","teacher"}))
     public String  getSelfInfo(){
         teacher =  teacherServiceI.findTeacherbuid(tid);
         return SUCCESS;
     }
+    /*
+    * 更新教师信息
+    *
+    * */
 
     @Action(value = "updateInfo", results = @Result(type = "json",params={"root",""}))
     public String updateTeacherInfo(){
@@ -161,18 +168,6 @@ public class TeacherAction extends ActionSupport implements SessionAware {
             }
             stringDoubleMap.get(studentSchedule.getCrs()).add(studentSchedule.getScore());
         }
-//        Map<String,Double> stringDoubleMap = new HashMap<>();
-//        for (StudentSchedule studentSchedule :studentScheduleList){
-//            if(stringDoubleMap.get(studentSchedule.getCrs())!=null){
-//                Double temp = stringDoubleMap.get(studentSchedule.getCrs()) + studentSchedule.getScore();
-//                stringDoubleMap.put(studentSchedule.getCrs(), temp);
-//            }
-//            stringDoubleMap.put(studentSchedule.getCrs(),studentSchedule.getScore());
-//        }
-//        int len = studentScheduleList.size();
-//        for(Map.Entry<String,Double> entry:stringDoubleMap.entrySet()){
-//            stringDoubleMap.put(entry.getKey(),entry.getValue()/len);
-//        }
         rsp = JSON.toJSONString(stringDoubleMap);
         System.out.println(rsp);
         return SUCCESS;

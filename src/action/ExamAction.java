@@ -104,7 +104,10 @@ public class ExamAction extends ActionSupport {
         return SUCCESS;
     }
 
-
+/*
+* 查询当前登陆的老师的所有考完试的课程
+*
+* */
     @Action(value = "getExamed", results = {
             @Result(name = "error", type = "json", params = {"root", "result"}),
             @Result(type = "json", params = {"root", "courses"})})
@@ -113,7 +116,10 @@ public class ExamAction extends ActionSupport {
         System.out.println(courses);
         return SUCCESS;
     }
-
+/*
+* 拿所有选择该课的学生
+* studentService
+* */
 
     @Action(value = "getChooseCourseStudents", results = {
             @Result(name = "error", type = "json", params = {"root", "result"}),
