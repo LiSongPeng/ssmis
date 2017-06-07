@@ -78,7 +78,7 @@ public class AppealDaoImpl implements AppealDaoI {
                     query.setParameter("tch", tch_id);
                     list = query.list();
                     List<Appeal> temp = (List<Appeal>) list;
-                    for(Appeal appeal:temp){
+                    for (Appeal appeal : temp) {
                         System.out.println(appeal.toString());
                     }
                     break;
@@ -191,14 +191,13 @@ public class AppealDaoImpl implements AppealDaoI {
     @Override
     public int closeAppeal(String stuId, String dpmId, String tchId, String crsId) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("update Appeal a set a.status=?1 where a.id=?2");
-        query.setParameter(1, 5);
-        AppealPK id = new AppealPK();
-        id.setCrsId(crsId);
-        id.setDpmId(dpmId);
-        id.setTchId(tchId);
-        id.setStuId(stuId);
-        query.setParameter(2, id);
+        Query query = session.createQuery("update Appeal a set a.status=?1 where a.stuId=?2 and a.crsId=?3 and a.dpmId=?4 and tchId=?5");
+        byte status = 5;
+        query.setParameter(1, status);
+        query.setParameter(2, stuId);
+        query.setParameter(3, crsId);
+        query.setParameter(4, dpmId);
+        query.setParameter(5, tchId);
         return query.executeUpdate();
     }
 
@@ -219,16 +218,16 @@ public class AppealDaoImpl implements AppealDaoI {
         try {
             Session session = sessionFactory.getCurrentSession();
 
-            for(Appeal appeal : appeals){
+            for (Appeal appeal : appeals) {
                 String hql = "update Appeal appeal set";
-                for(Field field:appeal.getClass().getDeclaredFields()){
+                for (Field field : appeal.getClass().getDeclaredFields()) {
                     field.setAccessible(true);
-                    if(field.get(appeal)!=null){
-                        hql += " appeal."+field.getName()+"='"+field.get(appeal)+"' ,";
+                    if (field.get(appeal) != null) {
+                        hql += " appeal." + field.getName() + "='" + field.get(appeal) + "' ,";
                     }
                 }
-                hql = hql.substring(0,hql.length()-1);
-                hql += "where appeal.crsId='"+appeal.getCrsId()+"' and appeal.dpmId='"+appeal.getDpmId()+"' and appeal.stuId='"+appeal.getStuId()+"' and appeal.tchId='"+appeal.getTchId()+"' and appeal.date='"+appeal.getDate()+"'";
+                hql = hql.substring(0, hql.length() - 1);
+                hql += "where appeal.crsId='" + appeal.getCrsId() + "' and appeal.dpmId='" + appeal.getDpmId() + "' and appeal.stuId='" + appeal.getStuId() + "' and appeal.tchId='" + appeal.getTchId() + "' and appeal.date='" + appeal.getDate() + "'";
                 Query query = session.createQuery(hql);
                 query.executeUpdate();
             }

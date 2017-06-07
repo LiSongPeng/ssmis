@@ -84,6 +84,10 @@ $(function () {
                             })
                             $("#confirmAppeal").click(function () {
                                 appealContent = $("#appealContent").val()
+                                if (appealContent == "") {
+                                    Materialize.toast("申诉内容不能为空", 1000)
+                                    return
+                                }
                                 $(".background").css("display", "none")
                                 $.getJSON($("body").prop("title") + "/student/appeal.action", {
                                     'csche.dpmId': dpmId,
@@ -155,6 +159,7 @@ $(function () {
                                 json = $.parseJSON(json)
                                 if (json.result == 'Success') {
                                     Materialize.toast("关闭成功", 1000)
+                                    $(tr).remove()
                                 } else {
                                     Materialize.toast("关闭失败,请稍后重试", 1000)
                                 }

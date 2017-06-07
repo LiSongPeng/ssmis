@@ -239,7 +239,7 @@ public class StudentAction extends ActionSupport implements SessionAware {
         return ERROR;
     }
 
-    @Action(value = "closeAppeal", results = @Result(type = "json", params = {"root", "appeal"}))
+    @Action(value = "closeAppeal", results = @Result(type = "json", params = {"root", "result"}))
     public String closeAppeal() {
         Student currStu = (Student) session.get("currStu");
         result = "{\"result\":\"Success\"}";

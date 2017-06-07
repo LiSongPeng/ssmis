@@ -116,6 +116,7 @@ public class StudentServiceImpl implements StudentServiceI {
         studentSchedule.setTerm(courseSchedule.getTerm());
         studentSchedule.setTerm(courseSchedule.getTerm());
         studentSchedule.setStu(stuId);
+        studentSchedule.setScore(-1);
         studentScheduleDao.saveStudentSchedule(studentSchedule);
         return true;
     }
@@ -247,7 +248,7 @@ public class StudentServiceImpl implements StudentServiceI {
 
     @Override
     @Transactional
-    public List<StudentSchedule> pullSSbyTch(String tchId)throws Exception{
+    public List<StudentSchedule> pullSSbyTch(String tchId) throws Exception {
         return studentScheduleDao.findTeacherCourses(tchId);
-   }
+    }
 }
