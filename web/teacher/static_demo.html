@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../res/jiangtao/lib/mdl/color_material.min.css">
     <link rel="stylesheet" href="../res/jiangtao/lib/mdl/icon.css">
     <script src="../res/jiangtao/lib/mdl/material.min.js"></script>
+    <script src="../res/jiangtao/lib/vue.min.js"></script>
     <script src="../res/js/jquery-3.0.0.min.js"></script>
     <script src="../res/jiangtao/lib/d3.v3.min.js"></script>
     <script src="../res/jiangtao/lib/c3.min.js"></script>
@@ -42,8 +43,13 @@
             <div class="page-content">
                 <!-- Your content goes here -->
                 <div id="chart"></div>
-                <div id="list">
-                </div>
+                <ul id="list">
+                    <li v-for="(item,index) in items" class="mdl-list__item mdl-list__item--two-line" >
+                        <span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">subject</i></span>
+                        <span>{{item.crsName}}({{item.crsId}})</span>
+                        <span class="mdl-list__item-secondary-content"><span class="mdl-list__item-secondary-info">编辑</span><a class="edit-com mdl-list__item-secondary-action"><div style="display: none">{{item.dpmId}}_{{item.crsId}}_{{item.tchId}}</div><i class="material-icons">create</i></a></span>
+                    </li>
+                </ul>
                 <hr>
                 <div id="p_ed" style="display: none">
                     <div id="editor">评议信息...</div>
@@ -72,6 +78,7 @@
         var data = {message:msg};
         snackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
+    var list;
     $(function () {
 
         //draw chapter
@@ -91,20 +98,31 @@
 
         //get all courses of teacher
         $.getJSON("pullTchCrs", function (data) {
-            var list = $.parseJSON(data);
-            var ul = '<ul class="mdl-list">';
-            $.each(list,function (i,n) {
-                    ul  = ul +'<li id="li_'+n.dpmId+'_'+n.crsId+'_'+n.tchId+'" class="mdl-list__item mdl-list__item--two-line">' +
-                        '<span class="mdl-list__item-primary-content">' +
-                        '<i class="material-icons mdl-list__item-icon">subject</i><span>'+n.crsName+'</span>' +
-                        '<span class="mdl-list__item-sub-title"> 课程号：'+n.crsId+'</span>' +
-                        '</span>' +
-                        '<span class="mdl-list__item-secondary-content"><span class="mdl-list__item-secondary-info">编辑</span><a csid="'+n.dpmId+'_'+n.crsId+'_'+n.tchId+'" class="edit-com mdl-list__item-secondary-action"><i class="material-icons">create</i></a></span>' +
-                        '</li>'
+            list = $.parseJSON(data);
+            var ul = new Vue({
+                el: '#list',
+                data: {
+                    items: list
+                },
+                computed:{
+                    cid: function () {
+                        return this.crsId;
+                    }
+                }
             })
-            ul = ul + '</ul>'
-            $("#list").html("");
-            $("#list").append(ul);
+//            var ul = '<ul class="mdl-list">';
+//            $.each(list,function (i,n) {
+//                    ul  = ul +'<li id="li_'+n.dpmId+'_'+n.crsId+'_'+n.tchId+'" class="mdl-list__item mdl-list__item--two-line">' +
+//                        '<span class="mdl-list__item-primary-content">' +
+//                        '<i class="material-icons mdl-list__item-icon">subject</i><span>'+n.crsName+'</span>' +
+//                        '<span class="mdl-list__item-sub-title"> 课程号：'+n.crsId+'</span>' +
+//                        '</span>' +
+//                        '<span class="mdl-list__item-secondary-content"><span class="mdl-list__item-secondary-info">编辑</span><a csid="'+n.dpmId+'_'+n.crsId+'_'+n.tchId+'" class="edit-com mdl-list__item-secondary-action"><i class="material-icons">create</i></a></span>' +
+//                        '</li>'
+//            })
+//            ul = ul + '</ul>'
+//            $("#list").html("");
+//            $("#list").append(ul);
         })
 
         //summer-note
@@ -130,12 +148,13 @@
 
         //trigger summer-note
         $("body").delegate(".edit-com","click",function () {
-            $("#editor").attr("csid",$(this).attr("csid"));
+            $("#editor").attr("csid",$(this).find("div").text());
             $("#p_ed").slideToggle("fast");
         })
 
         //response
         $("#rsp").click(function () {
+            console.log($("#editor").attr("csid"));
             var id = $("#editor").attr("csid").split("_");
             var param = {
                 'comment.dpm': id[0],
