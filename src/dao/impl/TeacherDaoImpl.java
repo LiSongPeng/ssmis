@@ -30,7 +30,7 @@ public class TeacherDaoImpl implements TeacherDaoI {
     @Override
     public Teacher findTeacherByPK(String tid) {
         Session session=sessionFactory.getCurrentSession();
-        Query<Teacher> query = session.createQuery("from Teacher t where t.id in ?1", Teacher.class);
+        Query<Teacher> query = session.createQuery("from Teacher t where t.tchId=?1", Teacher.class);
         query.setParameter(1,tid);
         return query.list().get(0);
     }

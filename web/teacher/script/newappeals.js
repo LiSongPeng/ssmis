@@ -1,12 +1,18 @@
 /**
  * Created by tose on 2017/5/31.
  */
-
+new Vue({
+    el: '#app',
+    data: {
+        message: 'Hello Vue!'
+    }
+})
 function boxMessage(msg){
     var snackbarContainer = document.querySelector('#toast');
     var data = {message:msg};
     snackbarContainer.MaterialSnackbar.showSnackbar(data);
 }
+
 function writeToTbody(tbodyid,appeals) {
     tbodyid = '#'+tbodyid;
     $(tbodyid).html("");
@@ -28,10 +34,10 @@ function writeToTbody(tbodyid,appeals) {
         var date = new Date(n.date);
         var aid = dpmId+"_"+crsId+"_"+tchId+"_"+stuId+"_"+n.date;
         var response = n.response;
-        var tr = "<tr style='font-weight:bold;' class='expand-content'>" +
+        var tr = '<tr style="font-weight:bold;" class="expand-content">' +
             '<td><i class="material-icons">input</i></td>' +
-            '<td><span class="mdl-chip"><span class="mdl-chip__text">'+dpmName+"("+dpmId+")</span></span></td>" +
-            '<td><span class="mdl-chip"><span class="mdl-chip__text">'+crsName+'('+crsId+")</span></span></td>" +
+            '<td><span class="mdl-chip"><span class="mdl-chip__text">'+dpmName+'('+dpmId+')</span></span></td>' +
+            '<td><span class="mdl-chip"><span class="mdl-chip__text">'+crsName+'('+crsId+')</span></span></td>' +
             '<td><span class="mdl-chip"><span class="mdl-chip__text">'+stuName+'('+stuId+')</span></span></td>' +
             '<td><span class="mdl-chip"><span class="mdl-chip__text">'+tchName+"("+tchId+')</span></span></td>' +
             '<td><span class="mdl-chip"><span class="mdl-chip__text">'+date+'</span></span></td>' +
@@ -129,6 +135,7 @@ function getUpdatedAppeals() {
         }
     })
 }
+
 function getRspAppeals() {
     var param = {operation:4};
     $.getJSON("getAppeals",param,function (data) {
@@ -143,6 +150,7 @@ function getRspAppeals() {
         }
     })
 }
+
 function getDrawAppeals() {
     var param = {operation:6};
     $.getJSON("getAppeals",param,function (data) {
@@ -157,6 +165,7 @@ function getDrawAppeals() {
         }
     })
 }
+
 function updateStatus(appealId, status) {
     var idArray = appealId.split("_");
     var appeal={
@@ -168,7 +177,6 @@ function updateStatus(appealId, status) {
         'appeal.status':status
     };
     var json = $.param(appeal);
-    // console.log(json);
     $.getJSON('updateAppeals',json,function (data) {});
 }
 
@@ -211,11 +219,18 @@ function saveDraw(appealId, content) {
     });
 }
 
+function fresh() {
+    getNewAppeals();
+    getUpdatedAppeals();
+    getRspAppeals();
+    getClosedAppeals();
+    getAllApeeals();
+    getDrawAppeals();
+}
+
 $(function () {
-    $("#ly_4").click(function () {
-        getNewAppeals();
-        getUpdatedAppeals();
-    })
+
+    fresh();
 
     $("tbody").delegate(".expand-content","click",function () {
         $(this).css("font-weight","");
@@ -232,23 +247,22 @@ $(function () {
     $(".tag-link").click(function () {
         $(this).children("span").fadeOut("fast");
     })
+
     $("tbody").delegate(".appeal-respond","click",function () {
         $(this).parent().prev().slideToggle("fast");
         $(this).parent().slideToggle("fast");
-
     })
 
     $("tbody").delegate(".send-rsp-cancel","click",function(){
         var text = $(this).parent().prev().children("textarea").get(0);
         var id = '#'+$(text).attr("id");
         var content = $(id).val();
-        saveDraw($(text).attr("id"),content)
+        saveDraw($(text).attr("id"),content);
         $(this).parent().parent().slideToggle("fast");
         $(this).parent().parent().next().slideToggle("fast");
         boxMessage("已保存为草稿");
 
     })
-
 
     $("tbody").delegate(".send-rsp","click",function () {
         var text = $(this).parent().prev().children("textarea").get(0);
@@ -257,6 +271,7 @@ $(function () {
         updateAppealResponse($(text).attr("id"),content);
         $(this).parent().parent().parent().parent().parent().slideToggle("fast");
         $(this).parent().parent().parent().parent().parent().prev().slideToggle("fast");
+        fresh();
         boxMessage("成功！");
     })
 
@@ -269,23 +284,23 @@ $(function () {
         $(this).parent().parent().slideToggle("fast");
         $(this).parent().parent().next().slideToggle("fast");
         boxMessage("已关闭");
-
+        fresh();
     })
+
     $("#link-rsp").click(function () {
         getRspAppeals();
+        fresh();
     })
-    
+
     $("#link-closed").click(function () {
         getClosedAppeals();
     })
-    
+
     $("#link-all").click(function () {
         getAllApeeals();
     })
+
     $("#link-draw").click(function () {
         getDrawAppeals();
     })
-
-
-
 })

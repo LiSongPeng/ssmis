@@ -120,131 +120,131 @@
 </dialog>
 <input type="hidden" name="hcid" id="hcid"/>
 <script type="text/javascript">
-    var tidmin=sessionStorage.tchid
-    var tnamemin=sessionStorage.tchname
-    var tdepid=sessionStorage.tdpm
-    var tdepname=sessionStorage.dep
-    $.ajax({
-        type:"post",
-        url:"allCS",
-        success:function(data){
-            var tb="";
-            for(var index in data){
-                tb+="<tr>";
-                tb+="<td class='mdl-data-table__cell--non-numeric'>"
-                    +data[index].tchId
-                    +"</td>"
-                tb+="<td>"
-                    +data[index].teacherByTchId.name
-                    +"</td>"
-                tb+="<td>"
-                    +data[index].dpmId
-                    +"</td>"
-                tb+="<td>"
-                    +data[index].departmentByDpmId.dpmName
-                    +"</td>"
-                tb+="<td>"
-                    +data[index].crsId
-                    +"</td>"
-                tb+="<td>"
-                    +data[index].courseByCrsId.crsName
-                    +"</td>"
-                tb+="<td>"
-                    +data[index].type
-                    +"</td>"
-                tb+="<td>"
-                    +data[index].preriods
-                    +"</td>"
-                tb+="<td>"
-                    +data[index].credit
-                    +"</td>"
-                tb+="<td>"
-                    +data[index].term
-                    +"</td>"
-
-                if (tidmin==data[index].tchId){
-                    tb+="<td>"
-                        +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' value='修改课程信息' onclick='modclass("+data[index].crsId+","+ '"' +data[index].courseByCrsId.crsName+ '"' +")'/>"
-                        +"</td>"
-                    tb+="<td>"
-                        +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' value='删除考试信息' onclick='delclass("+data[index].crsId+")'/>"
-                        +"</td>"
-                }else {
-                    tb+="<td>"
-                        +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' disabled value='无权修改'/>"
-                        +"</td>"
-                    tb+="<td>"
-                        +"<input type='button'class='mdl-button mdl-js-button mdl-button--raised' disabled value='无权删除'/>"
-                        +"</td>"
-                }
-                tb+="</tr>"
-            }
-            $("tbody").html(tb);
-        }
-    })
-
-    function modclass(classid,claname) {
-        document.getElementById("tidmin").innerHTML=tidmin
-        document.getElementById("cidmin").innerHTML=classid
-        document.getElementById("cnamemin").innerHTML=claname
-        document.getElementById("tnamemin").innerHTML=tnamemin
-        document.getElementById("depidmin").innerHTML=tdepid
-        document.getElementById("depnamemin").innerHTML=tdepname
-
-        var dialog = document.querySelector('dialog')
-        dialog.showModal();
-        if (! dialog.showModal) {
-            dialogPolyfill.registerDialog(dialog);
-        }
-        dialog.querySelector('.ok').addEventListener('click', function() {
-            var odpmid=tdepid
-            var ocrsid=classid
-            var otchid=tidmin
-            var otype=$("#otype").val()
-            var opre=$("#opre").val()
-            var ocre=$("#ocre").val()
-            var oterm=$("#oterm").val()
-
-            $.ajax({
-                type:"post",
-                url:"modcs",
-                data:{
-                    "courseSchedule.dpmId":odpmid,
-                    "courseSchedule.crsId":ocrsid,
-                    "courseSchedule.tchId":otchid,
-                    "courseSchedule.type":otype,
-                    "courseSchedule.preriods":opre,
-                    "courseSchedule.credit":ocre,
-                    "courseSchedule.term":oterm,
-                },
-                success:function(data){
-                    alert("修改成功")
-                    parent.location.reload()
-                    //window.location.href="http://localhost:8080/ssmis/teacher/main.html"
-                }
-            })
-        });
-        dialog.querySelector('.close').addEventListener('click', function() {
-            dialog.close();
-        });
-    }
-
-    function delclass(csid) {
-        $.ajax({
-            type:"post",
-            url:"delcs",
-            data: {
-                "courseSchedule.dpmId": tdepid,
-                "courseSchedule.crsId": csid,
-                "courseSchedule.tchId": tidmin,
-            },
-            success:function() {
-               alert("删除成功")
-                parent.location.reload()
-            }
-            })
-
-    }
+//    var tidmin=sessionStorage.tchid
+//    var tnamemin=sessionStorage.tchname
+//    var tdepid=sessionStorage.tdpm
+//    var tdepname=sessionStorage.dep
+//    $.ajax({
+//        type:"post",
+//        url:"allCS",
+//        success:function(data){
+//            var tb="";
+//            for(var index in data){
+//                tb+="<tr>";
+//                tb+="<td class='mdl-data-table__cell--non-numeric'>"
+//                    +data[index].tchId
+//                    +"</td>"
+//                tb+="<td>"
+//                    +data[index].teacherByTchId.name
+//                    +"</td>"
+//                tb+="<td>"
+//                    +data[index].dpmId
+//                    +"</td>"
+//                tb+="<td>"
+//                    +data[index].departmentByDpmId.dpmName
+//                    +"</td>"
+//                tb+="<td>"
+//                    +data[index].crsId
+//                    +"</td>"
+//                tb+="<td>"
+//                    +data[index].courseByCrsId.crsName
+//                    +"</td>"
+//                tb+="<td>"
+//                    +data[index].type
+//                    +"</td>"
+//                tb+="<td>"
+//                    +data[index].preriods
+//                    +"</td>"
+//                tb+="<td>"
+//                    +data[index].credit
+//                    +"</td>"
+//                tb+="<td>"
+//                    +data[index].term
+//                    +"</td>"
+//
+//                if (tidmin==data[index].tchId){
+//                    tb+="<td>"
+//                        +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' value='修改课程信息' onclick='modclass("+data[index].crsId+","+ '"' +data[index].courseByCrsId.crsName+ '"' +")'/>"
+//                        +"</td>"
+//                    tb+="<td>"
+//                        +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' value='删除考试信息' onclick='delclass("+data[index].crsId+")'/>"
+//                        +"</td>"
+//                }else {
+//                    tb+="<td>"
+//                        +"<input type='button' class='mdl-button mdl-js-button mdl-button--raised' disabled value='无权修改'/>"
+//                        +"</td>"
+//                    tb+="<td>"
+//                        +"<input type='button'class='mdl-button mdl-js-button mdl-button--raised' disabled value='无权删除'/>"
+//                        +"</td>"
+//                }
+//                tb+="</tr>"
+//            }
+//            $("tbody").html(tb);
+//        }
+//    })
+//
+//    function modclass(classid,claname) {
+//        document.getElementById("tidmin").innerHTML=tidmin
+//        document.getElementById("cidmin").innerHTML=classid
+//        document.getElementById("cnamemin").innerHTML=claname
+//        document.getElementById("tnamemin").innerHTML=tnamemin
+//        document.getElementById("depidmin").innerHTML=tdepid
+//        document.getElementById("depnamemin").innerHTML=tdepname
+//
+//        var dialog = document.querySelector('dialog')
+//        dialog.showModal();
+//        if (! dialog.showModal) {
+//            dialogPolyfill.registerDialog(dialog);
+//        }
+//        dialog.querySelector('.ok').addEventListener('click', function() {
+//            var odpmid=tdepid
+//            var ocrsid=classid
+//            var otchid=tidmin
+//            var otype=$("#otype").val()
+//            var opre=$("#opre").val()
+//            var ocre=$("#ocre").val()
+//            var oterm=$("#oterm").val()
+//
+//            $.ajax({
+//                type:"post",
+//                url:"modcs",
+//                data:{
+//                    "courseSchedule.dpmId":odpmid,
+//                    "courseSchedule.crsId":ocrsid,
+//                    "courseSchedule.tchId":otchid,
+//                    "courseSchedule.type":otype,
+//                    "courseSchedule.preriods":opre,
+//                    "courseSchedule.credit":ocre,
+//                    "courseSchedule.term":oterm,
+//                },
+//                success:function(data){
+//                    alert("修改成功")
+//                    parent.location.reload()
+//                    //window.location.href="http://localhost:8080/ssmis/teacher/main.html"
+//                }
+//            })
+//        });
+//        dialog.querySelector('.close').addEventListener('click', function() {
+//            dialog.close();
+//        });
+//    }
+//
+//    function delclass(csid) {
+//        $.ajax({
+//            type:"post",
+//            url:"delcs",
+//            data: {
+//                "courseSchedule.dpmId": tdepid,
+//                "courseSchedule.crsId": csid,
+//                "courseSchedule.tchId": tidmin,
+//            },
+//            success:function() {
+//               alert("删除成功")
+//                parent.location.reload()
+//            }
+//            })
+//
+//    }
 
 </script>
 </body>

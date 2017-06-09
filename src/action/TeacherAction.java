@@ -40,6 +40,16 @@ public class TeacherAction extends ActionSupport implements SessionAware {
     public long getDate() {
         return date;
     }
+    private Map<String,Object> mapS = new HashMap<>();
+    private String json2;
+
+    public String getJson2() {
+        return json2;
+    }
+
+    public void setJson2(String json2) {
+        this.json2 = json2;
+    }
 
     public void setDate(long date) {
         this.date = date;
@@ -116,47 +126,10 @@ public class TeacherAction extends ActionSupport implements SessionAware {
         this.teacherServiceI = teacherServiceI;
     }
 
-    @Action(value = "login",results = @Result(type = "json",params={"root","session"}))
-    public String teacherLogin(){
-        //write to test.
-        isRememberPsw="0";
-        rsp="0";
-        String tid=teacher.getTchId();
-        String tpw=teacher.getPassword();
-        Teacher teacher2=new Teacher();
-        teacher=teacherServiceI.findTeacherbuid(tid);
-        teacher2.setTchId(teacher.getTchId());
-        teacher2.setDpmId(teacher.getDpmId());
-        teacher2.setPassword(teacher.getPassword());
-        teacher2.setName(teacher.getName());
-        teacher2.setDepartmentByDpmId(teacher.getDepartmentByDpmId());
-        if(tpw.equals(teacher2.getPassword())){
-            session.put("tch", teacher2);
-            rsp="1";
-            session.put("rsp",rsp);
-        };
-        return SUCCESS;
-    }
-/*
-* 获取教师信息
-* 返回教师信息Json串
-* */
-    @Action(value = "selfInfo",results = @Result(type = "json",params={"root","teacher"}))
-    public String  getSelfInfo(){
-        teacher =  teacherServiceI.findTeacherbuid(tid);
-        return SUCCESS;
-    }
-    /*
-    * 更新教师信息
-    *
-    * */
-
-    @Action(value = "updateInfo", results = @Result(type = "json",params={"root",""}))
-    public String updateTeacherInfo(){
-        teacherServiceI.updateTeacherInfo(teacher);
-        return SUCCESS;
-    }
-
+    /**
+     * @author Jiang Tao
+     * @return SUCCESS
+     */
     @Action(value = "pullCS", results = @Result(type = "json",params={"root","rsp"}))
     public String pullCrsSc() throws Exception {
         Teacher t = (Teacher) session.get("tch");
@@ -170,73 +143,6 @@ public class TeacherAction extends ActionSupport implements SessionAware {
         }
         rsp = JSON.toJSONString(stringDoubleMap);
         System.out.println(rsp);
-        return SUCCESS;
-    }
-    public String teahcerLogout(){
-        //TODO
-        return SUCCESS;
-
-    }
-
-
-    public String modifyTeacher(){
-        //TODO
-        return SUCCESS;
-
-    }
-
-    public String addCourses(){
-        //TODO
-        return SUCCESS;
-
-    }
-
-    public String addCourse(){
-        //TODO
-        return SUCCESS;
-
-    }
-
-    public String modifyCourses(){
-        //TODO
-        return SUCCESS;
-
-    }
-
-    public String modifyCourse(){
-        //TODO
-        return SUCCESS;
-
-    }
-
-    public String deleteCourses(){
-        //TODO
-        return SUCCESS;
-
-    }
-
-    public String deleteCourse(){
-        //TODO
-        return SUCCESS;
-    }
-
-    public String addExams(){
-        //TODO
-        return SUCCESS;
-    }
-
-    public String addExam(){
-        //TODO
-        return SUCCESS;
-    }
-
-    public String modifyExams(){
-        //TODO
-        return SUCCESS;
-    }
-
-    public String modifyExam(){
-        //TODO
         return SUCCESS;
     }
 
@@ -305,7 +211,8 @@ public class TeacherAction extends ActionSupport implements SessionAware {
         //TO FINISH
         Map<String,Object> stringObjectMap = new HashMap<>();
         Teacher t = (Teacher) session.get("tch");
-        stringObjectMap.put("tch",t.getTchId());//Instead of Session
+        System.out.println(t.toString());
+        stringObjectMap.put("tch",t.getTchId());
         stringObjectMap.put("type",operation);
         List list = appealServiceI.getAppealsByCondition(stringObjectMap,true);
         List<Appeal> temp =(List<Appeal>) list;
@@ -400,24 +307,15 @@ public class TeacherAction extends ActionSupport implements SessionAware {
         return SUCCESS;
     }
 
-    /**
-     * @author Jiang Tao
-     * @return SUCCESS
-     */
-    public String deleteCommnets(){
-        //TODO
 
+    @Action(value = "addSession",results = @Result(type = "redirect",params={"root","rsp"}))
+    public String addSession(){
+        Teacher t = new Teacher();
+        teacher.setTchId("1001");
+        session.put("tch",t);
         return SUCCESS;
     }
 
-    /**
-     * @author Jiang Tao
-     * @return SUCCESS
-     */
-    public String getStatic(){
-        //TODO
-        return SUCCESS;
-    }
 
     public Integer getOperation() {
         return operation;
@@ -435,4 +333,137 @@ public class TeacherAction extends ActionSupport implements SessionAware {
         this.tid = tid;
     }
 
+    public String teahcerLogout(){
+        //TODO
+        return SUCCESS;
+
+    }
+
+    public String modifyTeacher(){
+        //TODO
+        return SUCCESS;
+
+    }
+
+    public String addCourses(){
+        //TODO
+        return SUCCESS;
+
+    }
+
+    public String addCourse(){
+        //TODO
+        return SUCCESS;
+
+    }
+
+    public String modifyCourses(){
+        //TODO
+        return SUCCESS;
+
+    }
+
+    public String modifyCourse(){
+        //TODO
+        return SUCCESS;
+
+    }
+
+    public String deleteCourses(){
+        //TODO
+        return SUCCESS;
+
+    }
+
+    public String deleteCourse(){
+        //TODO
+        return SUCCESS;
+    }
+
+    public String addExams(){
+        //TODO
+        return SUCCESS;
+    }
+
+    public String addExam(){
+        //TODO
+        return SUCCESS;
+    }
+
+    public String modifyExams(){
+        //TODO
+        return SUCCESS;
+    }
+
+    public String modifyExam(){
+        //TODO
+        return SUCCESS;
+    }
+
+    public Map<String, Object> getMapS() {
+        return mapS;
+    }
+
+    public void setMapS(Map<String, Object> mapS) {
+        this.mapS = mapS;
+    }
+
+
+    @Action(value = "login",results = @Result(type = "json",params={"root","mapS"}))
+    public String teacherLogin(){
+        //write to test.
+        isRememberPsw="0";
+        rsp="0";
+        String tid=teacher.getTchId();
+        String tpw=teacher.getPassword();
+        Teacher teacher2=new Teacher();
+        teacher=teacherServiceI.findTeacherbuid(tid);
+        teacher2.setTchId(teacher.getTchId());
+        teacher2.setDpmId(teacher.getDpmId());
+        teacher2.setPassword(teacher.getPassword());
+        teacher2.setName(teacher.getName());
+        teacher2.setDepartmentByDpmId(teacher.getDepartmentByDpmId());
+        if(tpw.equals(teacher2.getPassword())){
+            Teacher teacher3 = new Teacher();
+            teacher3.setAddress(teacher2.getAddress());
+            teacher3.setBiography(teacher2.getBiography());
+            teacher3.setBirthday(teacher2.getBirthday());
+            teacher3.setDpmId(teacher2.getDpmId());
+            teacher3.setEmail(teacher2.getEmail());
+            teacher3.setName(teacher2.getName());
+            teacher3.setGender(teacher2.getGender());
+            teacher3.setPhone(teacher2.getPhone());
+            teacher3.setTchId(teacher2.getTchId());
+            Department temp = new Department();
+            temp.setDpmName(teacher2.getDepartmentByDpmId().getDpmName());
+            teacher3.setDepartmentByDpmId(temp);
+            mapS.put("tch", teacher3);
+            rsp="1";
+            mapS.put("rsp",rsp);
+            session.put("tch",teacher3);
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * 获取教师信息
+     * 返回教师信息Json串
+     * */
+    @Action(value = "selfInfo",results = @Result(type = "json",params={"root","teacher"}))
+    public String  getSelfInfo(){
+        teacher =  teacherServiceI.findTeacherbuid(tid);
+        return SUCCESS;
+    }
+
+
+
+    /**
+    * 更新教师信息
+    *
+    * */
+    @Action(value = "updateInfo", results = @Result(type = "json",params={"root",""}))
+    public String updateTeacherInfo(){
+        teacherServiceI.updateTeacherInfo(teacher);
+        return SUCCESS;
+    }
 }

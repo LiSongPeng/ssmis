@@ -30,7 +30,7 @@
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
             <a href="student/login.jsp" class="mdl-layout__tab">学生</a>
             <a href="#fixed-tab-2" class="mdl-layout__tab is-active">教师</a>
-            <a href="#fixed-tab-3" class="mdl-layout__tab">管理员</a>
+            <%--<a href="#fixed-tab-3" class="mdl-layout__tab">管理员</a>--%>
         </div>
     </header>
     <main class="mdl-layout__content">

@@ -73,4 +73,5 @@ public class TestAction extends ActionSupport {
         boolean flag = appealServiceI.updateAppeals(appeals);
         return SUCCESS;
     }
+
 }
