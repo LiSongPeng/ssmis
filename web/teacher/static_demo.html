@@ -43,7 +43,6 @@
                 <!-- Your content goes here -->
                 <div id="chart"></div>
                 <div id="list">
-                    
                 </div>
                 <hr>
                 <div id="p_ed" style="display: none">
@@ -66,11 +65,6 @@
 </div>
 
 
-
-
-
-<!-- Raised button with ripple -->
-
 </body>
 <script>
     function boxMessage(msg){
@@ -79,6 +73,8 @@
         snackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
     $(function () {
+
+        //draw chapter
         $.getJSON("pullCS",function (data) {
             var list = $.parseJSON(data);
             var chart = c3.generate({
@@ -87,12 +83,13 @@
                     types: {
                         data1: 'area-spline',
                         data2: 'area-spline'
-                        // 'line', 'spline', 'step', 'area', 'area-step' are also available to stack
                     },
                     groups: [['data1', 'data2']]
                 }
             });
         })
+
+        //get all courses of teacher
         $.getJSON("pullTchCrs", function (data) {
             var list = $.parseJSON(data);
             var ul = '<ul class="mdl-list">';
@@ -109,6 +106,8 @@
             $("#list").html("");
             $("#list").append(ul);
         })
+
+        //summer-note
         $("#editor").summernote({
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -128,12 +127,14 @@
                 }
             }
         });
-        $("body").delegate(".edit-com","click",function () {
 
+        //trigger summer-note
+        $("body").delegate(".edit-com","click",function () {
             $("#editor").attr("csid",$(this).attr("csid"));
             $("#p_ed").slideToggle("fast");
         })
 
+        //response
         $("#rsp").click(function () {
             var id = $("#editor").attr("csid").split("_");
             var param = {
@@ -150,10 +151,12 @@
             $("#editor").summernote('code','');
         })
 
+        //back to main.html
         $("#jump").click(function () {
             window.location.href = "main.html";
         })
 
+        //get all history comments
         $("#all-com").click(function () {
             $.getJSON("getComment",function (data) {
                 var list = $.parseJSON(data);
@@ -185,10 +188,12 @@
             })
         })
 
+        //expand more info
         $("div").delegate(".expand_more",'click',function () {
             $(this).parent().next().slideToggle("fast");
         })
 
+        //modify history
         $("div").delegate(".mdf","click",function () {
             var d= $(this).prev().find("textarea").attr("id").split("_");
             var param = {
